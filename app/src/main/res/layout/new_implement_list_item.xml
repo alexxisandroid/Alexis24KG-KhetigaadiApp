@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/CardViewListItem"
+    android:layout_width="fill_parent"
+    android:layout_height="320dp"
+    android:orientation="vertical">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/detailsBackground"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/ivImage"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/white"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintBottom_toTopOf="@id/tvNewTractorName"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tvViews"
+            style="@style/ViewsRounded"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/margin_10dp"
+            android:layout_marginTop="@dimen/margin_10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="0k" />
+        <TextView
+            android:id="@+id/tvNewTractorName"
+            style="@style/TractorListItemTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/dimen_16sp"
+            app:layout_constraintBottom_toTopOf="@id/flow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Mahindra 415 DI" />
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/flow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_10dp"
+            android:paddingStart="@dimen/margin_15dp"
+            android:paddingEnd="@dimen/dimen_0dp"
+            app:constraint_referenced_ids="tvHP,tvType"
+            app:flow_maxElementsWrap="2"
+            app:flow_wrapMode="none"
+            app:layout_constraintBottom_toTopOf="@id/btnGetPrice"
+            app:layout_constraintStart_toStartOf="parent" />
+        <TextView
+            android:id="@+id/tvType"
+            style="@style/ListFieldWithDrawable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/margin_10dp"
+            android:paddingStart="@dimen/dimen_0dp"
+            app:drawableStartCompat="@drawable/ic_check_box_filled_black_24dp"
+            app:drawableTint="@color/black"
+            tools:text="80 HP" />
+        <TextView
+            android:id="@+id/tvHP"
+            style="@style/ListFieldWithDrawable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/margin_10dp"
+            android:paddingStart="@dimen/dimen_0dp"
+            app:drawableStartCompat="@drawable/ic_check_box_filled_black_24dp"
+            app:drawableTint="@color/black"
+            tools:text="80 HP" />
+        <Button
+            android:id="@+id/btnGetPrice"
+            style="@style/OutLineButtonStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/margin_20dp"
+            android:layout_marginEnd="@dimen/margin_10dp"
+            android:layout_marginBottom="@dimen/margin_5dp"
+            android:text="@string/getPrice"
+            android:textAllCaps="false"
+            android:textColor="@color/red"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
+

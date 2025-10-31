@@ -1,0 +1,445 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".tractor.newTractor.NewTractorListFilter">
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/margin_50dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvSearchByBrand"
+                style="@style/CardViewListItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:visibility="visible"
+                app:layout_constraintTop_toTopOf="parent">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/margin_10dp">
+                    <TextView
+                        android:id="@+id/tvBrandLabel"
+                        style="@style/SearchPageHeading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/search_by_brand"
+                        android:layout_margin="@dimen/dimen_4dp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+                    <EditText
+                        android:id="@+id/etBrand"
+                        style="@style/SearchBorderEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_10dp"
+                        android:layout_marginEnd="@dimen/margin_10dp"
+                        android:minHeight="@dimen/payu_dimen_54dp"
+                        android:hint="@string/brand_name"
+                        android:inputType="text"
+                        android:longClickable="false"
+                        app:layout_constraintTop_toBottomOf="@id/tvBrandLabel"
+                        android:autofillHints="brand" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvBrands"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_marginTop="@dimen/dimen_10dp"
+                        android:paddingStart="@dimen/dimen_10dp"
+                        android:paddingEnd="@dimen/dimen_10dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintTop_toBottomOf="@id/etBrand"
+                        tools:listitem="@layout/filter_list_sub_item_new" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvSearchByPrice"
+                style="@style/CardViewListItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@+id/cvSearchByBrand">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/margin_10dp">
+
+                    <TextView
+                        android:id="@+id/tvPriceLabel"
+                        style="@style/SearchPageHeading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/search_by_price"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvMinPrice"
+                        style="@style/SearchPageHeading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toStartOf="@+id/tvDash"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintHorizontal_chainStyle="packed"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvPriceLabel"
+                        tools:text="10K" />
+
+                    <TextView
+                        android:id="@+id/tvDash"
+                        style="@style/SearchPageHeading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dash"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toStartOf="@+id/tvMaxPrice"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/tvMinPrice"
+                        app:layout_constraintTop_toBottomOf="@id/tvPriceLabel" />
+
+                    <TextView
+                        android:id="@+id/tvMaxPrice"
+                        style="@style/SearchPageHeading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/black"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/tvDash"
+                        app:layout_constraintTop_toBottomOf="@id/tvPriceLabel"
+                        tools:text="15L" />
+
+                    <com.google.android.material.slider.RangeSlider
+                        android:id="@+id/rangeBarPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:contentDescription="@string/search_by_price"
+                        android:stepSize="1"
+                        android:valueFrom="0"
+                        android:valueTo="38"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tvPriceLabel"
+                        app:thumbColor="@color/red"
+                        app:tickColor="@color/red"
+                        app:trackColor="@color/red" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroup"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/dimen_20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginEnd="@dimen/margin_20dp"
+                        android:orientation="horizontal"
+                        android:weightSum="4"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/rangeBarPrice">
+
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/radio10To2"
+                            style="@style/Widget.App.RadioButton.OutLine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="@dimen/dimen_5dp"
+                            android:layout_weight="1"
+                            android:text="@string/_10k_2l"
+                            android:textSize="12sp"
+                            tools:checked="false" />
+
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/radio2To3"
+                            style="@style/Widget.App.RadioButton.OutLine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="@dimen/dimen_5dp"
+                            android:layout_weight="1"
+                            android:text="@string/_2_3l"
+                            android:textSize="12sp" />
+
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/radio3To5"
+                            style="@style/Widget.App.RadioButton.OutLine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="@dimen/dimen_5dp"
+                            android:layout_weight="1"
+                            android:text="@string/_3_5l"
+                            android:textSize="12sp" />
+
+                        <com.google.android.material.radiobutton.MaterialRadioButton
+                            android:id="@+id/radioAbove5"
+                            style="@style/Widget.App.RadioButton.OutLine"
+                            android:layout_width="wrap_content"
+                            android:layout_height="30dp"
+                            android:layout_marginStart="@dimen/dimen_5dp"
+                            android:layout_weight="1"
+                            android:padding="3dp"
+                            android:text="@string/above_5l"
+                            android:textSize="12sp" />
+                    </RadioGroup>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvSearchByHP"
+                style="@style/CardViewListItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@+id/cvSearchByPrice">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/margin_10dp">
+
+                    <TextView
+                        android:id="@+id/tvHPLabel"
+                        style="@style/SearchPageHeading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/search_by_hp"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <EditText
+                        android:id="@+id/etHP"
+                        style="@style/SearchBorderEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dimen_40dp"
+                        android:layout_marginStart="@dimen/margin_10dp"
+                        android:layout_marginEnd="@dimen/margin_10dp"
+                        android:padding="@dimen/dimen_4dp"
+                        android:hint="@string/hp"
+                        android:inputType="text"
+                        android:longClickable="false"
+                        app:layout_constraintTop_toBottomOf="@id/tvHPLabel" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvHPs"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_marginTop="@dimen/dimen_10dp"
+                        android:paddingStart="@dimen/dimen_10dp"
+                        android:paddingEnd="@dimen/dimen_10dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintTop_toBottomOf="@id/etHP"
+                        tools:listitem="@layout/filter_list_sub_item_new" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvSearchByDrive"
+                style="@style/CardViewListItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@+id/cvSearchByHP">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/margin_10dp">
+
+                    <TextView
+                        android:id="@+id/tvDriveLabel"
+                        style="@style/SearchPageHeading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/search_by_drive"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvDrive"
+                        android:layout_width="match_parent"
+                        android:layout_height="70dp"
+                        android:paddingStart="@dimen/dimen_10dp"
+                        android:paddingEnd="@dimen/dimen_10dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintTop_toBottomOf="@id/tvDriveLabel"
+                        tools:listitem="@layout/filter_list_sub_item_new" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvSearchByType"
+                style="@style/CardViewListItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@+id/cvSearchByDrive">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/margin_10dp">
+                    <TextView
+                        android:id="@+id/tvTypeLabel"
+                        style="@style/SearchPageHeading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/search_by_type"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <EditText
+                        android:id="@+id/etType"
+                        style="@style/SearchBorderEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dimen_40dp"
+                        android:layout_marginStart="@dimen/margin_10dp"
+                        android:layout_marginEnd="@dimen/margin_10dp"
+                        android:hint="@string/type"
+                        android:inputType="text"
+                        android:longClickable="false"
+                        app:layout_constraintTop_toBottomOf="@id/tvTypeLabel"/>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvType"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:paddingStart="@dimen/dimen_10dp"
+                        android:paddingEnd="@dimen/dimen_10dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintTop_toBottomOf="@id/etType"
+                        tools:listitem="@layout/filter_list_sub_item_new" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvSearchByCity"
+                style="@style/CardViewListItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_10dp"
+                android:layout_marginRight="@dimen/margin_10dp"
+                android:visibility="visible"
+                app:layout_constraintTop_toBottomOf="@+id/cvSearchByType">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:paddingBottom="@dimen/margin_10dp">
+                    <TextView
+                        android:id="@+id/tvCityLabel"
+                        style="@style/SearchPageHeading"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/search_by_city"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textColor="@color/black"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <EditText
+                        android:id="@+id/etCity"
+                        style="@style/SearchBorderEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dimen_40dp"
+                        android:layout_marginStart="@dimen/margin_10dp"
+                        android:layout_marginEnd="@dimen/margin_10dp"
+                        android:hint="@string/city"
+                        android:inputType="text"
+                        android:longClickable="false"
+                        app:layout_constraintTop_toBottomOf="@id/tvCityLabel"
+                        android:autofillHints="@string/city" />
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:paddingStart="@dimen/dimen_10dp"
+                        android:paddingEnd="@dimen/dimen_10dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintTop_toBottomOf="@id/etCity"
+                        tools:listitem="@layout/filter_list_sub_item_new" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="5sp"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:padding="@dimen/margin_5dp"
+        tools:visibility="visible">
+        <Button
+            android:id="@+id/btnClearAll"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/margin_40dp"
+            android:layout_margin="@dimen/margin_5dp"
+            android:layout_marginBottom="@dimen/margin_5dp"
+            android:text="@string/clear_all"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnApplyFilter"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible" />
+        <Button
+            android:id="@+id/btnApplyFilter"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/margin_40dp"
+            android:layout_margin="@dimen/margin_5dp"
+            android:layout_marginBottom="@dimen/margin_5dp"
+            android:autoLink="web"
+            android:text="@string/apply_filters"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btnClearAll"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

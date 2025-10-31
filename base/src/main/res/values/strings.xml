@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name" translatable="false">base</string>
+    <string name="edit" translatable="false">Edit</string>
+    <string name="viewAll" translatable="false">View All</string>
+    <string name="delete" translatable="false">Delete</string>
+    <string name="home">Home</string>
+    <string name="continue_string" translatable="false">Continue</string>
+    <string name="similar_product" translatable="false">Similar Product</string>
+    <string name="search_by_category" translatable="false">Search By Category</string>
+    <string name="something_went_wrong" translatable="false">Something went wrong</string>
+    <string name="please_add_two_images">Please add two images</string>
+    <string name="no_internet_connection" translatable="false">No Internet Connection</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="no_internet_connection_found" translatable="false">No Internet Connection Found</string>
+    <string name="check_your_internet_setting_and_try_again" translatable="false">Check your internet setting and try again</string>
+   <string name="hint_address" translatable="false">Hint Address</string>
+    <string name="ooops" translatable="false">Ooops!</string>
+    <string name="loader" translatable="false">Loader</string>
+    <string name="image" translatable="false">Image</string>
+</resources>

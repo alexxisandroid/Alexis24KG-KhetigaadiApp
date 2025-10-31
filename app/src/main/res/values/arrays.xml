@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- <string-array name="drives">
+         <item>Select Drive</item>
+         <item>2WD</item>
+         <item>4WD</item>
+     </string-array>-->
+    <string-array name="feedbackType">
+        <item>Idea</item>
+        <item>Problem</item>
+        <item>Question</item>
+        <item>Praise</item>
+    </string-array>
+    <string-array name="reasonType">
+        <item>Select Reason</item>
+        <item>Sold</item>
+        <item>Exchange</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="rentPer">
+        <item>Acer</item>
+        <item>Hour</item>
+    </string-array>
+    <string-array name="brand_type">
+        <item>Select Tractor/Implement</item>
+        <item>Tractor</item>
+        <item>Implement</item>
+    </string-array>
+
+    <array name="initial_slider_values">
+        <item>1</item>
+        <item>150</item>
+    </array>
+</resources>

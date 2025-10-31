@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/CardViewListItem"
+    android:layout_width="match_parent"
+    android:layout_height="320dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/detailsBackground">
+        <ImageView
+            android:id="@+id/ivNewTractorImage"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_vertical"
+            android:layout_margin="@dimen/margin_2dp"
+            android:background="@color/white"
+            android:contentDescription="@string/app_name"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintBottom_toTopOf="@id/tvNewTractorName"
+            app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tvViews"
+            style="@style/ViewsRounded"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/margin_10dp"
+            android:layout_marginTop="@dimen/margin_10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="0k" />
+        <TextView
+            android:id="@+id/tvSponsor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="@dimen/dimen_5dp"
+            android:layout_marginBottom="@dimen/dimen_5dp"
+            android:background="@drawable/rounded_corner_btn"
+            android:gravity="center"
+            android:padding="@dimen/margin_2dp"
+            android:text="@string/sponsored"
+            android:textColor="@color/white"
+            android:textSize="8sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/ivNewTractorImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:visibility="visible" />
+        <TextView
+            android:id="@+id/tvNewTractorName"
+            style="@style/TractorListItemTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textSize="@dimen/dimen_16sp"
+            app:layout_constraintBottom_toTopOf="@id/flow"
+            app:layout_constraintEnd_toStartOf="@id/ivFavorites"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Mahindra 415 DI" />
+        <ImageView
+            android:id="@+id/ivFavorites"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_8dp"
+            android:layout_marginEnd="@dimen/margin_8dp"
+            android:src="@drawable/ic_favorites_border"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+        <ImageView
+            android:id="@+id/ivDrive"
+            android:layout_width="@dimen/dimen_28dp"
+            android:layout_height="@dimen/dimen_28dp"
+            android:layout_marginEnd="@dimen/margin_8dp"
+            android:src="@drawable/ic_2wd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvNewTractorName" />
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/flow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_10dp"
+            android:paddingStart="@dimen/margin_15dp"
+            app:constraint_referenced_ids="tvHP,tvDisplacementCC,tvNoOfCylinder"
+            app:flow_maxElementsWrap="3"
+            app:flow_wrapMode="none"
+            app:layout_constraintBottom_toTopOf="@id/btnOnRoadPrice"
+            app:layout_constraintStart_toStartOf="parent" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tvHP"
+            style="@style/ListFieldWithDrawable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTint="@color/black"
+            android:paddingEnd="@dimen/margin_10dp"
+            app:drawableStartCompat="@drawable/ic_hp_24"
+            tools:text="80 HP" />
+        <TextView
+            android:id="@+id/tvDisplacementCC"
+            style="@style/ListFieldWithDrawable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/margin_10dp"
+            app:drawableStartCompat="@drawable/ic_engine_cc_24"
+            tools:text="NA CC"
+            app:drawableTint="@color/black" />
+        <TextView
+            android:id="@+id/tvNoOfCylinder"
+            style="@style/ListFieldWithDrawable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/margin_10dp"
+            app:drawableStartCompat="@drawable/ic_cylinder_24"
+            tools:text="4 Cylinder"
+            app:drawableTint="@color/black" />
+        <Button
+            android:id="@+id/btnOnRoadPrice"
+            style="@style/OutLineButtonStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/margin_20dp"
+            android:layout_marginEnd="@dimen/margin_10dp"
+            android:layout_marginBottom="@dimen/margin_5dp"
+            android:text="@string/getOnRoadPrice"
+            android:textAllCaps="false"
+            android:textColor="@color/red"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnRequestForDemo"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent" />
+        <Button
+            android:id="@+id/btnRequestForDemo"
+            style="@style/OutLineButtonStyleSmall"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/margin_10dp"
+            android:layout_marginEnd="@dimen/margin_20dp"
+            android:layout_marginBottom="@dimen/margin_5dp"
+            android:text="@string/request_for_demo"
+            android:textAllCaps="false"
+            android:textColor="@color/red"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/btnOnRoadPrice" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
+

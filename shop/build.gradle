@@ -1,0 +1,51 @@
+plugins {
+    id 'com.android.library'
+}
+android {
+    namespace 'com.khetigaadi.shop'
+    //noinspection GrDeprecatedAPIUsage
+    compileSdk 36
+    defaultConfig {
+       // minSdk 23
+        minSdkVersion 23
+        //targetSdk 34
+        //noinspection OldTargetApi
+        targetSdkVersion 35
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+       // sourceCompatibility JavaVersion.VERSION_1_8
+       // targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    sourceSets {
+        main {
+            java {
+                srcDirs 'src/main/java'
+            }
+        }
+    }
+}
+dependencies {
+    implementation libs.androidx.appcompat.v131
+    implementation libs.material.v140
+    implementation project(path: ':base')
+    testImplementation libs.junit.v414SNAPSHOT
+    androidTestImplementation libs.androidx.junit.v113
+    androidTestImplementation libs.androidx.espresso.core.v340
+    implementation libs.rxjava
+    implementation libs.rxandroid
+    implementation libs.adapter.rxjava3
+    implementation libs.converter.gson
+    implementation libs.glide
+    implementation libs.retrofit
+    implementation libs.androidx.room.rxjava3
+}

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="200dp"
+    android:layout_gravity="center"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:weightSum="1">
+    <TextView
+        android:id="@+id/popup_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dip"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="10dip"
+        android:gravity="center"
+        android:text="@string/please_tell_us_your_mobile"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/black"
+        android:textSize="18sp"/>
+    <AutoCompleteTextView
+        android:id="@+id/tvMobile"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:layout_marginLeft="6dip"
+        android:layout_marginTop="6dip"
+        android:layout_marginRight="6dip"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/edit_text_style"
+        android:gravity="center"
+        android:inputType="phone"
+        android:maxLength="10"
+        android:digits="1234567890"
+        android:maxLines="1"
+        android:paddingStart="5dp"
+        android:paddingEnd="@dimen/dimen_5dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        tools:ignore="LabelFor" />
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="6dip"
+        android:text="@string/btn_submit"
+        android:textAllCaps="true"
+        android:textSize="14sp"/>
+</LinearLayout>

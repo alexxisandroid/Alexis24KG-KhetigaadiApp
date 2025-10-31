@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <include
+            android:id="@+id/toolbars"
+            layout="@layout/ecom_toolbar"/>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/margin_15dp">
+
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/viewPager"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <me.relex.circleindicator.CircleIndicator
+                android:id="@+id/viewPagerIndicator"
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                app:ci_drawable="@drawable/ic_circle_red_24dp"
+                app:ci_drawable_unselected="@drawable/ic_circle_black_24dp"
+                app:ci_height="6dp"
+                app:ci_margin="@dimen/dimen_4dp"
+                app:ci_width="6dp"
+                app:layout_constraintTop_toBottomOf="@id/viewPager"/>
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/viewPager"
+                android:visibility="gone" />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCategories"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@id/viewPagerIndicator"/>
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/my_sticky_button"
+                style="@style/ShimmerStyle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/payu_dimen_250dp"
+
+                app:layout_constraintTop_toBottomOf="@id/rvCategories">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:padding="@dimen/margin_8dp">
+
+                    <Button
+                        android:id="@+id/btnAddToCart"
+                        android:layout_width="0dp"
+                        style="@style/ButtonStyleFilledRed"
+                        android:layout_height="match_parent"
+                        android:layout_weight=".5" />
+
+                    <Button
+                        android:id="@+id/btnExpertAdvice"
+                        style="@style/ButtonStyleFilledRed"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="@dimen/margin_2dp"
+                        android:layout_weight=".5" />
+                </LinearLayout>
+            </com.facebook.shimmer.ShimmerFrameLayout>
+            <com.andexert.library.RippleView
+                android:id="@+id/rvTrendingProductsLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/my_sticky_button">
+
+                <TextView
+                    android:id="@+id/tvTrendingProductsLabel"
+                    style="@style/homePageLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:fontFamily="@font/poppins_bold"
+
+                    android:textStyle="bold"
+
+                    android:textSize="@dimen/payu_dimen_18sp"
+                    android:layout_marginTop="@dimen/dimen_10dp"
+                    android:layout_marginBottom="@dimen/dimen_10dp"
+                    android:layout_alignParentEnd="true"
+                    android:text="@string/trending_products"/>
+            </com.andexert.library.RippleView>
+
+            <include
+                android:id="@+id/includeTrendingLarge"
+                layout="@layout/trending_list_item_large"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_4dp"
+                android:layout_marginEnd="@dimen/dimen_4dp"
+                android:layout_marginBottom="@dimen/dimen_4dp"
+                app:layout_constraintBottom_toTopOf="@+id/shopMiddleBanner"
+                app:layout_constraintEnd_toStartOf="@+id/guideline"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rvTrendingProductsLabel"/>
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@+id/includeTrendingLarge"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.65"/>
+
+            <include
+                android:id="@+id/includeTrending1"
+                layout="@layout/trending_list_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/dimen_4dp"
+                android:layout_marginBottom="@dimen/dimen_2dp"
+                app:layout_constraintBottom_toTopOf="@id/includeTrending2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/rvTrendingProductsLabel"/>
+
+            <include
+                android:id="@+id/includeTrending2"
+                layout="@layout/trending_list_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_2dp"
+                android:layout_marginEnd="@dimen/dimen_4dp"
+                android:layout_marginBottom="0dp"
+                app:layout_constraintBottom_toBottomOf="@id/includeTrendingLarge"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@id/includeTrending1"/>
+
+            <androidx.constraintlayout.widget.Group
+                android:id="@+id/groupTrending"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                app:constraint_referenced_ids="rvTrendingProductsLabel,includeTrendingLarge,includeTrending1,includeTrending2"/>
+
+            <TextView
+                style="@style/seeMore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ad"
+                android:textSize="@dimen/dimen_8dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@id/shopMiddleBanner"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/shopMiddleBanner"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="@dimen/dimen_25dp"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/includeTrendingLarge"
+                tools:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/ivShopMiddleBanner"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"/>
+        </androidx.cardview.widget.CardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvHomeList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10dp"
+                android:nestedScrollingEnabled="false"
+                app:layout_constraintTop_toBottomOf="@id/shopMiddleBanner" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        style="@style/Widget.BottomNavigationView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        app:itemIconTint="@color/bottomBarIconTint"
+        app:itemRippleColor="@color/bottomBarIconTint"
+        app:itemTextAppearanceActive="@style/BottomNavigationView.Active"
+        app:itemTextAppearanceInactive="@style/BottomNavigationView.InActive"
+        app:itemTextColor="@color/bottomBarIconTint"
+        app:labelVisibilityMode="labeled"
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:menu="@menu/ecom_bottom_bar_navigation_items" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

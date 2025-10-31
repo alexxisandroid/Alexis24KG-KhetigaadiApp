@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_home"
+        android:icon="@drawable/ic_home_bold_24dp"
+        android:title="@string/home" />
+    <item
+        android:id="@+id/action_price"
+        android:icon="@drawable/ic_rupee_black_bold_24dp"
+        android:title="@string/price" />
+    <item
+        android:id="@+id/action_new_tractor"
+        android:icon="@drawable/ic_new_tractor_bold_24dp"
+        android:title="@string/tractor" />
+    <item
+        android:id="@+id/action_old_tractor"
+        android:icon="@drawable/ic_old_tractor_bold_24dp"
+        android:title="@string/old_tractor" />
+    <item
+        android:id="@+id/action_more"
+        android:icon="@drawable/ic_more_bold_24dp"
+        android:title="@string/more" />
+</menu>

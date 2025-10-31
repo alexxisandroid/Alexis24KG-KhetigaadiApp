@@ -1,0 +1,9 @@
+<resources>
+    <string name="gallery">Gallery</string>
+    <string name="toast_cannot_retrieve_cropped_image">Cannot retrieve cropped image</string>
+    <string name="toast_unexpected_error">Unexpected error</string>
+    <string name="app_name">khetiGaadiImage</string>
+    <string name="video">Video</string>
+    <string name="something_went_wrong">Something went wrong</string>
+    <string name="please_add_two_images">Please add two images</string>
+</resources>

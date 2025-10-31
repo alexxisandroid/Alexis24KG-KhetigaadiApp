@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/CardViewHorizontalListItem"
+    android:layout_width="match_parent"
+    android:layout_height="222dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/munsell"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/ivImage"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="@dimen/margin_5dp"
+            android:background="@color/white"
+            android:paddingBottom="@dimen/margin_5dp"
+            app:layout_constraintBottom_toTopOf="@id/tvTractorName"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@mipmap/ic_launcher" />
+        <ImageView
+            android:id="@+id/ivSold"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/sold_tag"
+            android:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone" />
+    <!--   style="@style/ViewsRoundedSmall"   -->
+        <TextView
+            android:id="@+id/tvViews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/ViewsRoundedSmall"
+            android:textSize="11sp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/margin_5dp"
+            android:layout_marginTop="@dimen/margin_5dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="0k" />
+<!--     style="@style/MainTitle"   -->
+        <TextView
+            android:id="@+id/tvTractorName"
+            android:layout_width="match_parent"
+            style="@style/MainTitle"
+            android:layout_height="wrap_content"
+            android:paddingStart="20dp"
+            android:paddingEnd="@dimen/dimen_4dp"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toTopOf="@id/tvPrice"
+            tools:text=""/>
+        <!--  style="@style/TractorPrice"  -->
+        <TextView
+            android:id="@+id/tvPrice"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/TractorPrice"
+            android:layout_gravity="center_vertical"
+            android:paddingStart="20dp"
+            android:paddingEnd="@dimen/dimen_4dp"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@id/tvYear"
+            tools:text="200000" />
+        <!--   style="@style/SubFieldWithDrawable"  -->
+        <TextView
+            android:id="@+id/tvYear"
+            android:layout_width="wrap_content"
+            style="@style/SubFieldWithDrawable"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:textSize="11sp"
+            android:layout_marginBottom="@dimen/margin_10dp"
+            app:drawableStartCompat="@drawable/ic_date_range_black_18dp"
+            app:layout_constraintBottom_toTopOf="@id/btnSellerDetails"
+            app:layout_constraintEnd_toStartOf="@+id/tvHrsDriven"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="2011" />
+        <!--    style="@style/SubFieldWithDrawable"   -->
+        <TextView
+            android:id="@+id/tvHrsDriven"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/SubFieldWithDrawable"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="@dimen/margin_10dp"
+            android:textSize="11sp"
+            android:layout_marginEnd="@dimen/dimen_2dp"
+            app:drawableStartCompat="@drawable/ic_watch_later_black_18dp"
+            app:layout_constraintBottom_toTopOf="@id/btnSellerDetails"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tvYear"
+            tools:text="1300" />
+        <!--  style="@style/OutLineButtonStyleSmall"  -->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnSellerDetails"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            style="@style/OutLineButtonStyleSmall"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:layout_marginEnd="@dimen/margin_10dp"
+            android:layout_marginBottom="@dimen/margin_8dp"
+            android:text="@string/contact_seller"
+            android:textSize="11sp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
+

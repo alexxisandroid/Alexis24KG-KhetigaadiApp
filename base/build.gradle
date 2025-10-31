@@ -1,0 +1,68 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+android {
+    namespace 'com.khetigaadi.base'
+    //noinspection GrDeprecatedAPIUsage
+    compileSdk 36
+    defaultConfig {
+        // minSdk 23 // Integer.parseInt(project.MIN_SDK)
+        minSdkVersion 23
+        // targetSdk 35
+        //noinspection OldTargetApi
+        targetSdkVersion 35
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'),'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        // sourceCompatibility JavaVersion.VERSION_1_8
+        // targetCompatibility JavaVersion.VERSION_1_8
+
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+
+    kotlin {
+        jvmToolchain(17)
+    }
+    viewBinding {
+        enabled = true
+    }
+}
+dependencies {
+    implementation libs.androidx.appcompat.v171
+    implementation libs.material.v1120
+    implementation libs.androidx.activity
+    implementation libs.androidx.constraintlayout.v210
+    testImplementation libs.junit.v414SNAPSHOT
+    androidTestImplementation libs.androidx.junit.v130
+    androidTestImplementation libs.androidx.espresso.core.v370
+    implementation libs.gson.v287
+    implementation libs.androidx.appcompat.v130
+    implementation libs.androidx.room.runtime.v230
+    annotationProcessor libs.androidx.room.compiler.v230
+    implementation libs.glide
+    implementation libs.retrofit
+    implementation libs.rxjava
+    implementation libs.rxandroid
+    implementation libs.adapter.rxjava3
+    implementation libs.rxjava3 // "androidx.room:room-rxjava3:2.5.2"
+    implementation libs.androidx.room.ktx
+    implementation libs.androidx.room.rxjava3
+    implementation libs.rxandroid
+    implementation 'io.reactivex:rxkotlin:2.0.0-RC1'
+    implementation libs.androidx.work.runtime
+    implementation libs.androidx.work.rxjava2
+    implementation libs.androidx.hilt.work
+    implementation libs.guava
+}

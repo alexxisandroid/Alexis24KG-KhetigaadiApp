@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/detailsBackground">
+        <ImageView
+            android:id="@+id/ivNewTractorImage"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_gravity="center_vertical"
+            android:background="@color/white"
+            android:src="@mipmap/ic_launcher"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/new_implement"/>
+        <ImageView
+            android:id="@+id/ivTrash"
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_delete_black_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/trash"/>
+
+        <TextView
+            android:id="@+id/tvNewTractorName"
+            style="@style/TractorListItemTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingTop="@dimen/dimen_5dp"
+            android:textSize="@dimen/dimen_16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/ivNewTractorImage"
+            tools:text="Mahindra 415 DI"/>
+
+        <TextView
+            android:id="@+id/tvPrice"
+            style="@style/TractorPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/margin_15dp"
+            android:layout_marginBottom="@dimen/margin_8dp"
+            android:fontFamily="@font/poppins_semi_bold"
+            android:gravity="start"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvNewTractorName"
+            tools:text="200,00"/>
+
+        <ImageView
+            android:id="@+id/ivDrive"
+            android:layout_width="@dimen/dimen_28dp"
+            android:layout_height="@dimen/dimen_28dp"
+            android:layout_marginEnd="@dimen/margin_10dp"
+            android:src="@drawable/ic_2wd"
+            app:layout_constraintBottom_toBottomOf="@id/tvNewTractorName"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvNewTractorName"
+            android:contentDescription="@string/drive" />
+
+        <androidx.constraintlayout.helper.widget.Flow
+            android:id="@+id/flow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_10dp"
+            android:paddingStart="@dimen/margin_15dp"
+            android:paddingEnd="@dimen/dimen_0dp"
+            app:constraint_referenced_ids="tvHP,tvOwnerPostedOn"
+            app:flow_horizontalAlign="start"
+            app:flow_maxElementsWrap="3"
+            app:flow_wrapMode="aligned"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvPrice" />
+
+        <TextView
+            android:id="@+id/tvHP"
+            style="@style/ListFieldWithDrawable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/margin_2dp"
+            android:paddingStart="@dimen/dimen_0dp"
+            app:drawableStartCompat="@drawable/ic_flash_on_black_24dp"
+            tools:text="80 HP"
+            tools:visibility="visible"
+            app:drawableTint="@color/black" />
+
+        <TextView
+            android:id="@+id/tvOwnerPostedOn"
+            style="@style/ListFieldWithDrawable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="@dimen/dimen_10dp"
+            android:paddingEnd="@dimen/margin_2dp"
+            app:drawableStartCompat="@drawable/ic_date_range_black_18dp"
+            tools:text="12 JUN 2021"
+            tools:visibility="visible"
+            app:drawableTint="@color/black" />
+
+
+        <LinearLayout
+            android:id="@+id/llWorkingArea"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="0.7"
+                android:text="@string/working_area"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvWorkingArea"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:text="@string/minus" />
+        </LinearLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>
+

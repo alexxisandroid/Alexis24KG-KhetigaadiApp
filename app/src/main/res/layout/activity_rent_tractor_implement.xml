@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".tractor.rent.rentTractorNewUi.RentTractorImplementActivity">
+
+    <include
+        android:id="@+id/toolbars"
+        layout="@layout/toolbar"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/cv_continue_rent_list"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/tabRent"
+                layout="@layout/nav_tab_rent" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/grey_line" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cv_add_impl"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:cardCornerRadius="2dp">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/ic_add_circle_outline_green_24dp"
+                        android:contentDescription="@string/user" />
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        app:cardCornerRadius="2dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/btn_back_green_selector"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="@string/add_implements"
+                            android:textAllCaps="false"
+                            android:textColor="@color/white"
+                            android:textSize="15sp" />
+                    </androidx.cardview.widget.CardView>
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_implement_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_continue_rent_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@color/red"
+                android:gravity="center"
+                android:text="@string/continue_string"
+                android:padding="@dimen/margin_15dp"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>

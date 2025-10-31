@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="65dp"
+    android:layout_height="100dp"
+    android:orientation="vertical"
+    android:padding="@dimen/margin_2dp"
+    tools:showIn="@layout/activity_weather_new">
+    <TextView
+        android:id="@+id/tvDayName"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fontFamily="@font/poppins_medium"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintBottom_toTopOf="@+id/tvDate"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="2dp"
+        tools:text="Today"/>
+    <TextView
+        android:id="@+id/tvDate"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_vertical"
+        android:fontFamily="@font/poppins"
+        android:gravity="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/ivImage"
+        app:layout_constraintTop_toBottomOf="@+id/tvDayName"
+        tools:text="22"/>
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="30dp"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDate"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

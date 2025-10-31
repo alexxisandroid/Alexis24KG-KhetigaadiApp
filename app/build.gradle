@@ -1,0 +1,239 @@
+apply plugin: 'com.android.application'
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+android {
+    namespace 'com.khetigaadi'
+    signingConfigs {
+        config {
+           // storeFile file('D:\\projects\\khetigaadi\\khetiGaadiSignInKey.jks')
+            storeFile file("/Users/kgapp/Downloads/khetigaadi-latest/khetiGaadiSignInKey.jks")
+            // /Users/kgapp/Downloads/khetigaadi-latest/khetiGaadiSignInKey.jks
+            storePassword PRODUCTION_KEYSTORE_PASSWORD
+            keyAlias PRODUCTION_KEY_ALIAS
+            keyPassword PRODUCTION_KEY_PASSWORD
+        }
+    }
+    compileSdkVersion = libs.versions.compileSdkVersion.get().toInteger()
+    defaultConfig {
+        applicationId 'com.khetigaadi'
+        //namespace 'com.khetigaadi'
+        minSdkVersion    libs.versions.minSdkVersion.get().toInteger()
+        targetSdkVersion libs.versions.targetSdkVersion.get().toInteger()
+        versionCode 98
+        versionName "5.4.19"
+        buildConfigField "int", "APP_TYPE", "1"
+        buildConfigField "int", "APP_DATA_VERSION", "22"
+        multiDexEnabled true
+        signingConfig signingConfigs.config
+//      testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.khetigaadi.CustomTestRunner"
+        testInstrumentationRunner "dagger.hilt.android.testing.HiltTestRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += [
+                        "room.schemaLocation"  : "$projectDir/schemas".toString(),
+                        "room.incremental"     : "true",
+                        "room.expandProjection": "true"]
+                ["dagger.gradle.incremental": "true"]
+            }
+        }
+    }
+    // Add this block and enable/disable the parameters as follows
+    bundle {
+        density {
+            // Different APKs are generated for devices with different screen densities; true by default.
+            enableSplit true
+        }
+        abi {
+            // Different APKs are generated for devices with different CPU architectures; true by default.
+            enableSplit true
+        }
+        language {
+            // This is disabled so that the App Bundle does NOT split the APK for each language.
+            // We're gonna use the same APK for all languages.
+            enableSplit false
+        }
+    }
+    buildFeatures {
+        viewBinding true
+    }
+    testOptions {
+        unitTests.all {
+            useJUnitPlatform()
+        }
+    }
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        //noinspection GrDeprecatedAPIUsage
+        jvmTarget = "17"
+    }
+    kotlin {
+        jvmToolchain(17)
+    }
+    packaging {
+        jniLibs {
+            useLegacyPackaging = false
+        }
+    }
+    packagingOptions{
+        jniLibs {
+            useLegacyPackaging = true
+        }
+      //  exclude 'lib/x86_64/libtool-checker.so'
+    }
+    buildTypes {
+        debug {
+            manifestPlaceholders = [crashlyticsCollectionEnabled: "false"]
+//            buildConfigField "String", "BASE_URL",  "\"http://15.206.168.86/\""
+            buildConfigField "String","BASE_URL","\"https://khetigaadi.com/\""
+        }
+        release {
+            minifyEnabled false // Enables code shrinking for the release build type.
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            manifestPlaceholders = [crashlyticsCollectionEnabled: "true"]
+            buildConfigField "String", "BASE_URL", "\"https://khetigaadi.com/\""
+        }
+    }
+    dexOptions {
+        preDexLibraries = false
+    }
+    lint {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+    namespace 'com.khetigaadi'
+    configurations.configureEach {
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
+    }
+}
+ repositories {
+    mavenCentral()
+    maven { url "https://jitpack.io" }
+    maven { url 'https://oss.jfrog.org/artifactory/oss-snapshot-local' }
+    google()
+}
+ dependencies {
+        implementation fileTree(include: ['*.jar'], dir: 'libs')
+        implementation project(':ripple')
+        implementation libs.kotlin.stdlib
+    //    implementation libs.core
+        implementation libs.androidx.lifecycle.livedata.ktx
+        implementation libs.androidx.lifecycle.viewmodel.ktx
+        implementation project(path: ':pick-image')
+       // implementation libs.androidx.core.ktx
+         implementation libs.app.update
+         implementation libs.app.update.ktx
+        implementation project(path: ':base')
+        implementation project(path: ':shop')
+        implementation project(path: ':user')
+       // implementation libs.app.update.ktx
+        implementation libs.review
+         implementation libs.androidx.activity
+         testImplementation(libs.junit.jupiter)
+        testImplementation(libs.junit.jupiter.api)
+        androidTestImplementation libs.androidTestRules
+        testRuntimeOnly(libs.junit.jupiter.engine)
+        androidTestImplementation libs.androidTestJUnit
+        androidTestImplementation libs.androidTestEspresso
+        androidTestImplementation libs.androidx.espresso.contrib
+        androidTestImplementation libs.hilt.android.testing
+        kaptAndroidTest libs.hilt.android.compiler
+        androidTestAnnotationProcessor libs.hilt.android.compiler
+        coreLibraryDesugaring libs.desugar.jdk.libs
+        implementation libs.MPAndroidChart
+        implementation libs.appcompat
+        implementation libs.material
+        implementation libs.recyclerView
+        implementation libs.android.rate
+        implementation libs.constraintLayout
+        implementation libs.gson
+        implementation libs.androidx.multidex
+        implementation platform(libs.firebase.bom.v3010)
+        implementation  libs.androidx.core.ktx.v1130
+    //    implementation 'com.google.firebase:firebase-crashlytics'
+    //    implementation 'com.google.firebase:firebase-messaging'
+    //    implementation 'com.google.firebase:firebase-analytics-ktx'
+    //    implementation 'com.google.firebase:firebase-auth'
+    //    implementation 'com.google.firebase:firebase-dynamic-links-ktx'
+    //
+         implementation libs.firebase.crashlytics
+         implementation libs.firebase.messaging
+         implementation libs.firebase.analytics.ktx
+         implementation libs.firebase.auth
+         implementation libs.firebase.dynamic.links.ktx
+        implementation libs.play.services.tasks
+        implementation libs.play.services.places
+        implementation libs.play.services.location
+        implementation libs.play.services.analytics
+        implementation libs.play.services.maps
+    //    for sms otp
+        implementation libs.play.services.base
+        implementation libs.play.services.auth
+        implementation libs.play.services.auth.api.phone
+        implementation libs.glide
+        implementation libs.circleimageview
+        implementation libs.prettytime
+        implementation libs.zoomage
+        implementation libs.rfab
+        // retrofit
+        implementation libs.retrofit
+        implementation libs.converter.gson
+        implementation libs.logging.interceptor
+        implementation libs.okhttp
+        implementation libs.hilt.android
+        kapt libs.hilt.android.compiler
+        kapt libs.androidx.hilt.compiler
+        annotationProcessor libs.androidx.hilt.compiler
+        implementation libs.ucrop
+       // implementation libs.androidwm.light
+        implementation libs.android.spinKit
+        //Room
+        kapt libs.androidx.room.compiler
+        implementation libs.androidx.room.ktx
+        implementation libs.androidx.room.rxjava3
+       // implementation "androidx.room:room-rxjava3:2.7.2"
+        debugImplementation libs.chucker
+        releaseImplementation libs.library.no.op
+        implementation libs.androidx.fragment
+        implementation libs.rxjava
+        implementation libs.rxandroid
+        implementation libs.adapter.rxjava3
+        implementation libs.payu.checkout.pro
+        implementation libs.circleindicator
+        implementation libs.timber
+        implementation libs.readmore.textview
+        implementation libs.androidx.work.runtime
+        implementation libs.androidx.work.rxjava2
+        implementation libs.androidx.hilt.work
+        implementation libs.guava
+         implementation libs.androidyoutubeplayer.core
+        implementation libs.facebook.android.sdk
+       // implementation libs.androidwm
+        implementation libs.viewpagerdotsindicator
+         //app review
+         implementation libs.review.v202
+         implementation libs.review.ktx
+         // depreciated options
+         implementation libs.recaptcha
+         implementation libs.integrity
+        // implementation "com.google.android.play:core:1.10.0"
+         implementation libs.shimmer
+         annotationProcessor "androidx.room:room-compiler:2.6.1"
+        androidTestImplementation libs.hilt.android.testing.v248
+        kaptAndroidTest libs.hilt.compiler
+        // implementation project(":base")
+}
+ configurations.all {
+    exclude group:'com.google.android.gms',module:'play-services-safetynet'
+}
+ configurations.configureEach {
+    exclude group:'com.google.android.gms',module:'play-services-safetynet'
+}
+

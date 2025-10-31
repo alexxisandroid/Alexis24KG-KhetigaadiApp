@@ -1,0 +1,192 @@
+package com.khetigaadi.user.myfavorites.util;
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+import com.google.gson.annotations.SerializedName;
+public class RentTractors implements Parcelable {
+    @SerializedName("rent_tractor_id")
+    private String id;
+    @SerializedName("tractor_name")
+    private String name;
+    @SerializedName("image_src")
+    private String image;
+    @SerializedName("brand_id")
+    private String brandId;
+    @SerializedName("brand_image")
+    private String brandImage;
+    @SerializedName("owner_name")
+    private String ownerName;
+    @SerializedName("Owner_city")
+    private String city;
+    @SerializedName("Owner_mobile_no")
+    private String mobile;
+    @SerializedName("drive")
+    private String drive;
+    @SerializedName("powerhp")
+    private String powerHp;
+    @SerializedName("max_price")
+    private String price;
+    @SerializedName("user_id")
+    private String userId;
+    @SerializedName("user_type")
+    private String userType;
+
+    private String favoritesStatus="1";
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getImage() {
+        return image;
+    }
+    public void setImage(String image) {
+        this.image = image;
+    }
+    public String getBrandId() {
+        return brandId;
+    }
+    public void setBrandId(String brandId) {
+        this.brandId = brandId;
+    }
+    public String getBrandImage() {
+        return brandImage;
+    }
+    public void setBrandImage(String brandImage) {
+        this.brandImage = brandImage;
+    }
+    public String getOwnerName() {
+        return ownerName;
+    }
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
+    public String getCity() {
+        return city;
+    }
+    public void setCity(String city) {
+        this.city = city;
+    }
+    public String getMobile() {
+        return mobile;
+    }
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+    public String getDrive() {
+        return drive;
+    }
+    public void setDrive(String drive) {
+        this.drive = drive;
+    }
+    public String getPowerHp() {
+        return powerHp;
+    }
+    public void setPowerHp(String powerHp) {
+        this.powerHp = powerHp;
+    }
+    public String getPrice() {
+        return price;
+    }
+    public void setPrice(String price) {
+        this.price = price;
+    }
+    public String getUserId() {
+        return userId;
+    }
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+    public String getUserType() {
+        return userType;
+    }
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+    public String getFavoritesStatus() {
+        return favoritesStatus;
+    }
+    public void setFavoritesStatus(String favoritesStatus) {
+        this.favoritesStatus = favoritesStatus;
+    }
+    @NonNull
+    @Override
+    public String toString() {
+        return "RentTractors{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", image='" + image + '\'' +
+                ", brandId='" + brandId + '\'' +
+                ", brandImage='" + brandImage + '\'' +
+                ", ownerName='" + ownerName + '\'' +
+                ", city='" + city + '\'' +
+                ", Owner_mobile_no='" + mobile + '\'' +
+                ", drive='" + drive + '\'' +
+                ", powerHp='" + powerHp + '\'' +
+                ", price='" + price + '\'' +
+                ", userId='" + userId + '\'' +
+                ", userType='" + userType + '\'' +
+                '}';
+    }
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.id);
+        dest.writeString(this.name);
+        dest.writeString(this.image);
+        dest.writeString(this.brandId);
+        dest.writeString(this.brandImage);
+        dest.writeString(this.ownerName);
+        dest.writeString(this.city);
+        dest.writeString(this.mobile);
+        dest.writeString(this.drive);
+        dest.writeString(this.powerHp);
+        dest.writeString(this.price);
+        dest.writeString(this.userId);
+        dest.writeString(this.userType);
+        dest.writeString(this.favoritesStatus);
+    }
+    public RentTractors() {
+    }
+    protected RentTractors(Parcel in) {
+        this.id = in.readString();
+        this.name = in.readString();
+        this.image = in.readString();
+        this.brandId = in.readString();
+        this.brandImage = in.readString();
+        this.ownerName = in.readString();
+        this.city = in.readString();
+        this.mobile = in.readString();
+        this.drive = in.readString();
+        this.powerHp = in.readString();
+        this.price = in.readString();
+        this.userId = in.readString();
+        this.userType = in.readString();
+        this.favoritesStatus = in.readString();
+    }
+    public static final Parcelable.Creator<RentTractors> CREATOR = new Parcelable.Creator<RentTractors>() {
+        @Override
+        public RentTractors createFromParcel(Parcel source) {
+            return new RentTractors(source);
+        }
+        @Override
+        public RentTractors[] newArray(int size) {
+            return new RentTractors[size];
+        }
+    };
+}

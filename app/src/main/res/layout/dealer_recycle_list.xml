@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingDefaultResource">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/my_Recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/pageBackGround"
+        android:padding="2dp"
+        android:scrollbars="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+    <include
+        android:id="@+id/progressBar"
+        layout="@layout/progressbar"/>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/filterIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="66dp"
+        android:contentDescription="@string/hint_Description"
+        android:src="@drawable/ic_filter"
+        app:backgroundTint="@color/red"
+        app:layout_anchor="@id/my_Recycler_view"
+        app:layout_anchorGravity="bottom|right|start"
+        app:tint="@color/white"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources tools:ignore="MissingId"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item name="main_collapsing" type="id"/>
+    <item name="actGender" type="id"/>
+    <item name="etUserType" type="id"/>
+    <item name="et_state" type="id"/>
+    <item name="etBiography" type="id"/>
+    <item name="etCrops" type="id"/>
+    <item name="etLand" type="id"/>
+    <item name="rb_yes" type="id"/>
+    <item name="rg_tractor_owner" type="id"/>
+    <item name="rb_smart_phone_no" type="id"/>
+    <item name="rg_mobile" type="id"/>
+    <item name="rb_smart_phone_yes" type="id"/>
+    <item name="et_city" type="id"/>
+    <item name="etTaluka" type="id"/>
+    <item name="tilTaluka" type="id"/>
+    <item name="cbTerms" type="id"/>
+    <item name="btn_update" type="id"/>
+    <item name="my_sticky_button" type="id"/>
+</resources>

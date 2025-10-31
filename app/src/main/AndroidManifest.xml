@@ -1,0 +1,525 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.CALL_PHONE"/>
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28"/>
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28"/>
+    <uses-permission android:name="android.permission.NETWORK"/>
+    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"
+        tools:ignore="ForegroundServicesPolicy"/>
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false"/>
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"
+        android:required="false"/>
+    <queries>
+        <package android:name="com.whatsapp"/>
+        <package android:name="com.facebook.katana"/>
+        <intent>
+            <action android:name="com.google.android.youtube.api.service.START"/>
+        </intent>
+    </queries>
+    <application
+        android:name=".AppController"
+        android:allowBackup="true"
+        android:hardwareAccelerated="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:largeHeap="true"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppThemee"
+        tools:replace="android:theme,android:allowBackup,android:label"
+        tools:targetApi="n">
+        <activity
+            android:name=".ecom.adapter.ProductActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".tractor.usedTractor.GetLoanActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".commons.activities.TalukaSelectionActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".mandi.MandiFilterActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".harvester.HarvesterDetailsActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi" />
+        <activity
+            android:name=".tractor.review.ReviewActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".commons.activities.FeedBackActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".tractor.TractorFilterActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".ecom.categories.CategoriesListActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".ecom.order.MyOrderListActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <!-- portrait  -->
+        <activity
+            android:name=".ecom.list.ProductListFilterActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".ecom.list.ProductListActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".ecom.address.AddAddressActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".ecom.AddressListActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".ecom.ProductDetailsActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".ecom.cart.PaymentActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".ecom.cart.CartActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".ecom.EcomHomeActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".tractor.sellTractorNewUi.SellTractorActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
+        <activity
+            android:name=".tractor.compare.CompareTractorActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".isOwner.IsOwnerTractorBrand"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".isOwner.IsOwnerTractorModel"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".isOwner.IsOwnerTractorYear"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".isOwner.IsOwnerTractorMonth"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".isOwner.IsOwnerTractorImages"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".tractor.rent.rentTractorNewUi.RentTractorBrand"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".tractor.rent.rentTractorNewUi.RentTractorModel"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"
+            android:windowSoftInputMode="stateUnchanged|adjustResize"/>
+        <activity
+            android:name=".tractor.rent.rentTractorNewUi.RentTractorYear"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".tractor.rent.rentTractorNewUi.RentTractorMonth"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".tractor.rent.rentTractorNewUi.RentTractorHour"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".tractor.rent.rentTractorNewUi.RentTractorOther"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity android:name=".SafetyTipsActivity"/>
+        <activity
+            android:name=".commons.activities.TypeSelectionActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".commons.activities.ModelSelectionActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".commons.activities.YearSelectionActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".commons.activities.MonthSelectionActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".news.activity.NewsCommentListActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".news.activity.NewsCommentReplyListActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".commons.activities.HpSelectionActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".commons.activities.SearchActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <!-- portrait   -->
+        <meta-data
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="${crashlyticsCollectionEnabled}"/>
+        <meta-data
+            android:name="asset_statements"
+            android:resource="@string/asset_statements"/>
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key"/>
+        <!-- <meta-data -->
+        <!-- android:name="com.facebook.sdk.ApplicationId" -->
+        <!-- android:value="@string/facebook_app_id" -->
+        <!-- tools:replace="android:value"/> -->
+        <meta-data
+            android:name="google_web_client_id"
+            android:value="@string/google_web_client_id"/>
+        <meta-data
+            android:name="firebase_root_path"
+            android:value="@string/firebase_root_path"/>
+        <meta-data
+            android:name="cloud_messaging_server_key"
+            android:value="@string/firebase_cloud_messaging_server_key"/>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/white_logo"/>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorPrimary"/>
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="@string/facebook_client_token" />
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+        <service
+            android:name=".notification.MyFirebaseMessagingService"
+            android:exported="true"
+            tools:node="merge"
+            tools:ignore="ExportedService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        <provider
+            android:name=".util.GenericFileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            tools:node="merge">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup"
+                tools:node="remove" />
+        </provider>
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation" />
+        <activity
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="@string/fb_login_protocol_scheme"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="locale|layoutDirection"
+            android:launchMode="singleTask"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/AppThemee"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".language.SelectLanguage"
+            android:configChanges="locale|layoutDirection"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/AppThemee"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".tractor.rent.rentTractorNewUi.RentTractorImplementActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".SplashActivity"
+            android:exported="true"
+            android:screenOrientation="fullSensor"
+            tools:node="merge"
+            tools:ignore="DiscouragedApi">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <!--
+            <intent-filter android:autoVerify="true">
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="khetigaadi.com"
+                    android:scheme="https" />
+            </intent-filter>
+            -->
+        </activity>
+        <activity
+            android:name=".notification.NotificationResult"
+            android:label="@string/app_name"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi" />
+        <activity
+            android:name=".news.activity.NewsDetailsActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi" />
+        <activity
+            android:name=".tractor.newTractor.NewTractorDetails"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="fullSensor"
+            tools:node="merge"
+            tools:ignore="DiscouragedApi" />
+        <activity
+            android:name=".tractor.usedTractor.UsedTractorDetailActivity"
+            android:exported="true"
+            android:screenOrientation="fullSensor"
+            tools:node="merge"
+            tools:ignore="DiscouragedApi" />
+        <activity
+            android:name=".implement.newImplement.NewImpOverviewDetails"
+            android:exported="true"
+            android:screenOrientation="fullSensor"
+            tools:node="merge"
+            tools:ignore="DiscouragedApi" />
+<!--  android:theme="@style/AppTheme.AppBarOverlay"  -->
+        <activity
+            android:name=".user.LoginActivity"
+            android:exported="true"
+            android:screenOrientation="fullSensor"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            tools:node="merge"
+            tools:ignore="DiscouragedApi" />
+        <activity
+            android:name=".user.registration.ConfirmRegistrationActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi" />
+        <activity
+            android:name=".tractor.rent.RentTractorDetails"
+            android:exported="true"
+            android:screenOrientation="fullSensor"
+            tools:node="merge"
+            tools:ignore="DiscouragedApi" />
+        <activity
+            android:name=".tractor.rent.RentTractorSendEnquiry"
+            android:screenOrientation="fullSensor"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            tools:ignore="DiscouragedApi" />
+        <activity
+            android:name=".tractor.usedTractor.GetUsedTrSellerDetails"
+            android:screenOrientation="fullSensor"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            tools:ignore="DiscouragedApi" />
+        <activity
+            android:name=".tractor.newTractor.NewTractorRequestForDemo"
+            android:screenOrientation="fullSensor"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            tools:ignore="DiscouragedApi" />
+        <activity
+            android:name=".tractor.dealer.GetDealersDetails"
+            android:screenOrientation="fullSensor"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".social.SocialMedia"
+            android:screenOrientation="fullSensor"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".commons.activities.OnRoadPriceActivity"
+            android:screenOrientation="fullSensor"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".tractor.newTractor.NewTrGetOnRoadPriceActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".commons.activities.VideosActivity"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".commons.activities.YouTubePlayerActivity"
+            android:configChanges="orientation|keyboardHidden"/>
+        <activity
+            android:name=".user.profile.ProfileActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="fullSensor"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".user.profile.EditProfileActivity"
+            android:screenOrientation="fullSensor"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".agri.activity.CropSelectionsActivity"
+            android:screenOrientation="fullSensor"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".agri.activity.BrandSelectionActivity"
+            android:screenOrientation="fullSensor"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".user.profile.UserTypeSelectionsActivity"
+            android:screenOrientation="fullSensor"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".weather.WeatherNewActivity"
+            android:screenOrientation="fullSensor"
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".agri.activity.ImageViewActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".tractor.dealer.DealerShipActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".commons.activities.StateSelectionActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".commons.activities.CitySelectionActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
+        <service
+            android:name=".tractor.sellTractorNewUi.fileuploadservice.FileUploadService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            tools:ignore="Instantiatable"/>
+        <receiver
+            android:name=".tractor.sellTractorNewUi.fileuploadservice.FileProgressReceiver"
+            android:exported="true"
+            android:permission="TODO"
+            tools:ignore="ExportedReceiver"
+            tools:node="merge">
+            <intent-filter>
+                <action android:name="com.wave.ACTION_CLEAR_NOTIFICATION"/>
+                <action android:name="com.wave.ACTION_PROGRESS_NOTIFICATION"/>
+                <action android:name="com.wave.ACTION_UPLOADED"/>
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".tractor.sellTractorNewUi.fileuploadservice.RetryJobReceiver"
+            android:exported="true"
+            android:permission="TODO"
+            tools:ignore="ExportedReceiver"
+            tools:node="merge">
+            <intent-filter>
+                <action android:name="com.wave.ACTION_RETRY"/>
+                <action android:name="com.wave.ACTION_CLEAR"/>
+            </intent-filter>
+        </receiver>
+        <service
+            android:name=".tractor.usedTractor.service.GetLoanImagesService"
+            android:permission="android.permission.BIND_JOB_SERVICE"
+            tools:ignore="Instantiatable"/>
+        <receiver
+            android:name=".tractor.usedTractor.service.GetLoanRetryJobReceiver"
+            android:exported="true"
+            android:permission="TODO"
+            tools:ignore="ExportedReceiver"
+            tools:node="merge">
+            <intent-filter>
+                <action android:name="com.wave.ACTION_RETRY"/>
+                <action android:name="com.wave.ACTION_CLEAR"/>
+            </intent-filter>
+        </receiver>
+    </application>
+</manifest>

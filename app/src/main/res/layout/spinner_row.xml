@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/textViewItem"
+    android:layout_width="match_parent"
+    android:layout_height="36dp"
+    android:gravity="start|center_vertical"
+    android:paddingStart="5dp"
+    android:paddingEnd="@dimen/dimen_0dp"
+    android:text="@string/select_state"
+    android:textColor="@color/spinnerRowText"
+    android:textSize="16sp" />

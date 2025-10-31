@@ -1,0 +1,45 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    repositories {
+        // jcenter()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+        google()
+        maven { url "https://repo.grails.org/grails/core/" }
+        // maven { url 'https://plugins.gradle.org/m2/' }
+
+        // maven { url 'https://jitpack.io' }
+        //  maven { url 'https://plugins.gradle.org/m2/' }
+        //    maven { url 'https://groovy.jfrog.io/artifactory/libs-release/' }
+    }
+    dependencies {
+        classpath libs.agp
+        classpath libs.google.services
+        classpath libs.hilt.android.gradle.plugin
+        classpath libs.firebase.crashlytics.gradle
+        classpath libs.kotlin.gradle.plugin
+        classpath libs.android.junit5
+        //classpath libs.retrofit
+        classpath libs.retrofit
+
+        // classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:1.8.5"
+        //classpath "com.github.dcendents:android-maven-gradle-plugin:1.5"
+        //classpath libs.rxjava3
+    }
+}
+allprojects {
+    repositories {
+        // jcenter()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+        google()
+        maven { url 'https://maven.google.com' }
+        // maven { url 'https://plugins.gradle.org/m2/' }
+        //maven { url 'https://jitpack.io' }
+        // maven { url 'https://plugins.gradle.org/m2/' }
+        //  maven { url 'https://groovy.jfrog.io/artifactory/libs-release/' }
+        maven { url "https://repo.grails.org/grails/core/" }
+    }
+}
+

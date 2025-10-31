@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:padding="@dimen/margin_10dp">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civUserImage"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center|center_horizontal"
+        android:src="@drawable/ic_user_profile"
+        app:finalHeight="@dimen/image_final_width"
+        app:finalToolbarHeight="?attr/actionBarSize"
+        app:finalXPosition="@dimen/spacing_small"
+        app:finalYPosition="@dimen/spacing_small"
+        app:layout_anchorGravity="bottom|start"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+ <!--   style="@style/CardViewListItem"   -->
+    <TextView
+        android:id="@+id/tvUserType"
+        android:layout_width="wrap_content"
+        style="@style/CardViewListItem"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="-10dp"
+        android:background="@drawable/user_type_background"
+        android:paddingStart="@dimen/margin_10dp"
+        android:paddingEnd="@dimen/margin_10dp"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@id/civUserImage"
+        app:layout_constraintEnd_toEndOf="@id/civUserImage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/civUserImage"
+        tools:text="farmer" />
+<!--  style="@style/TractorListItemTitle"  -->
+    <TextView
+        android:id="@+id/tvUserName"
+        style="@style/TractorListItemTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_20dp"
+        android:text="@string/app_name"
+        android:textSize="@dimen/dimen_16sp"
+        app:layout_constraintBottom_toBottomOf="@id/civUserImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/civUserImage"
+        app:layout_constraintTop_toTopOf="@+id/civUserImage" />
+
+    <!--  style="@style/TractorListItemTitle"   -->
+    <TextView
+        android:id="@+id/tvAddress"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:gravity="start"
+        style="@style/TractorListItemTitle"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/civUserImage"
+        app:layout_constraintTop_toBottomOf="@id/tvUserName"
+        tools:text="Pune, Maharashtra" />
+
+    <!--   style="@style/TractorListItemTitle" -->
+    <TextView
+        android:id="@+id/tvUpdateProfile"
+        android:layout_width="0dp"
+        style="@style/TractorListItemTitle"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_2dp"
+        android:gravity="start"
+        android:text="@string/updateYourProfile"
+        android:textColor="@color/red"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/civUserImage"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

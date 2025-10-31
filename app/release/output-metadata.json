@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.khetigaadi",
+  "variantName": "release",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 81,
+      "versionName": "5.4.2",
+      "outputFile": "app-release.apk"
+    }
+  ],
+  "elementType": "File"
+}

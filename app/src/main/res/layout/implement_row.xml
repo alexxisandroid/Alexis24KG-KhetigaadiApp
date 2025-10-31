@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/CardViewHorizontalListItem"
+    android:layout_width="150dp"
+    android:layout_height="wrap_content">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="2dp">
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dimen_60dp"
+            android:padding="1dp"
+            app:layout_constraintBottom_toTopOf="@id/tvImpName"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@mipmap/ic_launcher"/>
+        <TextView
+            android:id="@+id/tvImpName"
+            style="@style/TractorListItemTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:maxLines="2"
+            android:paddingStart="0dp"
+            android:paddingEnd="@dimen/dimen_0dp"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toTopOf="@id/tvRate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:text="Same"/>
+        <TextView
+            android:id="@+id/tvRate"
+            style="@style/ItemTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_15dp"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="6-7 Lakh"
+            tools:visibility="visible"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,51 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+android {
+    namespace 'com.khetigaadi.ripple'
+    compileSdkVersion = libs.versions.compileSdkVersion.get().toInteger()
+
+    defaultConfig {
+        minSdkVersion 23 // libs.versions.minSdkVersion.get().toInteger()
+        //noinspection OldTargetApi
+        targetSdkVersion 35 // libs.versions.targetSdkVersion.get().toInteger()
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        //noinspection GrDeprecatedAPIUsage
+        jvmTarget = "17"
+    }
+
+    kotlin {
+        jvmToolchain(17)
+    }
+
+    lint {
+        abortOnError false
+    }
+    namespace 'com.andexert.library'
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation libs.support.annotations
+    implementation libs.androidx.core.ktx
+    implementation libs.jetbrains.kotlin.stdlib.jdk8
+}
+
+if (hasProperty("VERSION_NAME"))
+{
+    apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
+}
+repositories {
+    mavenCentral()
+}

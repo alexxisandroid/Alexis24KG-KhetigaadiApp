@@ -1,0 +1,776 @@
+<resources>
+    <string name="app_name">KhetiGaadi</string>
+    <string name="action_settings">setting</string>
+    <string name="hint_address" translatable="false">Hint Address</string>
+    <string name="category" translatable="false">Category</string>
+    <string name="chooseAnyOfThePaymentOption" translatable="false">Choose Any Payment Option</string>
+    <string name="pay_online" translatable="false">Pay Online</string>
+    <string name="cashOnDelivery" translatable="false">Cash on delivery</string>
+    <string name="hint_password">Password</string>
+    <string name="loader_msg" translatable="false">Loading...</string>
+    <string name="Continue" translatable="false">Continue</string>
+    <string name="products" translatable="false">Products</string>
+
+    <string name="change_or_add_address" translatable="false">Change or Add Address</string>
+    <string name="deliveryAndPaymentOption" translatable="false">Delivery and Payment Option</string>
+    <string name="payableAmount" translatable="false">Payable Amount</string>
+    <string name="continues" translatable="false">Continues</string>
+    <string name="qty" translatable="false">Quantity</string>
+    <string name="didn_t_receive_the_otp" translatable="false">Didnot receive the otp</string>
+    <string name="startShopping" translatable="false">Start Shopping</string>
+    <string name="shortlist" translatable="false">ShortList</string>
+    <string name="awards" translatable="false">Awards</string>
+    <string name="noItemInYourCart" translatable="false">Cart is Empty</string>
+    <string name="addItemYouWanttoShop" translatable="false">Add Item You Want to Shop</string>
+    <string name="err_msg_email">Enter Correct Email</string>
+    <string name="btn_new">New</string>
+    <string name="shop" translatable="false">Shop</string>
+    <string name="city" translatable="false">City</string>
+    <string name="hint_email" translatable="false">Enter your Email Id</string>
+    <string name="hint_mobile" translatable="false">Enter your mobile Number</string>
+    <string name="txt_image_slider">Image Slideshow</string>
+    <string name="cart" translatable="false">Cart</string>
+    <string name="my_orders" translatable="false">My Orders</string>
+    <string name="time_out">Time Out</string>
+    <string name="error_occured">Error Occurred</string>
+    <string name="available_new_Tractor">Available New Tractor</string>
+    <string name="err_msg_f_name">Please Enter Correct Name</string>
+    <string name="err_msg_addres">please Enter Address</string>
+    <string name="err_msg_mobile">Please Enter Mobile No.</string>
+    <string name="hint_pincode">Pincode</string>
+    <string name="btn_login">Login</string>
+    <string name="hint_exPrice">Expected Price</string>
+    <string name="hint_color">Color</string>
+    <string name="hint_EngineCondition">Engine Condition</string>
+    <string name="hint_TransmissionFeature">Transmission Condition</string>
+    <string name="hint_ElectricalCondition">Electrical Condition</string>
+    <string name="hint_TyreCondition">Tyre Condition</string>
+    <string name="hint_SteeringDimension">Steering Dimension</string>
+    <string name="hint_OtherCondition">Other Condition</string>
+    <string name="hint_AvailableWarranties">Available Warranties</string>
+    <string name="hint_MajorModifications">Major Modifications</string>
+    <string name="hint_SellerNote">Seller Note</string>
+    <string name="hint_Description">Description</string>
+    <string name="hint_OldPass">Old Password</string>
+    <string name="hint_newPass">New Password</string>
+    <string name="hint_reNewPass">Confirm Password</string>
+    <string name="err_msg_pincode">Please Enter Correct Pincode</string>
+    <string name="hint_drivenHrs">Driven Hours</string>
+    <string name="err_msg_exPrice">Please Enter Price</string>
+    <string name="err_msg_color">Enter Tractor Color</string>
+    <string name="hint_RegNumber">RTO Registration</string>
+    <string name="err_msg_RegNumber">Enter Registration Number</string>
+    <string name="err_msg_rentPerHrs">Enter Rent per Hour</string>
+    <string name="err_msg_passEmpty">Please Enter Password</string>
+    <string name="err_msg_passv">must contains one digit from 0-9 and one special symbols in the list \"@#$%\" and length at least 6 characters</string>
+    <string name="err_msg_passNotMatch">Confirm Password Not Same</string>
+    <string name="err_msg_egineCondition">Please Enter Engine Condition</string>
+    <string name="err_msg_transmissionCondition">Please Enter Transmission Condition</string>
+    <string name="err_msg_electricalCondition">Please Enter Electrical Condition</string>
+    <string name="err_msg_tyreCondition">Please Enter Tyre Condition</string>
+    <string name="err_msg_steeringDimension">Please Enter Steering Dimension</string>
+    <string name="err_msg_otherCondition">Please Enter Other Condition</string>
+    <string name="hint_Engine_No">Engine No</string>
+    <string name="hint_Chassis_No">Chassis No</string>
+    <string name="hint_fullName">Full Name</string>
+    <string name="btn_request">Request</string>
+    <string name="hint_yourMsg">Write your message</string>
+    <string name="err_msg_msg">Please Enter message</string>
+    <string name="hint_ConPassword">Confirm Password</string>
+    <string name="hint_varifiacationCode">Varification Code</string>
+    <string name="err_msg_name">Please enter name</string>
+    <string name="facebook_app_id" translatable="false">357663048153638</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb357663048153638</string>
+    <string name="facebook_client_token" translatable="false">7094d23c266da7ca9eb98db1381df11b</string>
+<!--    <string name="rs" translatable="false"><![CDATA[&#x20B9;]]></string>-->
+
+    <string name="rs" translatable="false">₹ </string>
+    <string name="err_msg_comment">Please Enter Comment</string>
+    <string name="hint_city">City</string>
+    <string name="err_msg_passValidation"> Length should be 6 characters</string>
+    <string name="english" translatable="false">English</string>
+    <string name="hindi" translatable="false">Hindi</string>
+    <string name="marathi" translatable="false">Marathi</string>
+    <string name="kannada" translatable="false">Kannada</string>
+    <string name="telugu" translatable="false">Telugu</string>
+    <string name="tamil" translatable="false">Tamil</string>
+    <string name="old">Old</string>
+    <string name="my_favorites">My Favorites</string>
+    <string name="language_settings">Language Settings</string>
+    <string name="ad" translatable="false">ad</string>
+    <string name="change_password">Change Password</string>
+    <string name="about_us">About Us</string>
+    <string name="logout">Logout</string>
+    <string name="news">News</string>
+    <string name="dealers">Dealers</string>
+    <string name="service_centers">Service Centers</string>
+    <string name="rate_dialog_later">Later</string>
+    <string name="rate_dialog_never">Never</string>
+    <string name="sell">Sell</string>
+    <string name="rent">Rent</string>
+    <string name="compare">Compare</string>
+    <string name="buy_enquiry">Buy Enquiry</string>
+    <string name="find_tractor">Find Tractor</string>
+    <string name="popular_tractor">Popular Tractors</string>
+    <string name="recently_viewed">Recently Viewed</string>
+    <string name="profile">Profile</string>
+    <string name="my_old_tractors">My Old Tractors</string>
+    <string name="my_rent_tractors">My Rent Tractors</string>
+    <string name="forgot_password">Forgot Password ?</string>
+    <string name="user_account_registration">User account Registration</string>
+    <string name="new_tractor">New Tractor</string>
+    <string name="search_tractor_by_name">Search Tractor by name</string>
+    <string name="type_to_select_name">Type to select tractor name</string>
+    <string name="type_to_select_brand_name">Type to select brands name</string>
+    <string name="select_brand">Select Brand</string>
+    <string name="type_to_select_tractor_model">Type to select tractor models</string>
+    <string name="select_model">Select Model</string>
+    <string name="search">Search</string>
+    <string name="hp">HP</string>
+    <string name="drive">Drive</string>
+    <string name="wd2">2WD</string>
+    <string name="wd4">4WD</string>
+    <string name="search_by_brand">SEARCH BY BRAND</string>
+    <string name="new_implement">New Implement</string>
+    <string name="tractors">Tractors</string>
+    <string name="implement">Implement</string>
+    <string name="please_tell_us_your_city">Please Tell Us Your City</string>
+    <string name="knowing_your_city_helps_us_provide">Knowing your city helps us provide relevant content for you</string>
+    <string name="confirm_city">Confirm City</string>
+    <string name="do_you_have_a_tractor_in_mind">DO YOU HAVE A TRACTOR IN MIND</string>
+    <string name="search_by_brand_and_model">SEARCH BY BRAND AND MODEL</string>
+    <string name="type_to_select_tractor_name">Type to select tractor name</string>
+    <string name="hint_email_or_number">Email or Number</string>
+    <string name="request_for_demo">Request For Demo</string>
+    <string name="ideal_for">Ideal For</string>
+    <string name="get_details">Get Details</string>
+    <string name="call">Call</string>
+    <string name="optional_accessories">Optional Accessories</string>
+    <string name="special_application">Special Application</string>
+    <string name="tractor_detail">Tractor Detail </string>
+    <string name="website">Website </string>
+    <string name="blow_rating">Blow Rating </string>
+    <string name="others">Others</string>
+    <string name="suspension">Suspension </string>
+    <string name="on_board_instruments">On Board Instruments(Analog/Digital)</string>
+    <string name="parking_brake">Parking Brake </string>
+    <string name="rear_plough_lamp">Rear Plough Lamp</string>
+    <string name="air_cleaner_clogging_sensor">Air Cleaner Clogging Sensor </string>
+    <string name="hour_meter">Hour Meter </string>
+    <string name="engine_oil_indicator">Engine Oil Indicator </string>
+    <string name="battery_indicator_charging">Battery Indicator/Charging </string>
+    <string name="head_lamp">Head Lamp(Low/High Beam) </string>
+    <string name="coolant_temp_water_temp_gauge">Coolant Temp/Water Temp gauge </string>
+    <string name="fuel_indicator">Fuel Indicator </string>
+    <string name="dashboard">Dashboard</string>
+    <string name="old_tractor">Old Tractor</string>
+    <string name="old_tractors" translatable="false">Old Tractors</string>
+    <string name="or">Or</string>
+    <string name="price_range">Price Range</string>
+    <string name="please_select_model">Please Select Model</string>
+    <string name="please_select_brand">Please Select Brand</string>
+    <string name="new_implements">New Implements</string>
+    <string name="search_implement_by_name">Search Implement by name</string>
+    <string name="do_you_have_a_implement_in_mind">DO YOU HAVE A IMPLEMENT IN MIND</string>
+    <string name="brand_name">Brand Name</string>
+    <string name="model_name">Model Name</string>
+    <string name="type_to_select_implement_name">Type to select implement name</string>
+    <string name="overview">Overview</string>
+    <string name="required_tractor_hp">Required Tractor HP</string>
+    <string name="published_by">Published By </string>
+    <string name="tractor_model">Tractor Model</string>
+    <string name="tractor_drive">Tractor Drive</string>
+    <string name="tractor_color">Tractor Color</string>
+    <string name="tractor_hp">Tractor HP</string>
+    <string name="pto_hp">PTO HP</string>
+    <string name="pto_rpm">PTO RPM</string>
+    <string name="electrical_overview">Electrical Overview</string>
+    <string name="electrical_system">Electrical System</string>
+    <string name="indicator_and_gauge"><![CDATA[Indicator &amp; Gauge]]></string>
+    <string name="horn">Horn</string>
+    <string name="alternator">Alternator</string>
+    <string name="starter_motor">Starter Motor</string>
+    <string name="battery_type">Battery Type</string>
+    <string name="battery_capacity">Battery Capacity</string>
+    <string name="electrical_specifications">Electrical Specifications</string>
+    <string name="lower_link">Lower Link</string>
+    <string name="pump_type">Pump Type</string>
+    <string name="point_linkage">3 Point Linkage</string>
+    <string name="lifting_capacity_at_standard_frame">Lifting Capacity at Standard Frame</string>
+    <string name="types">Type</string>
+    <string name="hydraulic">Hydraulic</string>
+    <string name="height_of_top_steering">Height of Top Steering</string>
+    <string name="wheel_track_rear">Wheel Track Rear</string>
+    <string name="wheel_track_front">Wheel Track Front</string>
+    <string name="tyre_size_rear">Tyre Size Rear</string>
+    <string name="tyre_size_front">Tyre Size Front</string>
+    <string name="turning_radius_w_o_Brakes">Turning Radius w. o. Brakes</string>
+    <string name="turning_radius_of_brakes">Turning Radius of Brakes</string>
+    <string name="ground_clearance">Ground Clearance</string>
+    <string name="overall_width">Overall Width</string>
+    <string name="overall_length">Overall Length</string>
+    <string name="wheel_base">Wheel Base</string>
+    <string name="height">Height</string>
+    <string name="total_weight">Total Weight</string>
+    <string name="dimensions_and_weight"><![CDATA[Dimensions & Weight]]></string>
+    <string name="clutch_type">Clutch Type</string>
+    <string name="brakes_type">Brakes Type</string>
+    <string name="wheel_and_tyre_type_rear"><![CDATA[Wheel & Tyre Type Rear]]></string>
+    <string name="steering_type">Steering Type</string>
+    <string name="front_axel">Front Axel</string>
+    <string name="gear_box_type">Gear Box Type</string>
+    <string name="no_of_gears_reverse">No. of gears Reverse</string>
+    <string name="no_of_gears_forward">No. of gears Forward</string>
+    <string name="p_t_o_type">P.T.O. Type</string>
+    <string name="max_reverse_speed">Max Reverse Speed</string>
+    <string name="max_speed">Max Speed</string>
+    <string name="linkage_category">Linkage Category</string>
+    <string name="transmission_type">Transmission Type</string>
+    <string name="transmission_detail">Transmission Detail</string>
+    <string name="cooling_system">Cooling System</string>
+    <string name="fuel_tank_capacity">Fuel Tank Capacity</string>
+    <string name="transmission_oil">Transmission Oil</string>
+    <string name="capacity_specification">Capacity Specification</string>
+    <string name="dry_weight_kg">Dry Weight kg</string>
+    <string name="air_cleaner_filter">Air Cleaner / Filter</string>
+    <string name="torque">Torque</string>
+    <string name="no_of_cylinder">No. Of Cylinder</string>
+    <string name="cylinder_capacity_cc">Cylinder Capacity cc</string>
+    <string name="fuel_pump">Fuel Pump</string>
+    <string name="fuel_type">Fuel Type</string>
+    <string name="stroke_in_mm">Stroke in (mm)</string>
+    <string name="displacement_cc">Displacement CC</string>
+    <string name="power_kw">Power KW</string>
+    <string name="engine_hp">Engine HP</string>
+    <string name="engine_rated_rpm">Engine Rated RPM</string>
+    <string name="bore_in_mm">Bore in (mm)</string>
+    <string name="emission_standard">Emission Standard</string>
+    <string name="engine_type">Engine Type</string>
+    <string name="engine_specification">Engine Specification</string>
+    <string name="other_information">Other Information</string>
+    <string name="specification">Specification</string>
+    <string name="other_features">Other Features</string>
+    <string name="images">Images</string>
+    <string name="next">Next</string>
+    <string name="add_owner_info">Add Owner Info</string>
+    <string name="add_tractor_info">Add Tractor Info</string>
+    <string name="previous">Previous</string>
+    <string name="finish">Finish</string>
+    <string name="drive_lower">Drive</string>
+    <string name="rent_per_hour">Rent(p/h)</string>
+    <string name="owner_name">Owner Name</string>
+    <string name="send_enquiry">Send Enquiry</string>
+    <string name="send_email_enquiry">Send Email Enquiry</string>
+    <string name="spec">Spec</string>
+    <string name="applications">Applications</string>
+    <string name="picture">Picture</string>
+    <string name="engine_rpm">Engine RPM</string>
+    <string name="forcast">Forecast</string>
+    <string name="weather">Weather</string>
+    <string name="map_circle_description" translatable="false">Map Circle Description</string>
+    <string name="rating">Rating</string>
+    <string name="share">Share</string>
+    <string name="feedback">Feedback</string>
+    <string name="price">Price</string>
+    <string name="month_or_year">Model Month / Year</string>
+    <string name="hours">Hours</string>
+    <string name="popular_tractor_comparison">Popular Tractor Comparison</string>
+    <string name="popular_implements_comparison">Popular Implements Comparison</string>
+    <string name="type_to_select_type">Type to select Type</string>
+    <string name="select_tractor_1">Select tractor 1</string>
+    <string name="select_tractor_2">Select tractor 2</string>
+    <string name="select_implement_1">Select Implement 1</string>
+    <string name="select_implement_2">Select Implement 2</string>
+    <string name="power_take_off_pto_rpm">Power Take Off (P.T.O rpm)</string>
+    <string name="max_pto_power_hp">Max P.T.O. power(HP)</string>
+    <string name="pto_type">P.T.O. Type</string>
+    <string name="uploaded_on">Uploaded on</string>
+    <string name="rto_registration_number">RTO Registration Number</string>
+    <string name="engine_no">Engine No.</string>
+    <string name="chassis_no">Chassis No.</string>
+    <string name="standard_features">Standard Features</string>
+    <string name="engine">Engine</string>
+    <string name="transmission">Transmission</string>
+    <string name="electrical">Electrical</string>
+    <string name="tyre">Tyre</string>
+    <string name="steering">Steering</string>
+    <string name="other">Other</string>
+    <string name="warranty_and_modifications">Warranty and Modifications</string>
+    <string name="warranty">Warranty</string>
+    <string name="modifications">Modifications</string>
+    <string name="seller_note_and_description">Seller\'s Note and Description</string>
+    <string name="reason_for_selling">Reason for Selling</string>
+    <string name="seller_description">Seller Description</string>
+    <string name="seller_name">Seller Name</string>
+    <string name="contact_seller">Contact Seller</string>
+    <string name="wheel_and_tyre_type_front"><![CDATA[wheel & Tyre Type Front]]></string>
+    <string name="height_up_to_seat">Height Up to Seat</string>
+    <string name="height_of_steering">Height of  Steering</string>
+    <string name="height_of_top_seat">Height of Top Seat</string>
+    <string name="mobile">Mobile</string>
+    <string name="date">Date</string>
+    <string name="seller">Seller</string>
+    <string name="model_year">Model Year</string>
+    <string name="hrs_driven">Hrs Driven</string>
+    <string name="user_image">User Image</string>
+
+    <string name="email_id">Email ID</string>
+    <string name="mobile_no">Mobile No.</string>
+    <string name="plan_name">Plan Name</string>
+    <string name="newsletter_subscribe_or_unsubscribe">Newsletter : (Subscribe / Unsubscribe)</string>
+    <string name="i_would_like_to_subscribe_khetigaadi_newsletter">I would like to subscribe Khetigaadi Newsletter</string>
+
+    <string name="personal_information">Personal Information</string>
+    <string name="edit">Edit</string>
+    <string name="registration">Registration</string>
+    <string name="login_information">Login Information</string>
+    <string name="uploaded_old_tractor">Uploaded Old  Tractor</string>
+    <string name="sold_old_tractor">Sold Old Tractor</string>
+    <string name="pending_sell_tractor">Pending Sell Tractor</string>
+    <string name="uploaded_rent_tractor">Uploaded Rent Tractor</string>
+    <string name="contact_details">Contact Details</string>
+    <string name="add_feature">Add Feature</string>
+    <string name="clear_all">Clear All</string>
+    <string name="apply_filters">Apply Filters</string>
+    <string name="about_khetigaadi">About Khetigaadi</string>
+    <string name="khetigaadi_is_indias_first"><![CDATA[KhetiGaadi is world’s first online marketplace providing well-structured bidding platforms for buying and selling of Tractors and Implements in Agricultural Mechanization. We provide the one-stop solution for buyers, sellers and manufacturers to connect with each other and fulfill their requirements. We have abundant wealth of Agriculture knowledge and huge experience in both Agro-mechanism and retail sectors.]]></string>
+    <string name="our_mission">OUR MISSION</string>
+    <string name="our_mission_is_to_bring"><![CDATA[Our mission is to make your Tractors and Farm implements buying or selling process as hassle-free as possible and to provide proper information of tractors & farm implements to the farmers and the manufacturers globally. We committed to total customer satisfaction and constant improvement in performance by providing with complete transparency in farm machinery details thereby building trust, reliability and value for the customers.]]></string>
+    <string name="feedback_form">Feedback Form</string>
+    <string name="comments">Comments</string>
+    <string name="models">Model</string>
+    <string name="rate_dialog_cancel">Remind Me Later</string>
+    <string name="rate_dialog_message">If you enjoy playing this app, would you mind taking a moment to rate it? It won\'t take more than a minute. Thanks for your support!</string>
+    <string name="rate_dialog_no">No, Thanks</string>
+    <string name="rate_dialog_ok">Rate It Now</string>
+    <string name="rate_dialog_title">Rate this app</string>
+    <string name="apply">Apply</string>
+
+    <string name="are_you_sure_you_want">Are you sure you want to logout?</string>
+    <string name="add_implements">Add Implements</string>
+    <string name="note">Note</string>
+    <string name="select_language">Select Language</string>
+    <string name="share_msg"><![CDATA[Hey! Check out KhetiGaadi app. Search new tractors,used tractors,compare & find dealers in your city. Download Free App Now! https://khetigaadi.page.link/rniX]]></string>
+    <string name="click_to_sold">Click to Sold</string>
+    <string name="status">Status</string>
+    <string name="intrested_buyers">Intrested Buyers</string>
+    <string name="click_to_unsold">Click to Unsold</string>
+    <string name="imp_type">Type</string>
+    <string name="click_back_again_to_exit">Please click BACK again to exit.</string>
+    <string name="cancel">Cancel</string>
+    <string name="update_now">Update Now</string>
+    <string name="version_update_msg">New version of KhetiGaadi is available.</string>
+    <string name="gujarati" translatable="false">Gujarati</string>
+    <string name="punjabi" translatable="false">Punjabi</string>
+    <string name="invalid_mobile_number">Invalid Mobile Number</string>
+    <string name="on_KhetiGaadi_App_and_I"> on KhetiGaadi App and I thought you might be interested in reading it too. Download Free App Now! https://khetigaadi.page.link/rniX</string>
+    <string name="i_was_viewing">I was viewing</string>
+    <string name="please_select_implement_for_compare">please select implement for compare</string>
+    <string name="please_select_tractors_for_compare">please select tractors for compare</string>
+    <string name="please_tell_us_your_mobile">Please Tell Us Your Mobile Number</string>
+    <string name="please_select_city">Please Select City</string>
+    <string name="please_select_state">Please Select State</string>
+    <string name="verification">Verification</string>
+    <string name="resend_code">Resend Code</string>
+    <string name="please_enter_correct_otp_code">please enter correct OTP code</string>
+    <string name="please_enter_at_least_characters_in_comment">Please enter at least 20 Characters in Comment</string>
+    <string name="social_media">Social Media</string>
+    <string name="malayalam" translatable="false">Malayalam</string>
+    <string name="bangali" translatable="false">Bangali</string>
+    <string name="getQuote">Get Quote</string>
+    <string name="request_quotation_" translatable="false">Request Quotation</string>
+    <string name="request_quotation">Request Quotation For</string>
+    <string name="i_agree_that_by_clicking" translatable="false">I agree that by clicking a \'Request\' button below I am explicitly soliciting a call from Khetigaadi or its partners on my \'Mobile\' in order to assist me with my tractor purchase.</string>
+    <string name="please_check_agree_button">Please Check Agree Button</string>
+    <string name="something_went_wrong" translatable="false">Oops something went wrong,Please try again.</string>
+    <string name="select_type" translatable="false">Select Type</string>
+    <string name="compareTractor">Compare Tractor</string>
+    <string name="compareTractors" translatable="false">Compare Tractors</string>
+    <string name="compareImplement" translatable="false">Compare Implement</string>
+    <string name="rentTractor">Rent Tractor</string>
+    <string name="sellTractor">Sell Tractor</string>
+    <string name="myUploadedRentTractor">My Uploaded Rent Tractor</string>
+    <string name="myUploadedUsedTractor">My Uploaded Used Tractor</string>
+    <string name="editProfile">Edit Profile</string>
+    <string name="please_select_correct_city" translatable="false">Please select correct city.</string>
+    <string name="firebase_cloud_messaging_token" translatable="false">firebase_cloud_messaging_token</string>
+    <string name="asset_statements" translatable="false">[{ \"include\": \"https://khetigaadi.com/.well-known/assetlinks.json\" }]</string>
+    <!--for Chatting-->
+    <string name="facebook_app_identifier" translatable="false">@string/facebook_app_id</string>
+    <string name="google_web_client_id" translatable="false">88353840742-b07jv7aapr3r03ftpomeitbi1cng4qbg.apps.googleusercontent.com</string>
+    <string name="firebase_root_path" translatable="false">firebase_v4_web_new_4</string>
+    <string name="firebase_cloud_messaging_server_key" translatable="false">AAAAcpsV5AE:APA91bH5uxO8Qzg3bUe7w7pidQL0H46uF3s-7NtLJnGQbMAQa6fxEf2wmQ5PvShK_JYlSup6kEdjcGktJaZunX93K6hvo7gWxEAJ_JLAOWnfQ6znYd4_Kc-OasNvKXCOa-DDciyeoF6F</string>
+    <string name="please_try_after_some_time" translatable="false">Please try after some time.</string>
+    <string name="tractor1" translatable="false">Tractor 1</string>
+    <string name="tractor2" translatable="false">Tractor 2</string>
+    <string name="whatsApp" translatable="false">WhatsApp</string>
+    <string name="getOnRoadPrice" translatable="false">Get On Road Price</string>
+    <string name="whatsAppNo" translatable="false">+917875114466</string>
+    <string name="select_state" translatable="false">Select State</string>
+    <string name="select_city" translatable="false">Select city</string>
+    <string name="invalidName" translatable="false">Invalid Name!</string>
+    <string name="select_hp" translatable="false">Select HP</string>
+    <string name="please_select_month" translatable="false">Please Select Month</string>
+    <string name="please_select_year" translatable="false">Please Select Year</string>
+    <string name="selectYear" translatable="false">Select Year</string>
+    <string name="selectMonth" translatable="false">Select Month</string>
+    <string name="takePhoto" translatable="false">Take Photo</string>
+    <string name="chooseFromLibrary" translatable="false">Choose from Library</string>
+    <string name="addPhoto" translatable="false">Add Photo!</string>
+    <string name="selectFile" translatable="false">Select File</string>
+    <string name="pleaseAddNote" translatable="false">Please Add Note</string>
+    <string name="pleaseSelectImage" translatable="false">Please Select Image</string>
+    <string name="selectImplement" translatable="false">Select Implement</string>
+    <string name="pleaseSelectImplement" translatable="false">Please Select Implement</string>
+    <string name="selectAnAction" translatable="false">Select an action</string>
+    <string name="getPrice" translatable="false">Get Price</string>
+    <string name="pleaseUpdateYourProfile" translatable="false">Please Update Your profile before continue</string>
+    <string name="enterYourReason" translatable="false">Enter Your Reason</string>
+    <string name="impTypeName" translatable="false">Type Name</string>
+    <string name="sponsored" translatable="false">Sponsored</string>
+    <string name="youtube" translatable="false">Youtube</string>
+    <string name="video">Video</string>
+    <string name="youtubeChannelID" translatable="false">UC7RM2jWMI0pDxalgI3r_kVg</string>
+    <string name="published_on" translatable="false">Published on</string>
+    <string name="subscribe" translatable="false">Subscribe</string>
+    <string name="khetiKeTantra" translatable="false">ट्रैक्टर और खेती के  तंत्रज्ञान के लिए</string>
+    <string name="group" translatable="false">Group</string>
+    <string name="crop" translatable="false">Crop</string>
+    <string name="like" translatable="false">Like</string>
+    <string name="shareYourThoughtsHere" translatable="false">Share your thoughts here....</string>
+    <string name="follow" translatable="false">+ Follow</string>
+    <string name="followers" translatable="false">Followers</string>
+    <string name="loading" translatable="false">Loading...</string>
+    <string name="updateYourProfile" translatable="false">Update your profile</string>
+    <string name="shares" translatable="false">Shares</string>
+    <string name="posts" translatable="false">Posts</string>
+    <string name="likes" translatable="false">Likes</string>
+    <string name="following" translatable="false">Following</string>
+    <string name="biography" translatable="false">Biography</string>
+
+    <string name="general" translatable="false">General</string>
+    <string name="enter_your_name" translatable="false">Enter your name</string>
+
+    <!--    <string name="type_to_search" translatable="false"><![CDATA[Type to Search&#8230;]]></string>-->
+
+    <string name="type_to_search" translatable="false"><![CDATA[Type to Search]]></string>
+    <string name="ok" translatable="false">Ok</string>
+    <string name="brand" translatable="false">Brand</string>
+    <string name="choose_group" translatable="false">Choose Group</string>
+    <string name="choose_crop" translatable="false">Choose Crop</string>
+    <string name="hashtag" translatable="false">Hashtag#</string>
+    <string name="khetiguru" translatable="false">KhetiGuru</string>
+    <string name="write_post" translatable="false">Write Post</string>
+    <string name="more_post" translatable="false">More Post</string>
+    <string name="write_your_hashtag_with" translatable="false">write your hashtag with #</string>
+    <string name="subject" translatable="false">Subject</string>
+    <string name="write_your_thoughts_or_problems" translatable="false"><![CDATA[write your thoughts or problems here&#8230;]]></string>
+    <string name="attach_photo" translatable="false">Upload Photo</string>
+    <string name="attach_video" translatable="false">Upload Video (30 sec.)</string>
+    <string name="post" translatable="false">Post</string>
+    <string name="create_post" translatable="false">Create Post</string>
+    <string name="rotate_image" translatable="false">Rotate Image</string>
+    <string name="reply" translatable="false">Reply</string>
+    <!--    <string name="write_a_comment" translatable="false"><![CDATA[Write a comment&#8230;]]></string>-->
+
+    <string name="write_a_comment" translatable="false"><![CDATA[Write a comment]]></string>
+
+    <string name="post_view" translatable="false">Post view</string>
+    <string name="filter" translatable="false">Filter</string>
+    <string name="user_type" translatable="false">User type</string>
+    <string name="please_select_group" translatable="false">Please select group</string>
+    <string name="plase_select_crop" translatable="false">Please select crop</string>
+    <string name="please_enter_hashtag" translatable="false">Please enter hashtag</string>
+    <string name="please_enter_subject" translatable="false">Please enter subject</string>
+    <string name="please_enter_comment" translatable="false">Please enter comment</string>
+    <string name="gallery" translatable="false">Gallery</string>
+    <string name="please_select_another_file" translatable="false">Please select another image</string>
+    <string name="celsius" translatable="false"><![CDATA[℃]]></string>
+    <string name="minimum" translatable="false">Minimum</string>
+    <string name="maximum" translatable="false">Maximum</string>
+    <string name="please_select_usertype" translatable="false">Please select user type</string>
+    <string name="please_enter_biography" translatable="false">Please enter biography</string>
+    <string name="please_select_crop" translatable="false">Please select crop</string>
+    <string name="please_select_tractor_brand" translatable="false">Please select tractor brand</string>
+    <string name="content" translatable="false">Content</string>
+    <string name="write_your_subject" translatable="false">Write your subject</string>
+    <string name="write_a_reply" translatable="false">write a reply...</string>
+    <string name="please_enter_reply" translatable="false">Please enter reply</string>
+    <string name="my_interest" translatable="false">My Interest</string>
+    <string name="hotest" translatable="false">Hotest</string>
+    <string name="by_crop" translatable="false">By Crop</string>
+    <string name="by_group" translatable="false">By Group</string>
+    <string name="people_you_followed" translatable="false">People you followed</string>
+    <string name="my_post" translatable="false">My Post</string>
+    <string name="sort_post_by" translatable="false">Sort Post By</string>
+    <string name="delete" translatable="false">Delete</string>
+    <string name="are_you_sure_you_want_to_delete" translatable="false">Are you sure you want to delete?</string>
+    <string name="dealership" translatable="false">Dealership</string>
+    <string name="please_select_brand_type" translatable="false">Please select brand type</string>
+    <string name="select_implement_brand" translatable="false">Select Implement Brand</string>
+    <string name="edit_profile" translatable="false">Edit Profile</string>
+    <string name="read_more" translatable="false">Read More</string>
+    <string name="please_enter_content" translatable="false">Please enter content.</string>
+    <string name="update_post" translatable="false">Update Post</string>
+    <string name="please_type_the_verification_code_send_to" translatable="false">Please type the verification code sent to</string>
+    <string name="verification_code" translatable="false">Verification Code</string>
+    <string name="enter_mobile" translatable="false">Enter Mobile Number</string>
+    <string name="verification_code_resent_successfully" translatable="false">Verification code resent successfully</string>
+    <string name="owner" translatable="false">Owner</string>
+    <string name="please_enter_award" translatable="false">Please enter award</string>
+    <string name="please_update_profile" translatable="false">Please Update profile</string>
+    <string name="videos" translatable="false">Videos</string>
+    <string name="change_language" translatable="false">Change Language</string>
+    <string name="toast_unexpected_error" translatable="false">Unexpected error</string>
+    <string name="toast_cannot_retrieve_cropped_image" translatable="false">Cannot retrieve cropped image</string>
+    <string name="search_hint" translatable="false">Search</string>
+    <string name="see_more" translatable="false">See More</string>
+    <string name="see_all_posts" translatable="false">See all posts</string>
+    <string name="please_complete_your_profile" translatable="false">Click here to complete your profile</string>
+    <string name="start_discussion_about_crop" translatable="false">Start discussion about crop</string>
+    <string name="sms_hash" translatable="false">p3cdM7bSTdn</string>
+    <string name="new_version_avalible" translatable="false">New version available</string>
+    <string name="posted_on" translatable="false">Posted on</string>
+    <string name="search_by_brand_and_type" translatable="false">SEARCH BY BRAND AND TYPE</string>
+    <string name="hint_month" translatable="false">Month</string>
+    <string name="hint_year" translatable="false">Year</string>
+    <string name="select_month" translatable="false">Select Month</string>
+    <string name="select_year" translatable="false">Select Year</string>
+    <string name="model" translatable="false">Model</string>
+    <string name="type" translatable="false">Type</string>
+    <string name="get_safety_tips" translatable="false">Get Safety Tips</string>
+    <string name="safety_tips" translatable="false">Safety Tips</string>
+    <string name="working_area" translatable="false">Working Area (km)</string>
+    <string name="km" translatable="false">(km)</string>
+    <string name="upload" translatable="false">Upload</string>
+    <string name="rent_tractor" translatable="false">Rent Tractor</string>
+    <string name="please_wait" translatable="false">Please wait…</string>
+    <string name="please_intert_redius" translatable="false">Please Insert Working Area</string>
+    <string name="sell_old_tractor" translatable="false">Sell Old Tractor</string>
+    <string name="add_owner_tractor" translatable="false">Add My Tractor</string>
+    <string name="add_tractor" translatable="false">Add Tractor</string>
+    <string name="add_implement" translatable="false">Add Implement</string>
+    <string name="Brand" translatable="false">Brand</string>
+    <string name="Model" translatable="false">Model</string>
+    <string name="Images" translatable="false">Images</string>
+    <string name="Years" translatable="false">Years</string>
+    <string name="Month" translatable="false">Month</string>
+    <string name="Hours" translatable="false">Hours</string>
+    <string name="Document" translatable="false">Document</string>
+    <string name="Condition" translatable="false">Condition</string>
+    <string name="Price" translatable="false">Price</string>
+    <string name="NOC" translatable="false">Financier/Hypothecation NOC:</string>
+    <string name="RC" translatable="false">RC document</string>
+    <string name="owners" translatable="false">No. of owners</string>
+    <string name="image_hint" translatable="false">Note: Please upload Images.</string>
+    <string name="rc_avail" translatable="false">RC Available</string>
+    <string name="rc_not_avail" translatable="false">RC Not Available</string>
+    <string name="first" translatable="false">1st</string>
+    <string name="second" translatable="false">2nd</string>
+    <string name="third" translatable="false">3rd</string>
+    <string name="more_than_three" translatable="false">More than 3</string>
+    <string name="poor_engine" translatable="false"><![CDATA[0 &#8211; 25% \n(Poor)]]></string>
+    <string name="average_engine" translatable="false"><![CDATA[26 &#8211; 50% \n(Average)]]></string>
+    <string name="good_engine" translatable="false"><![CDATA[51 &#8211; 75% \n(Good)]]></string>
+    <string name="very_good_engine" translatable="false"><![CDATA[76 &#8211; 100% \n(Very Good)]]></string>
+    <string name="tractor_image" translatable="false">Please upload tractor image</string>
+    <string name="implement_image" translatable="false">Please upload implement image</string>
+    <string name="want_buy_tract" translatable="false">Do You Own a tractor?</string>
+    <string name="click_here" translatable="false">Click Here</string>
+    <string name="are_you_sure_you_want_quit" translatable="false">Are you sure you want to quit?</string>
+    <string name="r_u_tractor_owner" translatable="false">क्या आप ट्रैक्टर के मालिक हैं?</string>
+    <string name="please_add_two_images">Please Add two pictures</string>
+    <string name="are_you_sure_you_want_to_exit" translatable="false">Are you sure you want to exit?</string>
+    <string name="really_exit" translatable="false">Really Exit?</string>
+    <string name="uploading" translatable="false">Uploading</string>
+    <string name="in_progress" translatable="false">in progress</string>
+    <string name="error_upload_failed" translatable="false">Photos Uploading failed</string>
+    <string name="btn_retry_not" translatable="false">Retry</string>
+    <string name="message_upload_failed" translatable="false">Tractor Photos is not uploaded. Please TRY AGAIN</string>
+    <string name="uploaded_old" translatable="false">Uploaded Old</string>
+    <string name="sold" translatable="false">Sold</string>
+    <string name="pending" translatable="false">Pending</string>
+    <string name="uploaded_rent" translatable="false">Uploaded Rent</string>
+    <string name="showDetails" translatable="false">Show Details</string>
+    <string name="please_enter_first_name" translatable="false">Please Enter First Name</string>
+    <string name="tractor" translatable="false">Tractor</string>
+    <string name="more" translatable="false">More</string>
+    <string name="similar_tractors" translatable="false">Similar Tractors</string>
+    <string name="similar_implements" translatable="false">Similar Implements</string>
+    <string name="other_details" translatable="false">Other Details</string>
+    <string name="exact_HP" translatable="false">Exact HP</string>
+    <string name="financier_hypo_noc" translatable="false">Financier / Hypothecation NOC</string>
+    <string name="rc_document" translatable="false">RC document</string>
+    <string name="engine_condition" translatable="false">Engine condition</string>
+    <string name="tyre_condition" translatable="false">Tyre condition</string>
+    <string name="month_year" translatable="false">Month - Year</string>
+    <string name="rto_no" translatable="false">RTO No</string>
+    <string name="vs" translatable="false">Vs</string>
+    <string name="popular_implements" translatable="false">Popular Implements</string>
+    <string name="lakh" translatable="false">Lakh</string>
+    <string name="related_implement_type" translatable="false">Related Implement Types</string>
+    <string name="dash" translatable="false">-</string>
+    <string name="search_by_hp" translatable="false">Search by HP</string>
+    <string name="search_by_drive" translatable="false">Search by Drive</string>
+    <string name="search_by_price" translatable="false">Search by price</string>
+    <string name="search_by_type" translatable="false">Search By Type</string>
+    <string name="search_by_city" translatable="false">Type by city</string>
+    <string name="language" translatable="false">Language</string>
+    <string name="implements_lbl" translatable="false">Implements</string>
+    <string name="buy_old_tractor" translatable="false">Buy Old Tractor</string>
+    <string name="download_completed" translatable="false">Download Completed</string>
+    <string name="install" translatable="false">Install</string>
+    <string name="write_review" translatable="false">write review</string>
+    <string name="rate_your_tractor" translatable="false">Rate Your Tractor</string>
+    <string name="terrible" translatable="false">Terrible!</string>
+    <string name="i_regret_riding_this_tractor" translatable="false">I regret riding this tractor</string>
+    <string name="its_bad" translatable="false">It\'s bad!</string>
+    <string name="its_ok" translatable="false">It\'s okey!</string>
+    <string name="superb" translatable="false">Superb!</string>
+    <string name="amazing" translatable="false">Amazing!</string>
+    <string name="the_tractor_exceeds_all_the_expectations" translatable="false">The tractor exceeds all the expectations.</string>
+    <string name="i_love_the_tractor" translatable="false">I love the tractor</string>
+    <string name="could_have_been_much_better" translatable="false">Could have been much better.</string>
+    <string name="i_know_better_tractor_in_the_same" translatable="false">I know better tractor in the same price range.</string>
+    <string name="you_purchased_this_tractor_as" translatable="false">You purchased this tractor as?</string>
+    <string name="used" translatable="false">Used</string>
+    <string name="not_purchased" translatable="false">Not Purchased</string>
+    <string name="write_a_review" translatable="false">Write A Review</string>
+    <string name="add_comment" translatable="false">add comment</string>
+    <string name="harvester" translatable="false">Harvester</string>
+    <string name="_10k_2l" translatable="false">10k - 2L</string>
+    <string name="_2_3l" translatable="false">2 - 3L</string>
+    <string name="_3_5l" translatable="false">3 - 5L</string>
+    <string name="above_5l" translatable="false">Above 5L</string>
+    <string name="mandi_price" translatable="false">Mandi Price</string>
+    <string name="min_price" translatable="false">Min Price</string>
+    <string name="max_price" translatable="false">Max Price</string>
+    <string name="model_price" translatable="false">Model Price</string>
+    <string name="market" translatable="false">Market</string>
+    <string name="variety" translatable="false">Variety</string>
+    <string name="oops" translatable="false">Oops!</string>
+    <string name="we_do_not_find_your_location_in_our_weather" translatable="false">We do not find your location in our weather.</string>
+    <string name="my_posts" translatable="false">My Posts</string>
+    <string name="request_for_delete_tractor" translatable="false">Request For Delete Tractor</string>
+    <string name="reason" translatable="false">Reason :</string>
+    <string name="close" translatable="false">Close</string>
+    <string name="submit" translatable="false">Submit</string>
+
+    <string name="record_not_found" translatable="false">Record not Found.</string>
+    <string name="privacy_policy" translatable="false">Privacy Policy</string>
+    <string name="similar_old_tractors" translatable="false">Similar Old tractors</string>
+    <string name="_0" translatable="false">₹ 0</string>
+    <string name="minus" translatable="false">-</string>
+    <string name="_1" translatable="false">1</string>
+    <string name="plus" translatable="false">+</string>
+    <string name="order_subtotal" translatable="false">Order Subtotal</string>
+    <string name="shipping_and_handling" translatable="false">Shipping and handling</string>
+    <string name="notification" translatable="false">Notification</string>
+    <string name="please_select_type" translatable="false">Please Select Type</string>
+    <string name="registered_on" translatable="false">Registered on</string>
+    <string name="search_tractors_harvesters_implements" translatable="false">Search Tractors, Harvesters, Implements...</string>
+    <string name="sell_used" translatable="false">Sell Used</string>
+    <string name="buy_used" translatable="false">Buy Used</string>
+    <string name="finance" translatable="false">Finance</string>
+    <string name="insurance" translatable="false">Insurance</string>
+    <string name="view_more" translatable="false">View more</string>
+    <string name="show_all" translatable="false">Show All</string>
+    <string name="used_tractors" translatable="false">Used Tractors</string>
+    <string name="used_imaplements" translatable="false">Used Implements</string>
+    <string name="used_harvester" translatable="false">Used Harvesters</string>
+    <string name="used_tractors_by_state" translatable="false">Used Tractors by State</string>
+    <string name="small_farm_machinery" translatable="false">Small Farm Machinery</string>
+    <string name="view_all_news" translatable="false">View all news</string>
+    <string name="view_less" translatable="false">View less</string>
+    <string name="show_all_videos" translatable="false">Show All Videos</string>
+    <string name="farmers_testimonial" translatable="false">Farmers Testimonial</string>
+    <string name="brands" translatable="false">Brands</string>
+    <string name="domain_uri_prefix" translatable="false">https://khetigaadi.page.link</string>
+    <string name="front" translatable="false">Front</string>
+    <string name="back" translatable="false">Back</string>
+    <string name="list_is_not_genuine" translatable="false">List is not genuine</string>
+    <string name="seller_is_not_contactable" translatable="false">Seller is not contactable</string>
+    <string name="photo_are_not_visible" translatable="false">Photo are not visible.</string>
+    <string name="product_details_do_not_match" translatable="false">Product details do not match</string>
+    <string name="product_is_sold" translatable="false">Product is sold</string>
+    <string name="please_type_here" translatable="false">Please Type here</string>
+    <string name="report_ad" translatable="false">Report Ads</string>
+    <string name="tell_us_your_requirement" translatable="false">tell us your requirement</string>
+    <string name="get_loan" translatable="false">Get Loan</string>
+    <string name="call_now" translatable="false">Call Now</string>
+    <string name="type_of_finance" translatable="false">Type of Finance</string>
+    <string name="loan_amount" translatable="false">Loan Amount</string>
+    <string name="greater_than_5_lac" translatable="false"><![CDATA[> 5 Lac]]></string>
+    <string name="_4_5_lac" translatable="false">4 - 5 Lac</string>
+    <string name="_3_4_lac" translatable="false">3 - 4 Lac</string>
+    <string name="_2_3_lac" translatable="false">2 - 3 Lac</string>
+    <string name="_1_2_lac" translatable="false">1 - 2 Lac</string>
+    <string name="aadhar_back_image" translatable="false">Aadhar Back Image</string>
+    <string name="aadhar_front_image" translatable="false">Aadhar Front Image</string>
+    <string name="apply_for_loan" translatable="false">Apply for Loan</string>
+    <string name="please_select_finance_type" translatable="false">Please select finance type</string>
+    <string name="please_select_loan_amount" translatable="false">Please select loan amount</string>
+    <string name="please_select_aadhar_front_image" translatable="false">Please select Aadhar first image.</string>
+    <string name="please_select_aadhar_back_image" translatable="false">Please select Aadhar back image</string>
+    <string name="for_any_enquiry_and_help" translatable="false">For any Enquiry and Help</string>
+    <string name="please_select_date_of_birth" translatable="false">Please enter date of birth</string>
+    <string name="please_select_gender" translatable="false">Please Select Gender</string>
+    <string name="mandatory_permission_access_required" translatable="false">Notification access is required for getting Notification, please enable it in settings</string>
+    <string name="aadhar_upload_failed" translatable="false">Aadhar Uploading faild</string>
+    <string name="aadhar_message_upload_failed" translatable="false">Aadhar is not uploaded. Please TRY AGAIN</string>
+    <string name="delete_account" translatable="false">Delete Account</string>
+    <string name="btn_submit" translatable="false">Submit</string>
+    <string name="no_internet_connection" translatable="false">No Iternet Connection</string>
+    <string name="please_add_address" translatable="false">Please Add Address</string>
+    <string name="select_address" translatable="false">Select Address</string>
+    <string name="add_address" translatable="false">Add Address</string>
+    <string name="please_select_taluka" translatable="false">Please Select Taluka</string>
+    <string name="terms_and_conditions" translatable="false">Terms and Conditions</string>
+    <string name="what_kind_of_user_are_you" translatable="false">What kind of User are you?</string>
+    <string name="please_choose_payment_option" translatable="false">Please choose Payment Option</string>
+    <string name="payment" translatable="false">Payment</string>
+    <string name="payment_failed_please_try_again" translatable="false">Payment failed Please try again</string>
+    <string name="select_taluka" translatable="false">Select Taluka</string>
+    <string name="please_add_products" translatable="false">Please add Products</string>
+    <string name="off" translatable="false">Off</string>
+    <string name="my_cart" translatable="false">My Cart</string>
+    <string name="last_name" translatable="false">LastName</string>
+    <string name="buy_now" translatable="false">Buy Now</string>
+    <string name="add_to_cart" translatable="false">Add to Cart</string>
+    <string name="go_to_cart" translatable="false">Go To Cart</string>
+    <string name="expertAdvice" translatable="false">Expert Advice</string>
+    <string name="customer_service_call" translatable="false">Customer Service Call</string>
+    <string name="you_will_get_a_call_from_our" translatable="false">You will get a call from our</string>
+    <string name="update" translatable="false">Update</string>
+    <string name="state" translatable="false">State</string>
+    <string name="smart_phone_user" translatable="false">Smart Phone User</string>
+    <string name="owned_brand" translatable="false">Owned Brand</string>
+    <string name="are_you_tractor_owner" translatable="false">Are You Tractor Owner</string>
+    <string name="land" translatable="false">Land</string>
+    <string name="crops" translatable="false">Crops</string>
+    <string name="describe_yourself_to_others" translatable="false">Describe Yourself to Others</string>
+    <string name="hint_last_name" translatable="false">LastName</string>
+    <string name="first_name" translatable="false">FirstName</string>
+    <string name="trending_products" translatable="false">Trending Products</string>
+    <string name="trash" translatable="false">Trash</string>
+    <string name="instagram" translatable="false">Instagram</string>
+    <string name="linkedin" translatable="false">LinkedIn</string>
+    <string name="taluka" translatable="false">Taluka</string>
+    <string name="address" translatable="false">Address</string>
+    <string name="gender" translatable="false">Gender</string>
+    <string name="dob" translatable="false">Date Of Birth</string>
+    <string name="quantity" translatable="false">Quantity</string>
+    <string name="free_delivery" translatable="false">Free Delivery</string>
+    <string name="cash_on_delivery" translatable="false">CASH ON DELIVERY</string>
+    <string name="expert_advice" translatable="false">Expert Advice</string>
+    <string name="google_api_key">AIzaSyAaowdoYpnYqndogiCOAW-na2cI83GEi1A</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="total_amount">Total Amount</string>
+    <string-array name="gender_val">
+        <item>Select Gender</item>
+        <item>Male</item>
+        <item>Female</item>
+        <item>Others</item>
+    </string-array>
+</resources>

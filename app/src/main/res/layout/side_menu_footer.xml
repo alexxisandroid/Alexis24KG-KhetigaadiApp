@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/consKKK"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="bottom"
+    android:paddingTop="@dimen/dimen_5dp"
+    android:paddingBottom="@dimen/dimen_5dp">
+
+    <ImageView
+        android:id="@+id/iv_facebook"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:contentDescription="@null"
+        android:padding="@dimen/margin_10dp"
+        android:src="@drawable/ic_facebook"
+        app:layout_constraintEnd_toStartOf="@+id/iv_instagram"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_instagram"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:contentDescription="@null"
+        android:padding="@dimen/margin_10dp"
+        android:src="@drawable/instagram"
+        app:layout_constraintEnd_toStartOf="@+id/iv_linked_in"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/iv_facebook"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/iv_linked_in"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:contentDescription="@null"
+        android:padding="@dimen/margin_10dp"
+        android:src="@drawable/ic_linkedin"
+        app:layout_constraintEnd_toStartOf="@+id/ivWhatsApp"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/iv_instagram"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivWhatsApp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:contentDescription="@null"
+        android:padding="@dimen/margin_10dp"
+        android:src="@drawable/whats_app"
+        app:layout_constraintEnd_toStartOf="@+id/iv_youtude"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/iv_linked_in"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/iv_youtude"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:contentDescription="@null"
+        android:padding="@dimen/margin_10dp"
+        android:src="@drawable/youtube"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/ivWhatsApp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+ <!--  android:fontFamily="@font/poppins_medium"  -->
+    <TextView
+        android:id="@+id/tvShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:clickable="false"
+        android:drawablePadding="@dimen/dimen_5dp"
+        android:fontFamily="@font/poppins_medium"
+        android:gravity="center"
+        android:paddingTop="@dimen/dimen_2dp"
+        android:text="@string/share"
+        android:textColor="@color/navy_blue"
+        android:textSize="11sp"
+        app:layout_constraintEnd_toStartOf="@+id/vLine"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/iv_facebook"
+        app:drawableTopCompat="@drawable/ic_share_24dp" />
+
+
+    <TextView
+        android:id="@+id/vLine"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
+        android:background="@color/navy_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvRate"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvShare"
+        app:layout_constraintTop_toBottomOf="@id/iv_facebook" />
+
+ <!--   android:fontFamily="@font/poppins_medium"  -->
+    <TextView
+        android:id="@+id/tvRate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawablePadding="@dimen/dimen_5dp"
+        android:fontFamily="@font/poppins_medium"
+        android:gravity="center"
+        android:paddingTop="2dp"
+        android:text="@string/rating"
+        android:textColor="@color/navy_blue"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/vLine1"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/vLine"
+        app:layout_constraintTop_toBottomOf="@id/iv_facebook"
+        app:drawableTopCompat="@drawable/ic_rating_24dp" />
+
+
+    <TextView
+        android:id="@+id/vLine1"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="7dp"
+        android:layout_marginBottom="7dp"
+        android:background="@color/navy_blue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tvFeedback"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvRate"
+        app:layout_constraintTop_toBottomOf="@id/iv_facebook" />
+
+  <!--   android:fontFamily="@font/poppins_medium"  -->
+    <TextView
+        android:id="@+id/tvFeedback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawablePadding="@dimen/dimen_5dp"
+        android:gravity="center"
+        android:paddingTop="2dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/feedback"
+        android:textColor="@color/navy_blue"
+        android:textSize="11sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/vLine1"
+        app:layout_constraintTop_toBottomOf="@id/iv_facebook"
+        app:drawableTopCompat="@drawable/ic_feedback_24dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>

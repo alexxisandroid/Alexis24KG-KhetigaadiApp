@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <View
+        android:id="@+id/vLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="@dimen/margin_15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="@dimen/margin_15dp"
+        android:background="@color/grey_line"
+        app:layout_constraintTop_toTopOf="parent"/>
+    <TextView
+        android:id="@+id/tvValue1"
+        style="@style/ListFieldWithDrawable"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:maxLines="3"
+        android:paddingStart="@dimen/margin_15dp"
+        android:paddingEnd="@dimen/dimen_0dp"
+        app:layout_constraintEnd_toStartOf="@id/tvLabel"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vLine"
+        tools:text="Pune, Maharastra"/>
+
+    <TextView
+        android:id="@+id/tvLabel"
+        style="@style/ListFieldWithDrawable"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="@font/poppins_light"
+        android:maxLines="3"
+        android:paddingStart="@dimen/margin_15dp"
+        android:paddingEnd="@dimen/dimen_0dp"
+        android:textColor="@color/spinnerRowText"
+        app:layout_constraintEnd_toStartOf="@id/tvValue2"
+        app:layout_constraintStart_toEndOf="@id/tvValue1"
+        app:layout_constraintTop_toBottomOf="@id/vLine"
+        tools:text="Pune, Maharastra"/>
+    <TextView
+        android:id="@+id/tvValue2"
+        style="@style/ListFieldWithDrawable"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:maxLines="3"
+        android:paddingStart="@dimen/margin_15dp"
+        android:paddingEnd="@dimen/dimen_0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/tvLabel"
+        app:layout_constraintTop_toBottomOf="@id/vLine"
+        tools:text="Pune, Maharastra"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

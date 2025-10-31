@@ -1,0 +1,189 @@
+<HorizontalScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/sscroll"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:scrollbars="none">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tv_brand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/dimen_5dp"
+            android:gravity="center"
+            android:padding="@dimen/dimen_4dp"
+            android:text="@string/Brand"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_model"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:drawableTopCompat="@drawable/ic_brand_sell_60dp" />
+
+
+        <TextView
+            android:id="@+id/tv_model"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/dimen_5dp"
+            android:gravity="center"
+            android:padding="@dimen/dimen_4dp"
+            android:text="@string/Model"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_image"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_brand"
+            app:layout_constraintTop_toTopOf="parent"
+            app:drawableTopCompat="@drawable/ic_model_sell_60dp" />
+
+
+        <TextView
+            android:id="@+id/tv_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/dimen_5dp"
+            android:gravity="center"
+            android:padding="@dimen/dimen_4dp"
+            android:text="@string/images"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_year"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_model"
+            app:layout_constraintTop_toTopOf="parent"
+            app:drawableTopCompat="@drawable/ic_image_sell_60dp" />
+
+
+        <TextView
+            android:id="@+id/tv_year"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/dimen_5dp"
+            android:gravity="center"
+            android:padding="@dimen/dimen_4dp"
+            android:text="@string/Years"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_month"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_image"
+            app:layout_constraintTop_toTopOf="parent"
+            app:drawableTopCompat="@drawable/ic_year_sell_60dp" />
+
+
+        <TextView
+            android:id="@+id/tv_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/dimen_5dp"
+            android:gravity="center"
+            android:padding="@dimen/dimen_4dp"
+            android:text="@string/Month"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_hours"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_year"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            app:drawableTopCompat="@drawable/ic_month_sell_60dp" />
+
+        <TextView
+            android:id="@+id/tv_hours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/dimen_5dp"
+            android:gravity="center"
+            android:padding="@dimen/dimen_4dp"
+            android:text="@string/Hours"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_document"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_month"
+            app:layout_constraintTop_toTopOf="parent"
+            app:drawableTopCompat="@drawable/ic_hours_sell_60dp" />
+
+
+        <TextView
+            android:id="@+id/tv_document"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/dimen_5dp"
+            android:gravity="center"
+            android:padding="@dimen/dimen_4dp"
+            android:text="@string/Document"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_condition"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_hours"
+            app:layout_constraintTop_toTopOf="parent"
+            app:drawableTopCompat="@drawable/ic_documents_sell_60dp" />
+
+
+        <TextView
+            android:id="@+id/tv_condition"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/dimen_5dp"
+            android:gravity="center"
+            android:padding="@dimen/dimen_4dp"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:text="@string/Condition"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_price"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_document"
+            app:layout_constraintTop_toTopOf="parent"
+            app:drawableTopCompat="@drawable/ic_condition_sell_60dp" />
+
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginEnd="@dimen/dimen_5dp"
+            android:gravity="center"
+            android:padding="@dimen/dimen_4dp"
+            android:text="@string/Price"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tv_brand"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/tv_condition"
+            app:layout_constraintTop_toTopOf="parent"
+            app:drawableTopCompat="@drawable/ic_price_sell_60dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</HorizontalScrollView>

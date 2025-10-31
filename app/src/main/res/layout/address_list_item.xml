@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardView"
+    style="@style/CardViewHorizontalListItem"
+    app:cardUseCompatPadding="true"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/dimen_10dp"
+    android:orientation="vertical"
+    android:layout_margin="1dp">
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="0.9"
+        android:gravity="center_vertical"
+        android:text="Large Text" />
+    <TextView
+        android:id="@+id/tvType"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="0.9"
+        android:gravity="center_vertical"
+        android:text="Large Text" />
+    <TextView
+        android:id="@+id/tvMobile"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="0.9"
+        android:gravity="center_vertical"
+        android:text="Large Text" />
+    <TextView
+        android:id="@+id/tvAddressLine1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="0.9"
+        android:gravity="center_vertical"
+        android:text="Large Text" />
+    <TextView
+        android:id="@+id/tvAddressLine2"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="0.9"
+        android:gravity="center_vertical"
+        android:text="Large Text" />
+    <CheckBox
+        android:id="@+id/radioAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="5dp"
+        android:layout_weight="0.1"/>
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/dimen_2dp"
+      android:orientation="horizontal">
+    <TextView
+        android:id="@+id/tvEdit"
+        android:layout_width="0dp"
+        style="@style/ButtonStyleFilledPrimary"
+        android:layout_height="match_parent"
+        android:layout_weight="0.9"
+        android:gravity="center_vertical"
+        android:text="@string/edit"/>
+    <TextView
+        android:id="@+id/tvDelete"
+        android:layout_width="0dp"
+        style="@style/ButtonStyleFilledPrimary"
+        android:layout_height="match_parent"
+        android:layout_weight="0.9"
+        android:gravity="center_vertical"
+        android:text="@string/delete"/>
+  </LinearLayout>
+</LinearLayout>
+</androidx.cardview.widget.CardView>

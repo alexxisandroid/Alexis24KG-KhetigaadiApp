@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.khetigaadi.commons.activities.OnRoadPriceActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <include
+            android:id="@+id/toolbars"
+            layout="@layout/toolbar"/>
+    </com.google.android.material.appbar.AppBarLayout>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/llContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingTop="20dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="20dp">
+            <ImageView
+                android:id="@+id/ivImage"
+                android:layout_width="match_parent"
+                android:layout_height="287dp"
+                android:src="@mipmap/ic_launcher"
+                app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/tvName"
+                style="@style/TractorListItemTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:maxLines="2"
+                android:paddingTop="@dimen/margin_5dp"
+                android:paddingEnd="@dimen/margin_5dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/dimen_16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/ivImage"
+                tools:text="Same Deutz Fahr Agrolux 80 Profiline" />
+            <CheckBox
+                android:id="@+id/cbAgree"
+                style="@style/AgreementStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_50dp"
+                android:gravity="top"
+                android:fontFamily="@font/poppins_medium"
+                android:text="@string/i_agree_that_by_clicking"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvName" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+    <com.andexert.library.RippleView
+        android:id="@+id/riRequest"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="@dimen/margin_15dp">
+        <Button
+            style="@style/ButtonStyleFilledRed"
+            android:layout_width="match_parent"
+            android:textAlignment="center"
+            android:layout_height="match_parent"
+            android:text="@string/btn_request" />
+    </com.andexert.library.RippleView>
+    <include
+        android:id="@+id/llProgress"
+        layout="@layout/progressbar"
+        tools:visibility="gone" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

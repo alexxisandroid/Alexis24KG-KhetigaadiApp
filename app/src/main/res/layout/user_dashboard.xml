@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="5">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3">
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/userChart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        <androidx.cardview.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <com.andexert.library.RippleView
+                android:id="@+id/rvUploadedTractor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/cerulean"
+                    android:orientation="vertical">
+                    <ProgressBar
+                        android:id="@+id/PrUploadedCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:visibility="gone" />
+                    <TextView
+                        android:id="@+id/tvUploadedCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/_0"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/uploaded_old_tractor"
+                        android:textAppearance="?android:attr/textAppearance"
+                        android:textColor="@color/white" />
+
+                </LinearLayout>
+
+            </com.andexert.library.RippleView>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.andexert.library.RippleView
+                android:id="@+id/rvSoldTractor"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/greenHaze"
+                    android:orientation="vertical">
+
+                    <ProgressBar
+                        android:id="@+id/PrSoldCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tvSoldCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/_0"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/sold_old_tractor"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+
+            </com.andexert.library.RippleView>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.andexert.library.RippleView
+                android:id="@+id/rvPendingSell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/punch"
+                    android:orientation="vertical">
+
+                    <ProgressBar
+                        android:id="@+id/PrPending"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tvPending"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/_0"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/pending_sell_tractor"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+
+            </com.andexert.library.RippleView>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.andexert.library.RippleView
+                android:id="@+id/rvRentTr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/buttercup"
+                    android:orientation="vertical">
+
+                    <ProgressBar
+                        android:id="@+id/PrRentTr"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/tvRentTr"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/_0"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="@color/white" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="@string/uploaded_rent_tractor"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+            </com.andexert.library.RippleView>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</LinearLayout>

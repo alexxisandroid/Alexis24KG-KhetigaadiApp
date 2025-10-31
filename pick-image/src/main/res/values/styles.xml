@@ -1,0 +1,15 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="AppTheme.AppBarOverlay" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#000000</item>
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="colorAccent">@color/white</item>
+    </style>
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+<!--    <style name="Toolbar" parent="Widget.Material3.Toolbar">-->
+<!--        <item name="android:background">@color/white</item>-->
+<!--        <item name="titleTextColor">#48494b</item>-->
+<!--&lt;!&ndash;        <item name="titleTextAppearance">@style/ToolBarTitle</item>&ndash;&gt;-->
+<!--    </style>-->
+</resources>

@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".weather.WeatherNewActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/white"
+            android:gravity="start"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:subtitleTextColor="@color/spinnerRowText"
+            app:title="@string/app_name"
+            app:titleTextColor="@color/dark_grey" />
+    </com.google.android.material.appbar.AppBarLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="2dp"
+            android:background="@color/rv_back_color"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/date_item" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/margin_20dp">
+                <ImageView
+                    android:id="@+id/ivImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_40dp"
+                    android:src="@mipmap/ic_launcher"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tvTemperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_40dp"
+                    android:fontFamily="@font/poppins"
+                    android:textSize="60sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/ivImage"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="20.7" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_20dp"
+                    android:text="@string/celsius"
+                    app:layout_constraintStart_toEndOf="@id/tvTemperature"
+                    app:layout_constraintTop_toTopOf="@id/tvTemperature" />
+
+                <TextView
+                    android:id="@+id/tv_condition_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_5dp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    app:layout_constraintStart_toStartOf="@id/tvTemperature"
+                    app:layout_constraintTop_toBottomOf="@id/tvTemperature"
+                    tools:text="Clear" />
+
+                <TextView
+                    android:id="@+id/tv_min_temperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:textSize="60sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/v_line"
+                    app:layout_constraintTop_toBottomOf="@id/tv_condition_text"
+                    tools:text="23.6" />
+
+                <View
+                    android:id="@+id/v_line"
+                    android:layout_width="2dp"
+                    android:layout_height="70dp"
+                    android:background="@color/dark_grey"
+                    app:layout_constraintBottom_toBottomOf="@id/tv_min_temperature"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_max_temperature"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/tv_min_temperature"
+                    app:layout_constraintTop_toBottomOf="@id/tv_condition_text" />
+
+                <TextView
+                    android:id="@+id/tv_max_temperature"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins"
+                    android:textSize="60sp"
+                    app:layout_constraintEnd_toStartOf="@+id/v_line"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_condition_text"
+                    tools:text="23.3" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:text="@string/celsius"
+                    app:layout_constraintStart_toEndOf="@id/tv_min_temperature"
+                    app:layout_constraintTop_toTopOf="@id/tv_min_temperature" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:text="@string/celsius"
+                    app:layout_constraintStart_toEndOf="@id/tv_max_temperature"
+                    app:layout_constraintTop_toTopOf="@id/tv_max_temperature" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/minimum"
+                    app:layout_constraintEnd_toEndOf="@id/tv_min_temperature"
+                    app:layout_constraintStart_toStartOf="@id/tv_min_temperature"
+                    app:layout_constraintTop_toBottomOf="@id/tv_min_temperature" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/maximum"
+                    app:layout_constraintEnd_toEndOf="@id/tv_max_temperature"
+                    app:layout_constraintStart_toStartOf="@id/tv_max_temperature"
+                    app:layout_constraintTop_toBottomOf="@id/tv_max_temperature" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_extras"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_10dp"
+                    android:layout_marginTop="@dimen/margin_40dp"
+                    android:layout_marginEnd="@dimen/margin_10dp"
+                    android:background="@color/rv_back_color"
+                    android:paddingBottom="@dimen/margin_2dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_max_temperature">
+
+                    <TextView
+                        android:id="@+id/tvPrecipitation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:gravity="center"
+                        android:padding="@dimen/margin_15dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/tvWind"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Rain \n0 mm"
+                        app:drawableTopCompat="@drawable/ic_rain_48" />
+
+                    <TextView
+                        android:id="@+id/tvWind"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:gravity="center"
+                        android:padding="@dimen/margin_15dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toStartOf="@+id/tvHumidity"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/tvPrecipitation"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Wind \n1.5 m/s"
+                        app:drawableTopCompat="@drawable/ic_wind_48" />
+
+                    <TextView
+                        android:id="@+id/tvHumidity"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_medium"
+                        android:gravity="center"
+                        android:padding="@dimen/margin_15dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/tvWind"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="Humidity\n68 %"
+                        app:drawableTopCompat="@drawable/ic_humidity_48" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </LinearLayout>
+    <include
+        android:id="@+id/noWeather"
+        layout="@layout/no_weather_message"
+        android:visibility="gone"/>
+    <include
+        android:id="@+id/llProgressBar"
+        layout="@layout/progressbar"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

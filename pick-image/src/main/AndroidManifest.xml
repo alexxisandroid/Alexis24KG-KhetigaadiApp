@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        package="com.khetigaadi.pick_image">
+        <uses-permission
+            android:name="android.permission.READ_EXTERNAL_STORAGE"
+            android:maxSdkVersion="28"/>
+        <uses-permission
+            android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+            android:maxSdkVersion="28"/>
+        <application
+            android:allowBackup="true"
+            android:label="@string/app_name"
+            android:supportsRtl="true">
+            <activity
+                android:name="GalleryImagesActivity"
+                android:screenOrientation="fullSensor"
+                android:windowSoftInputMode="stateHidden|adjustResize"
+                tools:ignore="DiscouragedApi" />
+            <activity
+                android:name=".GalleryVideoActivity"
+                android:screenOrientation="fullSensor"
+                tools:ignore="DiscouragedApi"
+                android:windowSoftInputMode="stateHidden|adjustResize"/>
+            <activity
+                android:name="com.yalantis.ucrop.UCropActivity"
+                android:screenOrientation="fullSensor"
+                tools:ignore="DiscouragedApi"
+                android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        </application>
+        <queries>
+            <!-- open camera -->
+            <intent>
+                <action android:name="android.media.action.IMAGE_CAPTURE"/>
+                <data android:mimeType="image/jpeg|image/png|image/jpg"/>
+            </intent>
+            <!-- open Gallery -->
+            <intent>
+                <action android:name="android.intent.action.PICK"/>
+                <data android:mimeType="image/jpeg|image/png|image/jpg"/>
+            </intent>
+        </queries>
+    </manifest>
