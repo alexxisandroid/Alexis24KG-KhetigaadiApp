@@ -54,15 +54,13 @@ class NewTractorDetailsOverview : BaseFragment() {
     private var viewModel: NewTractorViewModel? = null
     @Inject
     lateinit var sessionManager:SessionManager
-    private var popularTractorAdapter: SimilarTractorAdapter? = null
+    private var popularTractorAdapter:SimilarTractorAdapter? = null
     @JvmField
     @Inject
     var recentRepo: RecentRepo? = null
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        binding = NewTractorOverviewDeatailsBinding.inflate(inflater, container, false)
+    override fun onCreateView(inflater:LayoutInflater,container:ViewGroup?,savedInstanceState:Bundle?):View
+    {
+        binding = NewTractorOverviewDeatailsBinding.inflate(inflater,container,false)
         val view: View = binding.root
         initSimilarTractor()
         Glide.with(requireActivity())
@@ -70,7 +68,7 @@ class NewTractorDetailsOverview : BaseFragment() {
             .into(binding.progressBar.ivLoader)
         return view
     }
-    private fun initUI(data: NewTractorOverviewResp?) {
+    private fun initUI(data:NewTractorOverviewResp?) {
         val tractor = data!!.data[0]
         binding.ivShare.setOnClickListener {
             try {
@@ -223,6 +221,7 @@ class NewTractorDetailsOverview : BaseFragment() {
     }
     private fun initSimilarTractor() {
         binding.includeSimilar.tvLabel.text = getString(R.string.similar_tractors)
+       // binding.includeSimilar.tvLabel.
         binding.includeSimilar.tvSeeMore.visibility = View.GONE
         popularTractorAdapter =
             SimilarTractorAdapter(requireActivity(), binding.includeSimilar.rvList)

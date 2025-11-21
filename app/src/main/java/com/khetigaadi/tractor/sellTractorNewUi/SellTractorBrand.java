@@ -129,7 +129,7 @@ public class SellTractorBrand extends BaseFragment {
 //            }
 //        });
 
-        brandRepository.getOldTractorBrands().observe(this,new Observer<List<com.khetigaadi.implement.newImplement.util.Brand>>() {
+        brandRepository.getOldTractorBrandsSell().observe(this,new Observer<List<com.khetigaadi.implement.newImplement.util.Brand>>() {
             @Override
             public void onChanged(@Nullable List<com.khetigaadi.implement.newImplement.util.Brand> brands) {
                 try {

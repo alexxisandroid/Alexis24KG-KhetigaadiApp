@@ -11,29 +11,18 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Toast;
-
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
-
 //import com.khetigaadi.pick_image.databinding.ActivityGalleryImagesBinding;
-
 //import com.khetigaadi.R;
 //import com.khetigaadi.databinding.ActivityGalleryImagesBinding;
-
 //import com.khetigaadi.pick_image.databinding.ActivityGalleryImagesBinding;
-
 import com.khetigaadi.pick_image.databinding.ActivityGalleryImagesBinding;
-
 import java.util.ArrayList;
 public class GalleryVideoActivity extends AppCompatActivity {
     public static final String VIDEO_RESULT_KEY = "videoUri";
@@ -47,22 +36,19 @@ public class GalleryVideoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-
-
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         binding = ActivityGalleryImagesBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        EdgeToEdge.enable(this);
-        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
-            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-            return insets;
-        });
-
+//        EdgeToEdge.enable(this);
+//        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
+//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+//            return insets;
+//        });
         videos.add(new Video());
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
+        if(ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA,Manifest.permission.WRITE_EXTERNAL_STORAGE},0);
         }
         initToolbar();
         checkPermission();
@@ -87,9 +73,9 @@ public class GalleryVideoActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode,int resultCode,Intent data)
     {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_TAKE_VIDEO) {
-            if (resultCode == Activity.RESULT_OK) {
+        super.onActivityResult(requestCode,resultCode,data);
+        if(requestCode == REQUEST_TAKE_VIDEO) {
+            if(resultCode == Activity.RESULT_OK) {
                 if (file != null) {
                     Intent intent = new Intent();
                     intent.setData(file);
@@ -97,8 +83,9 @@ public class GalleryVideoActivity extends AppCompatActivity {
                     finish();
                 }
             }
-        } else if (requestCode == PICK_VIDEO) {
-            if (resultCode == Activity.RESULT_OK) {
+        }
+        else if(requestCode == PICK_VIDEO) {
+            if(resultCode == Activity.RESULT_OK) {
                 Intent intent = new Intent();
                 intent.setData(data.getData());
                 setResult(Activity.RESULT_OK, intent);
@@ -109,17 +96,15 @@ public class GalleryVideoActivity extends AppCompatActivity {
     private void checkPermission()
     {
         /*RUN TIME PERMISSIONS*/
-        if ((ContextCompat.checkSelfPermission(getApplicationContext(),
+        if((ContextCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) && (ContextCompat.checkSelfPermission(getApplicationContext(),
                 Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)) {
-            if ((ActivityCompat.shouldShowRequestPermissionRationale(GalleryVideoActivity.this,
+            if((ActivityCompat.shouldShowRequestPermissionRationale(GalleryVideoActivity.this,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE)) && (ActivityCompat.shouldShowRequestPermissionRationale(GalleryVideoActivity.this,
                     Manifest.permission.READ_EXTERNAL_STORAGE))) {
 
             } else {
-                ActivityCompat.requestPermissions(GalleryVideoActivity.this,
-                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE},
-                        REQUEST_PERMISSIONS);
+                ActivityCompat.requestPermissions(GalleryVideoActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE},REQUEST_PERMISSIONS);
             }
         } else {
             fetchVideo();
@@ -132,31 +117,32 @@ public class GalleryVideoActivity extends AppCompatActivity {
         Cursor cursor;
         int column_index_data, column_index_folder_name, column_id, thum;
         uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
-        String[] projection = {MediaStore.MediaColumns.DATA, MediaStore.Video.Media.BUCKET_DISPLAY_NAME, MediaStore.Video.Media._ID, MediaStore.Video.Thumbnails.DATA};
+        String[] projection = {MediaStore.MediaColumns.DATA,MediaStore.Video.Media.BUCKET_DISPLAY_NAME,MediaStore.Video.Media._ID,MediaStore.Video.Thumbnails.DATA};
         final String orderBy = MediaStore.Images.Media.DATE_TAKEN;
         String duration = Integer.toString(30 * 1000);
-        cursor = getApplicationContext().getContentResolver().query(uri, projection, MediaStore.Video.VideoColumns.DURATION + " < ?", new String[]{duration}, orderBy + " DESC");
-        while (cursor.moveToNext()) {
+        cursor = getApplicationContext().getContentResolver().query(uri,projection,MediaStore.Video.VideoColumns.DURATION + " < ?",new String[]{duration},orderBy + " DESC");
+        while(cursor.moveToNext()) {
             Video video = new Video();
-            video.setUri(ContentUris.withAppendedId(MediaStore.Video.Media.EXTERNAL_CONTENT_URI, cursor.getLong(cursor.getColumnIndex(MediaStore.Video.Media._ID))));
+            video.setUri(ContentUris.withAppendedId(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,cursor.getLong(cursor.getColumnIndex(MediaStore.Video.Media._ID))));
             videos.add(video);
         }
-        VideoAdapter imageAdapter = new VideoAdapter(GalleryVideoActivity.this, videos);
-        binding.mRecyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        VideoAdapter imageAdapter = new VideoAdapter(GalleryVideoActivity.this,videos);
+        binding.mRecyclerView.setLayoutManager(new GridLayoutManager(this,3));
         binding.mRecyclerView.setAdapter(imageAdapter);
-        imageAdapter.setOnClickListener((item, position) -> {
+        imageAdapter.setOnClickListener((item,position) -> {
             if (position == 0) {
                 takeVideo();
             } else if (position == 1) {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_PICK);
                 intent.setType("video/*");
-                intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT, 30);
-                startActivityForResult(intent, PICK_VIDEO);
+                intent.putExtra(MediaStore.EXTRA_DURATION_LIMIT,30);
+                //noinspection deprecation
+                startActivityForResult(intent,PICK_VIDEO);
             } else {
                 Intent intent = new Intent();
                 intent.setData(item.getUri());
-                setResult(Activity.RESULT_OK, intent);
+                setResult(Activity.RESULT_OK,intent);
                 finish();
             }
         });
@@ -178,7 +164,7 @@ public class GalleryVideoActivity extends AppCompatActivity {
                 break;
             }
             case 0: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
                         && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
                 }
                 break;

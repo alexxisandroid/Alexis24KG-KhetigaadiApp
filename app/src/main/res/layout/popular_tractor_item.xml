@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardView"
     style="@style/CardViewHorizontalListItem"
+    app:cardUseCompatPadding="true"
     android:layout_width="wrap_content"
+    app:cardCornerRadius="@dimen/dimen_4dp"
     android:layout_height="wrap_content">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="260dp"
-        android:layout_height="290dp"
+        android:layout_height="@dimen/payu_dimen_280dp"
         android:background="@color/detailsBackground">
         <ImageView
             android:id="@+id/popularTractorImage"
@@ -17,6 +19,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/margin_5dp"
+            android:scaleType="fitXY"
             android:background="@color/white"
             android:padding="@dimen/margin_5dp"
             android:src="@mipmap/ic_launcher"
@@ -28,9 +31,11 @@
             style="@style/ViewsRoundedSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/margin_5dp"
-            android:layout_marginTop="@dimen/margin_5dp"
+            android:layout_gravity="center_vertical|start"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:textAlignment="center"
+            android:gravity="start|center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="0k"/>
@@ -39,10 +44,13 @@
             style="@style/TractorListItemTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_5dp"
+
             android:maxLines="1"
             android:textColor="@color/black"
-            android:textSize="14sp"
+            android:textStyle="bold"
+            android:layout_marginEnd="@dimen/dimen_10dp"
+            android:fontFamily="@font/poppins_bold"
+            android:textSize="@dimen/dimen_16sp"
             app:layout_constraintBottom_toTopOf="@id/tvHP"
             tools:text=" Sonalika DI 47 Rx (MahSnecial)"/>
         <TextView
@@ -50,8 +58,11 @@
             style="@style/ItemTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:fontFamily="@font/poppins_semibold"
+            android:layout_marginBottom="@dimen/payu_dimen_6dp"
             app:layout_constraintBottom_toTopOf="@id/btnGetOnRoadPrice"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="45 HP"/>
@@ -67,16 +78,25 @@
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="6-7 Lakh"
             tools:visibility="visible"/>
-        <com.google.android.material.button.MaterialButton
+        <!--  style="@style/OutLineButtonStyleSmall"  -->
+        <TextView
             android:id="@+id/btnGetOnRoadPrice"
-            style="@style/OutLineButtonStyleSmall"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:fontFamily="@font/poppins_medium"
+            android:layout_height="@dimen/payu_dimen_38dp"
             android:layout_gravity="center"
-            android:layout_marginStart="@dimen/dimen_20dp"
-            android:layout_marginEnd="@dimen/margin_20dp"
-            android:layout_marginBottom="@dimen/margin_10dp"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/dimen_5dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:maxLines="1"
+            android:layout_marginEnd="@dimen/margin_10dp"
+            android:textColor="@color/red"
+            android:textAlignment="center"
+            android:outlineAmbientShadowColor="@color/red"
+            android:background="@drawable/btn_rectangle_outline_bg_red"
+            android:layout_marginBottom="@dimen/dimen_10dp"
             android:text="@string/getOnRoadPrice"
+            android:textSize="@dimen/dimen_14sp"
             app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

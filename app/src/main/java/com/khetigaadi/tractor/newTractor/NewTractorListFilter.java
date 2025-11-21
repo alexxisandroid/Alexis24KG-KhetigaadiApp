@@ -121,6 +121,7 @@ public class NewTractorListFilter extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+       // ((MainActivity)activity).reinstBNav();
         if(callFrom == CallFrom.NEW_TRACTOR || callFrom == CallFrom.DEALER) {
             brandRepository.getNewTractorBrands().observe(getViewLifecycleOwner(),new Observer<List<Brand>>() {
                 @Override

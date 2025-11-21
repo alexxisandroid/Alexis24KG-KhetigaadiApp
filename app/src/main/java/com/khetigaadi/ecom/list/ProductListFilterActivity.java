@@ -41,16 +41,16 @@ public class ProductListFilterActivity extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        //WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         binding = ActivityProductListFilterBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
-            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-            return insets;
-        });
-        EdgeToEdge.enable(this);
+//        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
+//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+//            return insets;
+//        });
+//        EdgeToEdge.enable(this);
         Log.d("bvcbcbvbcv22====","");
         viewModel = new ViewModelProvider(this).get(ProductListFilterViewModel.class);
         initToolbar();
@@ -65,7 +65,7 @@ public class ProductListFilterActivity extends AppCompatActivity {
            binding.tvMaxPrice.setText(String.format("%s%s", " - " + getString(R.string.rs), NumberFormatting.format((long) (binding.rangeBarPrice.getValues().get(1) * 1000))));
            binding.rangeBarPrice.addOnChangeListener((slider, value, fromUser) -> {
                binding.tvMinPrice.setText(String.format("%s%s", getString(R.string.rs), NumberFormatting.format((long) (slider.getValues().get(0) * 1000))));
-               binding.tvMaxPrice.setText(String.format("%s%s", getString(R.string.rs), NumberFormatting.format((long) (slider.getValues().get(1) * 1000))));
+               binding.tvMaxPrice.setText(String.format("%s%s"," - " +  getString(R.string.rs), NumberFormatting.format((long) (slider.getValues().get(1) * 1000))));
 //                Timber.e("onRangeChangeListener: leftPinValue= " + leftPinValue + " rightPinValue= " + rightPinValue);
            });
            binding.rangeBarPrice.setLabelFormatter(value -> String.format("%s%s", getString(R.string.rs), NumberFormatting.format((long) (value * 1000))));

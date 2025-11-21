@@ -59,8 +59,8 @@ public class CompareImp extends Fragment {
     }
     @NotNull
     @Override
-    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = CompareImpBinding.inflate(inflater, container, false);
+    public View onCreateView(@NotNull LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
+        binding = CompareImpBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
         arrayListResult = new ArrayList<>();
         getCompareImpDetails();
@@ -68,7 +68,7 @@ public class CompareImp extends Fragment {
     }
     private void getCompareImpDetails() {
         binding.llProgress.setVisibility(View.VISIBLE);
-        khetiAPIs.getCompareImp(new Gson().fromJson(value, CompImpReq.class))
+        khetiAPIs.getCompareImp(new Gson().fromJson(value,CompImpReq.class))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new DisposableSingleObserver<>() {
@@ -76,7 +76,7 @@ public class CompareImp extends Fragment {
                     public void onSuccess(@NonNull CompImpResp myResponse) {
                         binding.llProgress.setVisibility(View.GONE);
                         try {
-                            if (!myResponse.isError()) {
+                            if(!myResponse.isError()) {
                                 //Google analytic code
                                 Timber.i("Setting screen name: %s", TAG);
                                 mTracker.setScreenName(TAG + " " + myResponse.getData().getFirstImplement().get(0).getImplementName());

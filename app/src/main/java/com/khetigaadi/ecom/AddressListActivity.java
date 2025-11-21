@@ -23,6 +23,8 @@ import com.khetigaadi.ecom.adapter.AddressListAdapter;
 import com.khetigaadi.ecom.address.AddAddressActivity;
 import com.khetigaadi.ecom.address.AddressViewModel;
 //import com.khetigaadi.shop.databinding.ActivityAddressListBinding;
+import java.util.Objects;
+
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class AddressListActivity extends AppCompatActivity {
@@ -48,18 +50,18 @@ public class AddressListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         binding = ActivityAddressListBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
-            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-            return insets;
-        });
-        EdgeToEdge.enable(this);
+//        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
+//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+//            return insets;
+//        });
+//        EdgeToEdge.enable(this);
         viewModel = new ViewModelProvider(this).get(AddressViewModel.class);
         initToolbar();
         Glide.with(this)
@@ -83,6 +85,7 @@ public class AddressListActivity extends AppCompatActivity {
         binding.toolbarI.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
         binding.toolbarI.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         binding.toolbarI.toolbar.setTitle(getString(R.string.select_address));
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.select_address));
     }
     private void initAdapter() {
         binding.rvAddressList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));

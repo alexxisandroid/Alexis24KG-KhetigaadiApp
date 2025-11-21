@@ -66,16 +66,16 @@ public class ProfileActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
+        //WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
         binding = ActivityProfileBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        EdgeToEdge.enable(this);
-        ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
-            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-            return insets;
-        });
+//        EdgeToEdge.enable(this);
+//        ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
+//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+//            return insets;
+//        });
         findViewById();
         initToolbar();
         binding.tvDeleteAccount.setPaintFlags(binding.tvDeleteAccount.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);

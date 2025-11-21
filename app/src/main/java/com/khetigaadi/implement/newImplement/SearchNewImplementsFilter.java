@@ -144,7 +144,7 @@ public class SearchNewImplementsFilter extends BaseFragment {
                     String baseUrl = SharedPreferenceUtils.getInstance(activity).getStringValue(Constants.BRAND_BASE_URL, "");
                     try {
                         binding.llBrand.removeAllViews();
-                        for (int i = 1; i < brands.size(); i = i + 4) {
+                        for (int i = 0; i < brands.size(); i = i + 4) {
                             LinearLayout linearLayout = new LinearLayout(activity);
                             linearLayout.setWeightSum(4);
                             linearLayout.setOrientation(LinearLayout.HORIZONTAL);
@@ -187,7 +187,7 @@ public class SearchNewImplementsFilter extends BaseFragment {
             if (bannerList.size() != 0) {
                 binding.viewPager.setAdapter(new TwoBannerSlideAdapter(activity, bannerList));
                 binding.viewPager.setClipToPadding(false);
-                binding.viewPager.setPadding(0, 0, 120, 0);
+                binding.viewPager.setPadding(60, 0, 60, 0);
                 binding.indicator.setViewPager(binding.viewPager);
                 runnable(bannerList.size());
                 handler.postDelayed(animateViewPager,
@@ -299,7 +299,7 @@ public class SearchNewImplementsFilter extends BaseFragment {
                                 try {
                                     Log.d("cvbcvbcvbcfdgd===",""+myResponse.getBrand().size()+"=="+myResponse.isError());
                                     binding.llBrand.removeAllViews();
-                                    if (!myResponse.isError()) {
+                                    if(!myResponse.isError()) {
                                         String lpath = myResponse.getOthers().getBrandLogoPath(); // "https://khetigaadi.com/images/brandlogos/";
                                         List<Brand> brands = new ArrayList<Brand>();
                                         for (int i = 0; i < myResponse.getBrand().size(); i++) {

@@ -39,12 +39,7 @@ class UsedTractorHomeListAdapter(private val mContext:Context,private val userId
     override fun onCreateViewHolder(parent:ViewGroup,viewType:Int):RecyclerView.ViewHolder {
         return if (viewType == EMPTY_VIEW) {
             return EmptyViewHolder(
-                EmptyViewBinding.inflate(
-                    LayoutInflater.from(parent.context),
-                    parent,
-                    false
-                )
-            )
+                EmptyViewBinding.inflate(LayoutInflater.from(parent.context),parent,false))
         } else if (viewType == VIEW_ITEM) {
 
                if (isFromHome)

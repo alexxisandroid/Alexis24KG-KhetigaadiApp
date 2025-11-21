@@ -18,6 +18,11 @@ import com.khetigaadi.databinding.CategoriesNewHomeListItemBinding;
 import com.khetigaadi.databinding.EmptyViewBinding;
 import com.khetigaadi.shop.model.Category;
 import com.khetigaadi.shop.model.Others;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+
 public class CategoriesAdapter extends BaseRecyclerViewAdapter<Category, Others> {
     private final int VIEW_ITEM = 1;
     private final Context context;
@@ -102,6 +107,7 @@ public class CategoriesAdapter extends BaseRecyclerViewAdapter<Category, Others>
     public void setListener(CategoriesAdapter.Listener listener) {
         this.listener = listener;
     }
+
     private static class ViewHolder extends RecyclerView.ViewHolder {
         private final CategoriesListItemBinding binding;
         public ViewHolder(@NonNull CategoriesListItemBinding binding) {

@@ -14,18 +14,20 @@ public interface DaoBrand {
     Long insertBrand(Brand brand);
     //@Query("Select * FROM Brand") manufacturerType brand_type  ORDER BY possition
     //  @Query("SELECT * FROM Brand WHERE brand_type IN ('0','1') AND status='1' ")
-    @Query("SELECT * FROM Brand  WHERE brand_type IN (0,1) and brand_status = 1 ")
+    @Query("SELECT * FROM Brand  WHERE brand_type IN (0,1) and brand_status = 1 order by possition ")
     LiveData<List<Brand>> fetchAllNewTractorBrand();
-    @Query("SELECT * FROM Brand ")
+    @Query("SELECT * FROM Brand order by possition")
     List<Brand> fetchAllNewTractorBrands();
     @Query("SELECT COUNT(*) FROM Brand")
     int getCount();
-
     @Query("SELECT COUNT(*) FROM Brand where brand_id =:id")
     int getBrandCount(int id);
-    @Query("SELECT * FROM Brand WHERE brand_type IN (0,1) ")
+    @Query("SELECT * FROM Brand WHERE brand_type IN (0,1) order by possition")
     LiveData<List<Brand>> fetchAllOldTractorBrand();
-    @Query("SELECT * FROM Brand WHERE brand_type IN (0,2) AND brand_status=1 ORDER BY implement_possition")
+
+    @Query("SELECT * FROM Brand WHERE brand_type IN (0,1) and brand_status = 1 order by possition")
+    LiveData<List<Brand>> fetchAllOldTractorBrandSell();
+    @Query("SELECT * FROM Brand WHERE (brand_type=2 or brand_type='2' or brand_type IN (0,2)) AND (brand_status=1 or brand_status='1') ORDER BY implement_possition ASC")
     LiveData<List<Brand>> fetchAllImplementBrand();
     @Query("SELECT * FROM Brand WHERE brand_id =:id")
     LiveData<Brand> getTask(int id);
@@ -42,7 +44,7 @@ public interface DaoBrand {
    //@Query("SELECT * FROM Brand WHERE manufacturerType IN ('0','2') AND status='1' ORDER BY brand_name")
     @Query("SELECT * FROM Brand WHERE brand_type IN (0,2) AND status=1 ORDER BY brand_name")
     LiveData<List<Brand>> fetchAllImplementBrandAsc();
-    @Query("SELECT * FROM Brand WHERE isHarvesterBrand ='1'")
+    @Query("SELECT * FROM Brand WHERE isHarvesterBrand =1 or isHarvesterBrand='1' or isHarvesterBrand IN (1) order by implement_possition ASC")
     LiveData<List<Brand>> fetchHarvesterBrands();
 }
 ////import com.khetigaadi.base.model.Brand;

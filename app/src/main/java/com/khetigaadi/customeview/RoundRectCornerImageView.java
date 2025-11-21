@@ -12,11 +12,11 @@ public class RoundRectCornerImageView extends androidx.appcompat.widget.AppCompa
         super(context);
         init();
     }
-    public RoundRectCornerImageView(Context context, AttributeSet attrs) {
+    public RoundRectCornerImageView(Context context,AttributeSet attrs) {
         super(context, attrs);
         init();
     }
-    public RoundRectCornerImageView(Context context, AttributeSet attrs, int defStyle) {
+    public RoundRectCornerImageView(Context context,AttributeSet attrs,int defStyle) {
         super(context, attrs, defStyle);
         init();
     }
@@ -25,7 +25,7 @@ public class RoundRectCornerImageView extends androidx.appcompat.widget.AppCompa
     }
     @Override
     protected void onDraw(Canvas canvas) {
-        rect = new RectF(0,0,this.getWidth(), this.getHeight());
+        rect = new RectF(0,0,this.getWidth(),this.getHeight());
         path.addRoundRect(rect,radius,radius,Path.Direction.CW);
         canvas.clipPath(path);
         super.onDraw(canvas);

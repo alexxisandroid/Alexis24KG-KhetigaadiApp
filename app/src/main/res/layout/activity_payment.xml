@@ -91,9 +91,9 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="100" />
+                tools:text="100"/>
         </LinearLayout>
-        <com.google.android.material.button.MaterialButton
+        <TextView
             android:id="@+id/btnContinue"
             style="@style/ButtonStyleFilledRed"
             android:layout_width="0dp"
@@ -101,7 +101,9 @@
             android:layout_marginStart="@dimen/margin_2dp"
             android:text="@string/continue_string"
             android:textAlignment="center"
-            android:textColor="@color/white"
+            android:outlineAmbientShadowColor="@color/red"
+            android:background="@drawable/btn_rectangle_outline_bg_red"
+            android:textColor="@color/red"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

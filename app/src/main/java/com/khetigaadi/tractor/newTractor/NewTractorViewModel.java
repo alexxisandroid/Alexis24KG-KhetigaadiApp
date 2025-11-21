@@ -1,4 +1,6 @@
 package com.khetigaadi.tractor.newTractor;
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
@@ -75,6 +77,7 @@ public class NewTractorViewModel extends ViewModel {
     }
     public StateMutableLiveData<NewTractorOverviewResp> getOverViewDetails() {
         tractors.postLoading();
+        Log.d("cxvcvxvcxv====",""+tractorId);
         disposable.add(khetiAPIs.getNewTractorOverView(tractorId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -86,6 +89,7 @@ public class NewTractorViewModel extends ViewModel {
                         else {
                             tractors.postSuccess(newTractorOverviewResp);
                             tractor = newTractorOverviewResp.getData().get(0);
+                           // Log.d("xvcvxvcxvcv===",tractor.getImage().getTractor_img_name());
                         }
                     }
                     @Override

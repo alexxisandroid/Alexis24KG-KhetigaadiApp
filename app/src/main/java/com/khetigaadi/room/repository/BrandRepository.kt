@@ -130,6 +130,11 @@ class BrandRepository(context:@NotNull Context,private val khetiAPIs:KhetiAPIs,v
 //
      return database.daoBrand().fetchAllOldTractorBrand();
     }
+
+    //fetchAllOldTractorBrandSell
+    fun getOldTractorBrandsSell():LiveData<List<Brand>>  {
+        return database.daoBrand().fetchAllOldTractorBrandSell();
+    }
     fun getImplementBrands():  LiveData<List<Brand>>  { //LiveData<Resource<List<Brand>>>
 //        return object : NetworkBoundResource<List<Brand>, BrandResp>(appExecutors) {
 //            override fun saveCallResult(item: BrandResp) {

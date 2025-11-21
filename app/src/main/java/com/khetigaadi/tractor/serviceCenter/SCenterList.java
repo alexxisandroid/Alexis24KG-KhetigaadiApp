@@ -72,7 +72,7 @@ public class SCenterList extends Fragment {
     }
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,@Nullable ViewGroup container,@Nullable Bundle savedInstanceState) {
         binding = DealerRecycleListBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         return view;

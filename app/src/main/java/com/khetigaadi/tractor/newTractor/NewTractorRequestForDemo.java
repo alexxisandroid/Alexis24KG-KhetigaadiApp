@@ -23,6 +23,7 @@ import com.khetigaadi.user.SessionManager;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -52,18 +53,18 @@ public class NewTractorRequestForDemo extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
 
         binding = NewTractorRequestForDemoBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
-            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-            return insets;
-        });
-        EdgeToEdge.enable(this);
+//        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
+//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+//            return insets;
+//        });
+//        EdgeToEdge.enable(this);
 
         user = session.getUser();
         readParameters(getIntent().getExtras());
@@ -97,6 +98,7 @@ public class NewTractorRequestForDemo extends BaseActivity {
         binding.toolbars.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
         binding.toolbars.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         binding.toolbars.toolbar.setTitle(getResources().getString(R.string.request_for_demo));
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getResources().getString(R.string.request_for_demo));
     }
     private void readParameters(Bundle bundle) {
         try {

@@ -25,12 +25,12 @@ public class Model implements Parcelable {
     public ImplementModel implementModelId;
     @PrimaryKey
     @NonNull
-    @SerializedName(value = "idd",alternate = {"id_model"})
+    @SerializedName(value = "idd",alternate = {"id_model","tractor_model_id"})
     @Expose
     private int id;
     @SerializedName(value = "brand_id",alternate = {"id_manufacturer"})
     public String brandId;
-    @SerializedName(value = "tr_model_name",alternate = {"tractor_model_name"})
+    @SerializedName(value = "tr_model_name",alternate = {"tractor_model_name","brand_name"})
     public String name;
     @Ignore
     private boolean selected;

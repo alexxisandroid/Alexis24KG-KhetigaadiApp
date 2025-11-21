@@ -5,6 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.khetigaadi.AppConfig
+import com.khetigaadi.AppController
+import com.khetigaadi.BuildConfig
 import com.khetigaadi.R
 import com.khetigaadi.base.util.BaseRecyclerViewAdapter
 import com.khetigaadi.commons.utils.Constants
@@ -16,20 +19,20 @@ import com.khetigaadi.tractor.PopularTractorAdapter
 import com.khetigaadi.tractor.newTractor.model.NewTractorOthers
 import com.khetigaadi.tractor.rent.model.RentTractor
 import com.khetigaadi.util.NumberFormatting
-class SimilarRentTractorAdapter(private val mContext: Context, recyclerView: RecyclerView?) : BaseRecyclerViewAdapter<RentTractor?, NewTractorOthers?>(mContext, recyclerView) {
+class SimilarRentTractorAdapter(private val mContext:Context,recyclerView:RecyclerView?):BaseRecyclerViewAdapter<RentTractor?, NewTractorOthers?>(mContext, recyclerView) {
     private val VIEW_ITEM = 1
     private val VIEW_PROG = 0
     private val EMPTY_VIEW = 10
-    fun setOnItemClickListener(myClickListener: PopularTractorAdapter.Listener) {
+    fun setOnItemClickListener(myClickListener:PopularTractorAdapter.Listener) {
         listener = myClickListener
     }
-    override fun getItemViewType(position: Int): Int {
+    override fun getItemViewType(position:Int):Int {
         if (items.size == 0) {
             return EMPTY_VIEW
         }
         return if (items[position] != null) VIEW_ITEM else VIEW_PROG
     }
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent:ViewGroup,viewType:Int):RecyclerView.ViewHolder {
         return when (viewType) {
             EMPTY_VIEW -> {
                 EmptyViewHolder(
@@ -54,15 +57,20 @@ class SimilarRentTractorAdapter(private val mContext: Context, recyclerView: Rec
             holder.binding.popularTractorTitle.text = String.format("%s %s",currentTractor.rentTractorBrand.name,currentTractor.tractorModel.getName())
             holder.binding.tvHP.text = String.format("%s %s",currentTractor.exactHp, mContext.getString(R.string.hp))
             holder.binding.tvViews.text = NumberFormatting.format(String.format("%d",currentTractor.userViews))
+
+            var imgPath = AppConfig.BASE_ASSET_URL +"new-tractor/"
+            if(others!=null && others!!.tractorImagePath!=null)
+                imgPath = others!!.tractorImagePath
+            println("cbcvcbcbvcbcbvb===="+imgPath+currentTractor.rentTractorTable.tractorImage.tractor_img_name)
             Glide.with(mContext)
-                .load(
-                    if (others != null && currentTractor.rentTractorTable.tractorImage != null) Constants.decodeURL(
-                        others!!.tractorImagePath + currentTractor.rentTractorTable.tractorImage
-                    ) else ""
-                )
-                .placeholder(R.mipmap.no_image)
-                .error(R.mipmap.no_image)
-                    .into(holder.binding.popularTractorImage)
+//                .load(
+//                    if(others != null && currentTractor.rentTractorTable.tractorImage != null)
+//                        imgPath+currentTractor.rentTractorTable.tractorImage.tractor_img_name
+//                    else ""
+//                )
+                .load(imgPath+currentTractor.rentTractorTable.tractorImage.tractor_img_name)
+                .placeholder(R.mipmap.no_image).error(R.mipmap.no_image)
+                .into(holder.binding.popularTractorImage)
         }
     }
     private class ViewHolder(val binding:SimilarRentTractorListItemBinding):RecyclerView.ViewHolder(binding.root) {

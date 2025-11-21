@@ -114,6 +114,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/poppins_bold"
                             android:padding="10dp"
                             android:text="@string/add_tractor"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -260,6 +262,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
+                            android:fontFamily="@font/poppins_bold"
+                            android:textStyle="bold"
                             android:padding="10dp"
                             android:text="@string/add_tractor"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -277,14 +281,22 @@
             android:layout_marginTop="5dp"
             android:layout_marginRight="2dp"
             android:layout_marginBottom="5dp">
-
-            <Button
-                style="@style/ButtonStyleFilledRed"
+        <!--   style="@style/ButtonStyleFilledRed"  -->
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/dimen_10dp"
                 android:textAlignment="center"
-                android:text="@string/compare"
-                android:textColor="@android:color/white" />
+                android:textStyle="bold"
+                android:minHeight="@dimen/payu_dimen_45dp"
+                android:layout_marginStart="@dimen/dimen_5dp"
+                android:layout_marginEnd="@dimen/dimen_5dp"
+                android:background="@drawable/btn_rectangle_outline_bg_red"
+                android:textColor="@color/red"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:fontFamily="@font/poppins_bold"
+                android:text="@string/compare" />
         </com.andexert.library.RippleView>
 
 
@@ -299,6 +311,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_bold"
                 android:text="@string/popular_tractor_comparison"
                 android:textColor="@color/black"/>
 

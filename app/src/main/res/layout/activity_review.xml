@@ -171,7 +171,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/radioGroup">
-
                 <EditText
                     android:id="@+id/etComment"
                     android:layout_width="match_parent"
@@ -185,20 +184,23 @@
                     android:inputType="text"
                     tools:ignore="LabelFor" />
             </com.google.android.material.textfield.TextInputLayout>
-
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-
-    <Button
+<!--    style="@style/ButtonStyleFilledRed"   android:background="@color/light_red" -->
+    <TextView
         android:id="@+id/btnSubmit"
-        style="@style/ButtonStyleFilledRed"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="@color/light_red"
+        android:minHeight="@dimen/payu_dimen_45dp"
+        android:layout_gravity="bottom|center"
+        android:background="@drawable/btn_rectangle_outline_bg_red"
+        android:textAlignment="center"
+        android:lines="1"
         android:text="@string/btn_submit"
+        android:fontFamily="@font/poppins_bold"
+        android:gravity="center"
+        android:textColor="@color/red"
+        android:outlineAmbientShadowColor="@color/red"
         android:textAllCaps="false"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -33,6 +33,9 @@ import com.khetigaadi.room.repository.RentTractorRepository;
 import com.khetigaadi.tractor.rent.RentTractorListFragment;
 import com.khetigaadi.tractor.rent.rentTractorNewUi.model.RentTractorUploadResp;
 import com.khetigaadi.tractor.rent.rentTractorNewUi.model.UploadRentTrReq;
+
+import java.util.Objects;
+
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -51,20 +54,21 @@ public class RentTractorOther extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
         binding = RentTractorOthersBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         setSupportActionBar(binding.toolbars.toolbar);
-        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
-            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-            return insets;
-        });
-        EdgeToEdge.enable(this);
+//        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
+//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+//            return insets;
+//        });
+//        EdgeToEdge.enable(this);
         binding.toolbars.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
         binding.toolbars.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         binding.toolbars.toolbar.setTitle(getString(R.string.rentTractor));
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.rentTractor));
         hideSoftKeyboard(this);
         iconColorChange();
         binding.tabOther.sscroll.postDelayed(() -> binding.tabOther.sscroll.fullScroll(HorizontalScrollView.FOCUS_RIGHT), 100L);

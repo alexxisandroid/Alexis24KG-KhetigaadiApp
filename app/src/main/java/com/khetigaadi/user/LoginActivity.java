@@ -51,6 +51,8 @@ import com.khetigaadi.util.Utils;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
+
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -85,17 +87,17 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
          try {
-             WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
+             //WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
              binding = LoginBinding.inflate(getLayoutInflater());
              View view = binding.getRoot();
              setContentView(view);
 
-             ViewCompat.setOnApplyWindowInsetsListener(view, (v,insets) -> {
-                 Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-                 v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-                 return insets;
-             });
-             EdgeToEdge.enable(this);
+//             ViewCompat.setOnApplyWindowInsetsListener(view, (v,insets) -> {
+//                 Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//                 v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+//                 return insets;
+//             });
+//             EdgeToEdge.enable(this);
              initToolbar();
              binding.etMobile.addTextChangedListener(new MyTextWatcher(binding.etMobile));
              binding.btnLogin.setOnRippleCompleteListener(rippleView -> {
@@ -144,6 +146,7 @@ public class LoginActivity extends BaseActivity {
         binding.toolbars.toolbar.setTitle(getResources().getString(R.string.btn_login));
         binding.toolbars.toolbar.setBackgroundColor(Color.WHITE);
         binding.toolbars.toolbar.setAlpha(0);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getResources().getString(R.string.btn_login));
         //  binding.toolbars.toolbar.setVisibility(View.GONE);
     }
     @Override

@@ -23,23 +23,23 @@ class WebViewActivity : AppCompatActivity() {
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState:Bundle?) {
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false)
+     //   WindowCompat.setDecorFitsSystemWindows(getWindow(), false)
 
         binding = ActivityWebViewBinding.inflate(layoutInflater)
         val view: View = binding!!.getRoot()
         setContentView(view)
-        enableEdgeToEdge()
-        ViewCompat.setOnApplyWindowInsetsListener(
-            view,
-            OnApplyWindowInsetsListener { v: View?, insets: WindowInsetsCompat? ->
-                val systemBarsInsets = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
-                v!!.setPadding(
-                    systemBarsInsets.left,
-                    systemBarsInsets.top,
-                    systemBarsInsets.right,
-                    systemBarsInsets.bottom)
-                insets
-            })
+//        enableEdgeToEdge()
+//        ViewCompat.setOnApplyWindowInsetsListener(
+//            view,
+//            OnApplyWindowInsetsListener { v: View?, insets: WindowInsetsCompat? ->
+//                val systemBarsInsets = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
+//                v!!.setPadding(
+//                    systemBarsInsets.left,
+//                    systemBarsInsets.top,
+//                    systemBarsInsets.right,
+//                    systemBarsInsets.bottom)
+//                insets
+//            })
 
         initToolbar()
         binding!!.webView.setWebViewClient(MyBrowser())

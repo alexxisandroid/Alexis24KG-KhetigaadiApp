@@ -106,12 +106,19 @@
         android:background="@color/white"
         android:orientation="horizontal"
         android:padding="@dimen/margin_5dp">
-        <Button
+        <TextView
             android:id="@+id/btnOnPrice"
             android:layout_width="0dp"
             android:layout_height="@dimen/margin_40dp"
             android:layout_margin="@dimen/margin_5dp"
             android:layout_marginBottom="@dimen/margin_5dp"
+
+            android:minHeight="@dimen/payu_dimen_45dp"
+            android:background="@drawable/btn_rectangle_outline_bg_red"
+            android:textAlignment="center"
+            android:textColor="@color/red"
+            android:gravity="center"
+
             android:text="@string/getPrice"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -120,7 +127,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible"/>
-        <Button
+        <TextView
             android:id="@+id/btnRequestForDemo"
             android:layout_width="0dp"
             android:layout_height="@dimen/margin_40dp"
@@ -128,6 +135,13 @@
             android:layout_marginBottom="@dimen/margin_5dp"
             android:autoLink="web"
             android:text="@string/request_for_demo"
+
+            android:minHeight="@dimen/payu_dimen_45dp"
+            android:background="@drawable/btn_rectangle_outline_bg_red"
+            android:textAlignment="center"
+            android:textColor="@color/red"
+            android:gravity="center"
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

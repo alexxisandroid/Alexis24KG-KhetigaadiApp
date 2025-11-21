@@ -1,6 +1,6 @@
 package com.khetigaadi.tractor.compare;
-
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +31,6 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
-
 /**
  * Created by Ratan on 7/27/2015.
  */
@@ -47,13 +46,11 @@ public class CompareTractorTab extends Fragment {
     KhetiAPIs khetiAPIs;
     private CompareTractorViewModel viewModel;
     private CompareTractorBinding binding;
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = getActivity();
     }
-
     @Nullable
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,7 +59,6 @@ public class CompareTractorTab extends Fragment {
         return view;
 
     }
-
     @Override
     public void onViewCreated(@NonNull @NotNull View view, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -73,10 +69,10 @@ public class CompareTractorTab extends Fragment {
             ((MainActivity) activity).noInternetConnection();
         }
     }
-
     private void getCompareTractorDetails() {
         // Tag used to cancel the request
         viewModel.getCompare().observe(activity, compTractRespStateData -> {
+            Log.d("bvcvbvcbcvb===",""+compTractRespStateData.getStatus());
             switch (compTractRespStateData.getStatus()) {
                 case LOADING:
                     binding.llProgress.setVisibility(View.VISIBLE);
@@ -98,12 +94,10 @@ public class CompareTractorTab extends Fragment {
             }
         });
     }
-
     private void bindData(CompTractResp data) {
         NewTractor tractorsJsonArray1;
         NewTractor tractorsJsonArray2;
         try {
-
             tractorsJsonArray1 = data.getOthers().getTractorData().get(0);
             tractorsJsonArray2 = data.getOthers().getTractorData().get(1);
             Glide.with(activity)
@@ -116,7 +110,6 @@ public class CompareTractorTab extends Fragment {
                     .placeholder(R.mipmap.no_image)
                     .error(R.mipmap.no_image)
                     .into(binding.ivNewTractor2Image);
-
             binding.tvTractor1Name.setText(tractorsJsonArray1.getName());
             binding.tvTractor2Name.setText(tractorsJsonArray2.getName());
             binding.tvTractor1Hp.setText(String.format("%s %s", tractorsJsonArray1.getExactHp(), getString(R.string.hp)));
@@ -125,13 +118,10 @@ public class CompareTractorTab extends Fragment {
             e.printStackTrace();
         }
     }
-
-
     private class MyAdapter extends FragmentStatePagerAdapter {
         private MyAdapter(FragmentManager fm) {
             super(fm);
         }
-
         @Override
         public @NotNull Fragment getItem(int position) {
             switch (position) {
@@ -143,16 +133,12 @@ public class CompareTractorTab extends Fragment {
                     return new CompareTraOverview();
             }
         }
-
         @Override
         public int getCount() {
             return int_items;
-
         }
-
         @Override
         public CharSequence getPageTitle(int position) {
-
             switch (position) {
                 case 0:
                     return activity.getString(R.string.overview);
@@ -162,10 +148,7 @@ public class CompareTractorTab extends Fragment {
                     return activity.getString(R.string.images);
                 default:
                     return activity.getString(R.string.overview);
-
             }
         }
-
     }
-
 }

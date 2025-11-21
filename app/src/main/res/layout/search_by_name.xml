@@ -27,6 +27,7 @@
         android:id="@+id/newTractorSearchRes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/payu_dimen_24dp"
         android:layout_margin="5dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_marginLeft="5dp"

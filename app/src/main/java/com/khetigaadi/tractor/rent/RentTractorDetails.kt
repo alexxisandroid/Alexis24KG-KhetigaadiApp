@@ -1,5 +1,4 @@
 package com.khetigaadi.tractor.rent
-
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.graphics.Color
@@ -11,12 +10,6 @@ import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
-import androidx.core.graphics.Insets
-import androidx.core.view.OnApplyWindowInsetsListener
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.google.android.gms.analytics.HitBuilders.ScreenViewBuilder
@@ -63,31 +56,25 @@ import timber.log.Timber
 import java.nio.charset.StandardCharsets
 import javax.inject.Inject
 import androidx.core.graphics.toColorInt
-
 @AndroidEntryPoint
-class RentTractorDetails : BaseActivity() {
-    private var tractorId: String? = null
-
+class RentTractorDetails:BaseActivity() {
+    private var tractorId:String? = null
     @JvmField
     @Inject
-    var mTracker: Tracker? = null
+    var mTracker:Tracker? = null
     private var favoritesStatus = false
     private var mMap: GoogleMap? = null
-
     @Inject
     lateinit var khetiAPIs: KhetiAPIs
     private var mStrokeColor = 0
     private val mCircles: MutableList<DraggableCircle> = ArrayList(1)
     private val disposable = CompositeDisposable()
-
     @JvmField
     @Inject
     var session: SessionManager? = null
-
     @JvmField
     @Inject
     var pref: SharedPreferenceUtils? = null
-
     @JvmField
     @Inject
     var recentRepo: RecentRepo? = null
@@ -97,25 +84,23 @@ class RentTractorDetails : BaseActivity() {
     private var popularTractorAdapter: SimilarRentTractorAdapter? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(window,false)
-
+       // WindowCompat.setDecorFitsSystemWindows(window,false)
         binding = RentTractorDetailsBinding.inflate(layoutInflater)
         val view: View = binding.root
         setContentView(view)
-
-        ViewCompat.setOnApplyWindowInsetsListener(
-            view,
-            OnApplyWindowInsetsListener { v: View?, insets: WindowInsetsCompat? ->
-                val systemBarsInsets: Insets =
-                    insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
-                v!!.setPadding(
-                    systemBarsInsets.left,
-                    systemBarsInsets.top,
-                    systemBarsInsets.right,
-                    systemBarsInsets.bottom)
-                insets
-            })
-        this.enableEdgeToEdge()
+//        ViewCompat.setOnApplyWindowInsetsListener(
+//            view,
+//            OnApplyWindowInsetsListener { v: View?, insets: WindowInsetsCompat? ->
+//                val systemBarsInsets: Insets =
+//                    insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
+//                v!!.setPadding(
+//                    systemBarsInsets.left,
+//                    systemBarsInsets.top,
+//                    systemBarsInsets.right,
+//                    systemBarsInsets.bottom)
+//                insets
+//            })
+//        this.enableEdgeToEdge()
 
         user = session?.user
         viewModel = ViewModelProvider(this)[RentTractorDetailsViewModel::class.java]

@@ -54,22 +54,22 @@ class HarvesterDetailsActivity : AppCompatActivity() {
     private lateinit var others: Others
     override fun onCreate(savedInstanceState:Bundle?) {
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(getWindow(),false)
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(),false)
         binding = ActivityHarvesterDetailsBinding.inflate(layoutInflater)
         val view: View = binding.root
         setContentView(view)
-        ViewCompat.setOnApplyWindowInsetsListener(
-            binding.getRoot(),
-            OnApplyWindowInsetsListener { v: View?, insets: WindowInsetsCompat? ->
-                val systemBarsInsets = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
-                v!!.setPadding(
-                    systemBarsInsets.left,
-                    systemBarsInsets.top,
-                    systemBarsInsets.right,
-                    systemBarsInsets.bottom)
-                insets
-            })
-        this.enableEdgeToEdge()
+//        ViewCompat.setOnApplyWindowInsetsListener(
+//            binding.getRoot(),
+//            OnApplyWindowInsetsListener { v: View?, insets: WindowInsetsCompat? ->
+//                val systemBarsInsets = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
+//                v!!.setPadding(
+//                    systemBarsInsets.left,
+//                    systemBarsInsets.top,
+//                    systemBarsInsets.right,
+//                    systemBarsInsets.bottom)
+//                insets
+//            })
+//        this.enableEdgeToEdge()
         viewModel = ViewModelProvider(this)[HarvesterDetailsViewModel::class.java]
         readData(intent.extras)
         readDeepLinkData()
@@ -77,6 +77,7 @@ class HarvesterDetailsActivity : AppCompatActivity() {
         binding.toolbars.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material)
         binding.toolbars.toolbar.setNavigationOnClickListener { onBackPressed() }
         binding.toolbars.toolbar.title = resources.getString(R.string.app_name)
+        supportActionBar?.title =  resources.getString(R.string.harvester)
         binding.btnOnPrice.setOnClickListener {
             val intent = Intent(this@HarvesterDetailsActivity, NewTrGetOnRoadPriceActivity::class.java)
             intent.putExtra("id", imp.harvesterId)

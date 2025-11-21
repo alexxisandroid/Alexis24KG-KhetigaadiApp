@@ -55,4 +55,14 @@ class CategoryRepository(context:Context?,private val shopAPIs:ShopAPIs,val appE
             myDatabase.daoCategory().insertAll(categories)
         }
     }
+    fun insertItem(categories:Category) {
+        MyDatabase.databaseWriteExecutor.execute {
+            myDatabase.daoCategory().insertCartItem(categories)
+        }
+    }
+    fun deleteItem(categories:Category) {
+        MyDatabase.databaseWriteExecutor.execute {
+            myDatabase.daoCategory().deleteProduct(categories)
+        }
+    }
 }

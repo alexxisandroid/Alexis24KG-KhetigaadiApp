@@ -1,39 +1,30 @@
 package com.khetigaadi.commons.adapter;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 //import com.khetigaadi.base.model.Model;
 import com.khetigaadi.tractor.util.Model;
 import com.khetigaadi.databinding.CropSelectionItemRowBinding;
-
 import java.util.ArrayList;
 import java.util.List;
-
 public class ModelSelectionAdapter extends RecyclerView.Adapter<ModelSelectionAdapter.MyViewHolder> implements Filterable {
-
     private List<Model> mModelList;
     private List<Model> filteredData = null;
     private ItemFilter mFilter = new ItemFilter();
     private OnClickListener onClickListener;
-
     public ModelSelectionAdapter() {
     }
-
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new MyViewHolder(CropSelectionItemRowBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent,int viewType) {
+        return new MyViewHolder(CropSelectionItemRowBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false));
     }
-
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder,int position) {
         final Model model = filteredData.get(position);
         holder.itemView.textView.setText(model.getName());
         holder.itemView.textView.setOnClickListener(view -> {

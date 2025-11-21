@@ -7,13 +7,11 @@
     android:layout_height="250dp"
     android:layout_margin="4dp"
     android:orientation="vertical">
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/detailsBackground"
         android:gravity="center">
-
         <ImageView
             android:id="@+id/ivImage"
             android:layout_width="match_parent"
@@ -26,8 +24,7 @@
             app:layout_constraintBottom_toTopOf="@id/tvName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toTopOf="parent"/>
         <TextView
             android:id="@+id/tvDiscount"
             android:layout_width="wrap_content"
@@ -42,8 +39,7 @@
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="- 10%" />
-
+            tools:text="- 10%"/>
         <TextView
             android:id="@+id/tvName"
             style="@style/ItemTitle"
@@ -52,30 +48,29 @@
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/poppins_semibold"
             android:layout_marginRight="8dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             app:layout_constraintBottom_toTopOf="@id/tvDiscPrice"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="Samsung 192 ltr 2 star dddd RR19M27RJ" />
-
+            tools:text="Samsung 192 ltr 2 star dddd RR19M27RJ"/>
         <TextView
             android:id="@+id/tvDiscPrice"
             style="@style/ProductItemDiscPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_bold"
             android:layout_marginStart="@dimen/margin_10dp"
             android:layout_marginBottom="@dimen/margin_10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="100" />
-
+            tools:text="100"/>
         <androidx.constraintlayout.widget.Group
             android:id="@+id/priceGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:constraint_referenced_ids="tvPrice,tvDiscPer,tvDiscount" />
-
+            app:constraint_referenced_ids="tvPrice,tvDiscPer,tvDiscount"/>
         <TextView
             android:id="@+id/tvPrice"
             style="@style/ProductItemPrice"
@@ -86,8 +81,7 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tvDiscPrice"
-            tools:text="100" />
-
+            tools:text="100"/>
         <TextView
             android:id="@+id/tvDiscPer"
             style="@style/ProductItemDiscPer"
@@ -99,7 +93,6 @@
             android:textColor="@color/greenHaze"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tvPrice"
-            tools:text="10% off" />
-
+            tools:text="10% off"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

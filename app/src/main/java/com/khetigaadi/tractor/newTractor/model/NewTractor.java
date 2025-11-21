@@ -55,7 +55,7 @@ public class NewTractor extends Tractor implements Parcelable {
     @SerializedName("is_bookmark")
     @Expose
     private boolean isBookmark;
-    protected NewTractor(Parcel in) {
+    public NewTractor(Parcel in) {
         name = in.readString();
         userView = in.readString();
         image = in.readParcelable(TractorImage.class.getClassLoader());
@@ -69,6 +69,11 @@ public class NewTractor extends Tractor implements Parcelable {
         sponsor = in.readByte() != 0;
         isBookmark = in.readByte() != 0;
     }
+
+    public NewTractor() {
+
+    }
+
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);

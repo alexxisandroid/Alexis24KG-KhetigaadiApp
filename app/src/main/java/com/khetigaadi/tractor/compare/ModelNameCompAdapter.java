@@ -4,15 +4,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 //import com.khetigaadi.base.model.Model;
-
 import com.khetigaadi.tractor.util.Model;
 import com.khetigaadi.databinding.ListItemBinding;
-
 import java.util.ArrayList;
 import java.util.List;
 public class ModelNameCompAdapter extends RecyclerView.Adapter<ModelNameCompAdapter.DataObjectHolder> implements Filterable {
@@ -24,31 +20,25 @@ public class ModelNameCompAdapter extends RecyclerView.Adapter<ModelNameCompAdap
         stList = dataSet;
         mStringFilterList = dataSet;
     }
-
     public void setOnItemClickListener(ClickListener myClickListener) {
         ModelNameCompAdapter.myClickListener = myClickListener;
     }
-
     public List<Model> getList() {
         return stList;
     }
-
     @NonNull
     @Override
     public DataObjectHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new DataObjectHolder(ListItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
     }
-
     @Override
     public void onBindViewHolder(@NonNull DataObjectHolder holder, int position) {
         holder.binding.serchRes.setText(stList.get(position).getName());
     }
-
     @Override
     public int getItemCount() {
         return stList.size();
     }
-
     @Override
     public Filter getFilter() {
         if (mFilter == null) {
@@ -56,41 +46,36 @@ public class ModelNameCompAdapter extends RecyclerView.Adapter<ModelNameCompAdap
         }
         return mFilter;
     }
-
     public void setData(List<Model> models) {
         stList = models;
         mStringFilterList = models;
         notifyDataSetChanged();
     }
-
-
     public class DataObjectHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         private final com.khetigaadi.databinding.ListItemBinding binding;
-
         public DataObjectHolder(@NonNull ListItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
             binding.getRoot().setOnClickListener(this);
         }
-
         @Override
         public void onClick(View v) {
-            myClickListener.onItemClick(v, getAbsoluteAdapterPosition(), stList.get(getAbsoluteAdapterPosition()));
+           try {
+               myClickListener.onItemClick(v,getAbsoluteAdapterPosition(),stList.get(getAbsoluteAdapterPosition()));
+           }
+           catch(Exception e) {
+               e.printStackTrace();
+           }
         }
     }
-
     private class ItemFilter extends Filter {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-
             FilterResults results = new FilterResults();
             if (constraint != null && constraint.length() > 0) {
                 ArrayList<Model> filterList = new ArrayList<>();
                 for (int i = 0; i < mStringFilterList.size(); i++) {
-                    if ((mStringFilterList.get(i).getName().toUpperCase())
-                            .contains(constraint.toString().toUpperCase())) {
-
+                    if ((mStringFilterList.get(i).getName().toUpperCase()).contains(constraint.toString().toUpperCase())) {
                         filterList.add(mStringFilterList.get(i));
                     }
                 }
@@ -102,16 +87,13 @@ public class ModelNameCompAdapter extends RecyclerView.Adapter<ModelNameCompAdap
             }
             return results;
         }
-
         @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
+        protected void publishResults(CharSequence constraint,FilterResults results) {
             stList = (ArrayList<Model>) results.values;
             notifyDataSetChanged();
         }
     }
-
     public interface ClickListener {
-        void onItemClick(View v, int position, Model model);
+        void onItemClick(View v,int position,Model model);
     }
-
 }

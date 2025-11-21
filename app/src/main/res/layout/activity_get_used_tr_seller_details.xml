@@ -74,15 +74,29 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/dimen_50dp"
+        android:layout_marginBottom="@dimen/dimen_20dp"
         android:layout_gravity="center">
-        <Button
+        <TextView
             android:id="@+id/btnSubmit"
             style="@style/ButtonStyleFilledRed"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAlignment="center"
+            android:minHeight="@dimen/dimen_40dp"
             android:text="@string/btn_request"
+            android:textColor="@color/red"
+            android:layout_margin="@dimen/margin_5dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/poppins_bold"
+            android:textSize="@dimen/dimen_14sp"
+            android:layout_marginBottom="@dimen/margin_5dp"
+            android:maxLines="1"
+            android:outlineAmbientShadowColor="@color/red"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            android:background="@drawable/btn_rectangle_outline_bg_red"
+
+
             android:textAllCaps="false"/>
     </com.andexert.library.RippleView>
 </RelativeLayout>

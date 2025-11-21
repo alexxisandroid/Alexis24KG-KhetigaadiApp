@@ -8,7 +8,7 @@
     android:layout_height="wrap_content">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="260dp"
-        android:layout_height="290dp"
+        android:layout_height="305dp"
         android:background="@color/detailsBackground">
         <ImageView
             android:id="@+id/popularTractorImage"
@@ -36,11 +36,13 @@
             tools:text="0k"/>
         <TextView
             android:id="@+id/popularTractorTitle"
-            style="@style/TractorListItemTitle"
+            style="@style/TractorListItemTitlee"
             android:layout_width="match_parent"
+            android:fontFamily="@font/poppins_bold"
+            android:textStyle="bold"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_5dp"
             android:maxLines="1"
+            android:layout_marginStart="@dimen/dimen_8dp"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@id/tvHP"
@@ -50,8 +52,9 @@
             style="@style/ItemTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:drawablePadding="@dimen/dimen_3dp"
+            android:layout_marginBottom="@dimen/dimen_4dp"
             app:layout_constraintBottom_toTopOf="@id/btnGetPrice"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="45 HP"/>
@@ -62,20 +65,29 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_15dp"
             android:layout_marginBottom="5dp"
+            android:drawablePadding="@dimen/dimen_3dp"
             android:visibility="visible"
             app:layout_constraintBottom_toTopOf="@id/btnGetPrice"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="6-7 Lakh"
             tools:visibility="visible"/>
-        <Button
+        <TextView
             android:id="@+id/btnGetPrice"
-            style="@style/OutLineButtonStyleSmall"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_40dp"
+            android:fontFamily="@font/poppins_medium"
+            android:layout_height="@dimen/payu_dimen_38dp"
             android:layout_gravity="center"
-            android:layout_marginStart="@dimen/dimen_20dp"
-            android:layout_marginEnd="@dimen/margin_20dp"
-            android:layout_marginBottom="@dimen/margin_10dp"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:maxLines="1"
+            android:layout_marginEnd="@dimen/margin_10dp"
+            android:textColor="@color/red"
+            android:textAlignment="center"
+            android:outlineAmbientShadowColor="@color/red"
+            android:background="@drawable/btn_rectangle_outline_bg_red"
+            android:layout_marginBottom="@dimen/dimen_10dp"
+            android:textSize="@dimen/dimen_14sp"
             android:text="@string/getPrice"
             app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>

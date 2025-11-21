@@ -40,12 +40,18 @@
         android:textColor="@color/black"
         android:textSize="24sp"
         tools:ignore="LabelFor" />
-    <Button
+    <TextView
         android:id="@+id/btnSubmit"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="@dimen/payu_dimen_45dp"
         android:layout_margin="6dip"
         android:text="@string/btn_submit"
+        android:minHeight="@dimen/payu_dimen_45dp"
+        android:background="@drawable/btn_rectangle_outline_bg_red"
+        android:textAlignment="center"
+        android:textColor="@color/red"
+        android:gravity="center"
+        android:layout_gravity="center"
         android:textAllCaps="true"
         android:textSize="14sp"/>
 </LinearLayout>

@@ -55,20 +55,34 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:gravity="center">
-        <com.google.android.material.button.MaterialButton
+        <TextView
             android:id="@+id/btnClose"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginEnd="2dp"
+            android:layout_marginEnd="@dimen/dimen_5dp"
+
+            android:minHeight="@dimen/payu_dimen_45dp"
+            android:background="@drawable/btn_rectangle_outline_bg_red"
+            android:textAlignment="center"
+            android:textColor="@color/red"
+            android:gravity="center"
+            android:layout_gravity="center"
             android:text="@string/close"
             android:textSize="14sp"/>
-        <com.google.android.material.button.MaterialButton
+        <TextView
             android:id="@+id/btnSubmit"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_marginStart="2dp"
+            android:layout_marginStart="@dimen/dimen_5dp"
+
+            android:minHeight="@dimen/payu_dimen_45dp"
+            android:background="@drawable/btn_rectangle_outline_bg_red"
+            android:textAlignment="center"
+            android:textColor="@color/red"
+            android:gravity="center"
+            android:layout_gravity="center"
             android:text="@string/submit"
             android:textSize="14sp"/>
     </LinearLayout>

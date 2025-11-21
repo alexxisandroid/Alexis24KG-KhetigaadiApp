@@ -23,6 +23,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
@@ -36,17 +38,18 @@ public class WeatherNewActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
+        //WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
         binding = ActivityWeatherNewBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
-        ViewCompat.setOnApplyWindowInsetsListener(view, (v,insets) -> {
-            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-            return insets;
-        });
-        EdgeToEdge.enable(this);
+//        ViewCompat.setOnApplyWindowInsetsListener(view, (v,insets) -> {
+//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+//            return insets;
+//        });
+//        EdgeToEdge.enable(this);
+
         viewModel = new ViewModelProvider(this).get(WeatherViewModel.class);
         weather = new Gson().fromJson(getIntent().getStringExtra("weather"), WeatherResp.class);
         if (weather != null) {
@@ -79,6 +82,7 @@ public class WeatherNewActivity extends BaseActivity {
                 e.printStackTrace();
             }
         }
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.news);
     }
     private void initUI(WeatherResp weather) {
         this.weather = weather;

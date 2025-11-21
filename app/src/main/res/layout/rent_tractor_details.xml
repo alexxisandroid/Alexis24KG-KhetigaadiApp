@@ -8,50 +8,45 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".tractor.rent.RentTractorDetails">
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
-
         <include
             android:id="@+id/toolbars"
-            layout="@layout/toolbar" />
+            layout="@layout/toolbar"/>
     </com.google.android.material.appbar.AppBarLayout>
-
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="@dimen/margin_50dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
             android:background="@color/detailsBackground">
-
             <ImageView
                 android:id="@+id/ivImage"
                 android:layout_width="match_parent"
                 android:layout_height="267dp"
+                android:scaleType="fitXY"
                 android:background="@color/white"
                 app:layout_constraintTop_toTopOf="parent" />
-
             <TextView
                 android:id="@+id/tvViews"
-                style="@style/ViewsRounded"
+                style="@style/ViewsRoundedSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/margin_10dp"
-                android:layout_marginTop="@dimen/margin_10dp"
+                android:layout_gravity="center_vertical|start"
+                android:layout_marginTop="@dimen/dimen_10dp"
+                android:layout_marginStart="@dimen/dimen_10dp"
+                android:gravity="start|center"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="0k" />
-
+                tools:text="0k"/>
             <ImageView
                 android:id="@+id/ivFavorites"
                 android:layout_width="wrap_content"
@@ -62,14 +57,12 @@
                 android:src="@drawable/ic_favorites_border"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvCapacitySpecification"
                 style="@style/CardViewListItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/ivImage">
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -147,20 +140,16 @@
                         tools:text="42 HP"
                         app:drawableTint="@color/black" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </androidx.cardview.widget.CardView>
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvImpList"
                 style="@style/CardViewListItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/cvCapacitySpecification">
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-
                     <TextView
                         android:id="@+id/tvRelatedImp"
                         style="@style/MainTitle"
@@ -169,13 +158,11 @@
                         android:padding="@dimen/margin_5dp"
                         android:text="@string/related_implement_type"
                         app:layout_constraintTop_toTopOf="parent" />
-
                     <HorizontalScrollView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tvRelatedImp">
-
                         <LinearLayout
                             android:id="@+id/llImpsList"
                             android:layout_width="wrap_content"
@@ -183,9 +170,7 @@
                             android:orientation="horizontal" />
                     </HorizontalScrollView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
             </androidx.cardview.widget.CardView>
-
             <fragment
                 android:id="@+id/map"
                 class="com.google.android.gms.maps.SupportMapFragment"
@@ -193,7 +178,6 @@
                 android:layout_height="400dp"
                 android:layout_marginBottom="20dp"
                 app:layout_constraintTop_toBottomOf="@+id/cvImpList" />
-
             <include
                 android:id="@+id/includeSimilar"
                 layout="@layout/home_list_container"
@@ -202,7 +186,6 @@
                 app:layout_constraintTop_toBottomOf="@id/map" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -211,25 +194,27 @@
         android:background="@color/white"
         android:orientation="horizontal"
         android:padding="@dimen/margin_5dp">
-
-        <Button
+        <TextView
             android:id="@+id/btnSendEnq"
             android:layout_width="match_parent"
             android:layout_height="@dimen/margin_40dp"
-            android:layout_gravity="bottom"
+            android:layout_gravity="bottom|center"
             android:layout_margin="@dimen/margin_5dp"
             android:layout_marginBottom="@dimen/margin_5dp"
+            android:background="@drawable/btn_rectangle_outline_bg_red"
+            android:textColor="@color/red"
             android:text="@string/send_enquiry"
+            android:textAlignment="center"
+            android:gravity="center"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
+            tools:visibility="visible"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
     <include
         android:id="@+id/llProgress"
         layout="@layout/progressbar"
-        tools:visibility="gone" />
+        tools:visibility="gone"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

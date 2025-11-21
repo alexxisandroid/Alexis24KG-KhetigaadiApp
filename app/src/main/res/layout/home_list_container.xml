@@ -16,14 +16,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent">
+<!--            <TextView-->
+<!--                android:id="@+id/tvLabel"-->
+<!--                style="@style/homePageLabel"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:fontFamily="@font/poppins_bold"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentStart="true"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                tools:text="Label" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tvLabel"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentStart="true"-->
+<!--                style="@style/homePageLabel"-->
+<!--                android:layout_alignParentEnd="true"-->
+<!--                android:textStyle="bold"-->
+<!--                android:fontFamily="@font/poppins_bold"-->
+<!--                android:textSize="18sp"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                tools:text="Label"/>-->
+
             <TextView
                 android:id="@+id/tvLabel"
-                style="@style/homePageLabel"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
+                style="@style/homePageLabel"
                 android:layout_alignParentEnd="true"
-                tools:text="Label" />
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_bold"
+                android:textSize="18sp"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Label"/>
         </com.andexert.library.RippleView>
         <TextView
             android:id="@+id/tvSeeMore"
@@ -32,6 +59,7 @@
             android:layout_height="wrap_content"
             android:text="@string/viewAll"
             android:textAllCaps="true"
+            android:fontFamily="@font/poppins_medium"
             app:layout_constraintBottom_toBottomOf="@id/rvLabel"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/rvLabel" />

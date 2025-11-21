@@ -12,7 +12,7 @@ import java.util.List;
 public class UsedTractorImagesAdapter extends FragmentStateAdapter {
     private final List<String> items;
     private final View.OnClickListener onClickListener;
-    public UsedTractorImagesAdapter(@NonNull FragmentActivity fragmentActivity, List<String> items, View.OnClickListener onClickListener) {
+    public UsedTractorImagesAdapter(@NonNull FragmentActivity fragmentActivity,List<String> items,View.OnClickListener onClickListener) {
         super(fragmentActivity);
         this.items = items;
         this.onClickListener = onClickListener;

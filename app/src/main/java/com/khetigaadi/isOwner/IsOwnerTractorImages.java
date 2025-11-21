@@ -38,6 +38,7 @@ import com.khetigaadi.retrofit.KhetiAPIs;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -72,22 +73,23 @@ public class IsOwnerTractorImages extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
         binding = IsOwnerImagesBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
-            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-            return insets;
-        });
-        EdgeToEdge.enable(this);
+//        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
+//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+//            return insets;
+//        });
+//        EdgeToEdge.enable(this);
 
         setSupportActionBar(binding.toolbarI.toolbar);
         binding.toolbarI.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
         binding.toolbarI.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         binding.toolbarI.toolbar.setTitle(getString(R.string.owner));
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.owner));
         iconColorChange();
         binding.ivFirst.setOnClickListener(v -> {
             try {

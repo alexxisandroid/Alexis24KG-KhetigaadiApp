@@ -68,16 +68,28 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:layout_gravity="bottom"
+        android:background="@drawable/btn_rectangle_outline_bg_red"
         android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_marginStart="@dimen/dimen_10dp"
+        android:maxLines="1"
+        android:layout_marginEnd="@dimen/margin_10dp"
+        android:layout_marginBottom="@dimen/dimen_10dp"
+        android:textColor="@color/red"
+        android:textAlignment="center"
+        android:outlineAmbientShadowColor="@color/red"
         app:layout_constraintBottom_toBottomOf="parent">
-        <Button
+        <!--   style="@style/ButtonStyleFilledRed"  -->
+        <TextView
             android:id="@+id/btnSubmit"
-            style="@style/ButtonStyleFilledRed"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/btn_submit"
             android:textAlignment="center"
+            android:fontFamily="@font/poppins_bold"
+            android:gravity="center"
+            android:minHeight="@dimen/payu_dimen_45dp"
             android:textAllCaps="false"
-            android:textColor="@android:color/white"/>
+            android:textColor="@color/red"/>
     </com.andexert.library.RippleView>
 </androidx.constraintlayout.widget.ConstraintLayout>

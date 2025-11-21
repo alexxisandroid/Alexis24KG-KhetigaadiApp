@@ -15,7 +15,7 @@ public abstract class SwipeBaseActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
         gestureDetector = new GestureDetector(this,new SwipeDetector());
 
 //        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
@@ -23,7 +23,7 @@ public abstract class SwipeBaseActivity extends BaseActivity {
 //            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
 //            return insets;
 //        });
-        EdgeToEdge.enable(this);
+       // EdgeToEdge.enable(this);
     }
     protected abstract void onSwipeRight();
     protected abstract void onSwipeLeft();

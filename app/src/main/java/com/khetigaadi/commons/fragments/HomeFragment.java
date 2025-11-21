@@ -1,4 +1,5 @@
 package com.khetigaadi.commons.fragments;
+import android.annotation.SuppressLint;
 import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -29,9 +30,11 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.material.chip.Chip;
 import com.google.gson.Gson;
+//import com.khetigaadi.BuildConfig;
 import com.khetigaadi.MainActivity;
 import com.khetigaadi.R;
 import com.khetigaadi.base.model.Banner;
+import com.khetigaadi.ecom.categories.CategoriesListActivity;
 import com.khetigaadi.implement.newImplement.util.Brand;
 import com.khetigaadi.base.model.State;
 import com.khetigaadi.commons.NewsAdapter;
@@ -68,11 +71,13 @@ import com.khetigaadi.isOwner.IsOwnerTractorBrand;
 import com.khetigaadi.news.activity.NewsDetailsActivity;
 import com.khetigaadi.news.fragments.NewsListFragment;
 import com.khetigaadi.retrofit.KhetiAPIs;
+import com.khetigaadi.retrofit.ShopAPIs;
 import com.khetigaadi.room.repository.BrandRepository;
 import com.khetigaadi.room.repository.CategoryRepository;
 import com.khetigaadi.room.repository.RecentRepo;
 import com.khetigaadi.room.repository.StateRepository;
 import com.khetigaadi.shop.model.Category;
+import com.khetigaadi.shop.model.CategoryListResp;
 import com.khetigaadi.tractor.PopularTractorAdapter;
 import com.khetigaadi.tractor.compare.ComparePopularTractorAdapter;
 import com.khetigaadi.tractor.compare.CompareTractorActivity;
@@ -140,6 +145,8 @@ public class HomeFragment extends BaseFragment {
     @Inject
     KhetiAPIs khetiAPIs;
     @Inject
+    ShopAPIs shopAPIs;
+    @Inject
     SharedPreferenceUtils pref;
     private HomeBinding binding;
     private HomeFragmentViewModel viewModel;
@@ -149,6 +156,7 @@ public class HomeFragment extends BaseFragment {
     private ComparePopularTractorAdapter compareTractorAdapter;
     private CompareImplementTractorAdapter compareImplementAdapter;
     private HarvesterListAdapter harvesterListAdapter;
+   // private NewImplementListAdapter categoriesAdapter;
     private CategoriesAdapter categoriesAdapter;
     private VideoHomeListAdapter videoAdapter;
     private TestimonialListAdapter testimonialsAdapter;
@@ -175,9 +183,9 @@ public class HomeFragment extends BaseFragment {
         if (!SharedPreferenceUtils.getInstance(activity).getStringValue(Constants.POPULAR_TRACTORS,"").equals("")) {
             try {
                 setPopularTractorAndNewsAdapter(new Gson().fromJson(SharedPreferenceUtils.getInstance(activity).getStringValue(Constants.POPULAR_TRACTORS, ""),HomeListResp.class));
-
                 Log.d("bcvxbcb====",""+new Gson().fromJson(SharedPreferenceUtils.getInstance(activity).getStringValue(Constants.POPULAR_TRACTORS, ""),HomeListResp.class));
-            } catch (Exception e) {
+            }
+            catch(Exception e) {
                 e.printStackTrace();
             }
         }
@@ -200,25 +208,37 @@ public class HomeFragment extends BaseFragment {
             TabCompare compareTractorSelection = new TabCompare();
             mFragmentManager = getParentFragmentManager();
             FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-            fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
+            fragmentTransaction.setCustomAnimations(R.anim.enter,R.anim.exit,R.anim.pop_enter,R.anim.pop_exit);
             FrameLayout contentView = (FrameLayout) activity.findViewById(R.id.containerView);
-            fragmentTransaction.replace(contentView.getId(), compareTractorSelection).addToBackStack(TAG).commit();
+            fragmentTransaction.replace(contentView.getId(),compareTractorSelection).addToBackStack(TAG).commit();
         });
         binding.cvNews.setOnClickListener(v -> ((MainActivity) activity).navigateToNewsFragment());
-        binding.tvProfileUpdate.setOnClickListener(v -> startActivity(new Intent(getActivity(), EditProfileActivity.class)));
+        binding.tvProfileUpdate.setOnClickListener(v -> startActivity(new Intent(getActivity(),EditProfileActivity.class)));
         binding.tvMainMenuViewMore.setOnClickListener(v -> {
-            if (binding.tvMainMenuViewMore.getText().toString().equals(getString(R.string.view_more))) {
+            if(binding.tvMainMenuViewMore.getText().toString().equals(getString(R.string.view_more))) {
                 binding.tvMainMenuViewMore.setText(getString(R.string.view_less));
-                binding.tvMainMenuViewMore.setCompoundDrawables(null, null, ContextCompat.getDrawable(activity, R.drawable.up_arrow), null);
+               // binding.tvMainMenuViewMore.setCompoundDrawables(null,null,ContextCompat.getDrawable(activity,R.drawable.up_arrow),null);
+
+
+                binding.tvMainMenuViewMore.setCompoundDrawablesRelativeWithIntrinsicBounds(
+                        0, // start drawable
+                        0, // top drawable
+                        R.drawable.up_arrow22, // end drawa4ble
+                        0  // bottom drawable
+                );
+
                 binding.cvVideo.setVisibility(View.VISIBLE);
                 binding.cvCompare.setVisibility(View.VISIBLE);
-//                binding.cvTyre.setVisibility(View.VISIBLE);
+                // binding.cvTyre.setVisibility(View.VISIBLE);
                 binding.cvNews.setVisibility(View.VISIBLE);
-//                binding.cvInsurance.setVisibility(View.VISIBLE);
-//                binding.cvFinance.setVisibility(View.VISIBLE);
+               // binding.cvInsurance.setVisibility(View.VISIBLE);
+              //  binding.cvFinance.setVisibility(View.VISIBLE);
             } else {
                 binding.tvMainMenuViewMore.setText(getString(R.string.view_more));
-                binding.tvMainMenuViewMore.setCompoundDrawables(null, null, ContextCompat.getDrawable(activity, R.drawable.ic_down_arrow_black_24dp), null);
+               // binding.tvMainMenuViewMore.setCompoundDrawables(null,null,ContextCompat.getDrawable(activity,R.drawable.ic_down_arrow_black_24dp),null);
+
+                binding.tvMainMenuViewMore.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_down_arrow_black_24dp,0);
+
                 binding.cvVideo.setVisibility(View.GONE);
                 binding.cvCompare.setVisibility(View.GONE);
                 binding.cvTyre.setVisibility(View.GONE);
@@ -230,22 +250,22 @@ public class HomeFragment extends BaseFragment {
         binding.viewVoiceRecording.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, SearchActivity.class);
-                intent.putExtra(SearchActivity.IS_RECORDING, true);
+                Intent intent = new Intent(activity,SearchActivity.class);
+                intent.putExtra(SearchActivity.IS_RECORDING,true);
                 startActivity(intent);
             }
         });
         binding.tvSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(activity, SearchActivity.class));
+                startActivity(new Intent(activity,SearchActivity.class));
             }
         });
         if (Constants.isConnectionAvailable(activity)) {
             getPopularTractor();
         }
         else {
-            ((MainActivity) activity).noInternetConnection();
+            ((MainActivity)activity).noInternetConnection();
         }
         initBrands();
         initTractors();
@@ -255,16 +275,22 @@ public class HomeFragment extends BaseFragment {
         initTestimonials();
         return view;
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d("cvbvbcvbcvbcvb====","");
+        ((MainActivity)activity).initListener();
+    }
     private void initVideo() {
-        videoAdapter = new VideoHomeListAdapter(activity, binding.includeVideos.rvList);
+        videoAdapter = new VideoHomeListAdapter(activity,binding.includeVideos.rvList);
         binding.includeVideos.tvLabel.setText(getString(R.string.videos));
         binding.includeVideos.tvViewMore.setText(getString(R.string.show_all_videos));
-        binding.includeVideos.tvViewMore.setOnClickListener(v -> startActivity(new Intent(activity,VideosActivity.class)));
+        binding.includeVideos.llViewMore.setOnClickListener(v -> startActivity(new Intent(activity,VideosActivity.class)));
         GridLayoutManager layoutManager = new GridLayoutManager(activity,2);
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                if (position > 0) {
+                if(position > 0) {
                     return 1;
                 }
                 return 2;
@@ -272,8 +298,8 @@ public class HomeFragment extends BaseFragment {
         });
         binding.includeVideos.rvList.setLayoutManager(layoutManager);
         binding.includeVideos.rvList.setAdapter(videoAdapter);
-        videoAdapter.setOnItemClickListener((item, v) -> {
-            Intent intent = new Intent(activity, YouTubePlayerActivity.class);
+        videoAdapter.setOnItemClickListener((item,v) -> {
+            Intent intent = new Intent(activity,YouTubePlayerActivity.class);
             intent.putExtra("video",item);
             startActivity(intent);
         });
@@ -282,7 +308,7 @@ public class HomeFragment extends BaseFragment {
     }
     private void initHarvester() {
         binding.includeHarvester.tvLabel.setText(getString(R.string.harvester));
-        binding.includeHarvester.tvViewMore.setOnClickListener(v -> ((MainActivity) activity).navigateToHarvester());
+        binding.includeHarvester.llViewMore.setOnClickListener(v -> ((MainActivity) activity).navigateToHarvester());
         if (harvesterListAdapter == null) {
             initHarvesterAdapter();
         }
@@ -309,22 +335,22 @@ public class HomeFragment extends BaseFragment {
         }
     }
     private void initHarvesterAdapter() {
-        harvesterListAdapter = new HarvesterListAdapter(activity, binding.includeCompare.rvList, true);
-        harvesterListAdapter.setOnItemClickListener((position, v, harvester) -> {
-            Intent intent = new Intent(activity, HarvesterDetailsActivity.class);
-            intent.putExtra("harvesterId", harvester.getHarvesterId());
-            intent.putExtra("position", position);
+        harvesterListAdapter = new HarvesterListAdapter(activity,binding.includeCompare.rvList,true);
+        harvesterListAdapter.setOnItemClickListener((position,v,harvester) -> {
+            Intent intent = new Intent(activity,HarvesterDetailsActivity.class);
+            intent.putExtra("harvesterId",harvester.getHarvesterId());
+            intent.putExtra("position",position);
             startActivity(intent);
         });
     }
     private void initStates() {
         binding.includeStates.tvLabel.setText(getString(R.string.used_tractors_by_state));
-        binding.includeStates.tvViewMore.setOnClickListener(v -> navigateToUsedTractorList(null));
-        stateAdapter = new StateHomeListAdapter(activity, pref);
-        binding.includeStates.rvList.setLayoutManager(new GridLayoutManager(activity, 4));
+        binding.includeStates.llViewMore.setOnClickListener(v -> navigateToUsedTractorList(null));
+        stateAdapter = new StateHomeListAdapter(activity,pref);
+        binding.includeStates.rvList.setLayoutManager(new GridLayoutManager(activity,4));
         binding.includeStates.rvList.setAdapter(stateAdapter);
         stateAdapter.setOnClickListener(this::navigateToUsedTractorList);
-        stateRepository.getStatesByPosition().observe(getViewLifecycleOwner(), states -> {
+        stateRepository.getStatesByPosition().observe(getViewLifecycleOwner(),states -> {
             if (states.size()>0) {
                     if (states != null) {
                         stateAdapter.setData(states);
@@ -362,7 +388,7 @@ public class HomeFragment extends BaseFragment {
                 e.printStackTrace();
             }
         });
-        binding.includeNews.tvViewMore.setOnClickListener(v -> navigateToNewsList());
+        binding.includeNews.llViewMore.setOnClickListener(v -> navigateToNewsList());
         binding.includeNews.tvViewMore.setText(getString(R.string.view_all_news));
         binding.includeNews.tvViewMore.setCompoundDrawables(null,null,null,null);
         binding.includeNews.tvViewMore.setPadding(0,0,0,0);
@@ -407,18 +433,20 @@ public class HomeFragment extends BaseFragment {
       List<String> optionList = new ArrayList<>();
         optionList.add("Tractors");
         optionList.add("Implements");
-        optionList.add("Harvester");
+       // optionList.add("Harvester");
         for (int i = 0; i < optionList.size(); i++) {
             Chip chip = (Chip) getLayoutInflater().inflate(R.layout.suggestion_chip,binding.includeTractors.chipGroup,false);
             chip.setText(optionList.get(i));
             chip.setOnCheckedChangeListener((buttonView,isChecked) -> {
-                if (isChecked) {
+                if(isChecked) {
                     Object tag = buttonView.getTag();
-                    if ("Tractors".equals(tag)) {
+                    if("Tractors".equals(tag)) {
                       showOldTractors();
-                 } else if ("Implements".equals(tag)) {
+                 }
+                    else if("Implements".equals(tag)) {
                         showImplements();
-                    } else if (tag.equals("Harvester")) {
+                    }
+                    else if(tag.equals("Harvester")) {
                         showHarvesters();
                     }
                 }
@@ -435,12 +463,12 @@ public class HomeFragment extends BaseFragment {
     }
     private void showImplements() {
         binding.includeTractors.tvLabel.setText(getString(R.string.used_imaplements));
-        binding.includeTractors.tvViewMore.setOnClickListener(v -> navigateToSearchImplement(false));
+        binding.includeTractors.llViewMore.setOnClickListener(v -> navigateToSearchImplement(false));
         binding.includeTractors.rvList.setAdapter(impsAdapter);
     }
     private void showOldTractors() {
         binding.includeTractors.tvLabel.setText(getString(R.string.used_tractors));
-        binding.includeTractors.tvViewMore.setOnClickListener(v -> navigateToUsedTractorList(null));
+        binding.includeTractors.llViewMore.setOnClickListener(v -> navigateToUsedTractorList(null));
         if (usedTractorListAdapter == null) {
             initUsedTractorAdapter();
         }
@@ -450,15 +478,16 @@ public class HomeFragment extends BaseFragment {
         List<String> optionList = new ArrayList<>();
         optionList.add("Tractors");
         optionList.add("Implements");
-        for (int i = 0; i < optionList.size(); i++) {
-            Chip chip = (Chip) getLayoutInflater().inflate(R.layout.suggestion_chip, binding.includeTractors.chipGroup, false);
+        for(int i = 0; i < optionList.size(); i++) {
+            Chip chip = (Chip) getLayoutInflater().inflate(R.layout.suggestion_chip,binding.includeTractors.chipGroup,false);
             chip.setText(optionList.get(i));
-            chip.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                if (isChecked) {
+            chip.setOnCheckedChangeListener((buttonView,isChecked) -> {
+                if(isChecked) {
                     Object tag = buttonView.getTag();
-                    if ("Tractors".equals(tag)) {
+                    if("Tractors".equals(tag)) {
                         showTractorCompare();
-                    } else if ("Implements".equals(tag)) {
+                    }
+                    else if("Implements".equals(tag)) {
                         showImplementsCompare();
                     }
                 }
@@ -471,7 +500,7 @@ public class HomeFragment extends BaseFragment {
     }
     private void showTractorCompare() {
         binding.includeCompare.tvLabel.setText(getString(R.string.compareTractors));
-        binding.includeCompare.tvViewMore.setOnClickListener(v -> ((MainActivity) activity).navigateToCompareFragment(CallFrom.NEW_TRACTOR));
+        binding.includeCompare.llViewMore.setOnClickListener(v -> ((MainActivity) activity).navigateToCompareFragment(CallFrom.NEW_TRACTOR));
         if (compareTractorAdapter == null) {
             initCompareTractorAdapter();
         }
@@ -480,7 +509,7 @@ public class HomeFragment extends BaseFragment {
     }
     private void showImplementsCompare() {
         binding.includeCompare.tvLabel.setText(getString(R.string.compareImplement));
-        binding.includeCompare.tvViewMore.setOnClickListener(v -> ((MainActivity) activity).navigateToCompareFragment(CallFrom.IMPLEMENT));
+        binding.includeCompare.llViewMore.setOnClickListener(v -> ((MainActivity) activity).navigateToCompareFragment(CallFrom.IMPLEMENT));
         if (compareImplementAdapter == null) {
             initCompareImplementAdapter();
         }
@@ -543,7 +572,7 @@ public class HomeFragment extends BaseFragment {
         });
     }
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view,@Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(((MainActivity) activity)).get(HomeFragmentViewModel.class);
         if(pref.getIntValue(Constants.NO_OF_LAUNCHED,0) > 7) {
@@ -620,34 +649,171 @@ public class HomeFragment extends BaseFragment {
         initHarvester();
         initSmallFarmMachinery();
     }
+//    private void initSmallFarmMachinery() {
+//        binding.includeSmallFarmMachinery.tvLabel.setText(getString(R.string.small_farm_machinery));
+//        binding.includeSmallFarmMachinery.tvViewMore.setVisibility(View.GONE);
+//        if (categoriesAdapter == null) {
+//            initSmallFarmAdapter();
+//        }
+//        binding.includeSmallFarmMachinery.rvList.setAdapter(categoriesAdapter);
+//        if (categoriesAdapter != null && categoriesAdapter.getItemCount() <= 1) {
+//            categoryRepository.getHomeCategories().observe(getViewLifecycleOwner(),listResource -> {
+//                if(listResource.size()>0) {
+//                      //  binding.includeSmallFarmMachinery.container.setVisibility(View.GONE);
+//                      //  break;
+//                        binding.includeSmallFarmMachinery.container.setVisibility(View.VISIBLE);
+//                        categoriesAdapter.addItems(listResource,1,sessionManager.getEcomOther());
+//                       categoriesAdapter.addItems(listResource.subList(0,4));
+//                }
+//                else {
+//
+//                }
+//            });
+//           // getSmallMach();
+//        }
+//    }
     private void initSmallFarmMachinery() {
         binding.includeSmallFarmMachinery.tvLabel.setText(getString(R.string.small_farm_machinery));
-        binding.includeSmallFarmMachinery.tvViewMore.setVisibility(View.GONE);
+        binding.includeSmallFarmMachinery.llViewMore.setVisibility(View.GONE);
         if (categoriesAdapter == null) {
             initSmallFarmAdapter();
         }
         binding.includeSmallFarmMachinery.rvList.setAdapter(categoriesAdapter);
-        if (categoriesAdapter != null && categoriesAdapter.getItemCount() <= 1) {
+        if(categoriesAdapter != null && categoriesAdapter.getItemCount() <= 1) {
             categoryRepository.getHomeCategories().observe(getViewLifecycleOwner(), listResource -> {
-                if(listResource.size()>0) {
-                      //  binding.includeSmallFarmMachinery.container.setVisibility(View.GONE);
-                      //  break;
-                        binding.includeSmallFarmMachinery.container.setVisibility(View.VISIBLE);
-                        categoriesAdapter.addItems(listResource,1,sessionManager.getEcomOther());
+                Log.d("cvcvcxvxc1234===",""+listResource.size());
+                if(!listResource.isEmpty()) {
+                    binding.includeSmallFarmMachinery.container.setVisibility(View.VISIBLE);
+                    categoriesAdapter.itemRemoveAll();
+                    if(listResource.size()>4)
+                         categoriesAdapter.addItems(listResource.subList(0,4),1,sessionManager.getEcomOther());
+                    else categoriesAdapter.addItems(listResource,1,sessionManager.getEcomOther());
+                   // binding.includeSmallFarmMachinery.tvViewMore.setVisibility(View.VISIBLE);
+                }
+                else {
+                    binding.includeSmallFarmMachinery.llViewMore.setVisibility(View.GONE);
+                    binding.includeSmallFarmMachinery.container.setVisibility(View.GONE);
+                    catList();
                 }
             });
+            binding.includeSmallFarmMachinery.llViewMore.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(activity,CategoriesListActivity.class));
+                }
+            });
+        }
+        else {
+
         }
     }
     private void initSmallFarmAdapter() {
         categoriesAdapter = new CategoriesAdapter(activity,binding.includeTractors.rvList,true);
         categoriesAdapter.setListener((View v,int position,Category category) -> {
-            Intent intent = new Intent(activity, ProductListActivity.class);
+            Intent intent = new Intent(activity,ProductListActivity.class);
             com.khetigaadi.shop.model.Filter innerFilter = new com.khetigaadi.shop.model.Filter();
             innerFilter.setCategories(Collections.singletonList(category));
             intent.putExtra(ProductListFilterActivity.FILTER,innerFilter);
             startActivity(intent);
         });
+
+//        categoriesAdapter= new NewImplementListAdapter(activity,binding.includeTractors.rvList);
+//
+//        categoriesAdapter.setOnItemClickListener((position, v) -> {
+//            Intent intent = new Intent(activity, NewImpOverviewDetails.class);
+//            intent.putExtra("brandId", categoriesAdapter.getItem(position).getBrandId());
+//            intent.putExtra("typeId", categoriesAdapter.getItem(position).getImplementTypeId());
+//            intent.putExtra("modelId", categoriesAdapter.getItem(position).getImplementModelId());
+//            intent.putExtra("position", position);
+//            startActivity(intent);
+//        });
+        binding.includeSmallFarmMachinery.llViewMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+//        categoriesAdapter.setGetPriceClick((position,v) -> {
+//            String imgPath = ""; //  categoriesAdapter.getOthers().getImplementImagePath();
+//            if(categoriesAdapter.getOthers()==null)
+//                imgPath = BuildConfig.BASE_URL+"images/new-implement/";
+//            else imgPath = categoriesAdapter.getOthers().getImplementImagePath();
+//            Intent intent = new Intent(activity, NewTrGetOnRoadPriceActivity.class);
+//            intent.putExtra("id",categoriesAdapter.getItem(position).getId());
+//            intent.putExtra("name",categoriesAdapter.getItem(position).getImplementName());
+//            intent.putExtra("image",imgPath + categoriesAdapter.getItem(position).getImplementImage().getImage());
+//            intent.putExtra("priceType",PriceType.IMPLEMENT);
+//            intent.putExtra("toolbarlabel","Get Price");
+//            startActivity(intent);
+//        });
     }
+    @SuppressLint("CheckResult")
+    public void catList()
+    {
+        shopAPIs.getCategories()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<CategoryListResp>() {
+                    @Override
+                    public void onSuccess(@NonNull CategoryListResp productListResp) {
+                        Log.d("cvxcxxcvxv234===",""+productListResp.isError()+"=="+productListResp.getCategories().size());
+                        if (productListResp.isError()) {
+                            binding.includeSmallFarmMachinery.llViewMore.setVisibility(View.GONE);
+                            binding.includeSmallFarmMachinery.container.setVisibility(View.GONE);
+                        }
+                        else {
+                            binding.includeSmallFarmMachinery.container.setVisibility(View.VISIBLE);
+                            if(productListResp.getCategories().size()>4)
+                                categoriesAdapter.addItems(productListResp.getCategories().subList(0,4),1,sessionManager.getEcomOther());
+                            else categoriesAdapter.addItems(productListResp.getCategories(),1,sessionManager.getEcomOther());
+                          //binding.includeSmallFarmMachinery.tvViewMore.setVisibility(View.VISIBLE);
+                           // categoryRepository.
+                            for(int i=0;i<productListResp.getCategories().size();i++) {
+                                categoryRepository.deleteItem(productListResp.getCategories().get(i));
+                                categoryRepository.insertItem(productListResp.getCategories().get(i));
+                            }
+                        }
+                    }
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Timber.e(e, "onError: ");
+                        binding.includeSmallFarmMachinery.container.setVisibility(View.GONE);
+                        //gardenTools.postError(e.getMessage());
+                    }
+                });
+    }
+    @SuppressLint("CheckResult")
+//    public void getSmallMach(){
+//        //noinspection ResultOfMethodCallIgnored
+//        khetiAPIs.getHomeList()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeWith(new DisposableSingleObserver<HomeListResp>() {
+//                    @SuppressLint("CheckResult")
+//                    @Override
+//                    public void onSuccess(@NonNull HomeListResp productListResp) {
+//                        if(productListResp.isError()) {
+//
+//                        }
+//                           // gardenTools.postError(productListResp.getMsg().get(0).toString());
+//                        else {
+//                           // gardenTools.postSuccess(productListResp);
+//                            List<NewImp> newImps = productListResp.getHomeData().getImplement();
+//                            //newImps.subList(0,3);
+//                            if(newImps.size()>3)
+//                            categoriesAdapter.addItems(newImps.subList(0,4),1);
+//                            else categoriesAdapter.addItems(newImps,1);
+//                            binding.includeSmallFarmMachinery.container.setVisibility(View.VISIBLE);
+//                           // binding.includeSmallFarmMachinery.tvViewMore.setVisibility(View.VISIBLE);
+//                        }
+//                    }
+//                    @Override
+//                    public void onError(@NonNull Throwable e) {
+//                        Timber.e(e, "onError: ");
+//                       // gardenTools.postError(e.getMessage());
+//                    }
+//                });
+//    }
     private void initCompareTractorAdapter() {
         compareTractorAdapter = new ComparePopularTractorAdapter(activity,binding.includeCompare.rvList);
         compareTractorAdapter.setOnItemClickListener((position,v,tractors) -> {
@@ -786,7 +952,7 @@ public class HomeFragment extends BaseFragment {
             if (homeList.getHomeData().getTractors() != null) {
                 binding.includePopularTractors.container.setVisibility(View.VISIBLE);
                 binding.includePopularTractors.tvLabel.setText(getString(R.string.popular_tractor));
-                binding.includePopularTractors.tvViewMore.setOnClickListener(v -> {
+                binding.includePopularTractors.llViewMore.setOnClickListener(v -> {
                     callNewTractorListPage(null);
                 });
                 PopularTractorAdapter popularTractorAdapter = new PopularTractorAdapter(activity,binding.includePopularTractors.rvList);
@@ -797,6 +963,7 @@ public class HomeFragment extends BaseFragment {
                     popularTractorAdapter.updateItems(homeList.getHomeData().getTractors().subList(0, 4));
                 else
                     popularTractorAdapter.updateItems(homeList.getHomeData().getTractors());
+              // Log.d("xdfvdfdsdsssd====",""+homeList.getHomeData().getTractors().get(0).getName());
                 popularTractorAdapter.setOnItemClickListener(new PopularTractorAdapter.Listener() {
                     @Override
                     public void onItemClick(int position, @org.jetbrains.annotations.Nullable View v) {
@@ -814,7 +981,7 @@ public class HomeFragment extends BaseFragment {
                         intent.putExtra("id",popularTractorAdapter.getItem(position).getId());
                         intent.putExtra("name",popularTractorAdapter.getItem(position).getName());
                         //intent.putExtra("image", popularTractorAdapter.getOthers().getNewTractorImage() + popularTractorAdapter.getItem(position).getImage().getTractor_img_name());
-                        intent.putExtra("image",popularTractorAdapter.getOthers().getNewTractorImage() + popularTractorAdapter.getItem(position).getImage());
+                        intent.putExtra("image",popularTractorAdapter.getOthers().getNewTractorImage()+popularTractorAdapter.getItem(position).getImage());
                         intent.putExtra("priceType",PriceType.TRACTOR);
                         startActivity(intent);
                     }
@@ -862,13 +1029,14 @@ public class HomeFragment extends BaseFragment {
                 newsAdapter.addItems(homeList.getHomeData().getNews().stream().filter(news -> news.getImage() != null && news.getImage().getImage() != null).collect(Collectors.toList()).subList(0, 4), 1);
                 binding.includeNews.container.setVisibility(View.VISIBLE);
             }
-            if (homeList.getHomeData().getTestimonials() != null) {
-                if (testimonialsAdapter == null)
+            if(homeList.getHomeData().getTestimonials() != null) {
+                if(testimonialsAdapter == null)
                     initTestimonials();
-                if (testimonialsAdapter.getList() != null && testimonialsAdapter.getList().size() < 1)
-                    testimonialsAdapter.addItems(homeList.getHomeData().getTestimonials(), 1, homeList.getOthers());
+                if(testimonialsAdapter.getList() != null && testimonialsAdapter.getList().size() < 1)
+                    testimonialsAdapter.addItems(homeList.getHomeData().getTestimonials(), 1,homeList.getOthers());
                 binding.includeTestimonials.container.setVisibility(View.VISIBLE);
-            } else {
+            }
+            else {
                 binding.includeTestimonials.container.setVisibility(View.GONE);
             }
         }
@@ -882,7 +1050,7 @@ public class HomeFragment extends BaseFragment {
         testimonialsAdapter = new TestimonialListAdapter(activity, binding.includeTestimonials.rvList);
         binding.includeTestimonials.rvList.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false));
         binding.includeTestimonials.rvList.setAdapter(testimonialsAdapter);
-        binding.includeTestimonials.tvViewMore.setVisibility(View.GONE);
+        binding.includeTestimonials.llViewMore.setVisibility(View.GONE);
         binding.includeTestimonials.rvList.addItemDecoration(new CirclePagerIndicatorDecoration());
     }
     public void runnable(final int size) {
@@ -901,8 +1069,13 @@ public class HomeFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         ((MainActivity) activity).hideSoftKeyboard();
-        if (bannerList == null)
+        if (bannerList == null) {
             bannerList = ((MainActivity) activity).allBanner.getBanners().getHome();
+           if(((MainActivity) activity).allBanner.getBanners().getHome()!=null) {
+                bannerList.add(((MainActivity) activity).allBanner.getBanners().getHome().get(0));
+                bannerList.add(((MainActivity) activity).allBanner.getBanners().getHome().get(0));
+            }
+        }
         if (bannerList != null && bannerList.size() != 0) {
             configAdapter();
         }
@@ -929,7 +1102,6 @@ public class HomeFragment extends BaseFragment {
                 Glide.with(activity)
                         .load(otherBannerList.get(0).getImageUrl())
                         .into(binding.ivBanner1);
-
             } else
                 binding.mcvBanner1.setVisibility(View.GONE);
             if (otherBannerList.size() >= 2) {
@@ -937,7 +1109,6 @@ public class HomeFragment extends BaseFragment {
                 Glide.with(activity)
                         .load(otherBannerList.get(1).getImageUrl())
                         .into(binding.ivBanner2);
-
             } else
                 binding.mcvBanner2.setVisibility(View.GONE);
             if (otherBannerList.size() >= 2) {
@@ -945,7 +1116,6 @@ public class HomeFragment extends BaseFragment {
                 Glide.with(activity)
                         .load(otherBannerList.get(2).getImageUrl())
                         .into(binding.ivBanner3);
-
             } else
                 binding.mcvBanner3.setVisibility(View.GONE);
         }
@@ -954,9 +1124,9 @@ public class HomeFragment extends BaseFragment {
         binding.viewPager.setAdapter(new TwoBannerSlideAdapter(activity,bannerList));
         binding.viewPager.setClipToPadding(false);
        // binding.viewPager.setPadding(0,0,120,0);
-        if(binding.viewPager.getCurrentItem()==bannerList.size()-1)
-            binding.viewPager.setPadding(0,0,0,0);
-      //  else
+        //if(binding.viewPager.getCurrentItem()==bannerList.size()-1)
+            binding.viewPager.setPadding(60,0,60,0);
+       //  else
            // binding.viewPager.setPadding(0,0,120,0);
         binding.indicator.setViewPager(binding.viewPager);
         runnable(bannerList.size());
@@ -981,18 +1151,19 @@ public class HomeFragment extends BaseFragment {
                             adapter.updateItems(brands.subList(0, 16));
                     }
                 });
-                binding.includeBrands.tvViewMore.setOnClickListener(v ->navigateToSearchNewTractor(true));
+                binding.includeBrands.llViewMore.setOnClickListener(v ->navigateToSearchNewTractor(true));
                 break;
             }
             case BrandType.IMPLEMENT: {
                 adapter.setOnItemClickListener((position,v) ->callImplementList(adapter.getItem(position)));
                 brandRepository.getImplementBrands().observe(getViewLifecycleOwner(),brands -> {
                     if (brands.size()>0) {
-                        if (Objects.requireNonNull(brands).size() != 0)
+                        if (Objects.requireNonNull(brands).size() != 0 && brands.size()>16)
                             adapter.updateItems(brands.subList(0,16));
+                        else  adapter.updateItems(brands.subList(0,brands.size()-1));
                     }
                 });
-                binding.includeBrands.tvViewMore.setOnClickListener(v -> navigateToSearchImplement(true));
+                binding.includeBrands.llViewMore.setOnClickListener(v -> navigateToSearchImplement(true));
                 break;
             }
             case BrandType.OLD_TRACTOR:

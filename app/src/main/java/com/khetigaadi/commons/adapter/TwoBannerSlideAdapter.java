@@ -14,7 +14,7 @@ import java.util.List;
 public class TwoBannerSlideAdapter extends PagerAdapter {
     private final FragmentActivity activity;
     private final List<Banner> products;
-    public TwoBannerSlideAdapter(FragmentActivity activity, List<Banner> products) {
+    public TwoBannerSlideAdapter(FragmentActivity activity,List<Banner> products) {
         this.activity = activity;
         this.products = products;
     }
@@ -24,9 +24,10 @@ public class TwoBannerSlideAdapter extends PagerAdapter {
     }
     @NonNull
     @Override
-    public View instantiateItem(@NonNull ViewGroup container, final int position) {
-        VpImageBinding binding = VpImageBinding.inflate(LayoutInflater.from(container.getContext()), container, false);
-        binding.imageDisplay.setScaleType(ImageView.ScaleType.FIT_XY);
+    public View instantiateItem(@NonNull ViewGroup container,final int position) {
+        VpImageBinding binding = VpImageBinding.inflate(LayoutInflater.from(container.getContext()),container,false);
+         binding.imageDisplay.setScaleType(ImageView.ScaleType.FIT_XY);
+       // binding.imageDisplay.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         Glide.with(activity)
                 .load(products.get(position).getImageUrl())
                 .error(R.mipmap.no_image)

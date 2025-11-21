@@ -7,6 +7,7 @@
     android:layout_height="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:layout_marginBottom="@dimen/dimen_20dp"
         android:layout_height="wrap_content">
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
@@ -43,6 +44,8 @@
                     style="@style/SearchPageHeading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins_bold"
                     android:padding="@dimen/dimen_8dp"
                     android:text="@string/search_implement_by_name"
                     android:textAppearance="?android:attr/textAppearanceMedium"
@@ -55,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/margin_20dp"
                     android:layout_marginEnd="@dimen/margin_20dp"
-                    android:drawableStart="@drawable/search_symbol"
+                    android:drawableStart="@drawable/ic_search2"
                     android:focusableInTouchMode="false"
                     android:hint="@string/type_to_select_implement_name"
                     android:longClickable="false"
@@ -107,7 +110,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tvOr"
-            app:layout_constraintTop_toTopOf="@id/tvOr" />
+            app:layout_constraintTop_toTopOf="@id/tvOr"/>
         <TextView
             android:id="@+id/tvDoYouHaveLabel"
             style="@style/homePageLabel"
@@ -115,11 +118,13 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="center"
+            android:textStyle="bold"
+            android:fontFamily="@font/poppins_bold"
             android:padding="5dp"
             android:text="@string/do_you_have_a_implement_in_mind"
             android:textColor="@color/black"
             android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@id/tvOr" />
+            app:layout_constraintTop_toBottomOf="@id/tvOr"/>
         <androidx.cardview.widget.CardView
             android:id="@+id/cvBrandModel"
             style="@style/CardViewListItem"
@@ -140,6 +145,8 @@
                     style="@style/SearchPageHeading"
                     android:layout_width="match_parent"
                     android:padding="@dimen/dimen_8dp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins_bold"
                     android:layout_height="wrap_content"
                     android:text="@string/search_by_brand_and_type"
                     android:textColor="@color/black"
@@ -153,7 +160,7 @@
                     android:minHeight="@dimen/payu_dimen_54dp"
                     android:layout_marginEnd="@dimen/margin_20dp"
                     android:clickable="true"
-                    android:focusable="true"
+                    android:focusable="false"
                     android:hint="@string/brand"
                     android:inputType="text"
                     android:longClickable="false"
@@ -170,7 +177,7 @@
                     android:layout_marginEnd="@dimen/margin_20dp"
                     android:backgroundTint="@color/grey_line"
                     android:clickable="true"
-                    android:focusable="true"
+                    android:focusable="false"
                     android:hint="@string/type"
                     android:inputType="text"
                     android:longClickable="false"
@@ -200,11 +207,11 @@
                     style="@style/SearchPageHeading"
                     android:layout_width="wrap_content"
                     android:padding="@dimen/dimen_8dp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins_bold"
                     android:layout_height="wrap_content"
                     android:text="@string/hp"
                     android:textColor="@color/black" />
-
-
                 <EditText
                     android:id="@+id/et_hp"
                     style="@style/SearchEditText"
@@ -239,6 +246,8 @@
                     style="@style/SearchPageHeading"
                     android:layout_width="match_parent"
                     android:id="@+id/tvBrandLabel"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins_bold"
                     android:padding="@dimen/dimen_8dp"
                     android:layout_height="wrap_content"
                     android:text="@string/search_by_brand"/>

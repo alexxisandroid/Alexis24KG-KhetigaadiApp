@@ -17,6 +17,18 @@ public class TractorSpec {
     @SerializedName("tractor_spec")
     @Expose
     private TractorShortSpec tractorSpec;
+    @SerializedName("tractor_unit")
+    @Expose
+    private TractorUnit tractorUnit;
+    public TractorUnit getTractorUnit() {
+        return tractorUnit;
+    }
+
+    public void setTractorUnit(TractorUnit tractorUnit) {
+        this.tractorUnit = tractorUnit;
+    }
+
+
     public int getDataId() {
         return dataId;
     }

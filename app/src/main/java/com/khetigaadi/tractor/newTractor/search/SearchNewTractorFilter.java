@@ -33,7 +33,9 @@ import com.khetigaadi.commons.SharedPreferenceUtils;
 import com.khetigaadi.commons.model.BrandResp;
 import com.khetigaadi.databinding.BrandRow1Binding;
 import com.khetigaadi.implement.newImplement.util.Brand;
-import com.khetigaadi.base.model.Model;
+//import com.khetigaadi.base.model.Model;
+
+import com.khetigaadi.tractor.util.Model;
 import com.khetigaadi.commons.activities.HpSelectionActivity;
 import com.khetigaadi.commons.activities.ModelSelectionActivity;
 import com.khetigaadi.commons.fragments.BaseFragment;
@@ -171,8 +173,12 @@ public class SearchNewTractorFilter extends BaseFragment {
                 try {
                     binding.etModel.setText("");
                     Filter filter = new Filter();
-                    filter.setBrands(Collections.singletonList(selectedBrand));
-                    filter.setModels(Collections.singletonList(selectedModel));
+                    List<Brand> bdg = new ArrayList<Brand>();
+                     bdg.add(selectedBrand);
+                    List<Model> mdll = new ArrayList<Model>();
+                    mdll.add(selectedModel);
+                    filter.setBrands(bdg);  //Collections.singletonList(selectedBrand));
+                    filter.setModels(mdll); //Collections.singletonList(selectedModel));
                     viewModel.setSelectedBrand(null);
                     this.selectedModel = null;
                     ((MainActivity) activity).hideSoftKeyboard();
@@ -204,7 +210,7 @@ public class SearchNewTractorFilter extends BaseFragment {
             if (bannerList.size() != 0) {
                 binding.viewPager.setAdapter(new TwoBannerSlideAdapter(activity, bannerList));
                 binding.viewPager.setClipToPadding(false);
-                binding.viewPager.setPadding(0, 0, 120, 0);
+                binding.viewPager.setPadding(60,0,60,0);
                 binding.indicator.setViewPager(binding.viewPager);
                 runnable(bannerList.size());
                 handler.postDelayed(animateViewPager, Constants.ANIM_VIEWPAGER_DELAY);

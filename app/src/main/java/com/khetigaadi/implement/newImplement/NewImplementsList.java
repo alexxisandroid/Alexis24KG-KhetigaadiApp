@@ -124,29 +124,34 @@ public class NewImplementsList extends Fragment {
         mAdapter.setOnLoadMoreListener(this::getImpList);
     }
     private void getImpList(int page) {
-        viewModel.getImpList(page).observe(getViewLifecycleOwner(),implementListRespStateData -> {
-            switch (implementListRespStateData.getStatus()) {
-                case LOADING:
-                    if (page == 1) {
-                        binding.llProgress.setVisibility(View.VISIBLE);
-                        binding.filterIcon.setVisibility(View.GONE);
-                    }
-                    break;
-                case SUCCESS:
-                    binding.llProgress.setVisibility(View.GONE);
-                    binding.filterIcon.setVisibility(View.VISIBLE);
-                    ImplementListResp implementListResp = implementListRespStateData.getData();
-                    if (implementListResp != null) {
-                        mAdapter.setTotPages(implementListResp.getData().getLastPage());
-                        mAdapter.addItems(implementListResp.getData().getImps(), page, implementListResp.getOthers());
-                    }
-                    break;
-                case ERROR:
-                    binding.llProgress.setVisibility(View.GONE);
-                    binding.filterIcon.setVisibility(View.VISIBLE);
-                    Toast.makeText(activity, implementListRespStateData.getError(), Toast.LENGTH_SHORT).show();
-                    break;
-            }
-        });
+       try {
+           viewModel.getImpList(page).observe(getViewLifecycleOwner(), implementListRespStateData -> {
+               switch (implementListRespStateData.getStatus()) {
+                   case LOADING:
+                       if (page == 1) {
+                           binding.llProgress.setVisibility(View.VISIBLE);
+                           binding.filterIcon.setVisibility(View.GONE);
+                       }
+                       break;
+                   case SUCCESS:
+                       binding.llProgress.setVisibility(View.GONE);
+                       binding.filterIcon.setVisibility(View.VISIBLE);
+                       ImplementListResp implementListResp = implementListRespStateData.getData();
+                       if (implementListResp != null) {
+                           mAdapter.setTotPages(implementListResp.getData().getLastPage());
+                           mAdapter.addItems(implementListResp.getData().getImps(), page, implementListResp.getOthers());
+                       }
+                       break;
+                   case ERROR:
+                       binding.llProgress.setVisibility(View.GONE);
+                       binding.filterIcon.setVisibility(View.VISIBLE);
+                       Toast.makeText(activity, implementListRespStateData.getError(), Toast.LENGTH_SHORT).show();
+                       break;
+               }
+           });
+       }
+       catch(Exception e) {
+           e.printStackTrace();
+       }
     }
 }

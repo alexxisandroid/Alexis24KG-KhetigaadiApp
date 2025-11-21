@@ -19,6 +19,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_50dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/llContainer"
@@ -35,7 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="287dp"
                 android:src="@mipmap/ic_launcher"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"/>
             <TextView
                 android:id="@+id/tvName"
                 style="@style/TractorListItemTitle"
@@ -50,7 +51,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/ivImage"
-                tools:text="Same Deutz Fahr Agrolux 80 Profiline" />
+                tools:text="Same Deutz Fahr Agrolux 80 Profiline"/>
             <CheckBox
                 android:id="@+id/cbAgree"
                 style="@style/AgreementStyle"
@@ -62,25 +63,34 @@
                 android:text="@string/i_agree_that_by_clicking"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tvName" />
+                app:layout_constraintTop_toBottomOf="@id/tvName"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
     <com.andexert.library.RippleView
         android:id="@+id/riRequest"
         android:layout_width="match_parent"
         android:layout_height="45dp"
+        android:layout_margin="@dimen/dimen_10dp"
         android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
+
+
+        android:outlineAmbientShadowColor="@color/red"
+        android:background="@drawable/btn_rectangle_outline_bg_red"
+        android:layout_marginBottom="@dimen/dimen_10dp"
+
+        android:layout_gravity="bottom|center"
         android:layout_marginTop="@dimen/margin_15dp">
-        <Button
+        <TextView
             style="@style/ButtonStyleFilledRed"
             android:layout_width="match_parent"
             android:textAlignment="center"
+            android:textColor="@color/red"
+            android:background="@drawable/btn_rectangle_outline_bg_red"
             android:layout_height="match_parent"
-            android:text="@string/btn_request" />
+            android:text="@string/btn_request"/>
     </com.andexert.library.RippleView>
     <include
         android:id="@+id/llProgress"
         layout="@layout/progressbar"
-        tools:visibility="gone" />
+        tools:visibility="gone"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -11,10 +11,10 @@ import retrofit2.Response;
 import timber.log.Timber;
 public class FcmApi {
     private static final String TAG = "FcmApi";
-    public static void registerFCMToken(UserAPIs apiInterface, SessionManager sessionManager, FcmApi.FCMCallback fcmCallback) {
+    public static void registerFCMToken(UserAPIs apiInterface,SessionManager sessionManager,FcmApi.FCMCallback fcmCallback) {
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(task -> {
-                    if (!task.isSuccessful()) {
+                    if(!task.isSuccessful()) {
                         Timber.tag(TAG).w(task.getException(), "Fetching FCM registration token failed");
                         return;
                     }
@@ -23,16 +23,15 @@ public class FcmApi {
                     callApi(apiInterface, task.getResult(), fcmCallback);
                 });
     }
-    private static void callApi(UserAPIs apiInterface, String token, FCMCallback fcmCallback) {
+    private static void callApi(UserAPIs apiInterface,String token,FCMCallback fcmCallback) {
         apiInterface.registerPushToken(new FCMParam(token)).enqueue(new Callback<>() {
             @Override
-            public void onResponse(@NotNull Call<MyResponse> call, @NotNull Response<MyResponse> response) {
+            public void onResponse(@NotNull Call<MyResponse> call,@NotNull Response<MyResponse> response) {
                 if (fcmCallback != null)
                     fcmCallback.onComplete();
             }
-
             @Override
-            public void onFailure(@NotNull Call<MyResponse> call, @NotNull Throwable t) {
+            public void onFailure(@NotNull Call<MyResponse> call,@NotNull Throwable t) {
                 if (fcmCallback != null)
                     fcmCallback.onComplete();
             }

@@ -13,7 +13,7 @@
     app:cardCornerRadius="8dp">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="214dp"
+        android:layout_height="@dimen/payu_dimen_220dp"
         android:background="@color/munsell">
         <ImageView
             android:id="@+id/popularTractorImage"
@@ -23,6 +23,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/margin_5dp"
             android:background="@color/white"
+            android:scaleType="fitXY"
             android:padding="@dimen/margin_5dp"
             android:src="@mipmap/ic_launcher"
             app:layout_constraintBottom_toTopOf="@id/popularTractorTitle"
@@ -31,27 +32,30 @@
   <!--    style="@style/ViewsRoundedSmall"  -->
         <TextView
             android:id="@+id/tvViews"
+            style="@style/ViewsRoundedSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="11sp"
-            style="@style/ViewsRoundedSmall"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_marginStart="@dimen/margin_5dp"
-            android:layout_marginTop="@dimen/margin_5dp"
             android:textAlignment="center"
-            android:paddingBottom="@dimen/dimen_2dp"
+            android:layout_gravity="center_vertical|start|center"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:gravity="start|center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="0k"/>
+            tools:text="0k" />
         <!--  style = "@style/TractorListItemTitle"   android:fontFamily="@font/poppins_semi_bold" -->
         <TextView
             android:id="@+id/popularTractorTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
              style = "@style/TractorListItemTitle"
-            android:fontFamily="@font/poppins_semi_bold"
+            android:fontFamily="@font/poppins_bold"
+            android:textStyle="bold"
             android:maxLines="1"
             android:textColor="@color/charcoal"
+            android:layout_marginStart="@dimen/dimen_4dp"
+            android:layout_marginTop="@dimen/dimen_4dp"
+            android:layout_marginEnd="@dimen/dimen_4dp"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@id/tvHP"
             tools:text=" Sonalika DI 47 Rx (MahSnecial)"/>
@@ -60,8 +64,9 @@
             android:id="@+id/tvHP"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="@dimen/payu_dimen_12dp"
             style="@style/ItemTitle"
+            android:layout_marginBottom="@dimen/dimen_5dp"
             android:fontFamily="@font/poppins"
             android:textColor="@color/charcoal"
             android:textSize="@dimen/dimen_12sp"
@@ -83,18 +88,25 @@
             tools:visibility="visible"/>
 <!--com.google.android.material.button.MaterialButton  style = "@style/OutLineButtonStyleSmall"
       android:fontFamily="@font/poppins_medium" -->
-        <com.google.android.material.button.MaterialButton
+        <TextView
             android:id="@+id/btnGetOnRoadPrice"
             android:layout_width="match_parent"
-            style = "@style/OutLineButtonStyleSmall"
+
             android:fontFamily="@font/poppins_medium"
-            android:layout_height="35dp"
+            android:layout_height="@dimen/payu_dimen_38dp"
             android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/dimen_5dp"
             android:layout_marginStart="@dimen/dimen_10dp"
+            android:maxLines="1"
             android:layout_marginEnd="@dimen/margin_10dp"
-            android:layout_marginBottom="@dimen/margin_8dp"
+            android:textColor="@color/red"
+            android:textAlignment="center"
+            android:outlineAmbientShadowColor="@color/red"
+            android:background="@drawable/btn_rectangle_outline_bg_red"
+            android:layout_marginBottom="@dimen/dimen_10dp"
             android:text="@string/getOnRoadPrice"
-            android:textSize="11sp"
+            android:textSize="@dimen/dimen_14sp"
             app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

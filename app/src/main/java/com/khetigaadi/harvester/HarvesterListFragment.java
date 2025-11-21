@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -15,7 +14,6 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -29,9 +27,7 @@ import com.khetigaadi.retrofit.KhetiAPIs;
 import com.khetigaadi.tractor.TractorFilterActivity;
 import com.khetigaadi.tractor.newTractor.NewTrGetOnRoadPriceActivity;
 import com.khetigaadi.tractor.newTractor.model.Filter;
-
 import javax.inject.Inject;
-
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class HarvesterListFragment extends Fragment {

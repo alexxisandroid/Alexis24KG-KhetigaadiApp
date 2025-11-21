@@ -1,8 +1,4 @@
 package com.khetigaadi.tractor.compare;
-import static com.khetigaadi.base.util.StateData.Status.ERROR;
-import static com.khetigaadi.base.util.StateData.Status.LOADING;
-import static com.khetigaadi.base.util.StateData.Status.SUCCESS;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -20,28 +15,20 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.bumptech.glide.Glide;
-import com.khetigaadi.AppController;
 import com.khetigaadi.MainActivity;
 import com.khetigaadi.R;
-import com.khetigaadi.base.room.repository.utils.Status;
 import com.khetigaadi.databinding.SearchByNameBinding;
 import com.khetigaadi.implement.newImplement.util.Brand;
 import com.khetigaadi.retrofit.KhetiAPIs;
 import com.khetigaadi.room.repository.BrandRepository;
-
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.inject.Inject;
-
 import dagger.hilt.android.AndroidEntryPoint;
-import timber.log.Timber;
 @AndroidEntryPoint
 public class GetBrandName extends Fragment {
     private static final String TAG = GetBrandName.class.getSimpleName();
@@ -66,7 +53,7 @@ public class GetBrandName extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,@Nullable ViewGroup container,@Nullable Bundle savedInstanceState) {
-        binding = SearchByNameBinding.inflate(inflater, container, false);
+        binding = SearchByNameBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
         Glide.with(activity)
                 .load(R.drawable.loader_white)
@@ -75,16 +62,14 @@ public class GetBrandName extends Fragment {
         initAdapter();
         binding.edSearchTractorByBrand.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s,int start,int count,int after) {
 
             }
-
             @Override
             public void onTextChanged(CharSequence s,int start,int before,int count) {
                 adapter.getFilter().filter(s);
                 System.out.println("addTextChangedListener");
             }
-
             @Override
             public void afterTextChanged(Editable s) {
 
@@ -116,6 +101,7 @@ public class GetBrandName extends Fragment {
             GetModelName fragment = new GetModelName();
             Bundle bundle = new Bundle();
             bundle.putString("value",valueJson.toString());
+            bundle.putString("image",brand.getImage());
             fragment.setArguments(bundle);
             FragmentManager mFragmentManager = activity.getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();

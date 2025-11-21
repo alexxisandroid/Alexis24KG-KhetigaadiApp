@@ -10,13 +10,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.Insets
-import androidx.core.view.OnApplyWindowInsetsListener
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -40,9 +34,14 @@ import com.khetigaadi.news.adapter.CommentListAdapter
 import com.khetigaadi.news.adapter.CommentListAdapter.CommentListClickListener
 import com.khetigaadi.news.model.Comment
 import com.khetigaadi.news.model.CommentResp
+import com.khetigaadi.retrofit.KhetiAPIs
+import com.khetigaadi.tractor.rent.model.RentTractorDetailsResp
 import com.khetigaadi.user.SessionManager
 import com.khetigaadi.user.profile.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.observers.DisposableSingleObserver
+import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -59,26 +58,28 @@ class NewsDetailsActivity:BaseActivity() {
     private lateinit var binding:ActivityNewsDetailsBinding
     private lateinit var viewModel:NewsDetailsViewModel
     private var news:News? = null
+    @Inject
+    lateinit var khetiAPIs:KhetiAPIs
     override fun onCreate(savedInstanceState:Bundle?) {
         super.onCreate(savedInstanceState)
         println("vcbcvbcvbc====")
-        WindowCompat.setDecorFitsSystemWindows(getWindow(),false)
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(),false)
         binding = ActivityNewsDetailsBinding.inflate(layoutInflater)
         val view:View = binding.root
         setContentView(view)
-        ViewCompat.setOnApplyWindowInsetsListener(
-            view,
-            OnApplyWindowInsetsListener { v: View?, insets: WindowInsetsCompat? ->
-                val systemBarsInsets: Insets =
-                    insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
-                v!!.setPadding(
-                    systemBarsInsets.left,
-                    systemBarsInsets.top,
-                    systemBarsInsets.right,
-                    systemBarsInsets.bottom)
-                insets
-            })
-        this.enableEdgeToEdge()
+//        ViewCompat.setOnApplyWindowInsetsListener(
+//            view,
+//            OnApplyWindowInsetsListener { v: View?, insets: WindowInsetsCompat? ->
+//                val systemBarsInsets: Insets =
+//                    insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
+//                v!!.setPadding(
+//                    systemBarsInsets.left,
+//                    systemBarsInsets.top,
+//                    systemBarsInsets.right,
+//                    systemBarsInsets.bottom)
+//                insets
+//            })
+//        this.enableEdgeToEdge()
         viewModel = ViewModelProvider(this).get(NewsDetailsViewModel::class.java)
         initToolbar()
         readData(intent.extras)
@@ -203,6 +204,7 @@ class NewsDetailsActivity:BaseActivity() {
         binding.toolbars.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material)
         binding.toolbars.toolbar.setNavigationOnClickListener { onBackPressed() }
         binding.toolbars.toolbar.title = getString(R.string.news)
+        supportActionBar?.title =getString(R.string.news)
     }
     private fun readDeepLinkData() {
         if (intent.action != null && intent.action.equals(Intent.ACTION_VIEW, ignoreCase = true)) {
@@ -213,7 +215,7 @@ class NewsDetailsActivity:BaseActivity() {
             }
         }
     }
-    private fun readData(bundle: Bundle?) {
+    private fun readData(bundle:Bundle?) {
         if (bundle != null) {
             newsId = bundle.getString("news_id")
         }
@@ -222,15 +224,15 @@ class NewsDetailsActivity:BaseActivity() {
     //Google analytic code
     //                    getCommentList();
     private fun getNewDetails() {
-        viewModel.newsDetails.observe(this) { newsDetailRespStateData: StateData<NewsDetailResp?> ->
-           println("vcbvcbcvbcvbvcdfsg===="+newsDetailRespStateData.status);
-            when (newsDetailRespStateData.status) {
+        viewModel.newsDetails.observe(this) { newsDetailRespStateData:StateData<NewsDetailResp?> ->
+           println("vcbvcbcvbcvbvcdfsg===="+newsId+"=="+newsDetailRespStateData.status);
+            when(newsDetailRespStateData.status) {
                 StateData.Status.LOADING -> {
                     binding.llComments.visibility = View.GONE
                     binding.llProgresss.llProgress.visibility = View.VISIBLE
                 }
                 StateData.Status.SUCCESS -> {
-                    if (newsDetailRespStateData.data != null) {
+                    if(newsDetailRespStateData.data != null) {
                         news = newsDetailRespStateData.data!!.news
                     }
                     // (News) newsDetailsResp.getNews();
@@ -244,11 +246,13 @@ class NewsDetailsActivity:BaseActivity() {
                         binding.description.visibility = View.VISIBLE
                         if (news!!.postContent != null) {
                             val html = "<html><body>" + news!!.postContent + "</body></html>"
-                            binding.description.loadDataWithBaseURL("", html, "text/html", "UTF-8", "")
+                            binding.description.loadDataWithBaseURL("",html,"text/html","UTF-8","")
                         }
+                        println("bvnvnbnbbn1234====="+news?.postContent)
                     }
                     if (news!!.image != null) {
-                        Glide.with(this@NewsDetailsActivity).load(Constants.decodeURL(news!!.image.image))
+                        Glide.with(this@NewsDetailsActivity)
+                            .load(Constants.decodeURL(news!!.image.image))
                             .placeholder(R.mipmap.no_image)
                             .error(R.mipmap.no_image)
                             .into(binding.ivImage)
@@ -274,6 +278,7 @@ class NewsDetailsActivity:BaseActivity() {
                     }
                     //                    getCommentList();
                     binding.llProgresss.llProgress.visibility = View.GONE
+                    getNewsDetails()
                 }
                 StateData.Status.ERROR -> {
                     binding.llProgresss.llProgress.visibility = View.GONE
@@ -283,6 +288,136 @@ class NewsDetailsActivity:BaseActivity() {
                 else -> {}
             }
         }
+    }
+    private fun getNewsDetails() {
+        khetiAPIs!!.getNewsDetails(newsId)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeWith(object:DisposableSingleObserver<NewsDetailResp?>() {
+                override fun onSuccess(newsDetailRespStateData:NewsDetailResp?) {
+                            try {
+                                if (!newsDetailRespStateData!!.isError()) {
+                                    if (newsDetailRespStateData?.news != null) {
+                                        news = newsDetailRespStateData.news
+                                    }
+                                    // (News) newsDetailsResp.getNews();
+                                    //Google analytic code
+                                    Timber.i("Setting screen name: %s", TAG)
+                                    mTracker!!.setScreenName(TAG + " " + news!!.postTitle)
+                                    mTracker!!.send(ScreenViewBuilder().build())
+                                    binding.tvNewsHeading.text = news!!.postTitle
+                                    if (news!!.postContent != null) {
+                                        binding.description.settings.javaScriptEnabled = true
+                                        binding.description.visibility = View.VISIBLE
+                                        if (news!!.postContent != null) {
+                                            val html =
+                                                "<html><body>" + news!!.postContent + "</body></html>"
+                                            binding.description.loadDataWithBaseURL(
+                                                "",
+                                                html,
+                                                "text/html",
+                                                "UTF-8",
+                                                ""
+                                            )
+                                        }
+                                        println("bvnvnbnbbn1234=====" + news?.postContent)
+                                    }
+                                    if (news!!.image != null) {
+                                        if (this != null) {
+                                            Glide.with(this@NewsDetailsActivity)
+                                                .load(Constants.decodeURL(news!!.image.image))
+                                                .placeholder(R.mipmap.no_image)
+                                                .error(R.mipmap.no_image)
+                                                .into(binding.ivImage)
+                                        }
+
+                                        binding.ivImage.visibility = View.VISIBLE
+                                    } else binding.ivImage.visibility = View.GONE
+                                    if (news!!.postDate != null) {
+                                        // binding.tvDate.text = DateUtils.convertDateToDate(news!!.postDate, DateUtils.DateFormat.yyyy_MM_dd_HH_mm_ss, DateUtils.DateFormat.MMM_dd_yyyy)
+
+
+                                        val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                                        val dateInString = news!!.postDate
+                                        val formatterOut = SimpleDateFormat("MMM-dd-yyyy")
+                                        try {
+                                            val date = formatter.parse(dateInString)
+                                            println(date)
+                                            assert(date != null)
+                                            val dtt = formatterOut.format(date)
+                                            // binding.tvRegisteredOn.setText(String.format("%s %s", getString(R.string.registered_on),dtt));
+                                            binding.tvDate.text = dtt
+                                        } catch (e: ParseException) {
+                                            e.printStackTrace()
+                                        }
+                                    }
+                                    //                    getCommentList();
+                                    binding.llProgresss.llProgress.visibility = View.GONE
+                                } else {
+                                    // rentTractor.postError(newTractorResp.getMsg().get(0))
+                                }
+                            }
+                            catch(e:Exception) {
+                                e.printStackTrace()
+                            }
+                }
+//                override fun onSuccess(newsDetailRespStateData: NewsDetailResp) {
+//                    if (!newsDetailRespStateData.isError()) {
+//                        if(newsDetailRespStateData.news != null) {
+//                            news = newsDetailRespStateData.news
+//                        }
+//                        // (News) newsDetailsResp.getNews();
+//                        //Google analytic code
+//                        Timber.i("Setting screen name: %s", TAG)
+//                        mTracker!!.setScreenName(TAG + " " + news!!.postTitle)
+//                        mTracker!!.send(ScreenViewBuilder().build())
+//                        binding.tvNewsHeading.text = news!!.postTitle
+//                        if (news!!.postContent != null) {
+//                            binding.description.settings.javaScriptEnabled = true
+//                            binding.description.visibility = View.VISIBLE
+//                            if (news!!.postContent != null) {
+//                                val html = "<html><body>" + news!!.postContent + "</body></html>"
+//                                binding.description.loadDataWithBaseURL("",html,"text/html","UTF-8","")
+//                            }
+//                            println("bvnvnbnbbn1234====="+news?.postContent)
+//                        }
+//                        if (news!!.image != null) {
+//                            Glide.with(this@NewsDetailsActivity)
+//                                .load(Constants.decodeURL(news!!.image.image))
+//                                .placeholder(R.mipmap.no_image)
+//                                .error(R.mipmap.no_image)
+//                                .into(binding.ivImage)
+//                            binding.ivImage.visibility = View.VISIBLE
+//                        } else binding.ivImage.visibility = View.GONE
+//                        if (news!!.postDate != null) {
+//                            // binding.tvDate.text = DateUtils.convertDateToDate(news!!.postDate, DateUtils.DateFormat.yyyy_MM_dd_HH_mm_ss, DateUtils.DateFormat.MMM_dd_yyyy)
+//
+//
+//                            val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+//                            val dateInString = news!!.postDate
+//                            val formatterOut = SimpleDateFormat("MMM-dd-yyyy")
+//                            try {
+//                                val date = formatter.parse(dateInString)
+//                                println(date)
+//                                assert(date != null)
+//                                val dtt = formatterOut.format(date)
+//                                // binding.tvRegisteredOn.setText(String.format("%s %s", getString(R.string.registered_on),dtt));
+//                                binding.tvDate.text = dtt
+//                            } catch (e: ParseException) {
+//                                e.printStackTrace()
+//                            }
+//                        }
+//                        //                    getCommentList();
+//                        binding.llProgresss.llProgress.visibility = View.GONE
+//                    } else {
+//                       // rentTractor.postError(newTractorResp.getMsg().get(0))
+//                    }
+//                }
+                override fun onError(t: Throwable) {
+                    Timber.e(t, "onFailure: ")
+                  //  rentTractor.postError(t.message)
+                }
+            });
     }
     private val commentList: Unit
     private get() {

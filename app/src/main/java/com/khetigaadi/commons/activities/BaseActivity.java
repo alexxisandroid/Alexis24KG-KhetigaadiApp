@@ -99,7 +99,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        try {
-           WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
+          // WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
            mGoogleApiClient = new GoogleApiClient.Builder(this).addApi(LocationServices.API).build();
            if (session.isLoggedIn())
                user = session.getUser();
@@ -108,7 +108,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                    showAlertForNotification();
                }
            });
-           EdgeToEdge.enable(this);
+          // EdgeToEdge.enable(this);
        }
        catch(Exception e) {
            e.printStackTrace();

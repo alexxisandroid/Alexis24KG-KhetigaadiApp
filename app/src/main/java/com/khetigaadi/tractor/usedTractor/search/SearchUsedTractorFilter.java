@@ -10,20 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import com.bumptech.glide.Glide;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -32,14 +26,13 @@ import com.khetigaadi.R;
 import com.khetigaadi.agri.activity.BrandSelectionActivity;
 import com.khetigaadi.base.adapter.TwoBannerSlideAdapter;
 import com.khetigaadi.base.model.Banner;
-//import com.khetigaadi.base.model.Brand;
-
 import com.khetigaadi.commons.model.BrandResp;
 import com.khetigaadi.ecom.EcomHomeActivity;
 import com.khetigaadi.implement.newImplement.util.Brand;
-import com.khetigaadi.base.model.Model;
+//import com.khetigaadi.base.model.Model;
+
+import com.khetigaadi.tractor.util.Model;
 import com.khetigaadi.base.model.Price;
-import com.khetigaadi.base.room.repository.utils.Status;
 import com.khetigaadi.commons.SharedPreferenceUtils;
 import com.khetigaadi.commons.activities.ModelSelectionActivity;
 import com.khetigaadi.commons.fragments.BaseFragment;
@@ -49,14 +42,10 @@ import com.khetigaadi.databinding.SearchUsedTractorFilterBinding;
 import com.khetigaadi.def.BrandType;
 import com.khetigaadi.retrofit.KhetiAPIs;
 import com.khetigaadi.room.repository.BrandRepository;
-import com.khetigaadi.tractor.newTractor.NewTractorsListFragment;
 import com.khetigaadi.tractor.newTractor.model.Filter;
-import com.khetigaadi.tractor.newTractor.search.SearchNewTractorFilterViewModel;
-import com.khetigaadi.tractor.sellTractorNewUi.SellTractorBrand;
 import com.khetigaadi.tractor.usedTractor.UsedTractorsListFragment;
 import com.khetigaadi.util.NumberFormatting;
 import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -119,7 +108,7 @@ public class SearchUsedTractorFilter extends BaseFragment {
     }
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
-        binding = SearchUsedTractorFilterBinding.inflate(inflater, container, false);
+        binding = SearchUsedTractorFilterBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
         return view;
     }
@@ -213,6 +202,7 @@ public class SearchUsedTractorFilter extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
+        ((MainActivity)activity).reinstBNav();
         brandRepository.getOldTractorBrands().observe(getViewLifecycleOwner(),listResource -> {
             if (listResource.size()>0) {
                 List<Brand> brands = listResource;
@@ -304,7 +294,7 @@ public class SearchUsedTractorFilter extends BaseFragment {
             if (bannerList.size() != 0) {
                 binding.viewPager.setAdapter(new TwoBannerSlideAdapter(activity, bannerList));
                 binding.viewPager.setClipToPadding(false);
-                binding.viewPager.setPadding(0, 0, 120, 0);
+                binding.viewPager.setPadding(60, 0,60, 0);
                 binding.indicator.setViewPager(binding.viewPager);
                 runnable(bannerList.size());
                 handler.postDelayed(animateViewPager,Constants.ANIM_VIEWPAGER_DELAY);

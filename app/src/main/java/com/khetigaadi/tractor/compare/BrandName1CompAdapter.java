@@ -37,6 +37,9 @@ public class BrandName1CompAdapter extends RecyclerView.Adapter<BrandName1CompAd
     @Override
     public void onBindViewHolder(DataObjectHolder holder, int position) {
         holder.binding.serchRes.setText(stList.get(position).getName());
+
+        stList.get(position).getImage();
+
     }
     @Override
     public int getItemCount() {
@@ -65,7 +68,7 @@ public class BrandName1CompAdapter extends RecyclerView.Adapter<BrandName1CompAd
         }
         @Override
         public void onClick(View v) {
-            myClickListener.onItemClick(v, getAbsoluteAdapterPosition(), stList.get(getAbsoluteAdapterPosition()));
+            myClickListener.onItemClick(v,getAbsoluteAdapterPosition(),stList.get(getAbsoluteAdapterPosition()));
         }
     }
     private class ItemFilter extends Filter {

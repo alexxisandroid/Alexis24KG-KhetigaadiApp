@@ -25,6 +25,8 @@ import com.khetigaadi.databinding.ModelRowBinding;
 import com.khetigaadi.databinding.RentTractorYearBinding;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 import timber.log.Timber;
@@ -39,16 +41,16 @@ public class RentTractorYear extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
 
         binding = RentTractorYearBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
-            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-            return insets;
-        });
-        EdgeToEdge.enable(this);
+//        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
+//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+//            return insets;
+//        });
+//        EdgeToEdge.enable(this);
 
         alYear = new ArrayList<>();
         setSupportActionBar(binding.toolbarI.toolbar);
@@ -56,6 +58,7 @@ public class RentTractorYear extends BaseActivity {
         binding.toolbarI.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         binding.toolbarI.toolbar.setTitle(getString(R.string.rentTractor));
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.rentTractor));
         iconColorChange();
         binding.etSellTractorYear.requestFocus();
         binding.etSellTractorYear.setOnClickListener(view ->

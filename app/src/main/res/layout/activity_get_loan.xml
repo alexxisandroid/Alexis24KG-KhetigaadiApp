@@ -28,6 +28,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_10dp"
+                android:fontFamily="@font/poppins_bold"
+                android:textStyle="bold"
                 android:text="@string/type_of_finance"
                 android:textAllCaps="false"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -60,6 +62,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_30dp"
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_bold"
                 android:text="@string/loan_amount"
                 android:textAllCaps="false"
                 app:layout_constraintTop_toBottomOf="@id/toggleButton" />
@@ -67,7 +71,7 @@
                 android:id="@+id/rgLoanAmount"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/dimen_4dp"
                 android:orientation="horizontal"
                 android:weightSum="5"
                 app:layout_constraintTop_toBottomOf="@id/tvLoanAmount">
@@ -79,6 +83,7 @@
                     android:layout_marginStart="@dimen/dimen_5dp"
                     android:layout_weight="1"
                     android:text="@string/_1_2_lac"
+                    android:fontFamily="@font/poppins_bold"
                     android:textSize="12sp"
                     tools:checked="false" />
                 <com.google.android.material.radiobutton.MaterialRadioButton
@@ -88,6 +93,7 @@
                     android:layout_height="30dp"
                     android:layout_marginStart="@dimen/dimen_5dp"
                     android:layout_weight="1"
+                    android:fontFamily="@font/poppins_bold"
                     android:text="@string/_2_3_lac"
                     android:textSize="12sp" />
                 <com.google.android.material.radiobutton.MaterialRadioButton
@@ -98,6 +104,7 @@
                     android:layout_marginStart="@dimen/dimen_5dp"
                     android:layout_weight="1"
                     android:text="@string/_3_4_lac"
+                    android:fontFamily="@font/poppins_bold"
                     android:textSize="12sp" />
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radio4To5"
@@ -107,8 +114,9 @@
                     android:layout_marginStart="@dimen/dimen_5dp"
                     android:layout_weight="1"
                     android:padding="3dp"
+                    android:fontFamily="@font/poppins_bold"
                     android:text="@string/_4_5_lac"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"/>
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radioAbove5"
                     style="@style/Widget.App.RadioButton.OutLine"
@@ -117,8 +125,9 @@
                     android:layout_marginStart="@dimen/dimen_5dp"
                     android:layout_weight="1"
                     android:padding="3dp"
+                    android:fontFamily="@font/poppins_bold"
                     android:text="@string/greater_than_5_lac"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"/>
             </RadioGroup>
             <ImageView
                 android:id="@+id/ivFront"
@@ -143,12 +152,14 @@
                 android:layout_marginTop="@dimen/dimen_10dp"
                 android:layout_weight="1"
                 android:ellipsize="none"
+                android:fontFamily="@font/poppins_bold"
                 android:maxLines="10"
                 android:paddingStart="@dimen/margin_15dp"
+                android:textStyle="bold"
                 android:text="@string/aadhar_front_image"
                 app:layout_constraintEnd_toEndOf="@id/ivFront"
                 app:layout_constraintStart_toStartOf="@id/ivFront"
-                app:layout_constraintTop_toBottomOf="@id/ivFront" />
+                app:layout_constraintTop_toBottomOf="@id/ivFront"/>
             <ImageView
                 android:id="@+id/ivBack"
                 android:layout_width="0dp"
@@ -176,18 +187,25 @@
                 android:maxLines="10"
                 android:paddingStart="@dimen/margin_15dp"
                 android:text="@string/aadhar_back_image"
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_bold"
                 app:layout_constraintEnd_toEndOf="@id/ivBack"
                 app:layout_constraintStart_toStartOf="@id/ivBack"
-                app:layout_constraintTop_toBottomOf="@id/ivBack" />
+                app:layout_constraintTop_toBottomOf="@id/ivBack"/>
 
-            <Button
+            <TextView
                 android:id="@+id/btnApply"
                 style="@style/ButtonStylePrimary"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin_40dp"
                 android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/red"
+                android:background="@drawable/btn_rectangle_outline_bg_red"
                 android:layout_marginTop="@dimen/dimen_80dp"
                 android:textAlignment="center"
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_bold"
                 android:layout_marginBottom="@dimen/margin_10dp"
                 android:text="@string/apply_for_loan"
                 app:layout_constraintTop_toBottomOf="@id/tvBack"/>
@@ -201,7 +219,9 @@
                 android:layout_weight="1"
                 android:ellipsize="none"
                 android:maxLines="10"
+                android:fontFamily="@font/poppins_bold"
                 android:paddingStart="@dimen/margin_15dp"
+                android:paddingEnd="@dimen/dimen_15dp"
                 android:text="@string/for_any_enquiry_and_help"
                 android:textSize="@dimen/dimen_12sp"
                 app:layout_constraintEnd_toEndOf="@id/btnApply"

@@ -1,5 +1,4 @@
 @file:Suppress("DEPRECATION")
-
 package com.khetigaadi
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -22,7 +21,6 @@ import android.widget.ExpandableListView
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
@@ -33,12 +31,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.Insets
 import androidx.core.view.GravityCompat
-//import androidx.core.view.OnApplyWindowInsetsListener
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -139,8 +132,6 @@ import retrofit2.Response
 import timber.log.Timber
 import java.net.URLEncoder
 import javax.inject.Inject
-//import androidx.core.net.toUri
-
 @AndroidEntryPoint
 open class MainActivity:BaseActivity() {
     private val TAG = javaClass.simpleName
@@ -178,26 +169,26 @@ open class MainActivity:BaseActivity() {
     override fun onCreate(savedInstanceState:Bundle?)
     {
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(window,false)
+       // WindowCompat.setDecorFitsSystemWindows(window,false)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
        // listDataChild =  HashMap<ExpandedMenuModel,List<ExpandedSubMenu>>();
         val view: View = binding.root
         setContentView(view)
-        ViewCompat.setOnApplyWindowInsetsListener(
-            view
-        ) { v: View?, insets: WindowInsetsCompat? ->
-            val systemBarsInsets: Insets =
-                insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
-            v!!.setPadding(
-                systemBarsInsets.left,
-                systemBarsInsets.top,
-                systemBarsInsets.right,
-                systemBarsInsets.bottom
-            )
-            insets
-        }
-        enableEdgeToEdge()
+//        ViewCompat.setOnApplyWindowInsetsListener(
+//            view
+//        ) { v: View?, insets: WindowInsetsCompat? ->
+//            val systemBarsInsets: Insets =
+//                insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
+//            v!!.setPadding(
+//                systemBarsInsets.left,
+//                systemBarsInsets.top,
+//                systemBarsInsets.right,
+//                systemBarsInsets.bottom
+//            )
+//            insets
+//        }
+//        enableEdgeToEdge()
         findViewById()
         getBrands()
 //        requestPermissionLauncher = registerForActivityResult<String, Boolean>(
@@ -499,7 +490,7 @@ open class MainActivity:BaseActivity() {
         appUpdateManager.unregisterListener(installStateUpdatedListener!!)
     }
     //latest app update
-    private fun initListener() {
+     fun initListener() {
         binding.drawerLayout.findViewById<com.google.android.material.navigation.NavigationView>(R.id.navView).findViewById<View>(R.id.includeFooter).findViewById<ImageView>(R.id.iv_facebook).setOnClickListener {
             navigateToSocialMedia(1)
             binding.drawerLayout.closeDrawers()
@@ -524,20 +515,85 @@ open class MainActivity:BaseActivity() {
         binding.drawerLayout.findViewById<CoordinatorLayout>(R.id.clll).findViewById<BottomNavigationView>(R.id.bottomNavigationView).setOnNavigationItemSelectedListener { item ->
             val fragmentTransaction = mFragmentManager.beginTransaction()
             fragmentTransaction.setCustomAnimations(R.anim.enter,R.anim.exit,R.anim.pop_enter,R.anim.pop_exit)
-            if (item.getItemId() === R.id.action_home) {
+            if(item.getItemId() === R.id.action_home) {
                 navigateToHomeFragment(fragmentTransaction)
-            } else if (item.getItemId() === R.id.action_price) {
-                removeBackStackFragmentsEntries()
-                startActivity(Intent(this, OnRoadPriceActivity::class.java))
-            } else if (item.getItemId() === R.id.action_new_tractor) {
-                navigateToNewFragment()
-            } else if (item.getItemId() === R.id.action_old_tractor) {
-                navigateToOldTractorsFragments()
-            } else if (item.getItemId() === R.id.action_more) {
-                newInstance().show(fragmentTransaction, "BottomSheet")
+                val nvv = binding.drawerLayout.findViewById<CoordinatorLayout>(R.id.clll).findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+                val itemO:MenuItem = nvv.menu.findItem(R.id.action_old_tractor)
+                val itemN: MenuItem = nvv.menu.findItem(R.id.action_new_tractor)
+              //  itemO.isChecked = false
+               // itemN.isChecked = false
+               // val iteme:MenuItem = nvv.menu.findItem(R.id.action_home)
+               // iteme.setIcon(R.drawable.ic_home_24dp)
+                true
             }
-            true
+            else if(item.getItemId() === R.id.action_price) {
+                val nvv = binding.drawerLayout.findViewById<CoordinatorLayout>(R.id.clll).findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+                val itemO:MenuItem = nvv.menu.findItem(R.id.action_old_tractor)
+                val itemN:MenuItem = nvv.menu.findItem(R.id.action_new_tractor)
+
+               // itemO.isChecked = false
+               // itemN.isChecked = false
+              //  item.isChecked = true
+               ///  item.setIcon(R.drawable.ic_home_24dp)
+               // itemO.setIcon(R.drawable.ic_old_tractor_bold_24dp)
+               // itemN.setIcon(R.drawable.ic_new_tractor_bold_24dp)
+                //itemN.
+                removeBackStackFragmentsEntries()
+                startActivity(Intent(this,OnRoadPriceActivity::class.java))
+                false
+            }
+            else if(item.getItemId() === R.id.action_new_tractor) {
+                val nvv = binding.drawerLayout.findViewById<CoordinatorLayout>(R.id.clll).findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+                val iteme:MenuItem = nvv.menu.findItem(R.id.action_home)
+                val itemO:MenuItem = nvv.menu.findItem(R.id.action_old_tractor)
+                val itemN: MenuItem = nvv.menu.findItem(R.id.action_new_tractor)
+               // iteme.setIcon(R.drawable.ic_home_bold_24dp)
+               // iteme.isChecked = false
+              //  itemO.setIcon(R.drawable.ic_old_tractor_bold_24dp)
+              ////  itemN.setIcon(R.drawable.ic_new_tractor_bold_24dp)
+                //itemN.setIcon(R.drawable.ic_new_tractor)
+               // item.setIcon(R.drawable.ic_home_bold_24dp)
+                navigateToNewFragment()
+                true
+            }
+            else if(item.getItemId() === R.id.action_old_tractor) {
+                val nvv = binding.drawerLayout.findViewById<CoordinatorLayout>(R.id.clll).findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+                val iteme:MenuItem = nvv.menu.findItem(R.id.action_home)
+                val itemO:MenuItem = nvv.menu.findItem(R.id.action_old_tractor)
+                val itemN: MenuItem = nvv.menu.findItem(R.id.action_new_tractor)
+               // iteme.isChecked = false
+               // iteme.setIcon(R.drawable.ic_home_bold_24dp)
+               // itemO.setIcon(R.drawable.ic_old_tractor_bold_24dp)
+              //  itemN.setIcon(R.drawable.ic_new_tractor_bold_24dp)
+                navigateToOldTractorsFragments()
+                true
+            }
+            else if(item.getItemId() === R.id.action_more) {
+                newInstance().show(fragmentTransaction,"BottomSheet")
+                val nvv = binding.drawerLayout.findViewById<CoordinatorLayout>(R.id.clll).findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+                val itemO:MenuItem = nvv.menu.findItem(R.id.action_old_tractor)
+                val itemN: MenuItem = nvv.menu.findItem(R.id.action_new_tractor)
+              //  itemO.isChecked = false
+              //  itemN.isChecked = false
+               // item.setIcon(R.drawable.ic_home_24dp)
+              //  item.isChecked = true
+               // itemO.setIcon(R.drawable.ic_old_tractor_bold_24dp)
+              //  itemN.setIcon(R.drawable.ic_new_tractor_bold_24dp)
+                false
+            }
+            else false
+           // true
         }
+        val nvv = binding.drawerLayout.findViewById<CoordinatorLayout>(R.id.clll).findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        val item:MenuItem = nvv.menu.findItem(R.id.action_home)
+        //item.isChecked = true
+        //item.setIcon(R.drawable.ic_home_24dp)
+     }
+    fun reinstBNav() {
+        val nvv = binding.drawerLayout.findViewById<CoordinatorLayout>(R.id.clll).findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+        val item:MenuItem = nvv.menu.findItem(R.id.action_home)
+        //item.isChecked = true
+       // item.setIcon(R.drawable.ic_home_bold_24dp)
     }
     private fun navigateToSocialMedia(pageNo:Int) {
         val intent = Intent(this@MainActivity, SocialMedia::class.java)
@@ -668,7 +724,7 @@ open class MainActivity:BaseActivity() {
                 logoutUser()
             }.show()
     }
-    private fun initDrawer() {
+    fun initDrawer() {
         // preparing list data
         prepareAfterLoginMenuData()
         val expandableListAdapter = ExpandableListAdapter(this,listDataHeader,listDataChild, binding.drawerLayout.findViewById<View>(R.id.navView).findViewById<ExpandableListView>(R.id.navigationMenu))
@@ -1379,21 +1435,23 @@ open class MainActivity:BaseActivity() {
         fun hideKeyboard(ctx: Context) {
             val inputManager = ctx.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             // check if no view has focus:
-            val v = (ctx as Activity).currentFocus ?: return
-            inputManager.hideSoftInputFromInputMethod(v.windowToken, 0)
+            val v = (ctx as Activity).currentFocus ?:return
+            inputManager.hideSoftInputFromInputMethod(v.windowToken,0)
         }
+       // @SuppressLint("UseKtx")
         @JvmStatic
-        fun onWhatsAppClick(contextCompat: Activity) {
+        fun onWhatsAppClick(contextCompat:Activity) {
             try {
                 val packageManager = contextCompat.packageManager
                 val i = Intent(Intent.ACTION_VIEW)
                 val url = "https://api.whatsapp.com/send?phone=" + contextCompat.getString(R.string.whatsAppNo) + "&text=" + URLEncoder.encode("Hello KhetiGaadi","UTF-8")
                 //            i.setPackage("com.whatsapp");
                 i.data = Uri.parse(url)
-                if (i.resolveActivity(packageManager) != null) {
+                if(i.resolveActivity(packageManager) != null) {
                     contextCompat.startActivity(i)
                 }
-            } catch (e: Exception) {
+            }
+            catch(e:Exception) {
                 e.printStackTrace()
             }
         }

@@ -17,6 +17,8 @@ import com.khetigaadi.retrofit.KhetiAPIs;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -35,19 +37,19 @@ public class SafetyTipsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
+        //WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
+
         binding = ActivitySafetyTipsBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        EdgeToEdge.enable(this);
 
-        ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
-            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBarsInsets.left, systemBarsInsets.top, systemBarsInsets.right, systemBarsInsets.bottom);
-            return insets;
-        });
-
-
+//        EdgeToEdge.enable(this);
+//        ViewCompat.setOnApplyWindowInsetsListener(view,(v,insets) -> {
+//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+//            return insets;
+//        });
+        
         initToolbar();
         Glide.with(SafetyTipsActivity.this).load(R.drawable.loader_white).into(binding.llProgresss.ivLoader);
         getTips();
@@ -82,8 +84,8 @@ public class SafetyTipsActivity extends AppCompatActivity {
         //noinspection deprecation
         binding.toolbars.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         binding.toolbars.toolbar.setTitle(getString(R.string.safety_tips));
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.safety_tips));
     }
-
 //    public void upDate(){
 //        val appUpdateManager = AppUpdateManagerFactory.create(this)
 //
@@ -103,5 +105,4 @@ public class SafetyTipsActivity extends AppCompatActivity {
 //        }
 //
 //    }
-
 }

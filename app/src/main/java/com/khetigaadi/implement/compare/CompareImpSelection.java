@@ -303,17 +303,18 @@ public class CompareImpSelection extends Fragment {
                                     }
                                 }
                             } else {
-                                for (int j = 0; j < myResponse.getMsg().size(); j++) {
-                                    Toast.makeText(activity, myResponse.getMsg().get(j), Toast.LENGTH_LONG).show();
+                                for(int j = 0;j<myResponse.getMsg().size();j++) {
+                                    Toast.makeText(activity,myResponse.getMsg().get(j),Toast.LENGTH_LONG).show();
                                 }
                             }
-                        } catch (Exception e) {
+                        }
+                        catch(Exception e) {
                             e.printStackTrace();
                         }
                     }
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        Timber.e("getNewTractorSearchItem Error: %s", e.getMessage());
+                        Timber.e("getNewTractorSearchItem Error: %s",""+e.getMessage());
                     }
                 });
     }

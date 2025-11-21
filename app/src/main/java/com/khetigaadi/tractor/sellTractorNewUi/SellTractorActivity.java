@@ -18,6 +18,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.khetigaadi.R;
 import com.khetigaadi.databinding.ActivitySellTractorBinding;
 
+import java.util.Objects;
+
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class SellTractorActivity extends AppCompatActivity {
@@ -25,21 +27,22 @@ public class SellTractorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
 
         binding = ActivitySellTractorBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
-            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-            return insets;
-        });
-        EdgeToEdge.enable(this);
+//        ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
+//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+//            return insets;
+//        });
+//        EdgeToEdge.enable(this);
         setSupportActionBar(binding.toolbar);
         binding.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
         binding.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         binding.toolbar.setTitle(getString(R.string.sellTractor));
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.sellTractor));
     }
     public void iconColorChange(int i) {
         switch (i) {
@@ -174,8 +177,8 @@ public class SellTractorActivity extends AppCompatActivity {
     private void showAlertDialog() {
         new MaterialAlertDialogBuilder(this)
                 .setTitle(getResources().getString(R.string.are_you_sure_you_want_quit))
-                .setNegativeButton(getString(R.string.no), (dialog, which) -> dialog.cancel())
-                .setPositiveButton(getString(R.string.yes), (dialog, which) -> {
+                .setNegativeButton(getString(R.string.no),(dialog,which) -> dialog.cancel())
+                .setPositiveButton(getString(R.string.yes),(dialog,which) -> {
                     dialog.cancel();
                     finish();
                 }).show();

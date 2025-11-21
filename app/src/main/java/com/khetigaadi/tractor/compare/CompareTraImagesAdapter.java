@@ -62,7 +62,6 @@ public class CompareTraImagesAdapter extends RecyclerView.Adapter {
         }
         return vh;
     }
-
     @Override
     public void onBindViewHolder(RecyclerView.@NotNull ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
@@ -79,22 +78,15 @@ public class CompareTraImagesAdapter extends RecyclerView.Adapter {
                     .into(((ViewHolder) holder).binding.image1);
         }
     }
-
-
     @Override
     public int getItemCount() {
         return mTractors.size() > 0 ? mTractors.size() : 1;
     }
-
     private static class ViewHolder extends RecyclerView.ViewHolder {
         private final CompareTraImageItemBinding binding;
-
-
         public ViewHolder(@NonNull CompareTraImageItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
-
-
     }
 }

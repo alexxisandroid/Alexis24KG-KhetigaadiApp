@@ -3,15 +3,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-
-import androidx.activity.EdgeToEdge;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.khetigaadi.R;
 import com.khetigaadi.base.util.StateData;
@@ -19,10 +12,9 @@ import com.khetigaadi.commons.activities.BaseActivity;
 import com.khetigaadi.databinding.NewTractorDetailsBinding;
 import com.khetigaadi.def.PriceType;
 import com.khetigaadi.tractor.newTractor.model.NewTractor;
-
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Objects;
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class NewTractorDetails extends BaseActivity {
@@ -32,17 +24,17 @@ public class NewTractorDetails extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
+        //WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
 
         binding = NewTractorDetailsBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
-            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-            return insets;
-        });
-        EdgeToEdge.enable(this);
+//        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
+//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+//            return insets;
+//        });
+//        EdgeToEdge.enable(this);
 
         viewModel = new ViewModelProvider(this).get(NewTractorViewModel.class);
         readDeepLinkData();
@@ -98,7 +90,8 @@ public class NewTractorDetails extends BaseActivity {
         binding.toolbars.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
         binding.toolbars.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         binding.toolbars.toolbar.setTitle(getString(R.string.new_tractor));
-        viewModel.getTractors().observe(this, newTractorOverviewRespStateData -> {
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.new_tractor));
+        viewModel.getTractors().observe(this,newTractorOverviewRespStateData -> {
             if (newTractorOverviewRespStateData != null)
                 if (newTractorOverviewRespStateData.getStatus() == StateData.Status.SUCCESS)
                     if (newTractorOverviewRespStateData.getData() != null) {
@@ -108,12 +101,14 @@ public class NewTractorDetails extends BaseActivity {
         });
     }
     private void readDeepLinkData() {
-        if (getIntent().getAction() != null && getIntent().getAction().equals(Intent.ACTION_VIEW)) {
+        if(getIntent().getAction() != null && getIntent().getAction().equals(Intent.ACTION_VIEW))
+        {
             try {
                 Uri uri = getIntent().getData();
                 String[] segments = uri.getPath().split("/");
                 viewModel.setTractorId(segments[segments.length - 2]);
-            } catch (Exception e) {
+            }
+            catch(Exception e) {
                 e.printStackTrace();
             }
         }
@@ -121,9 +116,9 @@ public class NewTractorDetails extends BaseActivity {
     @Override
     public void onBackPressed() {
         Intent returnIntent = new Intent();
-        if (viewModel.getTractor() != null)
-            returnIntent.putExtra("isFavorites", viewModel.getTractor().isBookmark());
-        returnIntent.putExtra("position", viewModel.getPosition());
+        if(viewModel.getTractor() != null)
+            returnIntent.putExtra("isFavorites",viewModel.getTractor().isBookmark());
+        returnIntent.putExtra("position",viewModel.getPosition());
         setResult(RESULT_OK, returnIntent);
         super.onBackPressed();
     }

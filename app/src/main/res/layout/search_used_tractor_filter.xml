@@ -46,6 +46,8 @@
                     android:layout_width="wrap_content"
                     android:padding="@dimen/dimen_8dp"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins_bold"
                     android:text="@string/search_tractor_by_name"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/black"/>
@@ -113,6 +115,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:textStyle="bold"
+            android:fontFamily="@font/poppins_bold"
             android:gravity="center"
             android:padding="5dp"
             android:text="@string/do_you_have_a_tractor_in_mind"
@@ -139,6 +143,8 @@
                     style="@style/SearchPageHeading"
                     android:padding="@dimen/dimen_8dp"
                     android:layout_width="match_parent"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins_bold"
                     android:layout_height="wrap_content"
                     android:text="@string/search_by_brand_and_model"
                     android:textColor="@color/black"
@@ -202,6 +208,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/price_range"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins_bold"
                     android:padding="@dimen/dimen_8dp"
                     android:textColor="@color/black"
                     app:layout_constraintTop_toTopOf="parent"/>
@@ -209,6 +217,8 @@
                     android:id="@+id/tvMinPrice"
                     style="@style/SearchPageHeading"
                     android:layout_width="wrap_content"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins_bold"
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/black"
@@ -223,6 +233,8 @@
                     style="@style/SearchPageHeading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins_bold"
                     android:text="@string/dash"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/black"
@@ -237,6 +249,8 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins_bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/tvDash"
@@ -274,6 +288,8 @@
                         android:layout_marginStart="@dimen/dimen_5dp"
                         android:layout_weight="1"
                         android:text="@string/_10k_2l"
+                        android:fontFamily="@font/poppins_bold"
+                        android:textStyle="bold"
                         android:textSize="12sp"
                         tools:checked="false" />
                     <com.google.android.material.radiobutton.MaterialRadioButton
@@ -283,6 +299,8 @@
                         android:layout_height="30dp"
                         android:layout_marginStart="@dimen/dimen_5dp"
                         android:layout_weight="1"
+                        android:textStyle="bold"
+                        android:fontFamily="@font/poppins_bold"
                         android:text="@string/_2_3l"
                         android:textSize="12sp"/>
                     <com.google.android.material.radiobutton.MaterialRadioButton
@@ -292,6 +310,8 @@
                         android:layout_height="30dp"
                         android:layout_marginStart="@dimen/dimen_5dp"
                         android:layout_weight="1"
+                        android:fontFamily="@font/poppins_bold"
+                        android:textStyle="bold"
                         android:text="@string/_3_5l"
                         android:textSize="12sp"/>
                     <com.google.android.material.radiobutton.MaterialRadioButton
@@ -302,17 +322,26 @@
                         android:layout_marginStart="@dimen/dimen_5dp"
                         android:layout_weight="1"
                         android:padding="3dp"
+                        android:fontFamily="@font/poppins_bold"
+                        android:textStyle="bold"
                         android:text="@string/above_5l"
                         android:textSize="12sp" />
                 </RadioGroup>
-                <Button
+                <!--  style="@style/OutLineButtonStyleSmall" -->
+                <TextView
                     android:id="@+id/btnSearchUsedTractor"
-                    style="@style/OutLineButtonStyleSmall"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/margin_40dp"
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/dimen_20dp"
                     android:layout_marginTop="@dimen/dimen_15dp"
+                    android:textStyle="bold"
+                    android:textColor="@color/red"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:outlineAmbientShadowColor="@color/red"
+                    android:background="@drawable/btn_rectangle_outline_bg_red"
+                    android:fontFamily="@font/poppins_bold"
                     android:layout_marginEnd="@dimen/margin_20dp"
                     android:layout_marginBottom="@dimen/margin_10dp"
                     android:text="@string/search"
@@ -336,6 +365,8 @@
                     style="@style/SearchPageHeading"
                     android:id="@+id/tvHeading"
                     android:padding="@dimen/dimen_8dp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins_bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/search_by_brand" />

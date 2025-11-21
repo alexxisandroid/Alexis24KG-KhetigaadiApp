@@ -63,6 +63,10 @@ public class ListData implements Parcelable {
             return new ListData[size];
         }
     };
+
+    public ListData() {
+    }
+
     public int getCurrentPage() {
         return currentPage;
     }

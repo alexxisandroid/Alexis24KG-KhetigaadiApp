@@ -22,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="100dp"
+            android:fontFamily="@font/poppins_bold"
             android:gravity="center"
             android:text="@string/please_type_the_verification_code_send_to"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -34,6 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_10dp"
             android:gravity="center"
+            android:fontFamily="@font/poppins_medium"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             app:layout_constraintTop_toBottomOf="@id/tv_otp_label"
             tools:text="8888888888"/>
@@ -55,20 +57,26 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_mobile"/>
-        <Button
+        <TextView
             android:id="@+id/btnSubmit"
             style="@style/ButtonStyleFilledRed"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dimen_50dp"
             android:layout_marginStart="@dimen/margin_10dp"
             android:layout_marginTop="@dimen/margin_20dp"
             android:layout_marginEnd="@dimen/margin_10dp"
             android:text="@string/submit"
             android:textAllCaps="false"
             android:textAlignment="center"
+
+            android:outlineAmbientShadowColor="@color/red"
+            app:layout_constraintHorizontal_bias="0.5"
+            android:background="@drawable/btn_rectangle_outline_bg_red"
+
+
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            android:textColor="@color/white"
-            android:backgroundTint="@color/red"
+            android:textColor="@color/red"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/input_code"/>
@@ -79,6 +87,7 @@
             android:layout_marginTop="@dimen/dimen_40dp"
             android:text="@string/didn_t_receive_the_otp"
             android:textSize="@dimen/dimen_16sp"
+            android:fontFamily="@font/poppins_bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnSubmit"/>
@@ -89,6 +98,7 @@
             android:layout_marginTop="@dimen/dimen_10dp"
             android:text="@string/didn_t_receive_the_otp"
             android:textColor="@color/colorPrimary"
+            android:fontFamily="@font/poppins_medium"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvDidntRecivedOtp"

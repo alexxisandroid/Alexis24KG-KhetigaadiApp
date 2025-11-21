@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-
 import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -27,6 +26,8 @@ import com.khetigaadi.room.repository.BrandRepository;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -50,18 +51,17 @@ public class BrandSelectionActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
-
+      //  WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
         binding = ActivityBrandSelectionBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
-            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-            return insets;
-        });
-        EdgeToEdge.enable(this);
+//        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v,insets) -> {
+//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+//            return insets;
+//        });
+//        EdgeToEdge.enable(this);
         findViewById();
         initToolbar();
         initView();
@@ -135,6 +135,7 @@ public class BrandSelectionActivity extends BaseActivity {
         binding.toolbarI.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
         binding.toolbarI.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         binding.toolbarI.toolbar.setTitle(getString(R.string.brand));
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.brand));
     }
     private void findViewById() {
         Glide.with(BrandSelectionActivity.this)

@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
+        android:fontFamily="@font/poppins_bold"
         android:gravity="center"
         android:text="@string/please_tell_us_your_city"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -33,6 +34,7 @@
         android:id="@+id/popup_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_medium"
         android:layout_margin="6dip"
         android:text="@string/knowing_your_city_helps_us_provide"
         android:textAppearance="?android:attr/textAppearanceMedium"
@@ -55,7 +57,7 @@
         android:textColor="@color/black"
         android:textSize="14sp"
         tools:ignore="LabelFor"/>
-    <Button
+    <TextView
         android:id="@+id/btnConfirm"
         style="@style/ButtonStyleFilledRed"
         android:layout_width="match_parent"
@@ -63,7 +65,12 @@
         android:layout_margin="6dip"
         android:layout_weight="1"
         android:text="@string/confirm_city"
+        android:minHeight="@dimen/payu_dimen_45dp"
+        android:background="@drawable/btn_rectangle_outline_bg_red"
+        android:textAlignment="center"
+        android:textColor="@color/red"
+        android:layout_marginTop="@dimen/dimen_20dp"
+        android:gravity="center"
         android:textAllCaps="true"
-        android:textColor="@color/white"
         android:textSize="14sp"/>
 </LinearLayout>

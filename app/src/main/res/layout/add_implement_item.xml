@@ -108,12 +108,18 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
         </ScrollView>
     </androidx.appcompat.widget.LinearLayoutCompat>
-    <Button
+    <TextView
         android:id="@+id/add_impl_item"
         style="@style/ButtonStyleFilledRed"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dimen_50dp"
         android:layout_alignParentBottom="true"
+        android:outlineAmbientShadowColor="@color/red"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_margin="@dimen/dimen_10dp"
+        android:background="@drawable/btn_rectangle_outline_bg_red"
+        android:textColor="@color/red"
         android:text="@string/add_implements"
         android:textAlignment="center"
         android:textAllCaps="false"/>

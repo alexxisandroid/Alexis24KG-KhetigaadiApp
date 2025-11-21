@@ -44,6 +44,8 @@ import com.khetigaadi.util.Utils;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 import kotlin.jvm.JvmField;
@@ -60,8 +62,7 @@ public class EcomHomeActivity extends CartBaseActivity {
     CategoryRepository categoryRepository;
     private HomeCategoriesAdapter categoriesAdapter;
     ActivityResultLauncher<Intent> categoryActivityResultLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
+            new ActivityResultContracts.StartActivityForResult(),result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
                     Intent data = result.getData();
                     if (data != null) {
@@ -74,24 +75,26 @@ public class EcomHomeActivity extends CartBaseActivity {
                     }
                 }
             });
+
+   // @Inject
+  //  CategoryRepository categoryRepository;
     @JvmField
     public AllBannerResp allBanner = new AllBannerResp();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         binding = ActivityEcomHomeBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
-            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-            return insets;
-        });
-        EdgeToEdge.enable(this);
+//        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
+//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+//            return insets;
+//        });
+//        EdgeToEdge.enable(this);
         viewModel = new ViewModelProvider(this).get(EComHomeViewModel.class);
         runnableS();
         initToolbar();
@@ -103,6 +106,7 @@ public class EcomHomeActivity extends CartBaseActivity {
         binding.toolbars.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         binding.toolbars.toolbar.setTitle(getString(R.string.shop));
         binding.toolbars.toolbar.setOverflowIcon(ContextCompat.getDrawable(this, R.drawable.ic_baseline_more_vert_24));
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.shop));
     }
     private void initUI() {
         initBannerAdapter();
@@ -162,8 +166,9 @@ public class EcomHomeActivity extends CartBaseActivity {
                 navigateToProductList(agricultureToolsAdapter.getItem(position));
             }
         });
+
         viewModel.getHomeProducts().observe(this,productListRespStateData -> {
-            switch (productListRespStateData.getStatus()) {
+            switch(productListRespStateData.getStatus()) {
                 case LOADING:
                     binding.progressBar.setVisibility(View.VISIBLE);
                 case ERROR:
@@ -177,6 +182,7 @@ public class EcomHomeActivity extends CartBaseActivity {
                     binding.progressBar.setVisibility(View.GONE);
                     if (productListRespStateData.getData() != null) {
                         binding.rvHomeList.setVisibility(View.VISIBLE);
+                       // productListRespStateData.getData().
                         Others others = sessionManager.getEcomOther();
                         if (others != null && productListRespStateData.getData().getTrendingProduct().getShopProductImagePath() != null) {
                             others.setShopProductImagePath(productListRespStateData.getData().getTrendingProduct().getShopProductImagePath());
@@ -274,10 +280,10 @@ public class EcomHomeActivity extends CartBaseActivity {
             if (position != 0) {
                 navigateToProductList(categoriesAdapter.getItem(position));
             } else {
-                Log.d("xcvcvcxvcxvxvx21===",""+categoriesAdapter.getItem(position)+"=="+categoriesAdapter.getItem(position).getName());
+               // Log.d("xcvcvcxvcxvxvx21===",""+categoriesAdapter.getItem(position)+"=="+categoriesAdapter.getItem(position).getName());
 
                 categoryActivityResultLauncher.launch(new Intent(EcomHomeActivity.this,CategoriesListActivity.class));
-                Log.d("xcvcvcxvcxvxvx11===",""+categoriesAdapter.getItem(position).getImage().length()+"=="+categoriesAdapter.getItem(position).getId());
+               // Log.d("xcvcvcxvcxvxvx11===",""+categoriesAdapter.getItem(position).getImage().length()+"=="+categoriesAdapter.getItem(position).getId());
 
             }
         });
@@ -298,7 +304,7 @@ public class EcomHomeActivity extends CartBaseActivity {
         if(allBanner != null && allBanner.getBanners() != null && allBanner.getBanners().getShop() != null) {
             binding.viewPager.setAdapter(new TwoBannerSlideAdapter(this, allBanner.getBanners().getShop()));
             binding.viewPager.setClipToPadding(false);
-            binding.viewPager.setPadding(0, 0, 120, 0);
+            binding.viewPager.setPadding(60, 0, 60, 0);
             binding.viewPagerIndicator.setViewPager(binding.viewPager);
             runnable(allBanner.getBanners().getShop().size());
             //Re-run callback

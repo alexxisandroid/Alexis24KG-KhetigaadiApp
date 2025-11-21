@@ -92,13 +92,20 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_gravity="center">
-            <Button
+            <TextView
                 android:id="@+id/btn_is_owner_submit"
                 style="@style/ButtonStyleFilledRed"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/dimen_50dp"
                 android:layout_gravity="center"
                 android:layout_margin="@dimen/dimen_5dp"
+
+                android:textColor="@color/red"
+                android:textAlignment="center"
+                android:outlineAmbientShadowColor="@color/red"
+                android:background="@drawable/btn_rectangle_outline_bg_red"
+                android:layout_marginBottom="@dimen/dimen_10dp"
+
                 android:gravity="center"
                 android:text="@string/continue_string"
                 android:textAllCaps="false"

@@ -49,6 +49,8 @@
                     android:layout_height="wrap_content"
                     android:text="@string/search_tractor_by_name"
                     android:padding="@dimen/dimen_10dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textStyle="bold"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/black" />
                 <EditText
@@ -118,6 +120,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:gravity="center"
+            android:textStyle="bold"
+            android:fontFamily="@font/poppins_bold"
             android:padding="5dp"
             android:text="@string/do_you_have_a_tractor_in_mind"
             android:textColor="@color/black"
@@ -143,6 +147,8 @@
                     style="@style/SearchPageHeading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textStyle="bold"
                     android:padding="@dimen/dimen_10dp"
                     android:text="@string/search_by_brand_and_model"
                     android:textColor="@color/black"
@@ -202,6 +208,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/hp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins_bold"
                     android:padding="@dimen/dimen_10dp"
                     android:textColor="@color/black"/>
                 <EditText
@@ -231,7 +239,6 @@
             android:layout_marginRight="@dimen/margin_10dp"
             android:gravity="center"
             app:layout_constraintTop_toBottomOf="@+id/cvSearchByHP">
-
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -241,6 +248,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/drive"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins_bold"
                     android:padding="@dimen/dimen_10dp"
                     android:textColor="@color/black"
                     app:layout_constraintTop_toTopOf="parent"/>
@@ -257,7 +266,6 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/tvDriveDash"
                     app:layout_constraintHorizontal_bias="0.5"
-
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tvDrive"/>
 
@@ -308,6 +316,8 @@
                     android:id="@+id/tvSearchByBrand"
                     style="@style/SearchPageHeading"
                     android:layout_width="match_parent"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins_bold"
                     android:padding="@dimen/dimen_10dp"
                     android:layout_height="wrap_content"
                     android:text="@string/search_by_brand"/>

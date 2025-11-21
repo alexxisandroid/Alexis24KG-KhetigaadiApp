@@ -55,18 +55,18 @@ public class TypeSelectionActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         binding = ActivityTypeSelectionBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
-            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-            return insets;
-        });
+//        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
+//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+//            return insets;
+//        });
         try {
-            EdgeToEdge.enable(this);
+          ////  EdgeToEdge.enable(this);
             brand = getIntent().getExtras().getParcelable(SELECTED_BRAND);
         } catch (Exception e) {
             e.printStackTrace();
@@ -120,6 +120,7 @@ public class TypeSelectionActivity extends BaseActivity {
         binding.toolbars.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
         binding.toolbars.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         binding.toolbars.toolbar.setTitle(getString(R.string.type));
+        getSupportActionBar().setTitle(getString(R.string.type));
     }
     private void findViewById() {
         Glide.with(TypeSelectionActivity.this).load(R.drawable.loader_white).into(binding.llProgresss.ivLoader);

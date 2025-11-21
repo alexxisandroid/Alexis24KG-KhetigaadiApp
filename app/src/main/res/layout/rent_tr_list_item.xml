@@ -17,22 +17,23 @@
             android:layout_height="0dp"
             android:layout_gravity="center_vertical"
             android:background="@color/white"
-            android:scaleType="fitCenter"
+            android:scaleType="fitXY"
             android:src="@mipmap/ic_launcher"
             app:layout_constraintBottom_toTopOf="@id/tvNewTractorName"
             app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/new_tractor" />
+            android:contentDescription="@string/new_tractor"/>
         <TextView
             android:id="@+id/tvViews"
-            style="@style/ViewsRounded"
+            style="@style/ViewsRoundedSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/margin_10dp"
-            android:layout_marginTop="@dimen/margin_10dp"
+            android:layout_gravity="center_vertical|start"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:gravity="start|center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="0k" />
+            tools:text="0k"/>
         <TextView
             android:id="@+id/tvNewTractorName"
             style="@style/TractorListItemTitle"
@@ -41,10 +42,11 @@
             android:gravity="center_vertical"
             android:paddingTop="@dimen/dimen_5dp"
             android:textSize="@dimen/dimen_16sp"
+            android:layout_marginStart="@dimen/dimen_10dp"
             app:layout_constraintBottom_toTopOf="@id/tvPrice"
             app:layout_constraintEnd_toStartOf="@id/ivFavorites"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="Mahindra 415 DI" />
+            tools:text="Mahindra 415 DI"/>
         <ImageView
             android:id="@+id/ivFavorites"
             android:layout_width="wrap_content"
@@ -54,7 +56,7 @@
             android:src="@drawable/ic_favorites_border"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="@string/my_favorites" />
+            android:contentDescription="@string/my_favorites"/>
         <TextView
             android:id="@+id/tvPrice"
             style="@style/TractorPrice"
@@ -62,8 +64,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/margin_15dp"
-            android:layout_marginBottom="@dimen/margin_8dp"
-            android:fontFamily="@font/poppins_semi_bold"
+            android:layout_marginBottom="@dimen/dimen_4dp"
+            android:fontFamily="@font/poppins_bold"
             android:gravity="start"
             app:layout_constraintBottom_toTopOf="@id/flow"
             app:layout_constraintStart_toStartOf="parent"
@@ -77,13 +79,13 @@
             android:src="@drawable/ic_2wd"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tvPrice"
-            android:contentDescription="@string/drive" />
+            android:contentDescription="@string/drive"/>
         <androidx.constraintlayout.helper.widget.Flow
             android:id="@+id/flow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_10dp"
-            android:paddingStart="@dimen/margin_15dp"
+            android:paddingStart="@dimen/dimen_5dp"
             android:paddingEnd="@dimen/dimen_0dp"
             app:flow_horizontalAlign="start"
             app:constraint_referenced_ids="tvOwnerName,tvCity,tvHP"
@@ -97,6 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingEnd="@dimen/margin_2dp"
+            android:drawablePadding="@dimen/dimen_3dp"
             android:paddingStart="@dimen/dimen_0dp"
             app:drawableStartCompat="@drawable/ic_flash_on_black_24dp"
             tools:text="80 HP"
@@ -108,7 +111,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingEnd="@dimen/margin_8dp"
+            android:fontFamily="@font/poppins_bold"
+            android:maxLength="16"
+            android:gravity="center|start"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:paddingStart="@dimen/dimen_0dp"
+            android:drawablePadding="@dimen/dimen_3dp"
             app:drawableStartCompat="@drawable/ic_user_black_24dp"
             tools:text="Owner Name"
             app:drawableTint="@color/black"/>
@@ -119,21 +128,29 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin_8dp"
             android:paddingEnd="@dimen/margin_10dp"
+            android:drawablePadding="@dimen/dimen_3dp"
             android:paddingStart="@dimen/dimen_0dp"
             app:drawableStartCompat="@drawable/ic_location_black_outline_24dp"
             tools:text="Pune, MH"
             app:drawableTint="@color/black"/>
-        <Button
+        <!-- style="@style/OutLineButtonStyleSmall" -->
+        <TextView
             android:id="@+id/btnSendEnq"
-            style="@style/OutLineButtonStyleSmall"
             android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
-            android:layout_marginStart="@dimen/margin_20dp"
-            android:layout_marginEnd="@dimen/margin_20dp"
-            android:layout_marginBottom="@dimen/margin_5dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:layout_marginEnd="@dimen/dimen_10dp"
+            android:layout_marginBottom="@dimen/dimen_10dp"
             android:text="@string/send_enquiry"
             android:textAllCaps="false"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:outlineAmbientShadowColor="@color/red"
+            android:background="@drawable/btn_rectangle_outline_bg_red"
+            android:textSize="@dimen/dimen_14sp"
             android:textColor="@color/red"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

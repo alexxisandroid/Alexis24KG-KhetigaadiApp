@@ -16,25 +16,18 @@ class CompareTractorDetailSpecAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SpecViewHolder {
         return SpecViewHolder(TractorSpecContentBinding.inflate(LayoutInflater.from(parent.context),parent,false))
     }
-    override fun onBindViewHolder(holder: SpecViewHolder, position: Int) {
+    override fun onBindViewHolder(holder:SpecViewHolder,position:Int) {
         holder.binding.tvSpecTitle.text = items[position].name
         holder.binding.llSpecData.removeAllViews()
         for (i in items[position].tractorSpec.indices) {
             val item = items[position].tractorSpec[i]
             val linearLayout = LinearLayout(context)
-            if (item.compareTractorSpecData == null || item.compareTractorSpecData.size == 0 || (TextUtils.isEmpty(
-                    item.compareTractorSpecData[0].specData
-                ) && TextUtils.isEmpty(item.compareTractorSpecData[1].specData))
-            ) {
+            if(item.compareTractorSpecData == null || item.compareTractorSpecData.size == 0 || (TextUtils.isEmpty(item.compareTractorSpecData[0].specData) && TextUtils.isEmpty(item.compareTractorSpecData[1].specData))) {
                 continue
             } else {
                 linearLayout.weightSum = 2f
                 linearLayout.orientation = LinearLayout.VERTICAL
-                val rowLayout = CompareTractorSpecListItemBinding.inflate(
-                    LayoutInflater.from(context),
-                    linearLayout,
-                    false
-                )
+                val rowLayout = CompareTractorSpecListItemBinding.inflate(LayoutInflater.from(context),linearLayout,false)
                 rowLayout.tvLabel.text = item.tractorSpecName
                 if (item.compareTractorSpecData != null) {
                     if (item.compareTractorSpecData.size > 0 && !TextUtils.isEmpty(item.compareTractorSpecData[0].specData))
@@ -52,16 +45,14 @@ class CompareTractorDetailSpecAdapter(
                 linearLayout.addView(rowLayout.root)
             }
             holder.binding.llSpecData.addView(linearLayout)
-
         }
         if (holder.binding.llSpecData.childCount == 0)
             holder.binding.root.visibility = View.GONE
         else
             holder.binding.root.visibility = View.VISIBLE
     }
-    override fun getItemCount(): Int {
+    override fun getItemCount():Int {
         return items.size
     }
-    class SpecViewHolder(val binding: TractorSpecContentBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    class SpecViewHolder(val binding:TractorSpecContentBinding):RecyclerView.ViewHolder(binding.root)
 }

@@ -13,19 +13,15 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.bumptech.glide.Glide;
 import com.khetigaadi.MainActivity;
 import com.khetigaadi.R;
-import com.khetigaadi.base.room.repository.utils.Status;
 import com.khetigaadi.databinding.SearchByNameBinding;
-import com.khetigaadi.implement.newImplement.util.Brand;
 import com.khetigaadi.room.repository.BrandRepository;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.ArrayList;
-import java.util.List;
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
@@ -51,7 +47,7 @@ public class GetImpBrandName extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,@Nullable ViewGroup container,@Nullable Bundle savedInstanceState) {
-        binding = SearchByNameBinding.inflate(inflater, container, false);
+        binding = SearchByNameBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
         Glide.with(activity)
                 .load(R.drawable.loader_white)
@@ -59,17 +55,18 @@ public class GetImpBrandName extends Fragment {
         binding.edSearchTractorByBrand.setHint(getString(R.string.type_to_select_brand_name));
         try {
             valueJson = new JSONObject(value);
-        } catch (JSONException e) {
+        }
+        catch(JSONException e) {
             e.printStackTrace();
         }
         initAdaper();
         binding.edSearchTractorByBrand.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s,int start,int count,int after) {
 
             }
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s,int start,int before,int count) {
                 if (adapter != null)
                     adapter.getFilter().filter(s);
             }
@@ -85,7 +82,7 @@ public class GetImpBrandName extends Fragment {
         binding.newTractorSearchRes.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
         adapter = new ImpBrandCompAdapter(new ArrayList<>());
         binding.newTractorSearchRes.setAdapter(adapter);
-        adapter.setOnItemClickListener((v, position, brand) -> {
+        adapter.setOnItemClickListener((v,position,brand) -> {
             try {
                 if (valueJson.getString("selected").equals("1")) {
                     try {
@@ -146,17 +143,18 @@ public class GetImpBrandName extends Fragment {
         binding.newTractorSearchRes.setVisibility(View.GONE);
         binding.llProgress.llProgress.setVisibility(View.VISIBLE);
         try {
-            if (valueJson.getString("selected").equals("1")) {
+            if(valueJson.getString("selected").equals("1")) {
                 brandRepository.getImplementBrands().observe(getViewLifecycleOwner(),brands -> {
                     try {
-                        if (brands.size()>0) {
-                            if (brands != null && brands.size() > 0) {
+                        if(brands.size()>0) {
+                            if(brands != null && brands.size() > 0) {
                                 binding.llProgress.llProgress.setVisibility(View.GONE);
                                 binding.newTractorSearchRes.setVisibility(View.VISIBLE);
                                 adapter.setData(brands);
                             }
                         }
-                    } catch (Exception e) {
+                    }
+                    catch(Exception e) {
                         e.printStackTrace();
                     }
                 });

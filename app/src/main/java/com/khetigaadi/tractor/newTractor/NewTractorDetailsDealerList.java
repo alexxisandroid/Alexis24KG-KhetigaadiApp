@@ -6,14 +6,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.bumptech.glide.Glide;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -21,11 +19,8 @@ import com.khetigaadi.R;
 import com.khetigaadi.databinding.RecycleListBinding;
 import com.khetigaadi.tractor.dealer.DealersListAdapter;
 import com.khetigaadi.tractor.dealer.GetDealersDetails;
-
 import org.jetbrains.annotations.NotNull;
-
 import javax.inject.Inject;
-
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class NewTractorDetailsDealerList extends Fragment {
@@ -50,7 +45,7 @@ public class NewTractorDetailsDealerList extends Fragment {
     }
     @Nullable
     @Override
-    public View onCreateView(@NotNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NotNull LayoutInflater inflater,@Nullable ViewGroup container,@Nullable Bundle savedInstanceState) {
         binding = RecycleListBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         Glide.with(activity)
@@ -63,7 +58,7 @@ public class NewTractorDetailsDealerList extends Fragment {
         return view;
     }
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(@NonNull View view,@Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider((NewTractorDetails) activity).get(NewTractorViewModel.class);
         initAdapter();
@@ -94,25 +89,29 @@ public class NewTractorDetailsDealerList extends Fragment {
         mAdapter.setOnLoadMoreListener(this::getDealersList);
     }
     private void getDealersList(int page) {
-        viewModel.getDealers(page).observe(getViewLifecycleOwner(),dealerListRespStateData -> {
-            switch (dealerListRespStateData.getStatus()) {
-                case LOADING:
-                    if (page == 1)
-                        binding.llProgress.setVisibility(View.VISIBLE);
-                    break;
-                case SUCCESS:
-                    binding.llProgress.setVisibility(View.GONE);
-                    if (dealerListRespStateData.getData() != null) {
-                        mAdapter.setOthers(dealerListRespStateData.getData().getOthers());
-                        mAdapter.setTotPages(dealerListRespStateData.getData().getData().getLastPage());
-                        mAdapter.addItems(dealerListRespStateData.getData().getData().getDealers(), page);
-                    }
-                    break;
-                case ERROR:
-                    Toast.makeText(activity, dealerListRespStateData.getError(), Toast.LENGTH_SHORT).show();
-                    break;
-            }
-        });
-
+       try {
+           viewModel.getDealers(page).observe(activity,dealerListRespStateData -> {
+               switch (dealerListRespStateData.getStatus()) {
+                   case LOADING:
+                       if (page == 1)
+                           binding.llProgress.setVisibility(View.VISIBLE);
+                       break;
+                   case SUCCESS:
+                       binding.llProgress.setVisibility(View.GONE);
+                       if (dealerListRespStateData.getData() != null) {
+                           mAdapter.setOthers(dealerListRespStateData.getData().getOthers());
+                           mAdapter.setTotPages(dealerListRespStateData.getData().getData().getLastPage());
+                           mAdapter.addItems(dealerListRespStateData.getData().getData().getDealers(), page);
+                       }
+                       break;
+                   case ERROR:
+                       Toast.makeText(activity, dealerListRespStateData.getError(), Toast.LENGTH_SHORT).show();
+                       break;
+               }
+           });
+       }
+       catch(Exception e) {
+           e.printStackTrace();
+       }
     }
 }

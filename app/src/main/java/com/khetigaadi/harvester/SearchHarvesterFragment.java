@@ -20,6 +20,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
+import com.khetigaadi.BuildConfig;
 import com.khetigaadi.MainActivity;
 import com.khetigaadi.R;
 import com.khetigaadi.base.adapter.TwoBannerSlideAdapter;
@@ -109,11 +110,11 @@ public class SearchHarvesterFragment extends BaseFragment {
         super.onResume();
         if (bannerList == null)
             bannerList = ((MainActivity) activity).allBanner.getBanners().getHarvester();
-        if (bannerList != null) {
-            if (bannerList.size() != 0) {
+        if(bannerList != null) {
+            if(bannerList.size() != 0) {
                 binding.viewPager.setAdapter(new TwoBannerSlideAdapter(activity,bannerList));
                 binding.viewPager.setClipToPadding(false);
-                binding.viewPager.setPadding(0,0,120,0);
+                binding.viewPager.setPadding(60,0,60,0);
                 binding.indicator.setViewPager(binding.viewPager);
                 runnable(bannerList.size());
                 handler.postDelayed(animateViewPager,Constants.ANIM_VIEWPAGER_DELAY);
@@ -167,7 +168,10 @@ public class SearchHarvesterFragment extends BaseFragment {
             if (listResource.size()>0) {
                 binding.cvTypes.setVisibility(View.VISIBLE);
                 String baseUrl = sharedPreferenceUtils.getStringValue(Constants.TYPES_BASE_URL, "");
-                Timber.e("onChanged: %s", listResource.toString());
+                if(baseUrl==null || baseUrl.isEmpty())
+                    baseUrl = BuildConfig.BASE_URL;
+
+                Timber.e("onChanged: %s",listResource.toString());
                 try {
                     binding.llTypes.removeAllViews();
                     if (listResource != null)

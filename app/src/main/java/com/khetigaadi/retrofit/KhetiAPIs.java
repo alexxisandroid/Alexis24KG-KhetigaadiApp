@@ -90,7 +90,7 @@ public interface KhetiAPIs {
     Call<UsedTractorResp> insertTractor(@Body UsedTractor usedTractor);
     @Multipart
     @POST("mobile/api/v1/tractor/old/upload/images")
-    Single<ResponseBody> uploadUsedTraImages(@Part("used_tractor_id") RequestBody id,@Part MultipartBody.Part file1, @Part MultipartBody.Part file2, @Part MultipartBody.Part file3, @Part MultipartBody.Part file4, @Part MultipartBody.Part file5, @Part MultipartBody.Part file6);
+    Single<ResponseBody> uploadUsedTraImages(@Part("used_tractor_id") RequestBody id,@Part MultipartBody.Part file1,@Part MultipartBody.Part file2,@Part MultipartBody.Part file3,@Part MultipartBody.Part file4,@Part MultipartBody.Part file5,@Part MultipartBody.Part file6);
     @GET("mobile/api/v2/tractor/old/{id}")
     Call<UsedTractorResp> getUsedTractor(@Path("id") String tractorId);
     @POST("mobile/api/v2/tractor/compare")
@@ -126,7 +126,7 @@ public interface KhetiAPIs {
     @POST("mobile/api/v1/tractor/old/similar")
     Single<SimilarUsedTractorsResp> getSimilarUsedTractors(@Body UsedTractor fromJson);
     @POST("mobile/api/v1/implement/new/filter")
-    Single<ImplementListResp> getImplements(@Body TractorFilter tractorFilter, @Query("page") int page);
+    Single<ImplementListResp> getImplements(@Body TractorFilter tractorFilter,@Query("page") int page);
     @POST("mobile/api/v1/implement/new/brand/type/model")
     Single<ImplementDetailsResp> getNewImplementDetails(@Body NewImpParams params);
     @POST("mobile/api/v1/implement/new/similar")
@@ -148,7 +148,7 @@ public interface KhetiAPIs {
     @GET("mobile/api/v1/tractor/new/{id}")
     Single<NewTractorOverviewResp> getNewTractorOverView(@Path("id") String tractorId);
     @POST("mobile/api/v1/tractor/new/specification")
-    Single<NewTrSpecResp> getNewTractorSpecifications(@Body HashMap<String, String> params);
+    Single<NewTrSpecResp> getNewTractorSpecifications(@Body HashMap<String,String> params);
     @GET("mobile/api/v1/tractor/new/picture/{id}")
     Single<NewTractorPictureResp> getNewTractorPicture(@Path("id") String tractorId);
     @POST("mobile/api/v1/dealer")

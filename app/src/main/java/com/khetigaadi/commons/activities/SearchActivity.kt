@@ -10,14 +10,9 @@ import android.view.Menu
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.OnApplyWindowInsetsListener
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.khetigaadi.R
@@ -76,24 +71,24 @@ class SearchActivity:BaseActivity() {
     }
     private val _textInput = BehaviorSubject.create<String>()
     private val textInput = _textInput.toFlowable(BackpressureStrategy.LATEST)
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState:Bundle?) {
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(getWindow(),false)
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(),false)
         binding = ActivitySearchBinding.inflate(layoutInflater)
         val view:View = binding.root
         setContentView(view)
 
-        ViewCompat.setOnApplyWindowInsetsListener(
-            binding.getRoot(),
-            OnApplyWindowInsetsListener { v: View?, insets: WindowInsetsCompat? ->
-                val systemBarsInsets = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
-                v!!.setPadding(
-                    systemBarsInsets.left,
-                    systemBarsInsets.top,
-                    systemBarsInsets.right,
-                    systemBarsInsets.bottom)
-                insets})
-        enableEdgeToEdge()
+//        ViewCompat.setOnApplyWindowInsetsListener(
+//            binding.getRoot(),
+//            OnApplyWindowInsetsListener { v: View?, insets: WindowInsetsCompat? ->
+//                val systemBarsInsets = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
+//                v!!.setPadding(
+//                    systemBarsInsets.left,
+//                    systemBarsInsets.top,
+//                    systemBarsInsets.right,
+//                    systemBarsInsets.bottom)
+//                insets})
+//        enableEdgeToEdge()
         Glide.with(this)
             .load(R.drawable.loader_white)
             .into(binding.llProgresss.ivLoader)
@@ -116,6 +111,7 @@ class SearchActivity:BaseActivity() {
         binding.toolbars.toolbar.setNavigationOnClickListener { onBackPressed() }
         binding.toolbars.toolbar.title = "" // getString(R.string.search)
         binding.toolbars.toolbar.setBackgroundColor(Color.WHITE)
+        supportActionBar?.title = ""
       //  @RequiresApi(Build.VERSION_CODES.O)
        // binding.toolbars.toolbar.tooltipText = ""
     }
@@ -128,7 +124,7 @@ class SearchActivity:BaseActivity() {
         val searchViewMenuItem = menu.findItem(R.id.search)
         searchView = searchViewMenuItem.actionView as SearchView
         val v = searchView.findViewById<View>(R.id.search_button) as ImageView
-        v.setImageResource(R.drawable.search_symbol) //Changing the image
+        v.setImageResource(R.drawable.ic_search2) //Changing the image
         val searchClose = searchView.findViewById<ImageView>(R.id.search_close_btn)
         searchClose.setColorFilter(Color.DKGRAY, PorterDuff.Mode.SRC_ATOP)
         searchView.isFocusable = true

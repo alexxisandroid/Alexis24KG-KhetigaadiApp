@@ -8,6 +8,7 @@
     android:layout_height="wrap_content"
     android:paddingStart="80dp"
     android:paddingTop="10dp"
+    android:fontFamily="@font/poppins_bold"
     android:paddingEnd="10dp"
     android:paddingBottom="10dp"
     tools:text="submenu"/>

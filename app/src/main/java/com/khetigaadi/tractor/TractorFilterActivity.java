@@ -11,6 +11,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.khetigaadi.R;
 import com.khetigaadi.databinding.ActivityTractorFilterBinding;
+
+import java.util.Objects;
+
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class TractorFilterActivity extends AppCompatActivity {
@@ -18,16 +21,16 @@ public class TractorFilterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
         binding = ActivityTractorFilterBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        ViewCompat.setOnApplyWindowInsetsListener(view,(v,insets) -> {
-            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-            return insets;
-        });
-        EdgeToEdge.enable(this);
+//        ViewCompat.setOnApplyWindowInsetsListener(view,(v,insets) -> {
+//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+//            return insets;
+//        });
+//        EdgeToEdge.enable(this);
         initToolbar();
     }
     private void initToolbar() {
@@ -36,5 +39,6 @@ public class TractorFilterActivity extends AppCompatActivity {
         binding.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         binding.toolbar.setTitle(getString(R.string.filter));
         binding.toolbar.setTitle(getResources().getString(R.string.filter));
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getResources().getString(R.string.filter));
     }
 }

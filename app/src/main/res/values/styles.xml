@@ -16,14 +16,15 @@
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/black</item>
-        <item name="android:windowFullscreen">true</item>
+<!--    <item name="android:windowFullscreen">true</item>  -->
         <item name="colorSecondaryVariant">@color/black</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="colorOnSurface">@color/colorPrimary</item>
         <item name="android:colorBackground">@color/white</item>
         <item name="colorSurface">@color/white</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:statusBarColor">@color/gray</item>
+
 <!--    <item name="android:windowLightStatusBar">true</item>  -->
 <!--        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>-->
 <!--        <item name="materialButtonStyle">@style/OutLineButtonStyleMedium</item>-->
@@ -84,6 +85,8 @@
     <style name="Widget.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="fontFamily">@font/poppins_medium</item>
         <item name="textAllCaps">true</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/poppins_bold</item>
         <item name="labelVisibilityMode">labeled</item>
     </style>
     <style name="AlertDialogTheme.Light" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
@@ -195,7 +198,6 @@
         <item name="android:textColor">@color/light_red</item>
         <item name="android:textSize">12sp</item>
     </style>
-
     <style name="FormEditText">
         <item name="android:fontFamily">@font/poppins_medium</item>
         <item name="android:textSize">14sp</item>
@@ -217,12 +219,12 @@
     </style>
     <style name="NoOfViews">
         <item name="android:textColor">@color/black</item>
-        <item name="fontFamily">@font/poppins_semi_bold</item>
-        <item name="android:textSize">12sp</item>
+<!--        <item name="fontFamily">@font/poppins_semi_bold</item>-->
+        <item name="android:textSize">10sp</item>
         <item name="android:paddingStart">@dimen/margin_5dp</item>
-        <item name="android:drawablePadding">@dimen/margin_5dp</item>
+        <item name="android:drawablePadding">@dimen/dimen_4dp</item>
         <item name="android:paddingEnd">10dp</item>
-        <item name="android:gravity">bottom</item>
+        <item name="android:gravity">center</item>
         <item name="android:maxLines">1</item>
     </style>
     <style name="ViewsRounded" parent="NoOfViews">
@@ -230,9 +232,14 @@
         <item name="drawableStartCompat">@drawable/eye_grey</item>
         <item name="android:drawableTint">@color/black</item>
     </style>
+    <!-- baseline_remove_red_eye_black_18  -->
     <style name="ViewsRoundedSmall" parent="ViewsRounded">
-        <item name="drawableStartCompat">@drawable/baseline_remove_red_eye_black_18</item>
+        <item name="drawableStartCompat">@drawable/eye</item>
         <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:layout_gravity">center</item>
         <item name="android:background">@drawable/corner_background_for_no_of_views</item>
         <item name="android:drawableTint">@color/black</item>
     </style>
@@ -243,9 +250,10 @@
         <!--        <item name="android:background">@drawable/btn_rectangle_outline_bg_primary</item>-->
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
-    <style name="OutLineButtonStyleSmall" parent="OutLineButtonStyle">
+    <style name="OutLineButtonStyleSmall">
         <item name="fontFamily">@font/poppins</item>
         <item name="android:textColor">@color/red</item>
+        <item name="backgroundTint">@color/trans</item>
         <item name="android:background">@drawable/btn_rectangle_outline_bg_red</item>
 
         <item name="strokeColor">@color/red</item>
@@ -257,15 +265,22 @@
     </style>
     <style name="TractorListItemTitle">
         <item name="android:textColor">@color/black</item>
-        <item name="android:paddingStart">@dimen/margin_15dp</item>
-        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:paddingStart">@dimen/dimen_8dp</item>
+        <item name="fontFamily">@font/poppins_bold</item>
         <item name="android:textSize">@dimen/dimen_13sp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
     </style>
-
-
+    <style name="TractorListItemTitlee">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:paddingStart">@dimen/dimen_3dp</item>
+        <item name="fontFamily">@font/poppins_bold</item>
+        <item name="android:textSize">@dimen/dimen_13sp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
     <style name="MainTitle">
         <item name="android:textColor">@color/black</item>
         <item name="android:paddingStart">@dimen/margin_15dp</item>
@@ -325,7 +340,7 @@
     </style>
     <style name="EditViewOutlineSearchClickable">
         <item name="android:background">@drawable/btn_selector</item>
-        <item name="android:drawableStart">@drawable/search_symbol</item>
+        <item name="android:drawableStart">@drawable/ic_search2</item>
         <item name="android:drawablePadding">@dimen/dimen_5dp</item>
         <item name="android:fontFamily">@font/poppins_medium</item>
         <item name="android:drawableTint">@color/gray</item>
@@ -335,7 +350,7 @@
     </style>
     <style name="EditViewOutlineSearch">
         <item name="android:background">@drawable/btn_selector</item>
-        <item name="android:drawableStart">@drawable/search_symbol</item>
+        <item name="android:drawableStart">@drawable/ic_search2</item>
         <item name="android:drawablePadding">@dimen/dimen_5dp</item>
         <item name="android:fontFamily">@font/poppins_medium</item>
         <item name="android:drawableTint">@color/gray</item>
@@ -366,7 +381,7 @@
     <style name="OutLineButtonStyle" parent="Widget.Material3.Button.OutlinedButton">
    <item name="android:background">@drawable/btn_rectangle_outline_bg_red</item>
         <item name="fontFamily">@font/poppins_medium</item>
-    <item name="backgroundTint">@color/white</item>
+    <item name="backgroundTint">@color/trans</item>
         <item name="android:textColor">@color/red</item>
         <item name="android:textAllCaps">false</item>
         <item name="strokeColor">@color/red</item>
@@ -413,14 +428,12 @@
     </style>
     <style name="CustomSuggestionChipFilter" parent="Widget.Material3.Chip.Filter">
     </style>
-
     <style name="CardViewHorizontalListItem">
         <item name="android:layout_marginEnd">4dp</item>
         <item name="android:layout_marginTop">2dp</item>
         <item name="android:layout_marginBottom">4dp</item>
         <item name="android:layout_marginStart">4dp</item>
     </style>
-
     <style name="ProductItemTitle">
         <item name="android:textColor">@color/black</item>
         <item name="fontFamily">@font/poppins_light</item>
@@ -430,7 +443,6 @@
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
     </style>
-
     <style name="ProductItemDiscPrice">
         <item name="android:textColor">@color/black</item>
         <item name="fontFamily">@font/poppins_semibold</item>
@@ -439,7 +451,6 @@
         <item name="android:layout_gravity">center</item>
         <item name="android:maxLines">1</item>
     </style>
-
     <style name="ProductItemPrice">
         <item name="android:textColor">@color/black</item>
         <item name="fontFamily">@font/poppins_light</item>
@@ -448,7 +459,6 @@
         <item name="android:layout_gravity">center</item>
         <item name="android:maxLines">1</item>
     </style>
-
     <style name="ProductItemDiscPer">
         <item name="android:textColor">@color/greenHaze</item>
         <item name="fontFamily">@font/poppins_light</item>
@@ -457,7 +467,6 @@
         <item name="android:layout_gravity">center</item>
         <item name="android:maxLines">1</item>
     </style>
-
     <style name="seeMore">
         <item name="android:textSize">10sp</item>
         <item name="android:padding">4sp</item>
@@ -469,11 +478,11 @@
         <item name="android:background">@drawable/comment_text_background</item>
         <item name="fontFamily">@font/poppins</item>
     </style>
-
     <style name="ButtonStylePrimary" parent="ButtonStyleFilledRed">
         <item name="android:background">@drawable/btn_rectangle_bg_primary</item>
         <item name="android:textColor">@color/white</item>
     </style>
+
 
     <style name="HeadingTextView" parent="android:Theme">
         <item name="android:background">@color/grey_line</item>
@@ -482,7 +491,6 @@
         <item name="android:textColor">@color/dark_grey</item>
         <item name="android:height">40dp</item>
     </style>
-
     <style name="homePageLabel">
         <item name="android:textSize">15sp</item>
         <item name="android:padding">12sp</item>

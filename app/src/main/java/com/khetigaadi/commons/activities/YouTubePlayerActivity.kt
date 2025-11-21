@@ -4,11 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import androidx.activity.enableEdgeToEdge
-import androidx.core.view.OnApplyWindowInsetsListener
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.google.firebase.dynamiclinks.ktx.androidParameters
 import com.google.firebase.dynamiclinks.ktx.component1
@@ -35,24 +30,22 @@ class YouTubePlayerActivity:BaseActivity() {
     private lateinit var binding:ActivityYouTubePlayerBinding
     override fun onCreate(savedInstanceState:Bundle?) {
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(getWindow(),false)
-
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(),false)
         binding = ActivityYouTubePlayerBinding.inflate(layoutInflater)
-        val view: View = binding.root
+        val view:View = binding.root
         setContentView(view)
-
-        ViewCompat.setOnApplyWindowInsetsListener(
-            binding.getRoot(),
-            OnApplyWindowInsetsListener { v:View?,insets:WindowInsetsCompat? ->
-                val systemBarsInsets = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
-                v!!.setPadding(
-                    systemBarsInsets.left,
-                    systemBarsInsets.top,
-                    systemBarsInsets.right,
-                    systemBarsInsets.bottom)
-                insets
-            })
-        this.enableEdgeToEdge()
+//        ViewCompat.setOnApplyWindowInsetsListener(
+//            binding.getRoot(),
+//            OnApplyWindowInsetsListener { v:View?,insets:WindowInsetsCompat? ->
+//                val systemBarsInsets = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
+//                v!!.setPadding(
+//                    systemBarsInsets.left,
+//                    systemBarsInsets.top,
+//                    systemBarsInsets.right,
+//                    systemBarsInsets.bottom)
+//                insets
+//            })
+//        this.enableEdgeToEdge()
         viewModel = ViewModelProvider(this)[YouTubePlayerViewModel::class.java]
         item = intent.extras?.getParcelable("video")
         init()
@@ -67,7 +60,7 @@ class YouTubePlayerActivity:BaseActivity() {
             }
         })
     }
-    private   fun init() {
+    private fun init() {
         try {
             println("xvcvcxv==="+item!!.snippet+"==")
             binding.tvName.text = item!!.snippet.title
@@ -100,7 +93,7 @@ class YouTubePlayerActivity:BaseActivity() {
             e.printStackTrace()
         }
     }
-    private   fun shareNews() {
+    private fun shareNews() {
         Firebase.dynamicLinks.shortLinkAsync {
             link = Uri.parse("https://www.khetigaadi.com/video/${item?.id}")
             domainUriPrefix = getString(com.khetigaadi.R.string.domain_uri_prefix)
@@ -124,7 +117,7 @@ class YouTubePlayerActivity:BaseActivity() {
             Timber.e(it)
         }
     }
-    override  fun onDestroy() {
+    override fun onDestroy() {
         super.onDestroy()
         binding.youtubePlayerView.release()
     }

@@ -19,6 +19,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_50dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/llContainer"
@@ -43,6 +44,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:maxLines="2"
+                android:fontFamily="@font/poppins_bold"
+                android:textStyle="bold"
                 android:paddingTop="@dimen/margin_5dp"
                 android:paddingEnd="@dimen/margin_5dp"
                 android:textColor="@color/black"
@@ -58,6 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_50dp"
                 android:gravity="top"
+                android:alpha="0.8"
                 android:fontFamily="@font/poppins_medium"
                 android:text="@string/i_agree_that_by_clicking"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -68,15 +72,30 @@
     <com.andexert.library.RippleView
         android:id="@+id/riRequest"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="@dimen/dimen_50dp"
         android:layout_alignParentBottom="true"
+
         android:layout_gravity="bottom"
         android:layout_marginTop="@dimen/margin_15dp">
-        <Button
-            style="@style/ButtonStyleFilledRed"
+        <!--   style="@style/ButtonStyleFilledRed"  -->
+        <TextView
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAlignment="center"
+            android:minHeight="@dimen/payu_dimen_54dp"
+            android:layout_margin="@dimen/margin_5dp"
+            android:textSize="@dimen/dimen_14sp"
+            android:gravity="center"
+            android:fontFamily="@font/poppins_bold"
+            android:textStyle="bold"
+            android:layout_marginBottom="@dimen/margin_5dp"
+            android:maxLines="1"
+            android:textColor="@color/red"
+            android:outlineAmbientShadowColor="@color/red"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            android:background="@drawable/btn_rectangle_outline_bg_red"
             android:text="@string/btn_request" />
     </com.andexert.library.RippleView>
     <include

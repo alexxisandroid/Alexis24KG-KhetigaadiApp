@@ -10,6 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dimen_40dp"
         android:background="@color/pageBackGround">
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
@@ -45,6 +46,8 @@
                     style="@style/SearchPageHeading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins_bold"
                     android:padding="@dimen/dimen_8dp"
                     android:text="@string/search_by_type"/>
                 <LinearLayout
@@ -71,6 +74,8 @@
                     style="@style/SearchPageHeading"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/poppins_bold"
                     android:padding="@dimen/dimen_8dp"
                     android:text="@string/search_by_brand" />
                 <LinearLayout
@@ -78,6 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
+                    android:layout_marginBottom="@dimen/payu_dimen_24dp"
                     android:orientation="vertical" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>

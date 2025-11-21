@@ -3,10 +3,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import com.bumptech.glide.Glide;
 import com.khetigaadi.R;
 import com.khetigaadi.databinding.FragmentImageBinding;
@@ -28,7 +26,7 @@ public class ImageFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
+        if(getArguments() != null) {
             url = getArguments().getString(ARG_PARAM);
         }
     }
@@ -42,7 +40,7 @@ public class ImageFragment extends Fragment {
                 .error(R.mipmap.no_image)
                 .into(binding.ivImage);
         view.setOnClickListener(v -> {
-            if (onClickListener != null)
+            if(onClickListener != null)
                 onClickListener.onClick(v);
         });
         return view;

@@ -39,6 +39,9 @@ import com.khetigaadi.pick_image.GalleryImagesActivity;
 import com.khetigaadi.room.repository.RentTractorRepository;
 import com.khetigaadi.tractor.rent.rentTractorNewUi.adapter.AddImplementAdapter;
 import com.khetigaadi.tractor.rent.rentTractorNewUi.model.RentUnit;
+
+import java.util.Objects;
+
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
@@ -71,21 +74,22 @@ public class RentTractorImplementActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
         binding = ActivityRentTractorImplementBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
-            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-            return insets;
-        });
-        EdgeToEdge.enable(this);
+//        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
+//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+//            return insets;
+//        });
+//        EdgeToEdge.enable(this);
 
         setSupportActionBar(binding.toolbars.toolbar);
         binding.toolbars.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
         binding.toolbars.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         binding.toolbars.toolbar.setTitle(getString(R.string.rentTractor));
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.rentTractor));
         iconColorChange();
         binding.tabRent.sscroll.postDelayed(() -> binding.tabRent.sscroll.fullScroll(HorizontalScrollView.FOCUS_RIGHT), 100L);
         addImplementAdapter = new AddImplementAdapter(this, item -> rentTractorRepository.deleteImplement(item));

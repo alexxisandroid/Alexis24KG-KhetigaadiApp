@@ -20,8 +20,7 @@
             android:background="@color/white"
             android:src="@mipmap/ic_launcher"
             app:layout_constraintBottom_toTopOf="@id/tvTractorName"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toTopOf="parent"/>
         <ImageView
             android:id="@+id/ivFavorites"
             android:layout_width="wrap_content"
@@ -32,8 +31,7 @@
             android:focusable="true"
             android:src="@drawable/ic_favorites_border"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toTopOf="parent"/>
         <ImageView
             android:id="@+id/ivSold"
             android:layout_width="80dp"
@@ -43,25 +41,24 @@
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="@id/ivImage"
             app:layout_constraintTop_toTopOf="@id/ivImage"
-            tools:visibility="visible" />
-
-
+            tools:visibility="visible"/>
         <TextView
             android:id="@+id/tvTractorName"
             style="@style/TractorListItemTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/poppins_bold"
+            android:textStyle="bold"
             android:paddingTop="@dimen/margin_5dp"
             android:paddingEnd="@dimen/margin_5dp"
+            android:layout_marginStart="@dimen/dimen_5dp"
             android:textColor="@color/black"
             android:textSize="@dimen/dimen_16sp"
             app:layout_constraintBottom_toTopOf="@id/tvPrice"
             app:layout_constraintEnd_toStartOf="@id/ivFavorites"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="Same Deutz Fahr Agrolux 80 Profiline" />
-
-
+            tools:text="Same Deutz Fahr Agrolux 80 Profiline"/>
         <ImageView
             android:id="@+id/brandImage"
             android:layout_width="0dp"
@@ -72,45 +69,43 @@
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
-
         <TextView
             android:id="@+id/tvViews"
-            style="@style/ViewsRounded"
+            style="@style/ViewsRoundedSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/margin_10dp"
-            android:layout_marginTop="@dimen/margin_10dp"
+            android:layout_gravity="center_vertical|start"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:gravity="start|center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="0k" />
-
-
+            tools:text="0k"/>
         <TextView
             android:id="@+id/tvPrice"
             style="@style/TractorPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginBottom="@dimen/margin_8dp"
-            android:fontFamily="@font/poppins_semi_bold"
+            android:textStyle="bold"
+            android:fontFamily="@font/poppins_bold"
             android:gravity="start"
             android:paddingStart="@dimen/margin_15dp"
             app:layout_constraintBottom_toTopOf="@id/flow"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="200,00" />
-
+            tools:text="200,00"/>
         <androidx.constraintlayout.helper.widget.Flow
             android:id="@+id/flow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_10dp"
-            android:paddingStart="@dimen/margin_15dp"
+            android:layout_marginBottom="8dp"
+            android:paddingStart="@dimen/payu_dimen_12dp"
             app:constraint_referenced_ids="tvSeller,tvYear,tvDriven,tvCity"
             app:flow_maxElementsWrap="3"
             app:flow_wrapMode="aligned"
             app:layout_constraintBottom_toTopOf="@id/btnSellerDetails"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
@@ -124,45 +119,54 @@
             android:visibility="gone"
             app:drawableStartCompat="@drawable/ic_user_black_18dp"
             tools:text="Seller Name"
-            tools:visibility="visible" />
+            tools:visibility="visible"/>
         <TextView
             android:id="@+id/tvCity"
             style="@style/ListFieldWithDrawable"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/dimen_3dp"
             android:paddingEnd="@dimen/margin_10dp"
             app:drawableStartCompat="@drawable/ic_location_black_outline_18dp"
-            tools:text="Pune" />
+            tools:text="Pune"/>
         <TextView
             android:id="@+id/tvYear"
             style="@style/ListFieldWithDrawable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/dimen_3dp"
             android:paddingEnd="@dimen/margin_10dp"
             app:drawableStartCompat="@drawable/ic_date_range_black_18dp"
-            tools:text="Jan - 11" />
+            tools:text="Jan - 11"/>
         <TextView
             android:id="@+id/tvDriven"
             style="@style/ListFieldWithDrawable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:drawablePadding="@dimen/dimen_3dp"
             android:paddingStart="@dimen/margin_5dp"
             android:paddingEnd="@dimen/margin_10dp"
             app:drawableStartCompat="@drawable/ic_watch_later_black_18dp"
-            tools:text="1000" />
-        <Button
+            tools:text="1000"/>
+        <TextView
             android:id="@+id/btnSellerDetails"
-            style="@style/OutLineButtonStyleSmall"
-            android:layout_width="0dp"
-            android:layout_height="40dp"
+            android:layout_width="match_parent"
+            android:fontFamily="@font/poppins_medium"
+            android:layout_height="@dimen/payu_dimen_38dp"
             android:layout_gravity="center"
-            android:layout_marginStart="@dimen/margin_30dp"
-            android:layout_marginEnd="@dimen/margin_30dp"
-            android:layout_marginBottom="@dimen/margin_5dp"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/dimen_5dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:maxLines="1"
+            android:layout_marginEnd="@dimen/margin_10dp"
+            android:textColor="@color/red"
+            android:textAlignment="center"
+            android:outlineAmbientShadowColor="@color/red"
+            android:background="@drawable/btn_rectangle_outline_bg_red"
+            android:layout_marginBottom="@dimen/dimen_10dp"
             android:text="@string/contact_seller"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:textSize="@dimen/dimen_14sp"
+            app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
 

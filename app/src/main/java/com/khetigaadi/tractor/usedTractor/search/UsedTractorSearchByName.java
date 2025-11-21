@@ -19,7 +19,9 @@ import com.khetigaadi.MainActivity;
 import com.khetigaadi.R;
 //import com.khetigaadi.base.model.Brand;
  import com.khetigaadi.implement.newImplement.util.Brand;
-import com.khetigaadi.base.model.Model;
+//import com.khetigaadi.base.model.Model;
+
+import com.khetigaadi.tractor.util.Model;
 import com.khetigaadi.databinding.SearchByNameBinding;
 import com.khetigaadi.retrofit.KhetiAPIs;
 import com.khetigaadi.tractor.newTractor.model.Filter;

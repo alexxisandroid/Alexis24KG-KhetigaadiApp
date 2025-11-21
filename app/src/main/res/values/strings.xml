@@ -2,6 +2,7 @@
     <string name="app_name">KhetiGaadi</string>
     <string name="action_settings">setting</string>
     <string name="hint_address" translatable="false">Hint Address</string>
+
     <string name="category" translatable="false">Category</string>
     <string name="chooseAnyOfThePaymentOption" translatable="false">Choose Any Payment Option</string>
     <string name="pay_online" translatable="false">Pay Online</string>
@@ -324,7 +325,7 @@
     <string name="edit">Edit</string>
     <string name="registration">Registration</string>
     <string name="login_information">Login Information</string>
-    <string name="uploaded_old_tractor">Uploaded Old  Tractor</string>
+    <string name="uploaded_old_tractor">Uploaded Old Tractor</string>
     <string name="sold_old_tractor">Sold Old Tractor</string>
     <string name="pending_sell_tractor">Pending Sell Tractor</string>
     <string name="uploaded_rent_tractor">Uploaded Rent Tractor</string>
@@ -525,30 +526,39 @@
     <string name="toast_cannot_retrieve_cropped_image" translatable="false">Cannot retrieve cropped image</string>
     <string name="search_hint" translatable="false">Search</string>
     <string name="see_more" translatable="false">See More</string>
+
+
     <string name="see_all_posts" translatable="false">See all posts</string>
     <string name="please_complete_your_profile" translatable="false">Click here to complete your profile</string>
     <string name="start_discussion_about_crop" translatable="false">Start discussion about crop</string>
     <string name="sms_hash" translatable="false">p3cdM7bSTdn</string>
     <string name="new_version_avalible" translatable="false">New version available</string>
     <string name="posted_on" translatable="false">Posted on</string>
+
+
     <string name="search_by_brand_and_type" translatable="false">SEARCH BY BRAND AND TYPE</string>
     <string name="hint_month" translatable="false">Month</string>
     <string name="hint_year" translatable="false">Year</string>
     <string name="select_month" translatable="false">Select Month</string>
     <string name="select_year" translatable="false">Select Year</string>
     <string name="model" translatable="false">Model</string>
+
+
     <string name="type" translatable="false">Type</string>
     <string name="get_safety_tips" translatable="false">Get Safety Tips</string>
     <string name="safety_tips" translatable="false">Safety Tips</string>
     <string name="working_area" translatable="false">Working Area (km)</string>
     <string name="km" translatable="false">(km)</string>
     <string name="upload" translatable="false">Upload</string>
+
+
     <string name="rent_tractor" translatable="false">Rent Tractor</string>
     <string name="please_wait" translatable="false">Please wait…</string>
     <string name="please_intert_redius" translatable="false">Please Insert Working Area</string>
     <string name="sell_old_tractor" translatable="false">Sell Old Tractor</string>
     <string name="add_owner_tractor" translatable="false">Add My Tractor</string>
     <string name="add_tractor" translatable="false">Add Tractor</string>
+
     <string name="add_implement" translatable="false">Add Implement</string>
     <string name="Brand" translatable="false">Brand</string>
     <string name="Model" translatable="false">Model</string>
@@ -716,11 +726,12 @@
     <string name="please_select_date_of_birth" translatable="false">Please enter date of birth</string>
     <string name="please_select_gender" translatable="false">Please Select Gender</string>
     <string name="mandatory_permission_access_required" translatable="false">Notification access is required for getting Notification, please enable it in settings</string>
-    <string name="aadhar_upload_failed" translatable="false">Aadhar Uploading faild</string>
     <string name="aadhar_message_upload_failed" translatable="false">Aadhar is not uploaded. Please TRY AGAIN</string>
     <string name="delete_account" translatable="false">Delete Account</string>
     <string name="btn_submit" translatable="false">Submit</string>
-    <string name="no_internet_connection" translatable="false">No Iternet Connection</string>
+    <string name="aadhar_upload_failed" translatable="false">Aadhar Upload failed</string>
+
+    <string name="no_internet_connection" translatable="false">No Internet Connection</string>
     <string name="please_add_address" translatable="false">Please Add Address</string>
     <string name="select_address" translatable="false">Select Address</string>
     <string name="add_address" translatable="false">Add Address</string>
@@ -764,6 +775,7 @@
     <string name="cash_on_delivery" translatable="false">CASH ON DELIVERY</string>
     <string name="expert_advice" translatable="false">Expert Advice</string>
     <string name="google_api_key">AIzaSyAaowdoYpnYqndogiCOAW-na2cI83GEi1A</string>
+
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="total_amount">Total Amount</string>

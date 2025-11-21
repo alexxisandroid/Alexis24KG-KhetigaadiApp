@@ -15,6 +15,8 @@ import com.khetigaadi.commons.utils.Constants;
 import com.khetigaadi.databinding.NotificationResultBinding;
 import com.khetigaadi.notification.model.Notification;
 
+import java.util.Objects;
+
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class NotificationResult extends BaseActivity {
@@ -53,5 +55,6 @@ public class NotificationResult extends BaseActivity {
         binding.toolbars.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
         binding.toolbars.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         binding.toolbars.toolbar.setTitle(getString(R.string.notification));
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.notification));
     }
 }

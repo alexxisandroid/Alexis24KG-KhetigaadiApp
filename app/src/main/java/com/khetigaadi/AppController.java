@@ -1,7 +1,6 @@
 package com.khetigaadi;
 import android.app.Application;
 import android.content.Context;
-
 import androidx.annotation.NonNull;
 import androidx.hilt.work.HiltWorkerFactory;
 import androidx.multidex.MultiDex;
@@ -26,7 +25,6 @@ public class AppController extends Application implements Configuration.Provider
     HiltWorkerFactory workerFactory;
     @Inject
     public AppController() {
-
     }
     @NonNull
     @Override
@@ -47,8 +45,6 @@ public class AppController extends Application implements Configuration.Provider
     public void onCreate() {
         super.onCreate();
         if (BuildConfig.DEBUG) {
-
-
             appEnvironment = AppEnvironment.DEV;
         } else
             appEnvironment = AppEnvironment.PRODUCTION;

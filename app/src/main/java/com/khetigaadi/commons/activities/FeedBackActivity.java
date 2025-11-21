@@ -12,6 +12,8 @@ import androidx.core.view.WindowInsetsCompat;
 import com.khetigaadi.R;
 import com.khetigaadi.databinding.ActivityFeedBackBinding;
 
+import java.util.Objects;
+
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class FeedBackActivity extends AppCompatActivity {
@@ -19,21 +21,22 @@ public class FeedBackActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         binding = ActivityFeedBackBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
-        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
-            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-            return insets;
-        });
-        EdgeToEdge.enable(this);
+//        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
+//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+//            return insets;
+//        });
+//        EdgeToEdge.enable(this);
         setSupportActionBar(binding.toolbars.toolbar);
         binding.toolbars.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
         binding.toolbars.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         binding.toolbars.toolbar.setTitle(getString(R.string.feedback_form));
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.feedback_form));
     }
 }

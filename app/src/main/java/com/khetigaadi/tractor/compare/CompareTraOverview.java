@@ -35,8 +35,6 @@ public class CompareTraOverview extends Fragment {
     private boolean isLabelTractor2Unavailable26 = true;
     private CompareTractorViewModel viewModel;
     private CompareTrOverviewBinding binding;
-
-
     @Nullable
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,14 +43,12 @@ public class CompareTraOverview extends Fragment {
         activity = getActivity();
         return view;
     }
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(activity).get(CompareTractorViewModel.class);
         bindData();
     }
-
     private void bindData() {
         try {
             viewModel.getCompareTractors().observe(getViewLifecycleOwner(), compTractRespStateData -> {
@@ -176,8 +172,6 @@ public class CompareTraOverview extends Fragment {
             e.printStackTrace();
         }
     }
-
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();

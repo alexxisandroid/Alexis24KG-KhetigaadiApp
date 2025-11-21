@@ -42,7 +42,7 @@ public class NewTractorsListViewModel extends ViewModel {
     public StateMutableLiveData<NewTractorResp> getNewTractors(int page) {
         TractorFilter tractorFilter = new TractorFilter(filter);
         tractorFilter.setFilter(filter);
-        Log.d("vcbcvbcvbvbrtyey===",""+filter+"=="+filter.getBrands());
+     //   Log.d("vcbcvbcvbvbrtyey===",""+filter+"=="+filter.getBrands());
         tractors = new StateMutableLiveData<>();
         tractors.postLoading();
         disposable.add(khetiAPIs.getNewTractors(tractorFilter, page)

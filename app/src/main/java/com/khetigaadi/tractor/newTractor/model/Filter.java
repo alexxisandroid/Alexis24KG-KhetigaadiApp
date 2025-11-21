@@ -5,7 +5,9 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.khetigaadi.implement.newImplement.util.Brand;
 import com.khetigaadi.base.model.City;
-import com.khetigaadi.base.model.Model;
+//import com.khetigaadi.base.model.Model;
+
+import com.khetigaadi.tractor.util.Model;
 import com.khetigaadi.base.model.Price;
 import com.khetigaadi.base.model.State;
 import com.khetigaadi.commons.model.Hp;

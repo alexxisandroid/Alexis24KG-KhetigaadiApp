@@ -26,11 +26,11 @@ public class Brand extends BrandParent implements Parcelable {
     private int brand_type;
     @SerializedName(value = "brand_image", alternate = {"mf_company_logo", "image"})
     @ColumnInfo(name = "brand_image")
-    private String image = "";
+    private String image;
     @SerializedName("is_harvester_brand")
     @Expose
     private int isHarvesterBrand;
-    @SerializedName(value = "brand_status", alternate = {"brandStatus"})
+    @SerializedName(value = "brand_status",alternate = {"brandStatus"})
     @ColumnInfo(name = "brand_status")
     private int brand_status;
     @Ignore

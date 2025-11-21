@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme.AppBarOverlay">
         <include
             android:id="@+id/toolbars"
-            layout="@layout/toolbar" />
+            layout="@layout/toolbar"/>
     </com.google.android.material.appbar.AppBarLayout>
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -35,7 +35,7 @@
                     android:layout_height="287dp"
                     android:src="@mipmap/ic_launcher"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:contentDescription="@string/images" />
+                    android:contentDescription="@string/images"/>
                 <TextView
                     android:id="@+id/tvName"
                     style="@style/TractorListItemTitle"
@@ -44,25 +44,29 @@
                     android:layout_weight="1"
                     android:maxLines="2"
                     android:paddingTop="@dimen/margin_5dp"
+                    android:fontFamily="@font/poppins_bold"
+                    android:textStyle="bold"
                     android:paddingEnd="@dimen/margin_5dp"
-                    android:paddingStart="@dimen/dimen_0dp"
+                    android:paddingStart="@dimen/dimen_10dp"
                     android:textColor="@color/black"
                     android:textSize="@dimen/dimen_16sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/ivImage"
-                    tools:text="Same Deutz Fahr Agrolux 80 Profiline" />
+                    tools:text="Same Deutz Fahr Agrolux 80 Profiline"/>
                 <TextView
                     android:id="@+id/tvViews"
-                    style="@style/ViewsRounded"
+                    style="@style/ViewsRoundedSmall"
+                    android:drawablePadding="@dimen/dimen_3dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/margin_10dp"
-                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:layout_gravity="center_vertical|start"
+                    android:layout_marginTop="@dimen/dimen_10dp"
+                    android:layout_marginStart="@dimen/dimen_10dp"
+                    android:gravity="start|center"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    tools:text="0k" />
+                    tools:text="0k"/>
                 <ImageView
                     android:id="@+id/ivShare"
                     android:layout_width="wrap_content"
@@ -73,7 +77,7 @@
                     android:src="@drawable/share_normal"
                     app:layout_constraintBottom_toBottomOf="@id/ivImage"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:contentDescription="@string/share" />
+                    android:contentDescription="@string/share"/>
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvDetails"
                     style="@style/CardViewListItem"
@@ -91,6 +95,8 @@
                             style="@style/MainTitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_bold"
+                            android:textStyle="bold"
                             android:padding="@dimen/margin_5dp"
                             android:text="@string/other_details"/>
                         <View
@@ -116,7 +122,7 @@
                     layout="@layout/home_list_container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@id/cvDetails" />
+                    app:layout_constraintTop_toBottomOf="@id/cvDetails"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
     </androidx.core.widget.NestedScrollView>
@@ -129,12 +135,19 @@
         android:background="@color/white"
         android:orientation="horizontal"
         android:padding="@dimen/margin_5dp">
-        <Button
+        <TextView
             android:id="@+id/btnOnPrice"
             android:layout_width="0dp"
             android:layout_height="@dimen/margin_40dp"
             android:layout_margin="@dimen/margin_5dp"
             android:layout_marginBottom="@dimen/margin_5dp"
+
+            android:minHeight="@dimen/payu_dimen_45dp"
+            android:background="@drawable/btn_rectangle_outline_bg_red"
+            android:textAlignment="center"
+            android:textColor="@color/red"
+            android:gravity="center"
+
             android:text="@string/getPrice"
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -142,20 +155,27 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
-        <Button
+            tools:visibility="visible"/>
+        <TextView
             android:id="@+id/btnRequestForDemo"
             android:layout_width="0dp"
             android:layout_height="@dimen/margin_40dp"
             android:layout_margin="@dimen/margin_5dp"
             android:layout_marginBottom="@dimen/margin_5dp"
+
+            android:minHeight="@dimen/payu_dimen_45dp"
+            android:background="@drawable/btn_rectangle_outline_bg_red"
+            android:textAlignment="center"
+            android:textColor="@color/red"
+            android:gravity="center"
+
             android:autoLink="web"
             android:text="@string/request_for_demo"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/btnOnPrice"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <include
         android:id="@+id/llProgress"

@@ -12,6 +12,8 @@ import androidx.core.view.WindowInsetsCompat;
 import com.khetigaadi.R;
 import com.khetigaadi.databinding.ActivityCompareTractorBinding;
 
+import java.util.Objects;
+
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class CompareTractorActivity extends AppCompatActivity {
@@ -20,18 +22,18 @@ public class CompareTractorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
+        //WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
 
         binding = ActivityCompareTractorBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
-            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-            return insets;
-        });
-
-        EdgeToEdge.enable(this);
+//        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
+//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+//            return insets;
+//        });
+//
+//        EdgeToEdge.enable(this);
 
         initToolbar();
     }
@@ -40,5 +42,6 @@ public class CompareTractorActivity extends AppCompatActivity {
         binding.toolbarI.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
         binding.toolbarI.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         binding.toolbarI.toolbar.setTitle(getString(R.string.compareTractor));
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.compareTractor));
     }
 }

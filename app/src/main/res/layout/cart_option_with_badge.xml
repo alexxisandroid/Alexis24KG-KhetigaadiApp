@@ -29,6 +29,7 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@color/white"
         android:textSize="8sp"
+        android:fontFamily="@font/poppins_medium"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

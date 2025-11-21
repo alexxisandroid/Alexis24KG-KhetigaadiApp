@@ -93,6 +93,8 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:padding="10dp"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/poppins_bold"
                             android:text="@string/add_implement"
                             android:textAppearance="?android:attr/textAppearanceMedium"/>
                     </LinearLayout>
@@ -202,6 +204,8 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/poppins_bold"
                             android:padding="10dp"
                             android:text="@string/add_implement"
                             android:textAppearance="?android:attr/textAppearanceMedium"/>
@@ -217,13 +221,22 @@
             android:layout_marginTop="5dp"
             android:layout_marginRight="2dp"
             android:layout_marginBottom="5dp">
-            <Button
-                style="@style/ButtonStyleFilledRed"
+            <!--  style="@style/ButtonStyleFilledRed"  -->
+            <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
+                android:minHeight="@dimen/payu_dimen_45dp"
+                android:layout_marginTop="@dimen/dimen_10dp"
+                android:background="@drawable/btn_rectangle_outline_bg_red"
+                android:textColor="@color/red"
+                android:gravity="center"
+                android:layout_marginEnd="@dimen/dimen_5dp"
+                android:layout_marginStart="@dimen/dimen_5dp"
+                android:layout_gravity="center"
                 android:text="@string/compare"
-                android:textColor="@android:color/white"/>
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_bold"/>
         </com.andexert.library.RippleView>
         <LinearLayout
             android:id="@+id/recycleViewRelativePopularTractors"
@@ -234,6 +247,8 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:fontFamily="@font/poppins_bold"
                 android:layout_margin="5dp"
                 android:text="@string/popular_implements_comparison"
                 android:textColor="@color/black"/>

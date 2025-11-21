@@ -1,11 +1,37 @@
 <resources>
     <string name="app_name">"கேதிகாடி "</string>
     <string name="action_settings">"செட்டிங் "</string>
+    
 
+    
+    
+    
+    
     <string name="hint_password">"பாஸ்வேர்டு "</string>
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="err_msg_email">"சரியான இமெயிலை எண்டர் பண்ணவும் "</string>
     <string name="btn_new">"புதிய "</string>
+    
+    
+    
+    
     <string name="txt_image_slider">"இமேஜ் ஸ்லைட்ஷோ "</string>
+    
+    
     <string name="time_out">"டைம் அவுட் "</string>
     <string name="error_occured">"பிழை ஏற்பட்டுள்ளது "</string>
     <string name="available_new_Tractor">"கிடைக்கக்கூடிய புதிய டிராக்டர் "</string>
@@ -54,12 +80,25 @@
     <string name="hint_ConPassword">"பாஸ்வேர்டை உறுதிப்படுத்தவும் "</string>
     <string name="hint_varifiacationCode">"சரிபார்ப்பு குறியீடு "</string>
     <string name="err_msg_name">"தயவுசெய்து பெயரை எண்டர் பண்ணவும் "</string>
+    
+    
+    
+<!--    <string name="rs" translatable="false"><![CDATA[&#x20B9;]]></string>-->
+
+    
     <string name="err_msg_comment">"தயவுசெய்து விமர்சனத்தை எண்டர் பண்ணவும் "</string>
     <string name="hint_city">"நகரம் "</string>
     <string name="err_msg_passValidation">"ஒரு சிறப்பு குறியீட்டையும் ஒரு எண்ணையும் கொண்டிருக்க வேண்டும் 8 எழுத்துகள் நீளமுடையதாக இருக்க வேண்டும் "</string>
+    
+    
+    
+    
+    
+    
     <string name="old">"பழைய "</string>
     <string name="my_favorites">"எனக்கு பிடித்தமானவைகள் "</string>
     <string name="language_settings">"மொழி செட்டிங் "</string>
+    
     <string name="change_password">"பாஸ்வேர்டை மாற்றவும் "</string>
     <string name="about_us">"எங்களைப் பற்றி "</string>
     <string name="logout">"லாக்அவுட் "</string>
@@ -126,6 +165,7 @@
     <string name="fuel_indicator">"பியூல் இன்டிகேட்டர் "</string>
     <string name="dashboard">"டேஸ்போர்டு "</string>
     <string name="old_tractor">"பழைய டிராக்டர்  "</string>
+    
     <string name="or">"அல்லது "</string>
     <string name="price_range">"விலை அளவு "</string>
     <string name="please_select_model">"தயவுசெய்து மாடலை தேர்ந்தெடுக்கவும் "</string>
@@ -220,7 +260,6 @@
     <string name="drive_lower">"டிரைவ் "</string>
     <string name="rent_per_hour">"வாடகை(மணிக்கு) "</string>
     <string name="owner_name">"உரிமையாளர் பெயர் "</string>
-
     <string name="send_enquiry">"என்குயரி அனுப்பவும் "</string>
     <string name="send_email_enquiry">"இமெயில் என்குயரி அனுப்பவும் "</string>
     <string name="spec">"ஸ்பெக் "</string>
@@ -229,6 +268,7 @@
     <string name="engine_rpm">"எஞ்சின் ஆர்பிஎம் "</string>
     <string name="forcast">"முன்அறிவிப்பு "</string>
     <string name="weather">"காலநிலை "</string>
+    
     <string name="rating">"ரேட்டிங் "</string>
     <string name="share">"பகிரவும் "</string>
     <string name="feedback">"கருத்துக்கணிப்பு "</string>
@@ -321,12 +361,14 @@
     <string name="cancel">"ரத்து செய் "</string>
     <string name="update_now">"இப்போது அப்டேட் பண்ணவும் "</string>
     <string name="version_update_msg">"கேதிகாடியின் புதிய வெர்ஷன் கிடைக்கிறது "</string>
+    
+    
     <string name="invalid_mobile_number">"தவறான மொபைல் எண் "</string>
     <string name="on_KhetiGaadi_App_and_I">"கேதிகாடி ஆப் மற்றும் அதை வாசிப்பதில் நீங்கள் ஆர்வமாயிருப்பீர்கள் என நான் நினைக்கிறேன். இலவச ஆப்பை இப்போது லவுண்லோட் பண்ணவும்! https://khetigaadi.page.link/rniX "</string>
     <string name="i_was_viewing">"நான் பார்த்துக் கொண்டிருந்தேன் "</string>
     <string name="please_select_implement_for_compare">"ஒப்பிடுவதற்கு தயவுசெய்து கருவியை தேர்ந்தெடுக்கவும் "</string>
-    <string name="please_tell_us_your_mobile">எங்களை சொல் உங்கள் மொபைல் எண், தயவு செய்து</string>
     <string name="please_select_tractors_for_compare">"ஒப்பிடுவதற்கு தயவுசெய்து டிராக்டரை தேர்ந்தெடுக்கவும் "</string>
+    <string name="please_tell_us_your_mobile">எங்களை சொல் உங்கள் மொபைல் எண், தயவு செய்து</string>
     <string name="please_select_city">தேர்வு நகரம் செய்க</string>
     <string name="please_select_state">தேர்வு மாநில செய்க</string>
     <string name="verification">சரிபார்ப்பு</string>
@@ -334,15 +376,833 @@
     <string name="please_enter_correct_otp_code">சரியான சிவகாசி குறியீடு உள்ளிடவும்</string>
     <string name="please_enter_at_least_characters_in_comment">தயவு செய்து கருத்து குறைந்தது 20 எழுத்துக்கள் நுழைய</string>
     <string name="social_media">சமூக ஊடகம்</string>
+    
+    
     <string name="getQuote">Get Quote</string>
+    
     <string name="request_quotation">வேண்டுகோள் மேற்கோள்</string>
+    
     <string name="please_check_agree_button">Please Check Agree Button</string>
+    
+    
+    <string name="compareTractor">டிராக்டர் ஒப்பீடு</string>
+    
+    
     <string name="rentTractor">Rent Tractor</string>
     <string name="sellTractor">Sell Tractor</string>
     <string name="myUploadedRentTractor">My Uploaded Rent Tractor</string>
     <string name="myUploadedUsedTractor">My Uploaded Used Tractor</string>
     <string name="editProfile">Edit Profile</string>
-    <string name="compareTractor">டிராக்டர் ஒப்பீடு</string>
+    
+    
+    
+    <!--for Chatting-->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <string name="video">காணொளி</string>
-    <string name="change_language">மொழியை மாற்று</string>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+
+    <!--    <string name="type_to_search" translatable="false"><![CDATA[Type to Search&#8230;]]></string>-->
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <!--    <string name="write_a_comment" translatable="false"><![CDATA[Write a comment&#8230;]]></string>-->
+
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <string name="please_add_two_images">தயவு செய்து இரண்டு படங்களைச் சேர்க்கவும்</string>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<!--    <string name="google_api_key">AIzaSyAawdoYpnYqndogiCOAW-na2cI83GEi1A</string>-->
+<!--    <string name="no">இல்லை</string>-->
+<!--    <string name="yes">ஆம்</string>-->
+<!--    <string name="total_amount">மொத்த தொகை</string>-->
+<!--    <string-array name="gender_val">-->
+<!--        <item>பாலினத்தைத் தேர்ந்தெடுக்கவும்</item>-->
+<!--        <item>ஆண்</item>-->
+<!--        <item>பெண்</item>-->
+<!--        <item>மற்றவர்கள்</item>-->
+<!--    </string-array>-->
+
+
+    <string name="category">வகை</string>
+    <string name="chooseAnyOfThePaymentOption">எந்தவொரு கட்டண விருப்பத்தையும் தேர்வு செய்யவும்</string>
+    <string name="pay_online">ஆன்லைனில் பணம் செலுத்துங்கள்</string>
+    <string name="cashOnDelivery">டெலிவரியில் பணம் செலுத்துதல்</string>
+    <string name="loader_msg">ஏற்றுகிறது…</string>
+    <string name="Continue">தொடரவும்</string>
+    <string name="products">தயாரிப்புகள்</string>
+    <string name="change_or_add_address">முகவரியை மாற்றவும் அல்லது சேர்க்கவும்</string>
+    <string name="deliveryAndPaymentOption">டெலிவரி மற்றும் பணம் செலுத்தும் விருப்பம்</string>
+    <string name="payableAmount">கட்டணத் தொகை</string>
+    <string name="continues">தொடர்கிறது</string>
+    <string name="qty">அளவு</string>
+    <string name="didn_t_receive_the_otp">OTP பெறப்படவில்லை</string>
+    <string name="startShopping">ஷாப்பிங்கைத் தொடங்கு</string>
+    <string name="shortlist">குறுகிய பட்டியல்</string>
+    <string name="awards">விருதுகள்</string>
+    <string name="noItemInYourCart">வண்டி காலியாக உள்ளது</string>
+    <string name="addItemYouWanttoShop">நீங்கள் வாங்க விரும்பும் பொருளைச் சேர்க்கவும்</string>
+    <string name="shop">கடை</string>
+    <string name="city">நகரம்</string>
+    <string name="hint_email">உங்கள் மின்னஞ்சல் ஐடியை உள்ளிடவும்.</string>
+    <string name="hint_mobile">உங்கள் மொபைல் எண்ணை உள்ளிடவும்.</string>
+    <string name="cart">வண்டி</string>
+    <string name="my_orders">என் ஆர்டர்கள்</string>
+    <string name="facebook_app_id">357663048153638</string>
+    <string name="fb_login_protocol_scheme">fb357663048153638</string>
+    <string name="facebook_client_token">7094d23c266da7ca9eb98db1381df11b</string>
+    <!-- <string name="rs"><![CDATA[&#x20B9;]]></string>-->
+    <string name="rs">₹ </string>
+    <string name="english">English</string>
+    <string name="hindi">Hindi</string>
+    <string name="marathi">Marathi</string>
+    <string name="kannada">Kannada</string>
+    <string name="telugu">Telugu</string>
+    <string name="tamil">Tamil</string>
+    <string name="ad">"அன்பு"</string>
+<string name="map_circle_description">வரைபட வட்ட விளக்கம்</string>
+<string name="gujarati">Gujarati</string>
+<string name="punjabi">Punjabi</string>
+<string name="malayalam">Malayalam</string>
+<string name="bangali">Bengali</string>
+<string name="request_quotation_">ஒரு மேற்கோளைக் கோருங்கள்</string>
+<string name="i_agree_that_by_clicking">கீழே உள்ள \'கோரிக்கை\' பொத்தானைக் கிளிக் செய்வதன் மூலம், எனது டிராக்டர் வாங்குதலுக்கு உதவ, கெதிகாடி அல்லது அதன் கூட்டாளர்களை எனது மொபைல் எண்ணை அழைக்குமாறு வெளிப்படையாகக் கேட்டுக்கொள்கிறேன் என்பதை நான் ஒப்புக்கொள்கிறேன்.</string>
+<string name="something_went_wrong">ஏதோ தவறு நடந்துவிட்டது.</string>
+<string name="select_type">வகையைத் தேர்ந்தெடுக்கவும்</string>
+<string name="compareTractors">டிராக்டர்களை ஒப்பிடுக</string>
+<string name="compareImplement">செயல்படுத்தலை ஒப்பிடுக</string>
+<string name="please_select_correct_city">சரியான நகரத்தைத் தேர்ந்தெடுக்கவும்</string>
+<string name="firebase_cloud_messaging_token">ஃபயர்பேஸ் கிளவுட் மெசேஜிங் டோக்கன்</string>
+<string name="asset_statements">[{ \"include\": \"https://khetigaadi.com/.well-known/assetlinks.json\" }]</string>
+    <!--for Chatting-->
+<string name="facebook_app_identifier">@string/facebook_app_id</string>
+<string name="google_web_client_id">88353840742-b07jv7aapr3r03ftpomeitbi1cng4qbg.apps.googleusercontent.com</string>
+<string name="firebase_root_path">firebase_v4_web_new_4</string>
+<string name="firebase_cloud_messaging_server_key">AAAAcpsV5AE:APA91bH5uxO8Qzg3bUe7w7pidQL0H46uF3s-7NtLJnGQbMA Qa6fxEf2wmQ5PvShK_JYlSup6kEdjcGktJaZunX93K6hvo7gWxEAJ_JLAOWnfQ6znYd4_Kc-OasNvKXCOa-DDciyeoF6F</string>
+<string name="please_try_after_some_time">சிறிது நேரம் கழித்து முயற்சிக்கவும்.</string>
+<string name="tractor1">டிராக்டர் 1</string>
+<string name="tractor2">டிராக்டர் 2</string>
+<string name="whatsApp">வாட்ஸ்அப்</string>
+<string name="getOnRoadPrice">சாலை விலையைப் பெறுங்கள்</string>
+<string name="whatsAppNo">+917875114466</string>
+<string name="select_state">மாநிலத்தைத் தேர்ந்தெடுக்கவும்</string>
+<string name="select_city">நகரத்தைத் தேர்ந்தெடுக்கவும்</string>
+<string name="invalidName">தவறானது பெயர்!</string>
+<string name="select_hp">HP-ஐத் தேர்ந்தெடுக்கவும்</string>
+<string name="please_select_month">மாதத்தைத் தேர்ந்தெடுக்கவும்</string>
+<string name="please_select_year">ஆண்டைத் தேர்ந்தெடுக்கவும்</string>
+<string name="selectYear">ஆண்டைத் தேர்ந்தெடுக்கவும்</string>
+<string name="selectMonth">மாதத்தைத் தேர்ந்தெடுக்கவும்</string>
+<!--<string name="selectMount">மாதத்தைத் தேர்ந்தெடுக்கவும்</string>-->
+<string name="takePhoto">புகைப்படம் எடு</string>
+<string name="chooseFromLibrary">நூலகத்திலிருந்து தேர்வு செய்யவும்</string>
+<string name="addPhoto">புகைப்படத்தைச் சேர்</string>
+<string name="selectFile">கோப்பைத் தேர்ந்தெடுக்கவும்</string>
+<string name="pleaseAddNote">குறிப்பைச் சேர்க்கவும்</string>
+<string name="pleaseSelectImage">படத்தைத் தேர்ந்தெடுக்கவும்.</string>
+<!--<string name="pleaseSelectImage">தயவுசெய்து படத்தைத் தேர்ந்தெடுக்கவும்</string>-->
+<string name="selectImplement">இம்பெலெமென்ட்களைத் தேர்ந்தெடுக்கவும்</string>
+<string name="selectAnAction">ஒரு செயலைத் தேர்ந்தெடுக்கவும்</string>
+<string name="getPrice">விலை கிடைக்கும்</string>
+
+    <string name="pleaseUpdateYourProfile">தயவுசெய்து உங்கள் சுயவிவரத்தைப் புதுப்பிக்கவும்.</string>
+    <string name="enterYourReason">உங்கள் காரணத்தை உள்ளிடவும்.</string>
+    <string name="impTypeName">பெயரைத் தட்டச்சு செய்க</string>
+    <string name="sponsored">நிதியுதவி செய்யப்பட்டது</string>
+    <string name="youtube">யூடியூப்</string>
+    <string name="youtubeChannelID">UC7RM2jWMI0pDxalgI3r_kVg</string>
+    <string name="published_on">வெளியிடப்பட்ட தேதி</string>
+    <string name="subscribe">பதிவு</string>
+    <string name="khetiKeTantra">டிராக்டர்கள் மற்றும் விவசாய தொழில்நுட்பத்திற்காக</string>
+    <string name="group">குழு</string>
+    <string name="crop">செதுக்கு</string>
+    <string name="like">விரும்புகிறேன்</string>
+    <string name="shareYourThoughtsHere">உங்கள் எண்ணங்களை இங்கே பகிரவும்</string>
+    <string name="follow">பின்தொடர்தல்</string>
+    <string name="followers">பின்தொடர்பவர்கள்</string>
+    <string name="loading">ஏற்றுகிறது</string>
+    <string name="updateYourProfile">உங்கள் சுயவிவரத்தைப் புதுப்பிக்கவும்</string>
+    <string name="shares">பகிர்வுகள்</string>
+    <string name="posts">பதிவுகள்</string>
+    <string name="likes">விருப்பங்கள்</string>
+    <string name="following">அடுத்து</string>
+    <string name="biography">சுயசரிதை</string>
+    <string name="enter_your_name">உங்கள் பெயரை உள்ளிடவும்</string>
+    <!--    <string name="type_to_search"><![CDATA[Type to Search&#8230;]]></string>-->
+    <string name="type_to_search">தேடலை தட்டச்சு செய்யவும்</string>
+    <string name="ok">சரி</string>
+    <string name="brand">பிராண்ட்</string>
+    <string name="choose_group">குழுவைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="choose_crop">செதுக்குதலைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="hashtag">ஹேஷ்டேக்#</string>
+    <string name="khetiguru">கேதி குரு</string>
+    <string name="post">அஞ்சல்</string>
+    <string name="write_post">இடுகையை எழுது</string>
+    <string name="more_post">மேலும் இடுகைகள்</string>
+    <string name="write_your_hashtag_with">உங்கள் ஹேஷ்டேக்கை எழுதுங்கள்.#</string>
+    <string name="subject">பொருள்</string>
+    <string name="write_your_thoughts_or_problems">உங்கள் எண்ணங்களை அல்லது பிரச்சனைகளை இங்கே எழுதுங்கள்.</string>
+    <string name="attach_photo">புகைப்படத்தைப் பதிவேற்று</string>
+    <string name="attach_video">வீடியோவைப் பதிவேற்று (30 வினாடிகள்)</string>
+<!--    <string name="post">பதிவு</string>-->
+    <string name="create_post">இடுகையை உருவாக்கு</string>
+    <string name="rotate_image">படத்தைச் சுழற்று</string>
+    <string name="reply">பதில்</string>
+    <!--    <string name="write_a_comment"><![CDATA[Write a comment&#8230;]]></string>-->
+    <string name="write_a_comment">கருத்து எழுது</string>
+    <string name="post_view">பதிவு காட்சி</string>
+    <string name="filter">வடிகட்டி</string>
+    <string name="user_type">பயனர் வகை</string>
+    <string name="please_select_group">ஒரு குழுவைத் தேர்ந்தெடுக்கவும்</string>
+<!--    <string name="plase_select_crop">कृपया फसल का चयन करें</string>-->
+<!--    <string name="please_enter_hashtag">कृपया हैशटैग दर्ज करें.</string>-->
+<!--    <string name="please_enter_subject">कृपया विषय दर्ज करें.</string>-->
+<!--    <string name="please_enter_comment">कृपया टिप्पणी दर्ज करें</string>-->
+<!--    <string name="gallery">गैलरी</string>-->
+    <string name="plase_select_crop">தயவுசெய்து ஒரு செதுக்கலைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="please_enter_hashtag">தயவுசெய்து ஒரு ஹேஷ்டேக்கை உள்ளிடவும்.</string>
+    <string name="please_enter_subject">தயவுசெய்து ஒரு தலைப்பை உள்ளிடவும்.</string>
+    <string name="please_enter_comment">தயவுசெய்து ஒரு கருத்தை உள்ளிடவும்</string>
+    <string name="gallery">கேலரி</string>
+    <string name="please_select_another_file">வேறொரு கோப்பைத் தேர்ந்தெடுக்கவும்.</string>
+    <string name="celsius"><![CDATA[℃]]></string>
+    <string name="minimum">குறைந்தபட்சம்</string>
+    <string name="maximum">அதிகபட்சம்</string>
+    <string name="please_select_usertype">ஒரு பயனர் வகையைத் தேர்ந்தெடுக்கவும்.</string>
+    <string name="please_enter_biography">ஒரு சுயசரிதையை உள்ளிடவும்.</string>
+    <string name="please_select_crop">ஒரு பயிர் தேர்வு செய்யவும்</string>
+    <string name="please_select_tractor_brand">ஒரு டிராக்டர் பிராண்டைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="content">உள்ளடக்கம்</string>
+    <string name="write_your_subject">உங்கள் தலைப்பை உள்ளிடவும்</string>
+    <string name="write_a_reply">பதில் எழுதவும்</string>
+    <string name="please_enter_reply">தயவுசெய்து பதிலளிக்கவும்</string>
+    <string name="my_interest">எனது ஆர்வம்</string>
+    <string name="hotest">மிகச் சமீபத்திய</string>
+    <string name="by_crop">செதுக்குவதன் மூலம்</string>
+    <string name="by_group">குழுவின் மூலம்</string>
+    <string name="people_you_followed">நீங்கள் பின்தொடர்பவர்கள்</string>
+    <string name="my_post">எனது இடுகை</string>
+    <string name="sort_post_by">இடுகைகளை வரிசைப்படுத்து</string>
+    <string name="delete">நீக்கு</string>
+    <string name="are_you_sure_you_want_to_delete">நீங்கள் நிச்சயமாக நீக்க விரும்புகிறீர்களா?</string>
+    <string name="dealership">டீலர்ஷிப்</string>
+    <string name="please_select_brand_type">பிராண்ட் வகையைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="select_implement_brand">பிராண்டை செயல்படுத்து</string>
+    <string name="edit_profile">சுயவிவரத்தைத் திருத்து</string>
+    <string name="read_more">மேலும் படிக்கவும்</string>
+    <string name="please_enter_content">உள்ளடக்கத்தை உள்ளிடவும்</string>
+    <string name="update_post">பதிவைப் புதுப்பிக்கவும்</string>
+    <string name="please_type_the_verification_code_send_to">சரிபார்ப்புக் குறியீட்டைத் தட்டச்சு செய்து அனுப்பவும்</string>
+    <string name="verification_code">சரிபார்ப்புக் குறியீடு</string>
+    <string name="enter_mobile">மொபைலை உள்ளிடவும்</string>
+    <string name="verification_code_resent_successfully">சரிபார்ப்புக் குறியீடு வெற்றிகரமாக மீண்டும் அனுப்பப்பட்டது</string>
+    <string name="owner">உரிமையாளர்</string>
+    <string name="please_enter_award">விருதை உள்ளிடவும்.</string>
+    <string name="please_update_profile">உங்கள் சுயவிவரத்தைப் புதுப்பிக்கவும்.</string>
+    <string name="videos">வீடியோக்கள்</string>
+    <string name="toast_unexpected_error">எதிர்பாராத பிழை</string>
+    <string name="toast_cannot_retrieve_cropped_image">செதுக்கப்பட்ட படத்தை மீட்டெடுக்க முடியாது</string>
+    <string name="search_hint">தேடல் குறிப்பு</string>
+    <string name="see_more">மேலும் காண்க</string>
+    <string name="see_all_posts">அனைத்து இடுகைகளையும் காண்க</string>
+    <string name="please_complete_your_profile">உங்கள் சுயவிவரத்தை நிரப்பவும்.</string>
+    <string name="start_discussion_about_crop">பயிர்கள் பற்றிய விவாதத்தைத் தொடங்குங்கள்.</string>
+    <string name="sms_hash">p3cdM7bSTdn</string>
+<!--    <string name="new_version_avalible">नया संस्करण उपलब्ध है</string>-->
+    <string name="new_version_avalible">புதிய பதிப்பு கிடைக்கிறது</string>
+    <string name="posted_on">வெளியிடப்பட்டது</string>
+    <string name="search_by_brand_and_type">பிராண்ட் மற்றும் வகையின்படி தேடுங்கள்</string>
+    <string name="hint_month">மாதம்</string>
+    <string name="hint_year">ஆண்டு</string>
+    <string name="select_month">மாதத்தைத் தேர்ந்தெடு</string>
+    <string name="select_year">ஆண்டைத் தேர்ந்தெடு</string>
+    <string name="model">மாடல்</string>
+    <string name="type">வகை</string>
+    <string name="get_safety_tips">பாதுகாப்பு உதவிக்குறிப்புகளைப் பெறுங்கள்</string>
+    <string name="safety_tips">பாதுகாப்பு குறிப்புகள்</string>
+    <string name="working_area">பணிப் பகுதி</string>
+    <string name="km">(km)</string>
+    <string name="upload">பதிவேற்று</string>
+    <string name="rent_tractor">வாடகை டிராக்டர்</string>
+    <string name="please_wait" >தயவுசெய்து காத்திருங்கள்</string>
+    <string name="please_intert_redius">பணியிடும் பகுதியை உள்ளிடவும்</string>
+    <string name="sell_old_tractor">பழைய டிராக்டரை விற்கவும்</string>
+    <string name="add_owner_tractor" >எனது டிராக்டரைச் சேர்</string>
+    <string name="add_tractor" >டிராக்டரைச் சேர்</string>
+    <string name="add_implement" >செயல்படுத்தலைச் சேர்</string>
+    <string name="Brand" >பிராண்ட்</string>
+    <string name="Model" >மாடல்</string>
+    <string name="Images" >படம்</string>
+    <string name="Years" >ஆண்டுகள்</string>
+    <string name="Month" >மாதம்</string>
+    <string name="Hours" >மணிநேரம்</string>
+    <string name="Document" >ஆவணம்</string>
+    <string name="Condition" >நிபந்தனை</string>
+    <string name="Price">விலை</string>
+    <string name="NOC">நிதியாளர்/ஹைபோதெகேஷன் NOC:</string>
+    <string name="RC">RC ஆவணம்</string>
+    <string name="owners">உரிமையாளர்களின் எண்ணிக்கை</string>
+    <string name="image_hint">குறிப்பு: ஒரு படத்தை பதிவேற்றவும்.</string>
+    <string name="rc_avail">RC கிடைக்கிறது</string>
+    <string name="rc_not_avail">RC கிடைக்கவில்லை</string>
+    <string name="first">1</string>
+    <string name="second">2</string>
+    <string name="third">3</string>
+    <string name="more_than_three">3க்கும் மேற்பட்டவை</string>
+    <string name="poor_engine"><![CDATA[0 25%\n(மோசமானது)]]></string>
+    <string name="average_engine"><![CDATA[26 50%\n(சராசரி)]]></string>
+    <string name="good_engine"><![CDATA[51 75%\n(நல்லது)]]></string>
+   <string name="very_good_engine"><![CDATA[76 &#8211; 100% \n(very good)]]></string>
+    <string name="tractor_image">ஒரு டிராக்டர் படத்தை பதிவேற்றவும்.</string>
+    <string name="implement_image">படத்தை செயல்படுத்தவும்.</string>
+    <string name="want_buy_tract">உங்களிடம் டிராக்டர் இருக்கிறதா?</string>
+    <string name="click_here">இங்கே கிளிக் செய்யவும்.</string>
+    <string name="are_you_sure_you_want_quit">நீங்கள் வெளியேற விரும்புகிறீர்களா?</string>
+    <!--    <string name="please_add_two_images">कृपया दो चित्र जोड़ें|</string>-->
+    <string name="r_u_tractor_owner">நீங்கள் டிராக்டர் உரிமையாளரா?</string>
+    <string name="are_you_sure_you_want_to_exit">நீங்கள் வெளியேற விரும்புகிறீர்களா?</string>
+    <string name="really_exit">உண்மையிலேயே வெளியேறவா?</string>
+    <string name="uploading">பதிவேற்றம் செயலில் உள்ளது</string>
+    <string name="in_progress">செயல்பாட்டில் உள்ளது</string>
+    <string name="error_upload_failed">பதிவேற்றத்தில் பிழை தோல்வியடைந்தது</string>
+    <string name="btn_retry_not">மீண்டும் முயற்சிக்கவும்.</string>
+    <string name="message_upload_failed">டிராக்டர் புகைப்படங்கள் பதிவேற்றப்படவில்லை. மீண்டும் முயற்சிக்கவும்.</string>
+    <string name="uploaded_old">பழைய பதிவேற்றப்பட்டது</string>
+    <string name="sold">விற்கப்பட்டது</string>
+    <string name="pending">நிலுவையில் உள்ளது</string>
+    <string name="uploaded_rent">பதிவேற்றப்பட்டது</string>
+    <string name="showDetails">நிகழ்ச்சியின் விவரங்கள்</string>
+    <string name="please_enter_first_name">உங்கள் முதல் பெயரை உள்ளிடவும்</string>
+    <string name="tractor">டிராக்டர்கள்</string>
+    <string name="more">மேலும்</string>
+    <string name="similar_tractors">ஒத்த டிராக்டர்கள்</string>
+    <string name="similar_implements">ஒத்த செயல்படுத்தல்கள்</string>
+    <string name="other_details">பிற விவரங்கள்</string>
+    <string name="exact_HP">சரியான HP</string>
+    <string name="financier_hypo_noc">நிதியாளர்/ஹைபோதெகேஷன் NOC</string>
+    <string name="rc_document">RC ஆவணம்</string>
+    <string name="engine_condition">இயந்திர நிலை</string>
+    <string name="tyre_condition">டயர் நிலை</string>
+    <string name="month_year">மாதம் - ஆண்டு</string>
+    <string name="rto_no">RTO எண்</string>
+    <string name="vs">எதிராக</string>
+    <string name="popular_implements">பிரபலமான கருவிகள்</string>
+    <string name="lakh">லட்சம்</string>
+    <string name="related_implement_type">தொடர்புடைய சாதன வகை</string>
+    <string name="dash">-</string>
+    <string name="search_by_hp">HP மூலம் தேடுங்கள்.</string>
+    <string name="search_by_drive">இயக்ககத்தால் தேடுங்கள்.</string>
+    <string name="search_by_price">விலை வாரியாகத் தேடு.</string>
+    <string name="search_by_type">வகை வாரியாகத் தேடு.</string>
+    <string name="search_by_city">நகர வாரியாகத் தேடு.</string>
+    <string name="language">மொழி.</string>
+    <string name="implements_lbl">செயல்படுத்தல்கள்.</string>
+    <string name="buy_old_tractor">பழைய டிராக்டரை வாங்கவும்</string>
+    <string name="download_completed">பதிவிறக்கம் முடிந்தது</string>
+    <string name="install">நிறுவுதல்</string>
+    <string name="write_review">மதிப்பாய்வை எழுதுங்கள்</string>
+    <string name="rate_your_tractor">உங்கள் டிராக்டரை மதிப்பிடுங்கள்</string>
+    <string name="terrible">பயங்கரமானது!</string>
+    <string name="i_regret_riding_this_tractor">இந்த டிராக்டரை ஓட்டியதற்கு நான் வருந்துகிறேன்.</string>
+    <string name="its_bad">இது மோசமானது!</string>
+    <string name="its_ok">இது பரவாயில்லை!</string>
+    <string name="superb">அற்புதம்!</string>
+    <string name="amazing">அற்புதம்!</string>
+    <string name="the_tractor_exceeds_all_the_expectations">டிராக்டர் எல்லா எதிர்பார்ப்புகளையும் தாண்டிவிட்டது.</string>
+    <string name="i_love_the_tractor">டிராக்டர் எனக்கு ரொம்பப் பிடிச்சிருக்கு.</string>
+    <string name="could_have_been_much_better">இது இன்னும் சிறப்பாக இருந்திருக்கலாம்.</string>
+    <string name="i_know_better_tractor_in_the_same">ஒரே விலை வரம்பில் சிறந்த டிராக்டர்களை நான் அறிவேன்.</string>
+    <string name="you_purchased_this_tractor_as">இந்த டிராக்டரை நீங்கள் எப்படி வாங்கினீர்கள்?</string>
+    <string name="used">பயன்படுத்தப்பட்டது.</string>
+    <string name="not_purchased">வாங்கப்படவில்லை.</string>
+    <string name="write_a_review">மதிப்பாய்வை எழுதுங்கள்.</string>
+    <string name="add_comment">கருத்தைச் சேர்க்கவும்.</string>
+    <string name="harvester">அறுவடை இயந்திரம்</string>
+    <string name="_10k_2l">10k - 2L</string>
+    <string name="_2_3l">2 – 3L</string>
+    <string name="_3_5l">3 – 5L</string>
+    <string name="above_5l">5lக்கு மேல்</string>
+    <string name="mandi_price">மண்டி விலை</string>
+    <string name="min_price">குறைந்தபட்ச விலை</string>
+    <string name="max_price">அதிகபட்ச விலை</string>
+    <string name="model_price">மாடல் விலை</string>
+    <string name="market">சந்தை</string>
+    <string name="variety">பல்வேறு வகைகள்</string>
+    <string name="oops">ஐயோ!!</string>
+    <string name="we_do_not_find_your_location_in_our_weather">எங்கள் வானிலையில் உங்கள் இருப்பிடத்தைக் கண்டுபிடிக்க முடியவில்லை.</string>
+    <string name="my_posts">எனது இடுகைகள்</string>
+    <string name="request_for_delete_tractor">டிராக்டரை நீக்க கோரிக்கை</string>
+    <string name="reason" >காரணம்:</string>
+    <string name="close" >மூடு</string>
+    <string name="submit" >சமர்ப்பி</string>
+    <string name="record_not_found" >பதிவு கிடைக்கவில்லை</string>
+    <string name="privacy_policy" >தனியுரிமைக் கொள்கை</string>
+    <string name="similar_old_tractors" >இதேபோன்ற பழைய டிராக்டர்கள்</string>
+    <string name="_0" >₹0</string>
+    <string name="minus" >-</string>
+    <string name="_1" >1</string>
+    <string name="plus">+</string>
+    <string name="order_subtotal">ஆர்டர் துணைத்தொகுப்பு</string>
+    <string name="shipping_and_handling">கப்பல் அனுப்புதல் மற்றும் கையாளுதல்</string>
+    <string name="notification">அறிவிப்பு</string>
+    <string name="please_select_type">தயவுசெய்து வகையைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="registered_on">பதிவுசெய்யப்பட்டது</string>
+    <string name="search_tractors_harvesters_implements">டிராக்டர் அறுவடை இயந்திரங்களைத் தேடுங்கள்…</string>
+    <string name="sell_used">பயன்படுத்தியதை விற்கவும்</string>
+    <string name="buy_used">பயன்படுத்தியதை வாங்கவும்</string>
+    <string name="finance">நிதி</string>
+    <string name="insurance">காப்பீடு</string>
+    <string name="view_more">மேலும் காண்க</string>
+    <string name="show_all">அனைத்தையும் காட்டு</string>
+    <string name="used_tractors">பயன்படுத்திய டிராக்டர்கள்</string>
+    <string name="used_imaplements">பயன்படுத்திய உபகரணங்கள்</string>
+    <string name="used_harvester">பயன்படுத்தப்பட்ட அறுவடை இயந்திரங்கள்</string>
+    <string name="used_tractors_by_state">மாநில வாரியாக பயன்படுத்தப்பட்ட டிராக்டர்கள்</string>
+    <string name="small_farm_machinery">சிறிய பண்ணை இயந்திரங்கள்</string>
+    <string name="view_all_news">அனைத்து செய்திகளையும் காண்க</string>
+    <string name="view_less">குறைவாகக் காண்க</string>
+    <string name="show_all_videos">அனைத்து வீடியோக்களையும் காட்டு.</string>
+    <string name="farmers_testimonial">விவசாயிகளின் சான்று</string>
+    <string name="brands">பிராண்டுகள்</string>
+    <string name="domain_uri_prefix">https://khetigaadi.page.link</string>
+    <string name="front">முன்னணி</string>
+    <string name="back">பின்</string>
+    <string name="list_is_not_genuine">பட்டியல் உண்மையானது அல்ல.</string>
+    <string name="seller_is_not_contactable">விற்பனையாளரைத் தொடர்பு கொள்ள முடியாது.</string>
+    <string name="photo_are_not_visible">புகைப்படங்கள் தெரியவில்லை.</string>
+    <string name="product_details_do_not_match">தயாரிப்பு விளக்கங்கள் பொருந்தவில்லை.</string>
+    <string name="product_is_sold">தயாரிப்பு விற்கப்பட்டது.</string>
+    <string name="please_type_here">தயவுசெய்து இங்கே தட்டச்சு செய்யவும்.</string>
+    <string name="report_ad">விளம்பரத்தைப் புகாரளிக்கவும்.</string>
+    <string name="tell_us_your_requirement">உங்கள் தேவையைச் சொல்லுங்கள்.</string>
+    <string name="get_loan">கடன் பெறுங்கள்.</string>
+    <string name="call_now">இப்போதே அழைக்கவும்.</string>
+    <string name="type_of_finance">நிதி வகை.</string>
+    <string name="loan_amount">கடன் தொகை.</string>
+    <string name="greater_than_5_lac"><![CDATA[ 5 லட்சம்]]></string>
+    <string name="_4_5_lac">4 – 5 லட்சம்</string>
+    <string name="_3_4_lac">3 – 4 லட்சம்</string>
+    <string name="_2_3_lac">2 – 3 லட்சம்</string>
+    <string name="_1_2_lac">1 – 2 லட்சம்</string>
+    <string name="aadhar_back_image">ஆதார் பின் படம்</string>
+    <string name="aadhar_front_image">ஆதார் முன் படம்</string>
+    <string name="apply_for_loan">கடனுக்கு விண்ணப்பிக்கவும்</string>
+    <string name="please_select_finance_type">நிதி வகையைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="please_select_loan_amount">கடன் தொகையைத் தேர்ந்தெடுக்கவும்.</string>
+    <string name="please_select_aadhar_front_image">உங்கள் ஆதாரின் முன் படத்தைத் தேர்ந்தெடுக்கவும்.</string>
+    <string name="please_select_aadhar_back_image">உங்கள் ஆதாரின் பின் படத்தைத் தேர்ந்தெடுக்கவும்.</string>
+    <string name="for_any_enquiry_and_help">எந்தவொரு விசாரணை மற்றும் உதவிக்கும்.</string>
+    <string name="please_select_date_of_birth">பிறந்த தேதியைத் தேர்ந்தெடுக்கவும்.</string>
+    <string name="please_select_gender">பாலினத்தைத் தேர்ந்தெடுக்கவும்.</string>
+    <string name="mandatory_permission_access_required">அறிவிப்புகளைப் பெற அறிவிப்பு அணுகல் தேவை. அமைப்புகளில் அதை இயக்கவும்.</string>
+    <string name="aadhar_upload_failed">ஆதார் பதிவேற்றம் தோல்வியடைந்தது</string>
+    <string name="aadhar_message_upload_failed">ஆதார் பதிவேற்றப்படவில்லை. மீண்டும் முயற்சிக்கவும்.</string>
+    <string name="delete_account">கணக்கை நீக்கு</string>
+    <string name="btn_submit">சமர்ப்பிப்பை ஏற்றுக்கொள்</string>
+    <string name="no_internet_connection">இணைய இணைப்பு இல்லை</string>
+    <string name="please_add_address">ஒரு முகவரியைச் சேர்க்கவும்</string>
+    <string name="select_address">ஒரு முகவரியைத் தேர்ந்தெடுக்கவும்</string>
+    <string name="add_address">முகவரியை சேர்</string>
+    <string name="please_select_taluka">தயவுசெய்து ஒரு தாலுகாவைத் தேர்ந்தெடுக்கவும்.</string>
+    <string name="terms_and_conditions">விதிமுறைகள் மற்றும் நிபந்தனைகள்</string>
+    <string name="what_kind_of_user_are_you">நீங்கள் எந்த வகையான பயனர்?</string>
+    <string name="please_choose_payment_option">கட்டண விருப்பத்தைத் தேர்ந்தெடுக்கவும்.</string>
+    <string name="payment">கட்டணம்</string>
+    <string name="payment_failed_please_try_again">கட்டணம் செலுத்த முடியவில்லை, மீண்டும் முயற்சிக்கவும்.</string>
+    <string name="select_taluka">ஒரு தாலுகாவைத் தேர்ந்தெடுக்கவும்.</string>
+    <string name="please_add_products">தயவுசெய்து தயாரிப்புகளைச் சேர்க்கவும்.</string>
+    <string name="off">முடக்கு</string>
+    <string name="my_cart">எனது வண்டி</string>
+    <string name="last_name">கடைசி பெயர்</string>
+    <string name="buy_now">இப்போதே வாங்கவும்</string>
+    <string name="add_to_cart">கூடையில் சேர்</string>
+    <string name="go_to_cart">கூடைக்குச் செல்லவும்</string>
+    <string name="expertAdvice">அனுபவம் வாய்ந்த ஆலோசனை</string>
+    <string name="customer_service_call">வாடிக்கையாளர் சேவை அழைப்பு</string>
+    <string name="you_will_get_a_call_from_our">எங்களிடமிருந்து உங்களுக்கு அழைப்பு வரும்</string>
+    <string name="update">புதுப்பிப்பு</string>
+    <string name="state">நிலை</string>
+    <string name="smart_phone_user">ஸ்மார்ட்போன் பயனர்</string>
+    <string name="owned_brand">சொந்த பிராண்ட்</string>
+    <string name="are_you_tractor_owner">உங்களிடம் டிராக்டர் இருக்கிறதா?</string>
+    <string name="land">நிலம்</string>
+    <string name="crops">பயிர்கள்</string>
+    <string name="describe_yourself_to_others">மற்றவர்களுக்கு உங்களை நீங்களே விவரிக்கவும்</string>
+    <string name="hint_last_name">கடைசி பெயர்</string>
+    <string name="first_name">முதல் பெயர்</string>
+    <string name="trending_products">பிரபலமான தயாரிப்புகள்</string>
+    <string name="trash">குப்பை</string>
+    <string name="instagram">இன்ஸ்டாகிராம்</string>
+    <string name="linkedin">இணைக்கப்பட்ட இன்</string>
+    <string name="taluka">தாலுகா</string>
+    <string name="address">முகவரி</string>
+    <string name="gender">பாலினம்</string>
+    <string name="dob">பிறந்த தேதி</string>
+    <string name="quantity">அளவு</string>
+    <string name="free_delivery">இலவச டெலிவரி</string>
+    <string name="cash_on_delivery">டெலிவரியில் பணம்</string>
+    <string name="expert_advice">அனுபவம் வாய்ந்த ஆலோசனை</string>
+    <string name="google_api_key">AIzaSyAaowdoYpnYqndogiCOAW-na2cI83GEi1A</string>
+    <string name="no">இல்லை</string>
+    <string name="yes">ஆம்</string>
+    <string name="total_amount">மொத்த தொகை</string>
+    <string-array name="gender_val">
+        <item>பாலினத்தைத் தேர்ந்தெடுக்கவும்</item>
+        <item>ஆண்</item>
+        <item>பெண்</item>
+        <item>பிற</item>
+    </string-array>
 </resources>

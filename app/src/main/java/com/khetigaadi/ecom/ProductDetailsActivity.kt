@@ -57,24 +57,22 @@ class ProductDetailsActivity:CartBaseActivity() {
     private var quantity = 0
     override fun onCreate(savedInstanceState:Bundle?) {
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false)
-
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(), false)
         binding = ActivityProductDetailsBinding.inflate(layoutInflater)
         val view: View = binding.root
         setContentView(view)
-
-        ViewCompat.setOnApplyWindowInsetsListener(
-            binding.getRoot(),
-            OnApplyWindowInsetsListener { v: View?, insets: WindowInsetsCompat? ->
-                val systemBarsInsets = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
-                v!!.setPadding(
-                    systemBarsInsets.left,
-                    systemBarsInsets.top,
-                    systemBarsInsets.right,
-                    systemBarsInsets.bottom)
-                insets
-            })
-        this.enableEdgeToEdge()
+//        ViewCompat.setOnApplyWindowInsetsListener(
+//            binding.getRoot(),
+//            OnApplyWindowInsetsListener { v: View?, insets: WindowInsetsCompat? ->
+//                val systemBarsInsets = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
+//                v!!.setPadding(
+//                    systemBarsInsets.left,
+//                    systemBarsInsets.top,
+//                    systemBarsInsets.right,
+//                    systemBarsInsets.bottom)
+//                insets
+//            })
+//        this.enableEdgeToEdge()
         viewModel = ViewModelProvider(this)[ProductDetailsViewModel::class.java]
         handler = Handler(Looper.getMainLooper())
         toolbarInit()
@@ -231,6 +229,8 @@ class ProductDetailsActivity:CartBaseActivity() {
         binding.toolbars.toolbar.setNavigationOnClickListener { onBackPressed() }
         binding.toolbars.toolbar.title = getString(R.string.shop)
         binding.toolbars.toolbar.overflowIcon = ContextCompat.getDrawable(this,R.drawable.ic_baseline_more_vert_24)
+
+        supportActionBar?.title =  getString(R.string.shop)
     }
     private fun setData() {
         binding.progressBar.visibility = View.VISIBLE

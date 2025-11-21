@@ -28,6 +28,7 @@ public class CityFilterAdapter extends RecyclerView.Adapter<CityFilterAdapter.Da
     @Override
     public void onBindViewHolder(DataObjectHolder holder, int position) {
         holder.binding.cbSelect.setText(filteredData.get(holder.getAbsoluteAdapterPosition()).getName());
+        holder.binding.filterName.setText(filteredData.get(holder.getAbsoluteAdapterPosition()).getName());
         holder.binding.cbSelect.setChecked(filteredData.get(holder.getAbsoluteAdapterPosition()).isSelected());
         holder.binding.cbSelect.setOnClickListener(v -> filteredData.get(holder.getAbsoluteAdapterPosition()).setSelected(((CheckBox) v).isChecked()));
     }

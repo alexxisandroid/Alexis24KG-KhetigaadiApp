@@ -24,7 +24,8 @@
             android:layout_height="match_parent"
             android:focusableInTouchMode="true"
             android:orientation="vertical"
-            android:layout_marginBottom="@dimen/dimen_20dp"
+            android:layout_marginBottom="@dimen/dimen_10dp"
+            android:fillViewport="true"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvUpdate"
@@ -32,7 +33,6 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 tools:visibility="visible">
-
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/consLayout"
                     android:layout_width="match_parent"
@@ -86,7 +86,7 @@
             android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
             style="@style/Widget.BottomNavigationView"
-            android:layout_height="56dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:background="@color/white"
             app:itemIconTint="@color/colorPrimary"
@@ -106,6 +106,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:layout_marginEnd="25dp"
+        android:layout_marginStart="@dimen/dimen_25dp"
         app:headerLayout="@layout/side_menu_header">
         <ExpandableListView
             android:id="@+id/navigationMenu"
@@ -122,6 +123,7 @@
             android:id="@+id/includeFooter"
             layout="@layout/side_menu_footer"
             android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/dimen_20dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"/>
     </com.google.android.material.navigation.NavigationView>

@@ -4,17 +4,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
-
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
-
 import com.khetigaadi.R;
 import com.khetigaadi.agri.activity.BrandSelectionActivity;
-//import com.khetigaadi.base.model.Brand;
 import com.khetigaadi.implement.newImplement.util.Brand;
 import com.khetigaadi.base.model.MyResponse;
 import com.khetigaadi.commons.activities.BaseActivity;
@@ -23,12 +15,10 @@ import com.khetigaadi.databinding.ActivityDealerShipBinding;
 import com.khetigaadi.def.BrandType;
 import com.khetigaadi.retrofit.KhetiAPIs;
 import com.khetigaadi.user.model.User;
-
 import java.util.HashMap;
 import java.util.Map;
-
+import java.util.Objects;
 import javax.inject.Inject;
-
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
@@ -47,18 +37,16 @@ public class DealerShipActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
-
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
         binding = ActivityDealerShipBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
-            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-            return insets;
-        });
-        EdgeToEdge.enable(this);
-
+//        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
+//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+//            return insets;
+//        });
+//        EdgeToEdge.enable(this);
         findViewById();
         initToolbar();
         initUI();
@@ -135,6 +123,7 @@ public class DealerShipActivity extends BaseActivity {
         binding.toolbars.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
         binding.toolbars.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         binding.toolbars.toolbar.setTitle(getString(R.string.dealership));
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.dealership));
     }
     private void findViewById() {
         ArrayAdapter adapter = ArrayAdapter.createFromResource(this,R.array.brand_type,R.layout.spinner_item);

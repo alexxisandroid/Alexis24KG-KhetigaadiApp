@@ -51,13 +51,15 @@ public class NewTractorSearchByName extends Fragment {
     CompositeDisposable disposable = new CompositeDisposable();
     final BehaviorSubject<String> userInputSubject = BehaviorSubject.create();
     @Override
-    public void onAttach(@NonNull Context context) {
+    public void onAttach(@NonNull Context context)
+    {
         super.onAttach(context);
         activity = getActivity();
     }
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater,@Nullable ViewGroup container,@Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,@Nullable ViewGroup container,@Nullable Bundle savedInstanceState)
+    {
         binding = SearchByNameBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
         if (activity != null) {
@@ -113,7 +115,8 @@ public class NewTractorSearchByName extends Fragment {
 
         return view;
     }
-    private void getNewTractorSearchItem(final String text) {
+    private void getNewTractorSearchItem(final String text)
+    {
         binding.newTractorSearchRes.setVisibility(View.GONE);
         binding.llProgress.llProgress.setVisibility(View.VISIBLE);
         Map<String, String> params = new HashMap<>();

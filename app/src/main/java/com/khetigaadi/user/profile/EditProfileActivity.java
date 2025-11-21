@@ -54,6 +54,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
+
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
@@ -91,17 +93,17 @@ public class EditProfileActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
 
         binding = ActivityEditProfileBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
-        ViewCompat.setOnApplyWindowInsetsListener(view, (v,insets) -> {
-            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-            return insets;
-        });
+//        ViewCompat.setOnApplyWindowInsetsListener(view, (v,insets) -> {
+//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+//            return insets;
+//        });
         setContentView(view);
-        EdgeToEdge.enable(this);
+       // EdgeToEdge.enable(this);
         viewModel = new ViewModelProvider(this).get(EditProfileViewModel.class);
         if (getIntent().getExtras() != null)
             isCompulsory = getIntent().getExtras().getBoolean(IS_COMPULSORY);
@@ -626,6 +628,7 @@ public class EditProfileActivity extends BaseActivity {
         binding.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
         binding.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         binding.toolbar.setTitle(getString(R.string.edit_profile));
+      //  Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.edit_profile));
     }
     private void handleCropResult(Uri resultUri) {
         if (resultUri != null) {
@@ -656,28 +659,35 @@ public class EditProfileActivity extends BaseActivity {
         return "";
     }
     private void uploadProfileImage() {
-        viewModel.uploadProfileImage(profileImage).observe(this,updateProfileImageRespStateData -> {
-            switch (updateProfileImageRespStateData.getStatus()) {
-                case LOADING:
-                    showOrUpdateProgressDialog("Wait image uploading!");
-                    break;
-                case SUCCESS:
-                    if (updateProfileImageRespStateData.getData() != null) {
-                        Toast.makeText(getApplicationContext(),updateProfileImageRespStateData.getData().getMsg().get(0),Toast.LENGTH_SHORT).show();
-                    }
-                    if (isCompulsory) {
-                        startActivity(new Intent(EditProfileActivity.this,MainActivity.class));
-                    }
-                    finish();
-                    dismissProgressDialog();
-                    break;
-                case ERROR:
-                    Toast.makeText(EditProfileActivity.this,updateProfileImageRespStateData.getError(),Toast.LENGTH_SHORT).show();
-                    dismissProgressDialog();
-                    break;
-            }
-        });
+       try {
+           viewModel.uploadProfileImage(profileImage).observe(this, updateProfileImageRespStateData -> {
+               switch (updateProfileImageRespStateData.getStatus()) {
+                   case LOADING:
+                       showOrUpdateProgressDialog("Wait image uploading!");
+                       break;
+                   case SUCCESS:
+                       if (updateProfileImageRespStateData.getData() != null) {
+                           Toast.makeText(getApplicationContext(), String.valueOf(updateProfileImageRespStateData.getData().getMsg().get(0)), Toast.LENGTH_SHORT).show();
+                       }
+                       if (isCompulsory) {
+                           startActivity(new Intent(EditProfileActivity.this, MainActivity.class));
+                       }
+                       finish();
+                       dismissProgressDialog();
+                       break;
+                   case ERROR:
+                       Toast.makeText(EditProfileActivity.this, updateProfileImageRespStateData.getError(), Toast.LENGTH_SHORT).show();
+                       dismissProgressDialog();
+                       break;
+               }
+           });
+       }
+       catch (Exception e) {
+           //noinspection CallToPrintStackTrace
+           e.printStackTrace();
+       }
     }
+    /** @noinspection deprecation*/
     @Override
     public void onBackPressed() {
         //Here Pranav change the code !isCompalsory to isCompalsory

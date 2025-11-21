@@ -11,6 +11,7 @@
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="0.9"
+        android:fontFamily="@font/poppins_medium"
         android:gravity="center_vertical"
         android:text=""/>
     <CheckBox

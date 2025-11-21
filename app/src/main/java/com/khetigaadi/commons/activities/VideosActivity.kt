@@ -38,22 +38,22 @@ class VideosActivity:BaseActivity() {
     lateinit var disposable:CompositeDisposable
     override fun onCreate(savedInstanceState:Bundle?) {
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(getWindow(),false)
+      //  WindowCompat.setDecorFitsSystemWindows(getWindow(),false)
         binding = ActivityVideosBinding.inflate(layoutInflater)
         val view: View = binding.root
         setContentView(view)
-        ViewCompat.setOnApplyWindowInsetsListener(
-            binding.getRoot(),
-            OnApplyWindowInsetsListener { v:View?,insets:WindowInsetsCompat? ->
-                val systemBarsInsets = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
-                v!!.setPadding(
-                    systemBarsInsets.left,
-                    systemBarsInsets.top,
-                    systemBarsInsets.right,
-                    systemBarsInsets.bottom)
-                insets
-            })
-        this.enableEdgeToEdge()
+//        ViewCompat.setOnApplyWindowInsetsListener(
+//            binding.getRoot(),
+//            OnApplyWindowInsetsListener { v:View?,insets:WindowInsetsCompat? ->
+//                val systemBarsInsets = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
+//                v!!.setPadding(
+//                    systemBarsInsets.left,
+//                    systemBarsInsets.top,
+//                    systemBarsInsets.right,
+//                    systemBarsInsets.bottom)
+//                insets
+//            })
+//        this.enableEdgeToEdge()
         initToolbar()
         binding.myRecyclerView.setHasFixedSize(true)
         var mLayoutManager = LinearLayoutManager(this@VideosActivity)

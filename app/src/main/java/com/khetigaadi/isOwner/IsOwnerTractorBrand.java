@@ -28,6 +28,8 @@ import com.khetigaadi.databinding.IsOwnerBrandScreenBinding;
 import com.khetigaadi.def.BrandType;
 import com.khetigaadi.room.repository.BrandRepository;
 import java.util.List;
+import java.util.Objects;
+
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
@@ -41,19 +43,20 @@ public class IsOwnerTractorBrand extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
         binding = IsOwnerBrandScreenBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(),(v,insets) -> {
-            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-            return insets;
-        });
-        EdgeToEdge.enable(this);
+//        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(),(v,insets) -> {
+//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+//            return insets;
+//        });
+//        EdgeToEdge.enable(this);
         setSupportActionBar(binding.toolbarI.toolbar);
         binding.toolbarI.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
         binding.toolbarI.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         binding.toolbarI.toolbar.setTitle(getString(R.string.owner));
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.owner));
         iconColorChange();
         binding.etSellTractorBrand.setOnClickListener(v -> {
             Intent intent = new Intent(IsOwnerTractorBrand.this,BrandSelectionActivity.class);
@@ -124,7 +127,7 @@ public class IsOwnerTractorBrand extends BaseActivity {
 //            }
 //        });
 
-        brandRepository.getOldTractorBrands().observe(this,new Observer<List<com.khetigaadi.implement.newImplement.util.Brand>>() {
+        brandRepository.getOldTractorBrandsSell().observe(this,new Observer<List<com.khetigaadi.implement.newImplement.util.Brand>>() {
             @Override
             public void onChanged(@Nullable List<com.khetigaadi.implement.newImplement.util.Brand> brands) {
                 try {

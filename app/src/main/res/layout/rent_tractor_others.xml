@@ -107,10 +107,11 @@
         style="@style/ButtonStyleFilledRed"
         android:layout_width="match_parent"
         android:background="@color/red"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/dimen_50dp"
         android:layout_alignParentBottom="true"
         android:layout_gravity="bottom"
         android:clickable="true"
+        android:textColor="@color/white"
         android:focusable="true"
         android:gravity="center"
         android:text="@string/btn_submit" />

@@ -11,7 +11,6 @@ import android.view.Window
 import android.view.WindowManager
 import androidx.activity.enableEdgeToEdge
 import androidx.core.graphics.Insets
-//import androidx.core.view.OnApplyWindowInsetsListener
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
@@ -45,12 +44,12 @@ class SplashActivity:BaseActivity() {
     @Suppress("PrivatePropertyName")
     private val TAG = javaClass.simpleName
     @Inject
-    lateinit var session: SessionManager
+    lateinit var session:SessionManager
     @Inject
-    lateinit var khetiAPIs: KhetiAPIs
+    lateinit var khetiAPIs:KhetiAPIs
     @JvmField
     @Inject
-    var userAPIs: UserAPIs? = null
+    var userAPIs:UserAPIs? = null
     @Inject
     lateinit var disposable:CompositeDisposable
     @Inject
@@ -66,27 +65,19 @@ class SplashActivity:BaseActivity() {
         binding = ActivitySplashBinding.inflate(layoutInflater)
         val view: View = binding.root
         setContentView(view)
-
-        ViewCompat.setOnApplyWindowInsetsListener(
-            view
-        ) { v: View?, insets: WindowInsetsCompat? ->
-            val systemBarsInsets: Insets =
-                insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
-            v!!.setPadding(
-                systemBarsInsets.left,
-                systemBarsInsets.top,
-                systemBarsInsets.right,
-                systemBarsInsets.bottom
-            )
+        ViewCompat.setOnApplyWindowInsetsListener(view) { v:View?,insets:WindowInsetsCompat? ->
+            val systemBarsInsets:Insets = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
+            v!!.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom)
             insets
         }
         enableEdgeToEdge()
         val isInternetAvailable = isConnectionAvailable(this)
        // isInternetAvailable.observe(this) { isAvailable:Boolean ->
+           println("nvbnvnbvnb===="+isInternetAvailable+"=="+session.isLoggedIn)
             if (isInternetAvailable) {
                 getAllBanner()
                 //getImage();
-                if (pref.getStringValue(Constants.APP_BANNER_KEY, "") != "") {
+                if(pref.getStringValue(Constants.APP_BANNER_KEY,"") != "") {
                     try {
                         val allBanner = Gson().fromJson(pref.getStringValue(Constants.APP_BANNER_KEY, "{}"), AllBannerResp::class.java)
                         if (allBanner.banners != null) {
@@ -98,25 +89,38 @@ class SplashActivity:BaseActivity() {
                                     .into(binding.adImage)
                             }
                         }
-                    } catch (e: Exception) {
+                    }
+                    catch(e:Exception) {
+                        println("vcxcxvcxvcxvx===="+e.localizedMessage)
                         e.printStackTrace()
                     }
                 }
-                if (session.isLoggedIn) {
+                if(session.isLoggedIn) {
+                    println("vccxvcxvcxv1====")
                     FirebaseDynamicLinks.getInstance()
                         .getDynamicLink(intent)
                         .addOnSuccessListener(this) { pendingDynamicLinkData -> // Get deep link from result (may be null if no link is found)
                             var deepLink: Uri? = null
-                            if (pendingDynamicLinkData != null) {
+                            if(pendingDynamicLinkData != null) {
                                 deepLink = pendingDynamicLinkData.link
                             }
+                            println("vccxvcxvcxv===="+pendingDynamicLinkData)
                             Timer().schedule(500) {
+                                println("vccxvcxvcxv2===="+pendingDynamicLinkData)
                                 callMainActivity(deepLink)
                             }
-
+                            println("vccxvcxvcxv22===="+pendingDynamicLinkData)
                         }
                         .addOnFailureListener(this) { e ->
-                            Timber.tag(TAG).w(e, "getDynamicLink:onFailure") }
+                            println("vccxvcxvcxv1122===="+e.localizedMessage)
+                            Timber.tag(TAG).w(e,"getDynamicLink:onFailure") }
+                    var deepLink: Uri? = null
+
+                    println("vccxvcxvcxvjk===="+deepLink)
+                    Timer().schedule(500) {
+                        println("vccxvcxvcxv2===="+deepLink)
+                        callMainActivity(deepLink)
+                    }
                 }
                 else {
                     callLogin()
@@ -158,13 +162,15 @@ class SplashActivity:BaseActivity() {
         }
         finish()
     }
-
     private fun callMainActivity(deepLink:Uri?) {
-        FcmApi.registerFCMToken(userAPIs, session) {
+        FcmApi.registerFCMToken(userAPIs,session) {
+          //  checkAndNavigateToMain(deepLink)
+            println("cvxcxcxxcvx==="+session);
+        }
+        Timer().schedule(500) {
             checkAndNavigateToMain(deepLink)
         }
     }
-
     private fun checkAndNavigateToMain(deepLink:Uri?) {
         val i: Intent
         if (pref.getBooleanValue(Constants.IS_FIRST_TIME_LAUNCH, true)) {
@@ -174,13 +180,10 @@ class SplashActivity:BaseActivity() {
         } else {
             i = Intent(this@SplashActivity, MainActivity::class.java)
             @Suppress("DEPRECATION")
-            if (intent.hasExtra(Constants.NOTIFICATION_INTENT_KEY))
-                i.putExtra(
-                    Constants.NOTIFICATION_INTENT_KEY,
-                    intent.getParcelableExtra<Parcelable>(Constants.NOTIFICATION_INTENT_KEY) as Notification
-                )
+            if(intent.hasExtra(Constants.NOTIFICATION_INTENT_KEY))
+                i.putExtra(Constants.NOTIFICATION_INTENT_KEY,intent.getParcelableExtra<Parcelable>(Constants.NOTIFICATION_INTENT_KEY) as Notification)
             i.putExtras(intent)
-            if (deepLink == null)
+            if(deepLink == null)
                 i.data = intent.data
             else
                 i.data = deepLink
@@ -189,21 +192,20 @@ class SplashActivity:BaseActivity() {
         }
         finish()
     }
-
     private fun getAllBanner() {
         disposable.add(khetiAPIs.banner
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ data: AllBannerResp ->
-                if (!data.isError) {
-                    pref.setValue(Constants.APP_BANNER_KEY, Gson().toJson(data))
+               println("nvbnvnbvnb22===="+data.isError)
+                if(!data.isError) {
+                    pref.setValue(Constants.APP_BANNER_KEY,Gson().toJson(data))
                 }
             }
-            ) { error: Throwable ->
-                Timber.e(error.message, "onFailure: ")
+            ) { error:Throwable ->
+                Timber.e(error.message,"onFailure: ")
             })
     }
-
     override fun onDestroy() {
         super.onDestroy()
         disposable.clear()

@@ -19,7 +19,7 @@
         android:id="@+id/my_Recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="40dp"
+        android:layout_marginBottom="@dimen/dimen_50dp"
         android:background="@color/pageBackGround"
         android:padding="2dp"
         android:scrollbars="vertical"

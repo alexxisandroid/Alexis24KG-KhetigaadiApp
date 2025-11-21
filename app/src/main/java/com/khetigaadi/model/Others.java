@@ -8,7 +8,7 @@ public class Others extends com.khetigaadi.shop.model.Others implements Parcelab
     @SerializedName("brandLogoPath")
     @Expose
     private String brandLogoPath;
-    @SerializedName(value = "tractorImagePath", alternate = {"usedTractorImagePath","newTractorPath","newTractorImagePath","oldTractorPath"})
+    @SerializedName(value ="tractorImagePath",alternate = {"usedTractorImagePath","newTractorPath","newTractorImagePath","oldTractorPath"})
     @Expose
     private String tractorImagePath;
     @SerializedName("disclaimer")
@@ -37,7 +37,7 @@ public class Others extends com.khetigaadi.shop.model.Others implements Parcelab
         return 0;
     }
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public void writeToParcel(Parcel dest,int flags) {
         dest.writeString(this.brandLogoPath);
         dest.writeString(this.tractorImagePath);
     }

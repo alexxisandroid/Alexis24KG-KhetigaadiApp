@@ -85,16 +85,16 @@ public class ProductListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         binding = ActivityProductListBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
-            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-            return insets;
-        });
-        EdgeToEdge.enable(this);
+//        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
+//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+//            return insets;
+//        });
+//        EdgeToEdge.enable(this);
         viewModel = new ViewModelProvider(this).get(ProductListViewModel.class);
         initToolbar();
         initAdapter();
@@ -335,10 +335,11 @@ public class ProductListActivity extends AppCompatActivity {
         }
     }
     catch(IOException e) {
-        throw new RuntimeException(e);
+        //e.printStackTrace();
+       // throw new RuntimeException(e);
     }
-    catch (JSONException e) {
-        throw new RuntimeException(e);
+    catch(JSONException e) {
+      //  throw new RuntimeException(e);
     }
 }
     public void getDataValFilter(int page) {

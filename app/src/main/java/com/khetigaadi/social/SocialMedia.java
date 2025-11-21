@@ -8,6 +8,8 @@ import com.khetigaadi.commons.activities.BaseActivity;
 import com.khetigaadi.commons.utils.Constants;
 import com.khetigaadi.databinding.SocialMediaBinding;
 import java.util.ArrayList;
+import java.util.Objects;
+
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class SocialMedia extends BaseActivity {
@@ -64,6 +66,7 @@ public class SocialMedia extends BaseActivity {
         binding.toolbars.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
         binding.toolbars.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         binding.toolbars.toolbar.setTitle(getString(R.string.social_media));
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.social_media));
     }
     private void callLinkedInPage() {
         if (linkedInFragment == null) {
@@ -86,7 +89,7 @@ public class SocialMedia extends BaseActivity {
             facebookFragment = SocialMediaFragment.newInstance(SocialMedia.socialMediaUrl.get(0));
         }
         mFragmentTransaction = mFragmentManager.beginTransaction();
-        mFragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-        mFragmentTransaction.replace(binding.clPageViewer.getId(), facebookFragment).commit();
+        mFragmentTransaction.setCustomAnimations(R.anim.enter,R.anim.exit,R.anim.pop_enter,R.anim.pop_exit);
+        mFragmentTransaction.replace(binding.clPageViewer.getId(),facebookFragment).commit();
     }
 }

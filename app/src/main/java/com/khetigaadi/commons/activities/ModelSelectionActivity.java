@@ -6,7 +6,6 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.core.graphics.Insets;
@@ -17,7 +16,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.bumptech.glide.Glide;
 import com.khetigaadi.R;
 import com.khetigaadi.agri.activity.BrandSelectionActivity;
-//import com.khetigaadi.base.model.Brand;
 import com.khetigaadi.commons.model.ModelResp;
 import com.khetigaadi.implement.newImplement.util.Brand;
 import com.khetigaadi.retrofit.KhetiAPIs;
@@ -57,17 +55,17 @@ public class ModelSelectionActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         binding = ActivityModelSelectionBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
-            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-            return insets;
-        });
-        EdgeToEdge.enable(this);
+//        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
+//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+//            return insets;
+//        });
+//        EdgeToEdge.enable(this);
         brand = Objects.requireNonNull(getIntent().getExtras()).getParcelable(SELECTED_BRAND);
         brand_idV = getIntent().getStringExtra("brand_idV");
         brand_nameV = getIntent().getStringExtra("brand_nameV");
@@ -161,6 +159,7 @@ public class ModelSelectionActivity extends BaseActivity {
         binding.toolbars.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
         binding.toolbars.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         binding.toolbars.toolbar.setTitle(getString(R.string.model));
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.model));
     }
     private void findViewById() {
         Glide.with(ModelSelectionActivity.this).load(R.drawable.loader_white).into(binding.llProgresss.ivLoader);

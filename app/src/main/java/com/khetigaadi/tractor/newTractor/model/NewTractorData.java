@@ -11,8 +11,12 @@ public class NewTractorData extends ListData {
     @Expose
     private List<NewTractor> data = null;
 
-    protected NewTractorData(Parcel in) {
+    public NewTractorData(Parcel in) {
         super(in);
+    }
+
+    public NewTractorData() {
+       // super();
     }
 
     public List<NewTractor> getData() {

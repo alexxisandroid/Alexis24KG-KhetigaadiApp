@@ -64,18 +64,16 @@ public class AddAddressActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         binding = ActivityAddAddressBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
-        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
-            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-            return insets;
-        });
-        EdgeToEdge.enable(this);
+//        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
+//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+//            return insets;
+//        });
+//        EdgeToEdge.enable(this);
         viewModel = new ViewModelProvider(this).get(AddAddressViewModel.class);
         initToolbar();
         binding.etState.setOnClickListener(v -> stateSectionResultLauncher.launch(new Intent(AddAddressActivity.this, StateSelectionActivity.class)));
@@ -127,6 +125,7 @@ public class AddAddressActivity extends AppCompatActivity  {
             }
         });
         binding.btnCancel.setOnClickListener(v -> onBackPressed());
+        binding.toolbarTitle.setOnClickListener(v -> finish());
     }
     private void initUI(Address address) {
         this.address = address;

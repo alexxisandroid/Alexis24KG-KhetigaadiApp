@@ -17,6 +17,8 @@ import com.khetigaadi.R;
 import com.khetigaadi.databinding.ActivityReviewBinding;
 import com.khetigaadi.tractor.newTractor.model.NewTractor;
 
+import java.util.Objects;
+
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class ReviewActivity extends AppCompatActivity {
@@ -25,18 +27,18 @@ public class ReviewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
 
         binding = ActivityReviewBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
 
-        ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
-            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-            return insets;
-        });
-        EdgeToEdge.enable(this);
+//        ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
+//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+//            return insets;
+//        });
+//        EdgeToEdge.enable(this);
         initToolbar();
         tractor = getIntent().getParcelableExtra("tractor");
         binding.rating.setOnRatingBarChangeListener((ratingBar, rating, fromUser) -> {
@@ -68,6 +70,7 @@ public class ReviewActivity extends AppCompatActivity {
         binding.toolbars.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
         binding.toolbars.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         binding.toolbars.toolbar.setTitle(getString(R.string.write_a_review));
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.write_a_review));
     }
     private void setColorAndImage(int color,int image) {
         binding.fabImage.setImageResource(image);
