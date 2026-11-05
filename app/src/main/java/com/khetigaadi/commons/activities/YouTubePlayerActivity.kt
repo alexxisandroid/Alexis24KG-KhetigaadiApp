@@ -20,9 +20,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
 import java.text.ParseException
 import java.text.SimpleDateFormat
-
-//val String?.videoId: Any
-//    get() { return ListItem().id.videoId }
 @AndroidEntryPoint
 class YouTubePlayerActivity:BaseActivity() {
     private lateinit var viewModel:YouTubePlayerViewModel
@@ -47,12 +44,16 @@ class YouTubePlayerActivity:BaseActivity() {
 //            })
 //        this.enableEdgeToEdge()
         viewModel = ViewModelProvider(this)[YouTubePlayerViewModel::class.java]
+        @Suppress("DEPRECATION")
         item = intent.extras?.getParcelable("video")
         init()
         lifecycle.addObserver(binding.youtubePlayerView)
         binding.youtubePlayerView.addYouTubePlayerListener(object:AbstractYouTubePlayerListener() {
             override fun onReady(youTubePlayer:YouTubePlayer) {
                 item?.id?.videoId?.let { youTubePlayer.loadVideo(""+it,viewModel.currentSeconds) }
+               //  binding.youtubePlayerView.
+               // youTubePlayer.addFullscreenControlFlag(YouTubePlayer.FULLSCREEN_FLAG_ALWAYS_FULLSCREEN_IN_LANDSCAPE)
+                //youTubePlayer.setFullscreen(true)
             }
             override fun onCurrentSecond(youTubePlayer:YouTubePlayer,second:Float) {
                 super.onCurrentSecond(youTubePlayer,second)
@@ -62,7 +63,7 @@ class YouTubePlayerActivity:BaseActivity() {
     }
     private fun init() {
         try {
-            println("xvcvcxv==="+item!!.snippet+"==")
+            //println("xvcvcxv==="+item!!.snippet+"==")
             binding.tvName.text = item!!.snippet.title
 
 //            binding.tvDate.text = String.format(
@@ -75,21 +76,28 @@ class YouTubePlayerActivity:BaseActivity() {
 //                )
 //            )
             // ((ViewHolder) holder).binding.tvDate.setText(DateUtils.convertDateToDate(item.getPostDate(), DateUtils.DateFormat.yyyy_MM_dd_HH_mm_ss, DateUtils.DateFormat.MMM_dd_yyyy));
-            val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-            val dateInString: String = item!!.snippet.publishedAt
-            val formatterOut = SimpleDateFormat("MM-dd-yyyy")
-            try {
-                val date = formatter.parse(dateInString)
-                println(date)
-                assert(date != null)
-                val dtt = formatterOut.format(date)
-                binding.tvDate.text =String.format( "%s %s",dtt)
-            } catch (e: ParseException) {
-                e.printStackTrace()
-            }
+
             binding.tvDesc.text = item!!.snippet.description
             binding.ivShare.setOnClickListener { shareNews() }
-        } catch (e: Exception) {
+            val formatter = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'")
+            val dateInString:String = item!!.snippet.publishedAt
+            val formatterOut = SimpleDateFormat("dd-MMM-yyyy")
+            //val formatterOut = SimpleDateFormat("yyyy-MM-dd")
+            try {
+                val date = formatter.parse(dateInString)
+               // println("cxvvxvxcvcx11===="+item!!.snippet.publishedAt+"=="+date)
+               // println(date)
+                assert(date != null)
+                val dtt = formatterOut.format(date!!)
+               // println("cxvvxvxcvcx===="+item!!.snippet.publishedAt+"=="+dtt)
+                binding.tvDate.text = dtt // String.format( "%s %s",dtt)
+            }
+            catch(e:ParseException) {
+                println("vcbvbcvbcbc===="+e.localizedMessage)
+                e.printStackTrace()
+            }
+        }
+        catch(e:Exception) {
             e.printStackTrace()
         }
     }

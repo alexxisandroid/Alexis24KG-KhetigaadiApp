@@ -9,7 +9,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
@@ -25,13 +24,10 @@ import com.khetigaadi.commons.utils.Constants;
 import com.khetigaadi.databinding.ActivityOnRoadPriceBinding;
 import com.khetigaadi.def.BrandType;
 import com.khetigaadi.retrofit.KhetiAPIs;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
 import javax.inject.Inject;
-
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
@@ -49,16 +45,17 @@ public class OnRoadPriceActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
 
         binding = ActivityOnRoadPriceBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-//        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
-//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-//            return insets;
-//        });
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
+        EdgeToEdge.enable(this);
+        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(),(v,insets) -> {
+            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+            return insets;
+        });
 //        EdgeToEdge.enable(this);
         initToolbar();
         binding.etBrand.setOnClickListener(v -> {
@@ -85,18 +82,21 @@ public class OnRoadPriceActivity extends BaseActivity {
             }
         });
         AllBannerResp allBanner = new Gson().fromJson(pref.getStringValue(Constants.APP_BANNER_KEY,"{}"),AllBannerResp.class);
-        if (allBanner.getBanners().getOnRoadPrice() != null) {
+        if(allBanner.getBanners().getOnRoadPrice() != null) {
             Glide.with(this).load(allBanner.getBanners().getOnRoadPrice().get(0).getImageUrl()).into(binding.banner);
         }
     }
     private boolean validation() {
-        if (selectedBrand == null) {
+        if(selectedBrand == null) {
             Snackbar.make(binding.llContainer, getString(R.string.please_select_brand), Snackbar.LENGTH_LONG).show();
-        } else if (selectedModel == null) {
+        }
+        else if(selectedModel == null) {
             Snackbar.make(binding.llContainer, getString(R.string.please_select_model), Snackbar.LENGTH_LONG).show();
-        } else if (!binding.cbAgree.isChecked()) {
+        }
+        else if(!binding.cbAgree.isChecked()) {
             Snackbar.make(binding.llContainer, getResources().getString(R.string.please_check_agree_button), Snackbar.LENGTH_LONG).show();
-        } else {
+        }
+        else {
             return true;
         }
         return false;

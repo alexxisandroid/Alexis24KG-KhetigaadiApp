@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -29,8 +28,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -38,8 +35,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.WindowCompat;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -92,7 +87,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     CityRepository cityRepository;
     private GetCityDialogBinding cityDialogBinding;
     private ProgressDialog progressDialog;
+
     private ActivityResultLauncher<String> requestPermissionLauncher;
+
     public BaseActivity() {
     }
     @Override
@@ -100,10 +97,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
        try {
           // WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
+           //noinspection deprecation
            mGoogleApiClient = new GoogleApiClient.Builder(this).addApi(LocationServices.API).build();
            if (session.isLoggedIn())
                user = session.getUser();
-           requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
+           requestPermissionLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(),isGranted -> {
                if (!isGranted) {
                    showAlertForNotification();
                }
@@ -114,6 +112,7 @@ public abstract class BaseActivity extends AppCompatActivity {
            e.printStackTrace();
        }
     }
+
     private void showAlertForNotification() {
         new MaterialAlertDialogBuilder(this)
                 .setCancelable(false)
@@ -122,15 +121,17 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .setPositiveButton("Yes, Enable", (dialog, which) -> {
                     try {
                         Intent intent = new Intent("android.settings.APP_NOTIFICATION_SETTINGS");
-                        intent.putExtra("android.provider.extra.APP_PACKAGE", getPackageName());
+                        intent.putExtra("android.provider.extra.APP_PACKAGE",getPackageName());
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
-                    } catch (Exception e) {
+                    }
+                    catch(Exception e) {
                         e.printStackTrace();
                     }
                     dialog.cancel();
                 }).show();
     }
+
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -229,12 +230,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
     public void setupTouchUIToDismissKeyboard(View view) {
      try {
-         setupTouchUIToDismissKeyboard(view, (v, event) -> {
+         setupTouchUIToDismissKeyboard(view,(v,event) -> {
              hideSoftKeyboard(BaseActivity.this);
              return false;
          }, -1);
      }
-     catch (Exception e){
+     catch(Exception e){
          e.printStackTrace();
      }
     }
@@ -245,7 +246,7 @@ public abstract class BaseActivity extends AppCompatActivity {
            if (v != null)
                imm.showSoftInput(v, 0);
        }
-       catch (Exception e){
+       catch(Exception e){
            e.printStackTrace();
        }
     }
@@ -257,39 +258,33 @@ public abstract class BaseActivity extends AppCompatActivity {
 
            //Set up touch listener for non-text box views to hide keyboard.
            if (!(view instanceof EditText)) {
-
                if (!ids.isEmpty() && ids.contains(view.getId())) {
                    return;
                }
-
                view.setOnTouchListener(onTouchListener);
            }
 
            //If a layout container, iterate over children and seed recursion.
            if (view instanceof ViewGroup) {
-
                for (int i = 0; i < ((ViewGroup) view).getChildCount(); i++) {
-
                    View innerView = ((ViewGroup) view).getChildAt(i);
-
                    setupTouchUIToDismissKeyboard(innerView, onTouchListener, exceptIDs);
                }
            }
        }
-       catch (Exception e){
+       catch(Exception e){
            e.printStackTrace();
        }
-
     }
     public static void hideSoftKeyboard(Activity activity) {
        try {
            InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE);
-           if (inputMethodManager == null)
+           if(inputMethodManager == null)
                return;
-           if (activity.getCurrentFocus() != null && activity.getCurrentFocus().getWindowToken() != null)
+           if(activity.getCurrentFocus() != null && activity.getCurrentFocus().getWindowToken() != null)
                inputMethodManager.hideSoftInputFromWindow(activity.getCurrentFocus().getWindowToken(), 0);
        }
-       catch (Exception e){
+       catch(Exception e) {
            e.printStackTrace();
        }
     }
@@ -306,38 +301,40 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
     @Override
     public void onRequestPermissionsResult(int requestCode,String @NotNull [] permissions,int @NotNull [] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_ACCESS_PERMISSION) {
+        super.onRequestPermissionsResult(requestCode,permissions,grantResults);
+        if(requestCode == REQUEST_ACCESS_PERMISSION) {
             this.getPackageManager();
-            if ((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                if (checkGooglePlayServices()) {
+            if((grantResults.length > 0) && (grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
+                if(checkGooglePlayServices()) {
                     createLocationRequestAndSetCity();
                 }
-            } else {
+            }
+            else {
                 Timber.d("Call Permission Not Granted");
             }
             notificationPermission();
         }
     }
     protected void requestFocus(View view) {
-        if (view.requestFocus()) {
+        if(view.requestFocus()) {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
     }
     protected boolean checkLocationPermission() {
-        boolean permissionGranted = ActivityCompat.checkSelfPermission(BaseActivity.this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+        boolean permissionGranted = ActivityCompat.checkSelfPermission(BaseActivity.this,Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
        try {
-           if (permissionGranted) {
+           if(permissionGranted) {
                notificationPermission();
-               if (checkGooglePlayServices()) {
+               if(checkGooglePlayServices()) {
                    //prepare connection request
                    return true;
                }
-           } else {
+           }
+           else {
                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_ACCESS_PERMISSION);
            }
        }
-       catch (Exception e){
+       catch(Exception e) {
            e.printStackTrace();
        }
         return permissionGranted;
@@ -345,7 +342,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private boolean checkGooglePlayServices() {
         int checkGooglePlayServices = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(BaseActivity.this);
        try {
-           if (checkGooglePlayServices != ConnectionResult.SUCCESS) {
+           if(checkGooglePlayServices != ConnectionResult.SUCCESS) {
                /*
                 * Google Play Services is missing or update is required
                 *  return code could be
@@ -359,35 +356,55 @@ public abstract class BaseActivity extends AppCompatActivity {
                return false;
            }
        }
-       catch (Exception e) {
+       catch(Exception e) {
            e.printStackTrace();
        }
         return true;
     }
+//    protected void notificationPermission() {
+//        if (!NotificationManagerCompat.from(this).areNotificationsEnabled()) {
+//           try {
+//               if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//                   requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+//               }
+//               else {
+//                   showAlertForNotification();
+//               }
+//           }
+//           catch(Exception e){
+//               e.printStackTrace();
+//           }
+//        }
+//    }
+
     protected void notificationPermission() {
         if (!NotificationManagerCompat.from(this).areNotificationsEnabled()) {
-           try {
-               if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                   requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
-               } else {
-                   showAlertForNotification();
-               }
-           }
-           catch (Exception e){
-               e.printStackTrace();
-           }
+            try {
+                try {
+                    if (!NotificationManagerCompat.from(this).areNotificationsEnabled()) {
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                            requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+                        } else {
+                            showAlertForNotification();
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
+
     protected void createLocationRequest(Context context) {
         try {
             LocationRequest locationRequest = LocationRequest.create();
             locationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
             locationRequest.setInterval(10000);
             locationRequest.setFastestInterval(10000 / 2);
-
             LocationSettingsRequest.Builder builder = new LocationSettingsRequest.Builder().addLocationRequest(locationRequest);
             builder.setAlwaysShow(true);
-
             PendingResult<LocationSettingsResult> result = LocationServices.SettingsApi.checkLocationSettings(mGoogleApiClient, builder.build());
             result.setResultCallback(result1 -> {
                 final Status status = result1.getStatus();
@@ -398,7 +415,6 @@ public abstract class BaseActivity extends AppCompatActivity {
                         break;
                     case LocationSettingsStatusCodes.RESOLUTION_REQUIRED:
                         Timber.i("Location settings are not satisfied. Show the user a dialog to upgrade location settings ");
-
                         try {
                             // Show the dialog by calling startResolutionForResult(), and check the result
                             // in onActivityResult().
@@ -416,9 +432,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         catch(Exception e) {
             e.printStackTrace();
         }
-
     }
     public void showGetCityDialog() {
+        Log.d("cvxxvxvxvcxvxv===","");
        try {
            final Dialog dialog = new Dialog(BaseActivity.this);
            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -427,16 +443,16 @@ public abstract class BaseActivity extends AppCompatActivity {
            cityDialogBinding = GetCityDialogBinding.inflate(getLayoutInflater());
            dialog.setContentView(cityDialogBinding.getRoot());
            //start geo location functionality
-           if (checkLocationPermission()) {
+           if(checkLocationPermission()) {
                createLocationRequest(BaseActivity.this);
            }
            getAllCity();
            cityDialogBinding.btnConfirm.setOnClickListener(v -> {
                try {
-                   if (!cityDialogBinding.tvCity.getText().toString().trim().isEmpty()) {
-                       if (cityList != null) {
+                   if(!cityDialogBinding.tvCity.getText().toString().trim().isEmpty()) {
+                       if(cityList != null) {
                            List<City> cityItem = getCityItem(cityList, cityDialogBinding.tvCity.getText().toString());
-                           if (cityItem.size() != 0) {
+                           if(cityItem.size() != 0) {
                                hideSoftKeyboard(this);
                                session.setUserLocation(cityItem.get(0));
                                cityValid = true;
@@ -444,13 +460,15 @@ public abstract class BaseActivity extends AppCompatActivity {
                            }
                        }
                        dialog.dismiss();
-                       if (!cityValid) {
-                           Toast.makeText(BaseActivity.this, getString(R.string.please_select_correct_city), Toast.LENGTH_SHORT).show();
+                       if(!cityValid) {
+                           Toast.makeText(BaseActivity.this,getString(R.string.please_select_correct_city), Toast.LENGTH_SHORT).show();
                        }
-                   } else {
-                       Toast.makeText(BaseActivity.this, getString(R.string.please_select_city), Toast.LENGTH_SHORT).show();
                    }
-               } catch (Exception e) {
+                   else {
+                       Toast.makeText(BaseActivity.this,getString(R.string.please_select_city), Toast.LENGTH_SHORT).show();
+                   }
+               }
+               catch(Exception e) {
                    e.printStackTrace();
                }
            });
@@ -467,14 +485,15 @@ public abstract class BaseActivity extends AppCompatActivity {
                }
                return false;
            });
-           if (Constants.isConnectionAvailable(this)) {
-               if (!isDestroyed() && !isFinishing())
+           if(Constants.isConnectionAvailable(this)) {
+               if(!isDestroyed() && !isFinishing())
                    dialog.show();
-           } else {
-               Toast.makeText(this, getString(R.string.no_internet_connection), Toast.LENGTH_SHORT).show();
+           }
+           else {
+               Toast.makeText(this,getString(R.string.no_internet_connection),Toast.LENGTH_SHORT).show();
            }
        }
-       catch (Exception e) {
+       catch(Exception e) {
            e.printStackTrace();
        }
     }
@@ -485,13 +504,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         this.invalidateOptionsMenu();
     }
     protected void createLocationRequestAndSetCity() {
-        if (!new MyLocation().getLocation(this, new MyLocation.LocationResult() {
+        if(!new MyLocation().getLocation(this,new MyLocation.LocationResult() {
             @Override
             public void gotLocation(@NotNull Location mLastLocation) {
                 try {
                     cityNameGeo = getCityFromGEOCode(mLastLocation.getLatitude(), mLastLocation.getLongitude());
-                    if (cityNameGeo != null) {
-                        if (cityDialogBinding.tvCity != null) {
+                    if(cityNameGeo != null) {
+                        if(cityDialogBinding.tvCity != null) {
                             cityDialogBinding.tvCity.setText(cityNameGeo);
                         }
                         refreshActionBarMenu();
@@ -551,12 +570,14 @@ public abstract class BaseActivity extends AppCompatActivity {
         MenuItem saveMenu = menu.findItem(R.id.menuCity);
         if (saveMenu != null) {
             CustomCityMenuLayoutBinding binding = CustomCityMenuLayoutBinding.inflate(getLayoutInflater());
-            LinearLayout saveLayout = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.custom_city_menu_layout, null);
+            LinearLayout saveLayout = (LinearLayout)LayoutInflater.from(this).inflate(R.layout.custom_city_menu_layout,null);
             saveMenu.setActionView(binding.getRoot());
             saveMenu.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
             City userLocation = session.getUserLocation();
-            if (userLocation != null) {
+            if(userLocation != null) {
                 binding.tvCity.setText(userLocation.getName());
+
+               // binding.tvCity.setVisibility(View.GONE);
                // binding.tvCity.setTextColor(Color.WHITE);
                 Log.d("xvcvxcv===",""+userLocation.getName());
                 saveLayout.setOnClickListener(v -> showGetCityDialog());
@@ -621,6 +642,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             mGoogleApiClient.disconnect();
         }
     }
+
+
     public void noInternetConnection(View view) {
         try {
             Snackbar snackbar = Snackbar
@@ -629,13 +652,16 @@ public abstract class BaseActivity extends AppCompatActivity {
             snackbar.setActionTextColor(ContextCompat.getColor(this,R.color.white));
             View snackbarView = snackbar.getView();
             snackbarView.setBackgroundColor(ContextCompat.getColor(this,R.color.red));//change Snackbar's background color;
-            TextView textView = (TextView) snackbarView.findViewById(R.id.snackbar_text);
+            TextView textView = snackbarView.findViewById(R.id.snackbar_text);
             textView.setTextColor(ContextCompat.getColor(this,R.color.white));//change Snackbar's text color;
             snackbar.show();
-        } catch (Exception e) {
+        }
+        catch(Exception e) {
             e.printStackTrace();
         }
     }
+
+
 }
 
 

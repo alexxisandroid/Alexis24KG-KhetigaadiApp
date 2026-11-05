@@ -26,6 +26,7 @@
         android:name="com.khetigaadi.ecom.cart.CartListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:paddingBottom="@dimen/payu_dimen_54dp"
         android:visibility="gone"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         tools:layout="@layout/cart_list_fragment"/>

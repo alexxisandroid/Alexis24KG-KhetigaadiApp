@@ -50,16 +50,16 @@ public class CitySelectionActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-
+       //WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        EdgeToEdge.enable(this);
         binding = ActivityStateSelectionBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-//        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
-//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-//            return insets;
-//        });
+        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
+            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.statusBars());
+            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+            return insets;
+        });
 //        EdgeToEdge.enable(this);
         findViewById();
         initToolbar();

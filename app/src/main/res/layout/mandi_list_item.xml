@@ -5,6 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/CardViewListItem"
     android:layout_width="match_parent"
+    android:background="@color/white"
+    android:backgroundTint="@color/white"
     android:layout_height="wrap_content">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -17,6 +19,8 @@
             android:layout_height="wrap_content"
             android:maxLines="2"
             android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            android:background="@color/white"
             android:textSize="@dimen/dimen_16sp"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Onion"/>
@@ -28,6 +32,8 @@
             android:drawableStart="@drawable/ic_location_black_outline_24dp"
             android:drawablePadding="@dimen/dimen_5dp"
             android:maxLines="2"
+            android:background="@color/white"
+            android:backgroundTint="@color/white"
             app:layout_constraintEnd_toStartOf="@+id/tvMarket"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -44,6 +50,8 @@
             android:maxLines="2"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
+            android:backgroundTint="@color/white"
+            android:background="@color/white"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/tvLocation"
             app:layout_constraintTop_toBottomOf="@id/tvCommodity"
@@ -58,6 +66,8 @@
             android:gravity="center"
             android:text="@string/min_price"
             android:textColor="@color/black"
+            android:background="@color/white"
+            android:backgroundTint="@color/white"
             app:layout_constraintEnd_toStartOf="@+id/tvMaxPrice"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -70,6 +80,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_5dp"
             android:gravity="center"
+            android:backgroundTint="@color/white"
+            android:background="@color/white"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="@id/tvMinPrice"
             app:layout_constraintStart_toStartOf="@id/tvMinPrice"
@@ -83,6 +95,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_15dp"
             android:gravity="center"
+            android:background="@color/white"
+            android:backgroundTint="@color/white"
             android:text="@string/max_price"
             android:textColor="@color/black"
             app:layout_constraintEnd_toStartOf="@+id/tvModelPrice"
@@ -98,6 +112,8 @@
             android:layout_marginTop="@dimen/dimen_5dp"
             android:gravity="center"
             android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            android:background="@color/white"
             app:layout_constraintEnd_toEndOf="@id/tvMaxPrice"
             app:layout_constraintStart_toStartOf="@+id/tvMaxPrice"
             app:layout_constraintTop_toBottomOf="@id/tvMaxPrice"
@@ -111,6 +127,8 @@
             android:layout_marginTop="@dimen/dimen_15dp"
             android:gravity="center"
             android:text="@string/model_price"
+            android:background="@color/white"
+            android:backgroundTint="@color/white"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -122,6 +140,8 @@
             style="@style/CardViewListItem"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:background="@color/white"
             android:layout_marginTop="@dimen/dimen_5dp"
             android:gravity="center"
             android:textColor="@color/black"
@@ -129,7 +149,7 @@
             app:layout_constraintStart_toStartOf="@+id/tvModelPrice"
             app:layout_constraintTop_toBottomOf="@id/tvModelPrice"
             tools:text="1200"/>
-        <Button
+        <TextView
             android:id="@+id/tvVariety"
             style="@style/OutLineButtonStyleSmall"
             android:layout_width="0dp"
@@ -139,13 +159,15 @@
             android:layout_marginEnd="@dimen/dimen_40dp"
             android:clickable="false"
             android:gravity="center"
-            android:textColor="@color/black"
+            android:layout_marginBottom="@dimen/payu_dimen_12dp"
+            android:textColor="@color/red"
+            android:background="@drawable/btn_rectangle_outline_bg_red"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvMaxPriceValue"
-            tools:text="Variety - Hosur Green" />
-        <Button
+            tools:text="Variety - Hosur Green"/>
+        <TextView
             android:id="@+id/tv"
             style="@style/OutLineButtonStyleSmall"
             android:layout_width="0dp"
@@ -153,13 +175,15 @@
             android:layout_marginStart="@dimen/dimen_40dp"
             android:layout_marginTop="@dimen/dimen_15dp"
             android:layout_marginEnd="@dimen/dimen_40dp"
+            android:layout_marginBottom="@dimen/payu_dimen_12dp"
             android:clickable="false"
             android:gravity="center"
-            android:textColor="@color/black"
+            android:background="@drawable/btn_rectangle_outline_bg_red"
+            android:textColor="@color/red"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tvMaxPriceValue"
-            tools:text="Variety - Hosur Green" />
+            tools:text="Variety - Hosur Green"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

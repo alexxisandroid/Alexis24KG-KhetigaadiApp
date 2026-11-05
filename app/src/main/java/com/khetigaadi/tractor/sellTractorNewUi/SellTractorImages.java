@@ -87,14 +87,15 @@ public class SellTractorImages extends BaseFragment {
     }
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
-        binding = FragmentTractorImagesBinding.inflate(inflater, container, false);
+        binding = FragmentTractorImagesBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
-        viewModel = new ViewModelProvider((SellTractorActivity) activity).get(SellViewModel.class);
+        viewModel = new ViewModelProvider((SellTractorActivity)activity).get(SellViewModel.class);
         binding.ivFirst.setOnClickListener(v -> {
             try {
                 imageIndex = 0;
                 displayImageSelectionDialog();
-            } catch (Exception e) {
+            }
+            catch(Exception e) {
                 e.printStackTrace();
             }
         });
@@ -102,7 +103,8 @@ public class SellTractorImages extends BaseFragment {
             try {
                 imageIndex = 1;
                 displayImageSelectionDialog();
-            } catch (Exception e) {
+            }
+            catch(Exception e) {
                 e.printStackTrace();
             }
         });
@@ -110,7 +112,8 @@ public class SellTractorImages extends BaseFragment {
             try {
                 imageIndex = 2;
                 displayImageSelectionDialog();
-            } catch (Exception e) {
+            }
+            catch(Exception e) {
                 e.printStackTrace();
             }
         });
@@ -118,7 +121,8 @@ public class SellTractorImages extends BaseFragment {
             try {
                 imageIndex = 3;
                 displayImageSelectionDialog();
-            } catch (Exception e) {
+            }
+            catch(Exception e) {
                 e.printStackTrace();
             }
         });
@@ -126,7 +130,8 @@ public class SellTractorImages extends BaseFragment {
             try {
                 imageIndex = 4;
                 displayImageSelectionDialog();
-            } catch (Exception e) {
+            }
+            catch(Exception e) {
                 e.printStackTrace();
             }
         });

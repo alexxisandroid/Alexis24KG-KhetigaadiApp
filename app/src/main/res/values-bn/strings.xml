@@ -756,6 +756,7 @@
     <string name="no">না</string>
     <string name="yes">কাঁটাচামচ</string>
     <string name="total_amount">মোট পরিমাণ</string>
+    <string name="profile_settings">Profile Settings</string>
     <string-array name="gender_val">
         <item>লিঙ্গ নির্বাচন করুন</item>
         <item>পুরুষ</item>

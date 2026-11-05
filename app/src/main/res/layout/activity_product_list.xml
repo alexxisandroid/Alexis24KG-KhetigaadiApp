@@ -18,6 +18,9 @@
     <RelativeLayout
         android:id="@+id/rlData"
         android:layout_width="match_parent"
+        android:background="@drawable/rounded_corner22"
+        android:backgroundTint="@color/rv_back_color"
+        android:layout_marginTop="-5dp"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <include
@@ -29,14 +32,15 @@
             android:layout_centerInParent="true"
             android:visibility="gone"
             android:layout_height="match_parent"/>
-
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvProductList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/margin_50dp"/>
-
+            android:paddingBottom="@dimen/dimen_10dp"
+            android:layout_marginEnd="@dimen/dimen_4dp"
+            android:layout_marginBottom="@dimen/dimen_10dp"
+            android:layout_marginStart="@dimen/dimen_4dp"
+            android:paddingTop="@dimen/dimen_4dp"
+            android:layout_height="match_parent"/>
         <com.facebook.shimmer.ShimmerFrameLayout
             android:id="@+id/my_sticky_button"
             style="@style/ShimmerStyle"
@@ -84,10 +88,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_star_black_24dp"
+            android:src="@drawable/ic_filter"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
-            android:tint="@color/gray"
+            android:tint="@color/red"
+            android:layout_marginBottom="@dimen/dimen_80dp"
+            android:layout_marginEnd="@dimen/dimen_4dp"
             app:backgroundTint="@color/white"
             app:layout_anchorGravity="bottom|start"/>
     </RelativeLayout>

@@ -6,35 +6,48 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/dimen_5dp"
+    android:backgroundTint="@color/white"
+    app:strokeColor="@color/brightGray"
+    app:strokeWidth="@dimen/dimen_1dp"
+    android:elevation="@dimen/margin_2dp"
+    app:cardElevation="@dimen/margin_2dp"
     android:orientation="vertical"
     app:cardCornerRadius="@dimen/dimen_10sp">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:layout_height="match_parent">
         <ImageView
             android:id="@+id/ivVideo"
             android:layout_width="match_parent"
             android:layout_height="180dp"
             android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:background="@color/detailsBackground"
+            app:layout_constraintDimensionRatio="16:9"
             android:src="@mipmap/ic_launcher"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:id="@+id/tvName"
             style="@style/TractorListItemTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="center|start"
             android:maxLines="2"
             android:layout_marginBottom="@dimen/dimen_10dp"
+            android:fontFamily="@font/manrope_semibold"
+            android:layout_marginTop="@dimen/dimen_10dp"
             android:padding="@dimen/margin_5dp"
             android:text="@string/compareImplement"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="@dimen/dimen_10dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivVideo" />
+            app:layout_constraintTop_toBottomOf="@+id/ivVideo"/>
 
         <ImageView
             android:layout_width="wrap_content"
@@ -43,7 +56,7 @@
             app:layout_constraintBottom_toBottomOf="@id/ivVideo"
             app:layout_constraintEnd_toEndOf="@id/ivVideo"
             app:layout_constraintStart_toStartOf="@id/ivVideo"
-            app:layout_constraintTop_toTopOf="@id/ivVideo" />
+            app:layout_constraintTop_toTopOf="@id/ivVideo"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
 

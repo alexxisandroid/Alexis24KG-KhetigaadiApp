@@ -5,15 +5,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,7 +19,6 @@ import com.khetigaadi.room.repository.CategoryRepository;
 import com.khetigaadi.shop.model.CategoryListResp;
 import com.khetigaadi.shop.model.Category;
 import com.khetigaadi.user.SessionManager;
-
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -50,11 +43,9 @@ public class CategoriesListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        // WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-
         binding = ActivityCategoriesListBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
 //        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
 //            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
 //            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
@@ -68,15 +59,13 @@ public class CategoriesListActivity extends AppCompatActivity {
         categoryRepository.getAllCategories().observe(this,listResource -> {
             if (!listResource.isEmpty()) {
                 binding.rvProductList.setVisibility(View.VISIBLE);
-                categoriesAdapter.addItems(listResource, 1, sessionManager.getEcomOther());
+                categoriesAdapter.addItems(listResource, 1,sessionManager.getEcomOther());
             } else {
                 binding.rvProductList.setVisibility(View.VISIBLE);
                 //Toast.makeText(this, getResources().getString(R.string.please_try_after_some_time),Toast.LENGTH_SHORT).show();
                 catList();
             }
         });
-
-
 //      if(getIntent().hasExtra(SELECTED_CATEGORY)){
 //          Category bv = getIntent().getParcelableExtra(SELECTED_CATEGORY);
 //
@@ -115,9 +104,8 @@ public class CategoriesListActivity extends AppCompatActivity {
         binding.toolbarI.toolbar.setNavigationIcon(R.drawable.ic_close_black_24dp);
         binding.toolbarI.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         binding.toolbarI.toolbar.setTitle(getString(R.string.category));
-
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
+        if(actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
             actionBar.setTitle(getResources().getString(R.string.shop));
@@ -153,7 +141,7 @@ public class CategoriesListActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(@NonNull CategoryListResp productListResp) {
                         Log.d("cvxcxxcvxv234===",""+productListResp.isError()+"=="+productListResp.getCategories().size());
-                        if (productListResp.isError()) {
+                        if(productListResp.isError()) {
                             binding.rvProductList.setVisibility(View.GONE);
                         }
                         else {
@@ -174,7 +162,7 @@ public class CategoriesListActivity extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
+        if(item.getItemId() == android.R.id.home) {
             finish(); // Close this activity and return to the previous activity
             return true;
         }

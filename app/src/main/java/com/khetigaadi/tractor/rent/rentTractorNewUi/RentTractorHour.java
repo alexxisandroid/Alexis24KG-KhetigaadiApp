@@ -41,16 +41,17 @@ public class RentTractorHour extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
-
         binding = RentTractorHourBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-//        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
-//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-//            return insets;
-//        });
+        WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
+
+        EdgeToEdge.enable(this);
+        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(),(v,insets) -> {
+            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.statusBars());
+            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+            return insets;
+        });
 //        EdgeToEdge.enable(this);
         init();
         setSupportActionBar(binding.toolbarI.toolbar);

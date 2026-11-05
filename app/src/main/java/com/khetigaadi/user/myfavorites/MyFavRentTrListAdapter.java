@@ -3,14 +3,12 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
+import com.khetigaadi.AppConfig;
 import com.khetigaadi.R;
 import com.khetigaadi.base.util.BaseRecyclerViewAdapter;
-import com.khetigaadi.commons.utils.Constants;
 import com.khetigaadi.commons.utils.EmptyViewHolder;
 import com.khetigaadi.commons.utils.MyClickListener;
 import com.khetigaadi.commons.utils.MyFavoritesClickListener;
@@ -18,14 +16,12 @@ import com.khetigaadi.commons.utils.MySoldClickListener;
 import com.khetigaadi.commons.utils.ProgressViewHolder;
 import com.khetigaadi.databinding.EmptyViewBinding;
 import com.khetigaadi.databinding.MyFavRentTrListBinding;
-import com.khetigaadi.databinding.RentTrListItemBinding;
 import com.khetigaadi.tractor.rent.model.RentTractor;
 import com.khetigaadi.user.model.User;
 import com.khetigaadi.user.myfavorites.model.MyFavRentTractors;
 import com.khetigaadi.user.myfavorites.model.Others;
 import com.khetigaadi.util.NumberFormatting;
 import com.khetigaadi.util.Utils;
-
 import org.jetbrains.annotations.NotNull;
 public class MyFavRentTrListAdapter extends BaseRecyclerViewAdapter<MyFavRentTractors,Others> {
     private final int VIEW_ITEM = 1;
@@ -36,11 +32,10 @@ public class MyFavRentTrListAdapter extends BaseRecyclerViewAdapter<MyFavRentTra
     private static final int EMPTY_VIEW = 10;
     private MySoldClickListener mySoldClickListener;
     private MyFavoritesClickListener myFavoritesClickListener;
-    public MyFavRentTrListAdapter(Context mContext, User user, RecyclerView recyclerView) {
-        super(mContext, recyclerView);
+    public MyFavRentTrListAdapter(Context mContext,User user,RecyclerView recyclerView) {
+        super(mContext,recyclerView);
         this.mContext = mContext;
         this.user = user;
-
     }
     public void setOnItemClickListener(MyClickListener myClickListener) {
         this.myClickListener = myClickListener;
@@ -59,21 +54,17 @@ public class MyFavRentTrListAdapter extends BaseRecyclerViewAdapter<MyFavRentTra
         return items.get(position) != null ? VIEW_ITEM : VIEW_PROG;
     }
     @Override
-    public RecyclerView.@NotNull ViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
+    public RecyclerView.@NotNull ViewHolder onCreateViewHolder(@NotNull ViewGroup parent,int viewType) {
         RecyclerView.ViewHolder vh;
         if (viewType == EMPTY_VIEW) {
-            return new EmptyViewHolder(EmptyViewBinding.inflate(
-                    LayoutInflater.from(parent.getContext()),
-                    parent,
-                    false
-            ));
-        } else if (viewType == VIEW_ITEM) {
-            vh = new ViewHolder(MyFavRentTrListBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
-        } else {
-            View v = LayoutInflater.from(parent.getContext()).inflate(
-                    R.layout.progressbar_item, parent, false);
-
-            vh = new ProgressViewHolder(mContext, v);
+            return new EmptyViewHolder(EmptyViewBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false));
+        }
+        else if(viewType == VIEW_ITEM) {
+            vh = new ViewHolder(MyFavRentTrListBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false));
+        }
+        else {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.progressbar_item,parent,false);
+            vh = new ProgressViewHolder(mContext,v);
         }
         return vh;
     }
@@ -100,41 +91,48 @@ public class MyFavRentTrListAdapter extends BaseRecyclerViewAdapter<MyFavRentTra
                     ((ViewHolder) holder).binding.btnSendEnq.setVisibility(View.VISIBLE);
                 }
             }
-            if (item.getDrive() == null) {
+            if(item.getDrive() == null) {
                 ((ViewHolder) holder).binding.ivDrive.setVisibility(View.GONE);
-            } else {
+            }
+            else {
                 ((ViewHolder) holder).binding.ivDrive.setVisibility(View.VISIBLE);
-                if (item.getDrive().getId() == 1) {
+                if(item.getDrive().getId() == 1) {
                     ((ViewHolder) holder).binding.ivDrive.setImageResource(R.drawable.ic_2wd);
-                } else {
+                }
+                else {
                     ((ViewHolder) holder).binding.ivDrive.setImageResource(R.drawable.ic_4wd);
                 }
             }
-            if (item.getExactHp() == null || item.getExactHp().isEmpty() || item.getExactHp().trim().equalsIgnoreCase("") || item.getExactHp().equals("0")) {
+            if(item.getExactHp() == null || item.getExactHp().isEmpty() || item.getExactHp().trim().equalsIgnoreCase("") || item.getExactHp().equals("0")) {
                 ((ViewHolder) holder).binding.tvHP.setVisibility(View.GONE);
-            } else {
+            }
+            else {
                 ((ViewHolder) holder).binding.tvHP.setText(item.getExactHp());
             }
-            if (item.getRentTractorImplement() == null) {
+            if(item.getRentTractorImplement() == null) {
                 ((ViewHolder) holder).binding.tvPrice.setVisibility(View.GONE);
-            } else {
-                ((ViewHolder) holder).binding.tvPrice.setText(Utils.priceConvert(item.getRentTractorImplement().getRate()));
             }
-            if (item.getRentTractorTable() != null && item.getRentTractorTable().getTractorImage() != null)
+            else {
+                ((ViewHolder) holder).binding.tvPrice.setText(mContext.getResources().getString(R.string.rs)+Utils.priceConvert(item.getRentTractorImplement().getRate()));
+            }
+            String bUrl = AppConfig.BASE_ASSET_URL+"new-tractor/"; //others.getTractorImagePath()
+            if(item.getRentTractorTable() != null && item.getRentTractorTable().getTractorImage() != null)
                 Glide.with(mContext)
-                        .load(others.getNewTractorImagePath() + item.getRentTractorTable().getTractorImage().getTractor_img_name())
+                        .load(bUrl+item.getRentTractorTable().getTractorImage().getTractor_img_name())
                         .error(R.mipmap.no_image)
                         .placeholder(R.mipmap.no_image)
-                        .into(((ViewHolder) holder).binding.ivNewTractorImage);
-            if (item.isBookmark()) {
-                ((ViewHolder) holder).binding.ivFavorites.setImageResource(R.drawable.ic_favorites);
-            } else {
+                        .into(((ViewHolder)holder).binding.ivNewTractorImage);
+            if(item.isBookmark()) {
+                ((ViewHolder)holder).binding.ivFavorites.setImageResource(R.drawable.ic_favorites);
+            }
+            else {
                 ((ViewHolder) holder).binding.ivFavorites.setImageResource(R.drawable.ic_favorites_border);
             }
-            if (item.getUserViews() == 0) {
-                ((ViewHolder) holder).binding.tvViews.setVisibility(View.GONE);
-            } else {
-                ((ViewHolder) holder).binding.tvViews.setText(NumberFormatting.format(item.getUserViews()));
+            if(item.getUserViews() == 0) {
+                ((ViewHolder)holder).binding.tvViews.setVisibility(View.GONE);
+            }
+            else {
+                ((ViewHolder)holder).binding.tvViews.setText(NumberFormatting.format(item.getUserViews()));
             }
         }
     }
@@ -143,7 +141,7 @@ public class MyFavRentTrListAdapter extends BaseRecyclerViewAdapter<MyFavRentTra
     }
     @Override
     public int getItemCount() {
-        if (items != null) {
+        if(items != null) {
             return items.size() > 0 ? items.size() : 1;
         }
         return 0;

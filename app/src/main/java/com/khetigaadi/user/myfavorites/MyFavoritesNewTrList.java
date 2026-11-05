@@ -27,7 +27,6 @@ import com.khetigaadi.tractor.newTractor.NewTractorRequestForDemo;
 import com.khetigaadi.tractor.newTractor.model.NewTractor;
 import com.khetigaadi.tractor.usedTractor.UsedTractorDetailActivity;
 import com.khetigaadi.user.myfavorites.model.MyFavNewTractor;
-//import com.khetigaadi.user.myfavorites.model.MyFavNewTractor;
 import org.jetbrains.annotations.NotNull;
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -59,16 +58,17 @@ public class MyFavoritesNewTrList extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater,final ViewGroup container,Bundle savedInstanceState)
     {
-        binding = RecycleListBinding.inflate(inflater, container, false);
+        binding = RecycleListBinding.inflate(inflater,container,false);
         viewModel = new ViewModelProvider(this.getParentFragment()).get(MyFavoritesViewModel.class);
         Glide.with(activity)
                 .load(R.drawable.loader_white)
                 .into(binding.ivLoader);
         binding.filterIcon.setVisibility(View.GONE);
         init();
-        if (Constants.isConnectionAvailable(activity)) {
+        if(Constants.isConnectionAvailable(activity)) {
             getNewTractorList();
-        } else {
+        }
+        else {
             ((MainActivity) activity).noInternetConnection();
         }
         return binding.getRoot();
@@ -92,12 +92,12 @@ public class MyFavoritesNewTrList extends Fragment {
                 }
             });
     private void init() {
-        mAdapter = new MyFavNewTractorListAdapter(activity, binding.myRecyclerView);
+        mAdapter = new MyFavNewTractorListAdapter(activity,binding.myRecyclerView);
         binding.myRecyclerView.setAdapter(mAdapter);
         mAdapter.setLoaded();
         mAdapter.setOnItemClickListener(new NewTractorListAdapter.Listener() {
             @Override
-            public void onClick(int position, @NotNull View view) {
+            public void onClick(int position,@NotNull View view) {
                 Intent intent = new Intent(activity, NewTractorDetails.class);
                 intent.putExtra(NewTractorDetails.newTractorId,mAdapter.getItem(position).getNewTractor().getId());
                 intent.putExtra("position", position);
@@ -114,8 +114,8 @@ public class MyFavoritesNewTrList extends Fragment {
             public void onGetRoadPriceClick(int position,@NotNull View view) {
                 Intent intent = new Intent(activity, NewTrGetOnRoadPriceActivity.class);
                 intent.putExtra("id", mAdapter.getItem(position).getNewTractor().getId());
-                intent.putExtra("name", mAdapter.getItem(position).getNewTractor().getName());
-                intent.putExtra("image", mAdapter.getOthers().getNewTractorImagePath() + mAdapter.getItem(position).getNewTractor().getImage().getTractor_img_name());
+                intent.putExtra("name", mAdapter.getItem(position).getNewTractor().getName()); //.getNewTractorImagePath()
+                intent.putExtra("image", mAdapter.getOthers().getTractorImagePath() + mAdapter.getItem(position).getNewTractor().getImage().getTractor_img_name());
                 intent.putExtra("priceType", PriceType.TRACTOR);
                 startActivity(intent);
             }
@@ -123,8 +123,8 @@ public class MyFavoritesNewTrList extends Fragment {
             public void onGetDemoClick(int position,@NotNull View view) {
                 Intent intent = new Intent(activity, NewTractorRequestForDemo.class);
                 intent.putExtra("id",mAdapter.getItem(position).getNewTractor().getId());
-                intent.putExtra("name",mAdapter.getItem(position).getNewTractor().getName());
-                intent.putExtra("image",mAdapter.getOthers().getNewTractorImagePath() + mAdapter.getItem(position).getNewTractor().getImage().getTractor_img_name());
+                intent.putExtra("name",mAdapter.getItem(position).getNewTractor().getName());  // getNewTractorImagePath()
+                intent.putExtra("image",mAdapter.getOthers().getTractorImagePath() + mAdapter.getItem(position).getNewTractor().getImage().getTractor_img_name());
                 intent.putExtra("demoType",PriceType.TRACTOR);
                 startActivity(intent);
             }
@@ -133,19 +133,20 @@ public class MyFavoritesNewTrList extends Fragment {
     }
     private void getNewTractorList() {
         //Set layout manager to position the items
-        viewModel.getTractors().observe(getViewLifecycleOwner(), newTractorRespStateData -> {
+        viewModel.getTractors().observe(getViewLifecycleOwner(),newTractorRespStateData -> {
             switch (newTractorRespStateData.getStatus()) {
                 case LOADING:
                     binding.llProgress.setVisibility(View.VISIBLE);
                     break;
                 case SUCCESS:
-                    if (newTractorRespStateData.getData() != null) {
+                    if(newTractorRespStateData.getData() != null) {
                         mAdapter.setOthers(newTractorRespStateData.getData().getOthers());
+                        //Log.d("cvxxxcvxvxv===",newTractorRespStateData.getData().getOthers().getNewTractorImagePath());
                     }
                     binding.llProgress.setVisibility(View.GONE);
                     break;
                 case ERROR:
-                    Toast.makeText(activity, newTractorRespStateData.getError(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(activity,newTractorRespStateData.getError(),Toast.LENGTH_LONG).show();
                     break;
             }
         });

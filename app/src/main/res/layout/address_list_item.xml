@@ -6,49 +6,61 @@
     android:id="@+id/cardView"
     style="@style/CardViewHorizontalListItem"
     app:cardUseCompatPadding="true"
+    app:cardCornerRadius="@dimen/dimen_10dp"
+    android:layout_marginEnd="@dimen/dimen_10dp"
+    android:layout_marginStart="@dimen/dimen_10dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/dimen_10dp"
+    android:padding="@dimen/payu_dimen_12dp"
     android:orientation="vertical"
     android:layout_margin="1dp">
     <TextView
         android:id="@+id/tvName"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:fontFamily="@font/poppins_bold"
         android:layout_weight="0.9"
         android:gravity="center_vertical"
-        android:text="Large Text" />
+        android:text="Large Text"/>
     <TextView
         android:id="@+id/tvType"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="0.9"
+        android:drawablePadding="@dimen/dimen_2dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:alpha="0.8"
         android:gravity="center_vertical"
-        android:text="Large Text" />
+        android:text="Large Text"/>
     <TextView
         android:id="@+id/tvMobile"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="0.9"
+        android:fontFamily="@font/poppins_medium"
         android:gravity="center_vertical"
-        android:text="Large Text" />
+        android:text="Large Text"/>
     <TextView
         android:id="@+id/tvAddressLine1"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_weight="0.9"
+        android:alpha="0.8"
+        android:fontFamily="@font/poppins_semibold"
         android:gravity="center_vertical"
-        android:text="Large Text" />
+        android:text="Large Text"/>
     <TextView
         android:id="@+id/tvAddressLine2"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:fontFamily="@font/poppins_semibold"
         android:layout_weight="0.9"
+        android:alpha="0.8"
         android:gravity="center_vertical"
-        android:text="Large Text" />
+        android:text="Large Text"/>
     <CheckBox
         android:id="@+id/radioAddress"
         android:layout_width="wrap_content"
@@ -56,25 +68,37 @@
         android:padding="5dp"
         android:layout_weight="0.1"/>
   <LinearLayout
+      android:id="@+id/ll_addd"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_margin="@dimen/dimen_2dp"
       android:orientation="horizontal">
+      <!-- style="@style/ButtonStyleFilledPrimary" -->
     <TextView
         android:id="@+id/tvEdit"
         android:layout_width="0dp"
-        style="@style/ButtonStyleFilledPrimary"
         android:layout_height="match_parent"
         android:layout_weight="0.9"
-        android:gravity="center_vertical"
+        android:background="@drawable/btn_rectangle_outline_bg_red"
+        android:layout_gravity="center"
+        android:layout_marginEnd="@dimen/dimen_5dp"
+        android:textAlignment="center"
+        android:textColor="@color/red"
+        android:minHeight="@dimen/payu_dimen_45dp"
+        android:gravity="center"
         android:text="@string/edit"/>
+      <!--  style="@style/ButtonStyleFilledPrimary" -->
     <TextView
         android:id="@+id/tvDelete"
         android:layout_width="0dp"
-        style="@style/ButtonStyleFilledPrimary"
         android:layout_height="match_parent"
+        android:minHeight="@dimen/payu_dimen_45dp"
         android:layout_weight="0.9"
-        android:gravity="center_vertical"
+        android:background="@drawable/btn_rectangle_outline_bg_red"
+        android:textColor="@color/red"
+        android:layout_marginStart="@dimen/dimen_5dp"
+        android:textAlignment="center"
+        android:gravity="center"
         android:text="@string/delete"/>
   </LinearLayout>
 </LinearLayout>

@@ -15,8 +15,8 @@ public interface DaoModel {
     Long insertModel(Model model);
     @Query("SELECT * FROM Model")
     LiveData<List<Model>> fetchAllModel();
-    @Query("SELECT * FROM Model WHERE id =:id")
-    LiveData<List<Model>> getModels(int id);
+    @Query("SELECT * FROM Model WHERE id in (:ids)")
+    LiveData<List<Model>> getModels(int ids);
     @Query("SELECT * FROM Model WHERE id in (:ids)")
     LiveData<List<Model>> getModelsByBrands(List<Integer> ids);
     @Update

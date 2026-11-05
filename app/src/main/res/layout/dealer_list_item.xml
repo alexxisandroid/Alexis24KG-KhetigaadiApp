@@ -5,18 +5,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/CardViewListItem"
     android:layout_width="match_parent"
+    app:cardCornerRadius="@dimen/dimen_10dp"
+    android:layout_marginStart="@dimen/dimen_10dp"
+    android:layout_marginEnd="@dimen/dimen_10dp"
     android:layout_height="wrap_content">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/detailsBackground">
+        android:background="@color/white">
+        <View
+            android:id="@+id/anchorCenter"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            app:layout_constraintBottom_toTopOf="@id/readMoreContainer"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="38dp"
             android:layout_marginBottom="@dimen/margin_5dp"
             android:background="@color/white"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toTopOf="@id/tvDealerAddress"
+            app:layout_constraintBottom_toTopOf="@id/readMoreContainer"
             app:layout_constraintTop_toTopOf="parent">
             <TextView
                 android:id="@+id/tvDealerName"
@@ -25,32 +36,73 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
+                android:layout_marginStart="@dimen/payu_dimen_5dp"
+                android:layout_gravity="center_vertical"
+                android:paddingStart="@dimen/payu_dimen_5dp"
+                android:paddingEnd="@dimen/payu_dimen_5dp"
                 android:paddingTop="@dimen/margin_5dp"
-                android:textSize="@dimen/dimen_16sp"
+                android:textSize="@dimen/dimen_14sp"
                 app:layout_constraintBottom_toTopOf="@id/tvPrice"
                 app:layout_constraintEnd_toStartOf="@id/ivFavorites"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:text="Mahindra 415 DI" />
+                tools:text="Mahindra 415 DI"/>
             <ImageView
                 android:id="@+id/brandImage"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="5dp"
+                android:adjustViewBounds="true"
                 android:layout_weight=".3"
-                android:padding="5dp" />
+                android:padding="5dp"/>
         </LinearLayout>
-        <TextView
-            android:id="@+id/tvDealerAddress"
-            style="@style/ListFieldWithDrawable"
+<!--        <TextView-->
+<!--            android:id="@+id/tvDealerAddress"-->
+<!--            style="@style/ListFieldWithDrawable"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center_vertical"-->
+<!--            android:layout_marginBottom="@dimen/margin_5dp"-->
+<!--            android:maxLines="4"-->
+<!--            android:textSize="@dimen/dimen_10sp"-->
+<!--            android:paddingStart="@dimen/dimen_10dp"-->
+<!--            android:paddingEnd="@dimen/dimen_10dp"-->
+<!--            android:drawablePadding="@dimen/dimen_3dp"-->
+<!--            app:drawableStartCompat="@drawable/ic_location_black_outline_24dp"-->
+<!--            app:layout_constraintBottom_toTopOf="@id/tvDealerCont"-->
+<!--            tools:text="Pune, Maharastra"/>-->
+
+
+        <LinearLayout
+            android:id="@+id/readMoreContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginBottom="@dimen/margin_5dp"
-            android:maxLines="3"
-            android:paddingStart="@dimen/margin_20dp"
-            app:drawableStartCompat="@drawable/ic_location_black_outline_24dp"
+            android:layout_marginBottom="@dimen/dimen_10dp"
+            android:padding="@dimen/dimen_2dp"
             app:layout_constraintBottom_toTopOf="@id/tvDealerCont"
-            tools:text="Pune, Maharastra" />
+            android:clickable="true"
+            android:focusable="true">
+
+        <kr.co.prnd.readmore.ReadMoreTextView
+            android:id="@+id/tvDealerAddress"
+            style="@style/LongDesc"
+            android:layout_marginBottom="@dimen/margin_5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:readMoreMaxLine="3"
+            android:layout_gravity="center_vertical"
+            app:readMoreText="…Read More"
+            app:readMoreColor="@color/red"
+            android:layout_marginTop="@dimen/margin_15dp"
+            android:clickable="false"
+            android:focusable="false"
+            android:lineSpacingExtra="4dp"
+            android:paddingStart="@dimen/margin_10dp"
+            android:gravity="start|top"
+            app:drawableStartCompat="@drawable/ic_location_black_outline_24dp"
+            android:paddingEnd="@dimen/margin_10dp"
+            app:layout_constraintBottom_toTopOf="@id/tvDealerCont"
+            tools:text="Pune, Maharastra"/>
+        </LinearLayout>
         <TextView
             android:id="@+id/tvDealerCont"
             style="@style/ListFieldWithDrawable"
@@ -60,30 +112,33 @@
             android:layout_marginBottom="@dimen/margin_5dp"
             android:layout_weight="1"
             android:paddingStart="@dimen/margin_20dp"
+            android:paddingEnd="@dimen/dimen_1dp"
             app:drawableStartCompat="@drawable/ic_call_black_24dp"
             app:layout_constraintBottom_toTopOf="@id/tvDealerEmail"
-            tools:text="8082194303" />
+            tools:text="8082194303"/>
         <TextView
             android:id="@+id/tvDealerEmail"
             style="@style/ListFieldWithDrawable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginBottom="@dimen/margin_5dp"
+            android:layout_marginBottom="@dimen/dimen_10dp"
             android:maxLines="3"
-            android:paddingStart="@dimen/margin_20dp"
+            android:paddingStart="@dimen/dimen_10dp"
+            android:drawablePadding="@dimen/dimen_3dp"
+            android:paddingEnd="@dimen/dimen_10dp"
             app:drawableStartCompat="@drawable/ic_mail_black_24dp"
             app:layout_constraintBottom_toTopOf="@id/btnGetDealerInfo"
-            tools:text="testgmail@gmail.com" />
+            tools:text="testgmail@gmail.com"/>
         <TextView
             android:id="@+id/btnGetDealerInfo"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_marginEnd="5dp"
-            android:layout_marginTop="@dimen/dimen_10dp"
+            android:layout_marginTop="@dimen/dimen_28dp"
             android:layout_marginStart="@dimen/dimen_10dp"
-            android:layout_marginBottom="@dimen/dimen_10dp"
+            android:layout_marginBottom="@dimen/dimen_20dp"
             android:layout_weight="1.5"
             android:gravity="center"
             android:paddingStart="@dimen/margin_30dp"
@@ -97,23 +152,21 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/btnCall"
             app:layout_constraintHorizontal_chainStyle="packed"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"/>
         <TextView
             android:id="@+id/btnCall"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:layout_marginStart="5dp"
-            android:layout_marginTop="@dimen/dimen_10dp"
+            android:layout_marginTop="@dimen/dimen_28dp"
             android:layout_marginEnd="@dimen/dimen_10dp"
-            android:layout_marginBottom="@dimen/margin_10dp"
+            android:layout_marginBottom="@dimen/dimen_20dp"
             android:layout_weight="0.6"
-
             android:minHeight="@dimen/payu_dimen_45dp"
             android:background="@drawable/btn_rectangle_outline_bg_red"
             android:textAlignment="center"
             android:textColor="@color/red"
-
             android:drawableStart="@drawable/ic_call_white"
             android:drawablePadding="@dimen/margin_10dp"
             android:drawableTint="@color/red"
@@ -124,7 +177,7 @@
             android:textAllCaps="false"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/btnGetDealerInfo" />
+            app:layout_constraintStart_toEndOf="@id/btnGetDealerInfo"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
 

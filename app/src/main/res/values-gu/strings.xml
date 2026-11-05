@@ -756,7 +756,8 @@
         <string name="no">ના</string>
         <string name="yes">હા</string>
         <string name="total_amount">કુલ રકમ</string>
-        <string-array name="gender_val">
+    <string name="profile_settings">Profile Settings</string>
+    <string-array name="gender_val">
             <item>લિંગ પસંદ કરો</item>
             <item>પુરુષ</item>
             <item>સ્ત્રી</item>

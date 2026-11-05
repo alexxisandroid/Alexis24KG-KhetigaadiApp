@@ -72,9 +72,7 @@ public class NewTractorsListFragment extends BaseFragment {
         newTractorsListFragment.setArguments(bundle);
          filters = filter;
        // Log.d("vbvcbvcbcb====",""+filters+"=="+filters.getBrands().get(0).getId()+"=="+filters.getModels().get(0).getId());
-
       //  Log.d("cvbcvbcvbcvbc=====",""+filters.getBrands().get(0).getId()+"=="+filters.getModels().get(0).getId());
-
         return newTractorsListFragment;
     }
     @Override
@@ -98,7 +96,7 @@ public class NewTractorsListFragment extends BaseFragment {
         viewModel = new ViewModelProvider(this).get(NewTractorsListViewModel.class);
         if(filters!=null)
             viewModel.setFilter(filters);
-        Log.d("vcbvbvcvbc====",""+"filters.getBrands().toString()"+"=="+viewModel.getFilter());
+        //Log.d("vcbvbvcvbc====",""+"filters.getBrands().toString()"+"=="+viewModel.getFilter());
         ((MainActivity) activity).setToolbarTitle(getString(R.string.new_tractor));
         Glide.with(activity)
                 .load(R.drawable.loader_white)
@@ -108,7 +106,6 @@ public class NewTractorsListFragment extends BaseFragment {
             intent.putExtra("filter", viewModel.getFilter());
             intent.putExtra("callFrom", CallFrom.NEW_TRACTOR);
             filterActivityResultLauncher.launch(intent);
-
         });
         return binding.getRoot();
     }
@@ -196,273 +193,279 @@ public class NewTractorsListFragment extends BaseFragment {
         mAdapter.setOnLoadMoreListener(this::getNewTractorList);
     }
     private void getNewTractorList(int page) {
-        viewModel.setFilter(filters);
-        if(getView()!=null) {
-            viewModel.getNewTractors(page).observe(getViewLifecycleOwner(), newTractorRespStateData -> {
-                Log.d("vcbcbcvbvcb====", "" + newTractorRespStateData.getStatus() + "==" + viewModel.getFilter());
-                switch (newTractorRespStateData.getStatus()) {
-                    case LOADING:
-                        if (page == 1) {
-                            binding.llProgress.setVisibility(View.VISIBLE);
-                            binding.filterIcon.setVisibility(View.GONE);
-                        }
-                        break;
-                    case SUCCESS:
-                        NewTractorResp newTractorResp = newTractorRespStateData.getData();
-                        Log.d("vcbcvbcvbccxvcx===", "" + newTractorResp);
-                        binding.llProgress.setVisibility(View.GONE);
-                        binding.filterIcon.setVisibility(View.VISIBLE);
-                        if (newTractorResp != null) {
-                            mAdapter.setTotPages(newTractorResp.getData().getLastPage());
-                            mAdapter.addItems(addSponsoredItems(newTractorResp), page, newTractorResp.getOthers());
-                            Log.d("vcbcvbcvbc11===", "" + newTractorResp.getData().getLastPage());
-                            Log.d("vcbcvbcvbc22===", "" + addSponsoredItems(newTractorResp).size() + "==" + page + "==" + newTractorResp.getOthers());
-                        }
-                        break;
-                    case ERROR:
-                        //  Toast.makeText(activity,newTractorRespStateData.getError(),Toast.LENGTH_SHORT).show();
-                        mAdapter.addItems(new ArrayList<>(), page);
-                        binding.llProgress.setVisibility(View.GONE);
-                        binding.filterIcon.setVisibility(View.VISIBLE);
-                        Log.d("cvbcvbcvbvbcbfgfg===", "" + newTractorRespStateData.getError());
+       try {
+           viewModel.setFilter(filters);
+           if (getView() != null) {
+               viewModel.getNewTractors(page).observe(getViewLifecycleOwner(), newTractorRespStateData -> {
+                   Log.d("vcbcbcvbvcb====", "" + newTractorRespStateData.getStatus() + "==" + viewModel.getFilter());
+                   switch (newTractorRespStateData.getStatus()) {
+                       case LOADING:
+                           if (page == 1) {
+                               binding.llProgress.setVisibility(View.VISIBLE);
+                               binding.filterIcon.setVisibility(View.GONE);
+                           }
+                           break;
+                       case SUCCESS:
+                           NewTractorResp newTractorResp = newTractorRespStateData.getData();
+                           Log.d("vcbcvbcvbccxvcx===", "" + newTractorResp);
+                           binding.llProgress.setVisibility(View.GONE);
+                           binding.filterIcon.setVisibility(View.VISIBLE);
+                           if (newTractorResp != null) {
+                               mAdapter.setTotPages(newTractorResp.getData().getLastPage());
+                               mAdapter.addItems(addSponsoredItems(newTractorResp), page, newTractorResp.getOthers());
+                               Log.d("vcbcvbcvbc11===", "" + newTractorResp.getData().getLastPage());
+                               Log.d("vcbcvbcvbc22===", "" + addSponsoredItems(newTractorResp).size() + "==" + page + "==" + newTractorResp.getOthers());
+                           }
+                           break;
+                       case ERROR:
+                           //  Toast.makeText(activity,newTractorRespStateData.getError(),Toast.LENGTH_SHORT).show();
+                           mAdapter.addItems(new ArrayList<>(), page);
+                           binding.llProgress.setVisibility(View.GONE);
+                           binding.filterIcon.setVisibility(View.VISIBLE);
+                           Log.d("cvbcvbcvbvbcbfgfg===", "" + newTractorRespStateData.getError());
 
-                        if (newTractorRespStateData.getError().equals("HTTP 500 Internal Server Error")) {
-                            Runnable runnable = new Runnable() {
-                                public void run() {
-                                    //some code here
-                                    try {
-                                        if (filters.getBrands().get(0).getId() != 0 && filters.getModels().get(0).getId() != 0)
-                                            getDataa(filters.getBrands().get(0).getId(), filters.getModels().get(0).getId(), page);
-                                    } catch (Exception e) {
-                                        throw new RuntimeException(e);
-                                    }
-                                }
-                            };
-                            Thread thread = new Thread(runnable);
-                            thread.start();
-                        }
-                        break;
-                }
-            });
-        }
+                           if (newTractorRespStateData.getError().equals("HTTP 500 Internal Server Error")) {
+                               Runnable runnable = new Runnable() {
+                                   public void run() {
+                                       //some code here
+                                       try {
+                                           if (filters != null && filters.getBrands()!=null && filters.getBrands().get(0)!=null && filters.getBrands().get(0).getId() != 0 && filters.getModels().get(0).getId() != 0)
+                                               getDataa(filters.getBrands().get(0).getId(), filters.getModels().get(0).getId(), page);
+                                       } catch (Exception e) {
+                                           throw new RuntimeException(e);
+                                       }
+                                   }
+                               };
+                               Thread thread = new Thread(runnable);
+                               thread.start();
+                           }
+                           break;
+                   }
+               });
+           }
+       }
+       catch (Exception e) {
+           e.printStackTrace();
+       }
     }
     private void getDataa(int brandId,int tractorModelId,int pagge) {
-        SessionManager sessionManager = new SessionManager(activity);
-        User usrr = sessionManager.getUser();
-        String usrrToken = usrr.getToken();
-        if(usrrToken==null || usrrToken.equals(null))
-            usrrToken="Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI3IiwianRpIjoiMTgyMzNiNmNmMGI0ZDllZWI1OWQ5YmEyM2E2MjEwNWZjZGIzOGU5MGIzZjkxYjlhZDE0YjdiMDJlNWNjOTM5ZTI0NTgyOWJmYWYyMzVjZjMiLCJpYXQiOjE3NTY1NDg5MTksIm5iZiI6MTc1NjU0ODkxOSwiZXhwIjoxNzg4MDg0OTE5LCJzdWIiOiIxMDE2NDk3Iiwic2NvcGVzIjpbXX0.Sdk0CZeX5I1m3P2fqsvolpyxIybtjPpkgjBvKQ_GYsrU-vxIYAE-JN2_V2JUcHKSaGkgARD55OtZcsfwiszyGdJYpjz-d-am4KnS3ph_0I_4MWhXbcbsleN9hapf0idNsxJ-kDEjh8xSBdfSj3FAPcAd-fnP7iB_ni_QKiXJjTR6SucaPU4ZXKVIrs4iIXGx_-hjzloNHuIY0TaJhsIGBXLfx1jE37c3sCt7rttWqkPpVOT3eIBA2-6t4Ur7xl68CGk1cuwlg1SrfF9xev4QgxvrjPfEzb4ozCqOyBF-YEdTHNyXFB-6ba5JmY7k2roGBMwEqnqj7eWISY6gQdknZzFFAFlirCiKg2tiWhdyeFxwRFbf7dzEbL8NOBm4T9J-tpzisTiuTlnkr5U93hci5TYcUXV1IzotMUbBeK7gBbzn_NQhNPGbqmo7aIeJYp83TCdAVyvNf6x4NUrFBTqBg9nlRS4twRxo8OU0IdOS629oVnPZKn5jdLGHYkGZZMpREaTHeWp4AiUrLjVFPJy-hyPNYr1INayZnEWjorPlvOyHyqib846a9yaSJ9oFf33uKmOLXYwDyybkMewq2bnt0upwESrPI9fxrzyVY89LpDx2FjcABFaglUimzPw5qKWr2un0CSVwPjJzF-Iq5ctcG7WbADVj_eH_-IBubI0X9-g";
-        OkHttpClient client = new OkHttpClient().newBuilder()
-                .build();
-        MediaType mediaType = MediaType.parse("application/json");
-        RequestBody body = RequestBody.create(mediaType,"{\n\t\"filter\":{\n\t\"brands\": [\n{\n\"brand_id\": \""+brandId+"\"\n}\n],\n\"tractor_models\":[\n{\n\"tractor_model_id\": \""+tractorModelId+"\"\n}\n]\n},\n\"perPage\":12\n}");
-        Request request = new Request.Builder()
-                .url(BuildConfig.BASE_URL+"mobile/api/v1/tractor/new/filter")
-                .method("POST", body)
-                .addHeader("Content-Type","application/json")
-                .addHeader("Accept","application/json")
-                .addHeader("Authorization",usrrToken)
-                .build();
-        try {
-            Response response = client.newCall(request).execute();
-            if(response.isSuccessful()) {
-              String dataVal = response.body().string();
-              Log.d("vcbgvbcvbc====",""+dataVal);
-                activity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        JSONObject newTractorResp = null; //.getJSONArray("data");
-                        try {
-                            newTractorResp = new JSONObject(dataVal);
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-                        Log.d("vcbcvbcvbccxvcx===",""+newTractorResp);
-                binding.llProgress.setVisibility(View.GONE);
-                binding.filterIcon.setVisibility(View.VISIBLE);
-                if(newTractorResp != null) {
-                    mAdapter.setTotPages(newTractorResp.optJSONObject("data").optInt("last_page"));
+       try {
+           SessionManager sessionManager = new SessionManager(activity);
+           User usrr = sessionManager.getUser();
+           String usrrToken = usrr.getToken();
+           if (usrrToken == null || usrrToken.equals(null))
+               usrrToken = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI3IiwianRpIjoiMTgyMzNiNmNmMGI0ZDllZWI1OWQ5YmEyM2E2MjEwNWZjZGIzOGU5MGIzZjkxYjlhZDE0YjdiMDJlNWNjOTM5ZTI0NTgyOWJmYWYyMzVjZjMiLCJpYXQiOjE3NTY1NDg5MTksIm5iZiI6MTc1NjU0ODkxOSwiZXhwIjoxNzg4MDg0OTE5LCJzdWIiOiIxMDE2NDk3Iiwic2NvcGVzIjpbXX0.Sdk0CZeX5I1m3P2fqsvolpyxIybtjPpkgjBvKQ_GYsrU-vxIYAE-JN2_V2JUcHKSaGkgARD55OtZcsfwiszyGdJYpjz-d-am4KnS3ph_0I_4MWhXbcbsleN9hapf0idNsxJ-kDEjh8xSBdfSj3FAPcAd-fnP7iB_ni_QKiXJjTR6SucaPU4ZXKVIrs4iIXGx_-hjzloNHuIY0TaJhsIGBXLfx1jE37c3sCt7rttWqkPpVOT3eIBA2-6t4Ur7xl68CGk1cuwlg1SrfF9xev4QgxvrjPfEzb4ozCqOyBF-YEdTHNyXFB-6ba5JmY7k2roGBMwEqnqj7eWISY6gQdknZzFFAFlirCiKg2tiWhdyeFxwRFbf7dzEbL8NOBm4T9J-tpzisTiuTlnkr5U93hci5TYcUXV1IzotMUbBeK7gBbzn_NQhNPGbqmo7aIeJYp83TCdAVyvNf6x4NUrFBTqBg9nlRS4twRxo8OU0IdOS629oVnPZKn5jdLGHYkGZZMpREaTHeWp4AiUrLjVFPJy-hyPNYr1INayZnEWjorPlvOyHyqib846a9yaSJ9oFf33uKmOLXYwDyybkMewq2bnt0upwESrPI9fxrzyVY89LpDx2FjcABFaglUimzPw5qKWr2un0CSVwPjJzF-Iq5ctcG7WbADVj_eH_-IBubI0X9-g";
+           OkHttpClient client = new OkHttpClient().newBuilder()
+                   .build();
+           MediaType mediaType = MediaType.parse("application/json");
+           RequestBody body = RequestBody.create(mediaType, "{\n\t\"filter\":{\n\t\"brands\": [\n{\n\"brand_id\": \"" + brandId + "\"\n}\n],\n\"tractor_models\":[\n{\n\"tractor_model_id\": \"" + tractorModelId + "\"\n}\n]\n},\n\"perPage\":12\n}");
+           Request request = new Request.Builder()
+                   .url(BuildConfig.BASE_URL + "mobile/api/v1/tractor/new/filter")
+                   .method("POST", body)
+                   .addHeader("Content-Type", "application/json")
+                   .addHeader("Accept", "application/json")
+                   .addHeader("Authorization", usrrToken)
+                   .build();
+           try {
+               Response response = client.newCall(request).execute();
+               if (response.isSuccessful()) {
+                   String dataVal = response.body().string();
+                   // Log.d("vcbgvbcvbc====",""+dataVal);
+                   activity.runOnUiThread(new Runnable() {
+                       @Override
+                       public void run() {
+                           JSONObject newTractorResp = null; //.getJSONArray("data");
+                           try {
+                               newTractorResp = new JSONObject(dataVal);
+                           } catch (JSONException e) {
+                               throw new RuntimeException(e);
+                           }
+                           // Log.d("vcbcvbcvbccxvcx===",""+newTractorResp);
+                           binding.llProgress.setVisibility(View.GONE);
+                           binding.filterIcon.setVisibility(View.VISIBLE);
+                           if (newTractorResp != null) {
+                               mAdapter.setTotPages(newTractorResp.optJSONObject("data").optInt("last_page"));
 
-                    NewTractorResp tractorResp = new NewTractorResp();
-                    NewTractorData newTractorData = new NewTractorData();
-                    NewTractor newTractor = new NewTractor();
+                               NewTractorResp tractorResp = new NewTractorResp();
+                               NewTractorData newTractorData = new NewTractorData();
+                               NewTractor newTractor = new NewTractor();
 
-                    JSONObject jsonObject = null; //tractor_id
-                    try {
-                        jsonObject = newTractorResp.optJSONObject("data").getJSONArray("data").optJSONObject(0);
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
-                    }
-                    String tractor_id = jsonObject.optString("tractor_id");
-                    String tractor_name = jsonObject.optString("tractor_name");
-                    boolean is_bookmark = jsonObject.optBoolean("is_bookmark");
-                    int views = jsonObject.optInt("views");
-                    String tractor_image = null;
-                    try {
-                        tractor_image = jsonObject.getJSONObject("tractor_image").getString("tractor_image_name");
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
-                    }
-                    com.khetigaadi.tractor.util.TractorImage tractorImage = new  com.khetigaadi.tractor.util.TractorImage();
-                    tractorImage.setTractor_img_name(tractor_image);
-                    try {
-                        tractorImage.setTractor_id(jsonObject.getJSONObject("tractor_image").getString("tractor_id"));
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
-                    }
-                    newTractor.setId(tractor_id);
-                    newTractor.setName(tractor_name);
-                    newTractor.setImage(tractorImage);
-                    newTractor.setBookmark(is_bookmark);
-                    newTractor.setUserView(String.valueOf(views));
-                    Brand brand = new Brand();
-                    int bid = 0;
-                    try {
-                        bid = jsonObject.optJSONObject("brand").getInt("brand_id");
-                    } catch (JSONException e) {
-                        throw new RuntimeException(e);
-                    }
-                    String brand_name =   jsonObject.optJSONObject("brand").optString("brand_name");
-                    String brand_image =  jsonObject.optJSONObject("brand").optString("brand_image");
-                    brand.setId(bid);
-                    brand.setName(brand_name);
-                    brand.setImage(brand_image);
+                               JSONObject jsonObject; // = new JSONObject(); // null; //tractor_id
+                               try {
+                                   jsonObject = newTractorResp.optJSONObject("data").getJSONArray("data").optJSONObject(0);
+                               } catch (JSONException e) {
+                                   throw new RuntimeException(e);
+                               }
 
+                               if (jsonObject != null && !jsonObject.isNull("tractor_id")) {
+                                   String tractor_id = jsonObject.optString("tractor_id");
+                                   String tractor_name = jsonObject.optString("tractor_name");
+                                   boolean is_bookmark = jsonObject.optBoolean("is_bookmark");
+                                   int views = jsonObject.optInt("views");
+                                   String tractor_image = null;
+                                   try {
+                                       tractor_image = jsonObject.getJSONObject("tractor_image").getString("tractor_image_name");
+                                   } catch (JSONException e) {
+                                       throw new RuntimeException(e);
+                                   }
+                                   com.khetigaadi.tractor.util.TractorImage tractorImage = new com.khetigaadi.tractor.util.TractorImage();
+                                   tractorImage.setTractor_img_name(tractor_image);
+                                   try {
+                                       tractorImage.setTractor_id(jsonObject.getJSONObject("tractor_image").getString("tractor_id"));
+                                   } catch (JSONException e) {
+                                       throw new RuntimeException(e);
+                                   }
+                                   newTractor.setId(tractor_id);
+                                   newTractor.setName(tractor_name);
+                                   newTractor.setImage(tractorImage);
+                                   newTractor.setBookmark(is_bookmark);
+                                   newTractor.setUserView(String.valueOf(views));
+                                   Brand brand = new Brand();
+                                   int bid = 0;
+                                   try {
+                                       bid = jsonObject.optJSONObject("brand").getInt("brand_id");
+                                   } catch (JSONException e) {
+                                       throw new RuntimeException(e);
+                                   }
+                                   String brand_name = jsonObject.optJSONObject("brand").optString("brand_name");
+                                   String brand_image = jsonObject.optJSONObject("brand").optString("brand_image");
+                                   brand.setId(bid);
+                                   brand.setName(brand_name);
+                                   brand.setImage(brand_image);
+                                   newTractor.setBrand(brand);
+                                   com.khetigaadi.base.model.Model model = new com.khetigaadi.base.model.Model();
+                                   //tractor_model_id  tractor_model_name
+                                   JSONObject modelData = jsonObject.optJSONObject("tractor_model");
+                                   model.setId(modelData.optInt("tractor_model_id"));
+                                   model.setName(modelData.optString("tractor_model_name"));
+                                   newTractor.setTractorModel(model);
+                                   JSONObject driveData = jsonObject.optJSONObject("drive");
+                                   Drive drive = new Drive();
+                                   drive.setId(driveData.optInt("drive_id"));
+                                   drive.setName(driveData.optString("drive_name"));
+                                   newTractor.setDrive(drive);
+                                   newTractor.setExactHp(jsonObject.optString("exact_hp"));
+                                   JSONArray modelDataV = jsonObject.optJSONArray("get_short_spec_data"); //.optJSONObject(0);
+                                   List<NewTractorShortSpec> newTractorShortSpecs = new ArrayList<>();
+                                   for (int i = 0; i < modelDataV.length(); i++) {
+                                       try {
+                                           JSONObject jsonObject1 = modelDataV.getJSONObject(i);
+                                           int data_id = jsonObject1.optInt("data_id");
+                                           int tractor_spec_id = jsonObject1.optInt("tractor_spec_id");
+                                           String spec_data = jsonObject1.optString("spec_data");
+                                           String spec_data_mr = jsonObject1.optString("spec_data_mr");
+                                           String spec_data_hi = jsonObject1.optString("spec_data_hi");
+                                           int tractor_idd = jsonObject1.optInt("tractor_id");
+                                           JSONObject tractor_spec = jsonObject1.optJSONObject("tractor_spec");
+                                           int tractor_spec_idd = tractor_spec.optInt("tractor_spec_id");
+                                           String tractor_spec_name = tractor_spec.getString("tractor_spec_name");
+                                           int unit_id = tractor_spec.optInt("unit_id");
+                                           String phase = tractor_spec.optString("phase");
+                                           String spec_icon = tractor_spec.optString("spec_icon");
+                                           com.khetigaadi.tractor.compare.model.TractorSpec tractorSpec = new com.khetigaadi.tractor.compare.model.TractorSpec();
+                                           tractorSpec.setTractorSpecId(String.valueOf(tractor_spec_idd));
+                                           TractorShortSpec tractorShortSpec = new TractorShortSpec();
+                                           tractorShortSpec.setName(tractor_spec_name);
+                                           tractorShortSpec.setId(String.valueOf(tractor_spec_idd));
+                                           tractorSpec.setTractorSpec(tractorShortSpec);
 
-                    newTractor.setBrand(brand);
+                                           TractorUnit tractorUnit = new TractorUnit();
+                                           tractorUnit.setUnitId(unit_id);
+                                           tractorUnit.setUnitName(tractor_spec_name);
 
-                    com.khetigaadi.base.model.Model model = new com.khetigaadi.base.model.Model();
-                    //tractor_model_id  tractor_model_name
-                    JSONObject modelData =  jsonObject.optJSONObject("tractor_model");
-                    model.setId(modelData.optInt("tractor_model_id"));
-                    model.setName(modelData.optString("tractor_model_name"));
-                    newTractor.setTractorModel(model);
+                                           tractorSpec.setTractorUnit(tractorUnit);
 
-                    JSONObject driveData =  jsonObject.optJSONObject("drive");
+                                           // NewTractorShortSpec tractorShortSpec = new NewTractorShortSpec();
+                                           //tractorSpec.setTractorSpec();
+                                           // tractorShortSpec.setTractorSpec();
+                                           // tractorSpec.setTractorSpec();
 
-                    Drive drive = new Drive();
-                    drive.setId(driveData.optInt("drive_id"));
-                    drive.setName(driveData.optString("drive_name"));
+                                           //   tractorSpec.set
 
-                    newTractor.setDrive(drive);
+                                           NewTractorShortSpec newTractorShortSpec = new NewTractorShortSpec();
+                                           newTractorShortSpec.setTractorId(tractor_idd);
+                                           newTractorShortSpec.setTractorSpecId(tractor_spec_id);
+                                           newTractorShortSpec.setSpecData(spec_data);
+                                           newTractorShortSpec.setDataId(data_id);
+                                           newTractorShortSpec.setTractorSpec(tractorSpec);
+                                           newTractorShortSpecs.add(newTractorShortSpec);
+                                           //  tractorSpec.set
+                                           // newTractorShortSpec.set
+                                       } catch (JSONException e) {
+                                           throw new RuntimeException(e);
+                                       }
+                                   }
+                                   newTractor.setGetShortSpecData(newTractorShortSpecs);
+                                   List<NewTractor> newTractors = new ArrayList<>();
+                                   newTractors.add(newTractor);
+                                   newTractorData.setData(newTractors);
+                                   tractorResp.setData(newTractorData);
+                                   com.khetigaadi.model.Others others = new com.khetigaadi.model.Others();
+                                   String jsonObjecti = newTractorResp.optJSONObject("others").optString("brandLogoPath");
+                                   String tractorImagePathcv = newTractorResp.optJSONObject("others").optString("tractorImagePath");
+                                   others.setBrandLogoPath(jsonObjecti);
+                                   others.setTractorImagePath(tractorImagePathcv);
+                                   mAdapter.addItems(addSponsoredItems(tractorResp), pagge, others);
+                                   // Log.d("vcbcvbcvbc11===", "" + newTractorResp.optJSONObject("data").optInt("last_page"));
+                                   // Log.d("vcbcvbcvbc22===", "" + addSponsoredItems(tractorResp).size() + "==" + pagge + "==" + others);
+                               }
+                           }
+                       }
+                   });
+               } else {
 
-                    newTractor.setExactHp(jsonObject.optString("exact_hp"));
-                    JSONArray modelDataV =  jsonObject.optJSONArray("get_short_spec_data"); //.optJSONObject(0);
-                    List<NewTractorShortSpec> newTractorShortSpecs = new ArrayList<>();
+               }
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
+       }
+       catch (Exception e) {
+           e.printStackTrace();
+       }
 
-                    for(int i=0;i<modelDataV.length();i++) {
-                        try {
-                            JSONObject jsonObject1 = modelDataV.getJSONObject(i);
-                            int data_id = jsonObject1.optInt("data_id");
-                            int tractor_spec_id = jsonObject1.optInt("tractor_spec_id");
-                            String spec_data = jsonObject1.optString("spec_data");
-                            String spec_data_mr = jsonObject1.optString("spec_data_mr");
-                            String spec_data_hi = jsonObject1.optString("spec_data_hi");
-                            int tractor_idd = jsonObject1.optInt("tractor_id");
-                            JSONObject tractor_spec = jsonObject1.optJSONObject("tractor_spec");
-                            int tractor_spec_idd = tractor_spec.optInt("tractor_spec_id");
-                            String tractor_spec_name = tractor_spec.getString("tractor_spec_name");
-                            int unit_id = tractor_spec.optInt("unit_id");
-                            String phase = tractor_spec.optString("phase");
-                            String spec_icon = tractor_spec.optString("spec_icon");
-                            com.khetigaadi.tractor.compare.model.TractorSpec tractorSpec = new com.khetigaadi.tractor.compare.model.TractorSpec();
-                            tractorSpec.setTractorSpecId(String.valueOf(tractor_spec_idd));
-                            TractorShortSpec tractorShortSpec = new TractorShortSpec();
-                            tractorShortSpec.setName(tractor_spec_name);
-                            tractorShortSpec.setId(String.valueOf(tractor_spec_idd));
-                            tractorSpec.setTractorSpec(tractorShortSpec);
-
-                            TractorUnit tractorUnit = new TractorUnit();
-                            tractorUnit.setUnitId(unit_id);
-                            tractorUnit.setUnitName(tractor_spec_name);
-
-                            tractorSpec.setTractorUnit(tractorUnit);
-
-                           // NewTractorShortSpec tractorShortSpec = new NewTractorShortSpec();
-                            //tractorSpec.setTractorSpec();
-                           // tractorShortSpec.setTractorSpec();
-                           // tractorSpec.setTractorSpec();
-
-                         //   tractorSpec.set
-
-                            NewTractorShortSpec newTractorShortSpec = new NewTractorShortSpec();
-                            newTractorShortSpec.setTractorId(tractor_idd);
-                            newTractorShortSpec.setTractorSpecId(tractor_spec_id);
-                            newTractorShortSpec.setSpecData(spec_data);
-                            newTractorShortSpec.setDataId(data_id);
-                            newTractorShortSpec.setTractorSpec(tractorSpec);
-                            newTractorShortSpecs.add(newTractorShortSpec);
-                            //  tractorSpec.set
-                           // newTractorShortSpec.set
-                        } catch (JSONException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
-                    newTractor.setGetShortSpecData(newTractorShortSpecs);
-                    List<NewTractor> newTractors = new ArrayList<>();
-                    newTractors.add(newTractor);
-                    newTractorData.setData(newTractors);
-                    tractorResp.setData(newTractorData);
-
-                    com.khetigaadi.model.Others others = new com.khetigaadi.model.Others();
-                    String jsonObjecti = newTractorResp.optJSONObject("others").optString("brandLogoPath");
-                    String tractorImagePathcv = newTractorResp.optJSONObject("others").optString("tractorImagePath");
-                    others.setBrandLogoPath(jsonObjecti);
-                    others.setTractorImagePath(tractorImagePathcv);
-                    mAdapter.addItems(addSponsoredItems(tractorResp),pagge,others);
-
-                    Log.d("vcbcvbcvbc11===",""+newTractorResp.optJSONObject("data").optInt("last_page"));
-                    Log.d("vcbcvbcvbc22===",""+addSponsoredItems(tractorResp).size()+"=="+pagge+"=="+others);
-                }
-                    }
-
-                });
-            }
-            else {
-
-            }
-        }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
     }
     private List<NewTractor> addSponsoredItems(NewTractorResp newTractorResp) {
         try {
-            if (newTractorResp.getData().getData().size() > 0 && newTractorResp.getData().getData().size() > 0 && newTractorResp.getOthers().getNewTractorSponsored() != null && newTractorResp.getOthers().getNewTractorSponsored().size() > 0) {
-                if (newTractorResp.getData().getData().size() > 5 && newTractorResp.getOthers().getNewTractorSponsored().size() > 0) {
+            if(newTractorResp.getData().getData().size() > 0 && newTractorResp.getData().getData().size() > 0 && newTractorResp.getOthers().getNewTractorSponsored() != null && newTractorResp.getOthers().getNewTractorSponsored().size() > 0) {
+                if(newTractorResp.getData().getData().size() > 5 && newTractorResp.getOthers().getNewTractorSponsored().size() > 0) {
                     newTractorResp.getOthers().getNewTractorSponsored().get(0).getNewTractor().setSponsor(true);
                     newTractorResp.getData().getData().add(4, newTractorResp.getOthers().getNewTractorSponsored().get(0).getNewTractor());
-                    if (newTractorResp.getData().getData().size() > 8 && newTractorResp.getOthers().getNewTractorSponsored().size() > 1) {
+                    if(newTractorResp.getData().getData().size() > 8 && newTractorResp.getOthers().getNewTractorSponsored().size() > 1) {
                         newTractorResp.getOthers().getNewTractorSponsored().get(1).getNewTractor().setSponsor(true);
                         newTractorResp.getData().getData().add(9, newTractorResp.getOthers().getNewTractorSponsored().get(1).getNewTractor());
                     }
                 }
-
             }
-        } catch (Exception e) {
+        }
+        catch(Exception e) {
             return newTractorResp.getData().getData();
         }
         return newTractorResp.getData().getData();
     }
     private void setMyFavorites(final NewTractor tractor,final int position) {
-        viewModel.setMyFavorites(tractor).observe(getViewLifecycleOwner(), myResponse -> {
-            switch (myResponse.getStatus()) {
-                case LOADING:
-                    break;
-                case SUCCESS:
-                    if (myResponse.getData() != null) {
-                        if (!myResponse.getData().isError()) {
-                            mAdapter.getItem(position).setBookmark(!myResponse.getData().getMsg().get(0).equalsIgnoreCase("Bookmark Removed Successfully"));
-                        } else {
-                            Toast.makeText(activity, myResponse.getData().getMsg().get(0), Toast.LENGTH_LONG).show();
-                        }
-                    }
-                    mAdapter.notifyItemChanged(position);
-                    break;
-                case ERROR:
-                    mAdapter.notifyItemChanged(position);
-                    break;
-            }
-        });
+     try {
+         viewModel.setMyFavorites(tractor).observe(getViewLifecycleOwner(), myResponse -> {
+             switch (myResponse.getStatus()) {
+                 case LOADING:
+                     break;
+                 case SUCCESS:
+                     if (myResponse.getData() != null) {
+                         if (!myResponse.getData().isError()) {
+                             mAdapter.getItem(position).setBookmark(!myResponse.getData().getMsg().get(0).equalsIgnoreCase("Bookmark Removed Successfully"));
+                         } else {
+                             Toast.makeText(activity, myResponse.getData().getMsg().get(0), Toast.LENGTH_LONG).show();
+                         }
+                     }
+                     mAdapter.notifyItemChanged(position);
+                     break;
+                 case ERROR:
+                     mAdapter.notifyItemChanged(position);
+                     break;
+             }
+         });
+     }
+     catch (Exception e) {
+         e.printStackTrace();
+     }
     }
 }

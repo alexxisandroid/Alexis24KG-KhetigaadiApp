@@ -12,8 +12,8 @@
         <attr name="viewBackgroundColor" format="color"/>
         <attr name="iconImage" format="reference"/>
         <attr name="titleMaxLines" format="integer"/>
-        <attr name="android:fontFamily" />
-
+        <attr name="android:fontFamily" format="reference"/>
+        <attr name="textAllCaps" format="boolean"/>
         <attr name="customTextStyle" format="enum">
             <enum name="normal" value="0"/>
             <enum name="bold" value="1"/>

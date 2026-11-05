@@ -20,20 +20,21 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/margin_50dp"
+        android:layout_marginBottom="@dimen/payu_dimen_110dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dp"
-            android:background="@color/detailsBackground">
+            android:background="@color/white">
             <ImageView
                 android:id="@+id/ivImage"
                 android:layout_width="match_parent"
-                android:layout_height="267dp"
-                android:scaleType="fitXY"
-                android:background="@color/white"
+                android:layout_height="@dimen/payu_dimen_250dp"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:background="@color/detailsBackground"
                 app:layout_constraintTop_toTopOf="parent" />
             <TextView
                 android:id="@+id/tvViews"
@@ -61,11 +62,15 @@
                 android:id="@+id/cvCapacitySpecification"
                 style="@style/CardViewListItem"
                 android:layout_width="match_parent"
+                android:background="@color/white"
+                android:backgroundTint="@color/white"
                 android:layout_height="wrap_content"
+
                 app:layout_constraintTop_toBottomOf="@id/ivImage">
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="@dimen/payu_dimen_12dp"
                     android:background="@color/pageBackGround">
                     <TextView
                         android:id="@+id/tvTractorName"
@@ -73,8 +78,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:maxLines="2"
-                        android:paddingTop="@dimen/margin_5dp"
+                        android:paddingTop="@dimen/dimen_10dp"
+                        android:layout_marginTop="@dimen/dimen_4dp"
                         android:paddingEnd="@dimen/margin_5dp"
+                        android:layout_marginStart="@dimen/dimen_5dp"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dimen_16sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -86,8 +93,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
-                        android:layout_marginTop="@dimen/margin_5dp"
-                        android:layout_marginEnd="15dp"
+                        android:layout_marginTop="@dimen/dimen_10dp"
+                        android:layout_marginEnd="16dp"
                         android:src="@drawable/share_normal"
                         app:layout_constraintBottom_toBottomOf="@id/tvTractorName"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -96,7 +103,7 @@
                         android:id="@+id/flow"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_10dp"
+                        android:layout_marginTop="@dimen/dimen_2dp"
                         android:paddingStart="@dimen/margin_15dp"
                         app:constraint_referenced_ids="tvOwnerName,tvCity,tvDrive,tvHP"
                         app:flow_maxElementsWrap="2"
@@ -108,6 +115,9 @@
                         style="@style/ListFieldWithDrawable"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:gravity="center|start"
+                        android:textAlignment="textStart"
+                        android:drawablePadding="@dimen/dimen_2dp"
                         android:padding="@dimen/margin_5dp"
                         app:drawableStartCompat="@drawable/ic_user_black_24dp"
                         tools:text="Test Name"
@@ -117,6 +127,8 @@
                         style="@style/ListFieldWithDrawable"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:drawablePadding="@dimen/dimen_2dp"
+                        android:textAlignment="textStart"
                         android:padding="@dimen/margin_5dp"
                         app:drawableStartCompat="@drawable/ic_location_black_outline_18dp"
                         tools:text="Pune, Maharastra"
@@ -127,6 +139,9 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/margin_5dp"
+                        android:drawablePadding="@dimen/dimen_2dp"
+                        android:textAlignment="textStart"
+                        android:layout_marginBottom="@dimen/dimen_20dp"
                         app:drawableStartCompat="@drawable/ic_settings_black_24dp"
                         tools:text="2 WD"
                         app:drawableTint="@color/black" />
@@ -134,7 +149,11 @@
                         android:id="@+id/tvHP"
                         style="@style/ListFieldWithDrawable"
                         android:layout_width="0dp"
+                        android:layout_marginBottom="@dimen/dimen_20dp"
                         android:layout_height="wrap_content"
+                        android:gravity="center|start"
+                        android:drawablePadding="@dimen/dimen_2dp"
+                        android:textAlignment="textStart"
                         android:padding="@dimen/margin_5dp"
                         app:drawableStartCompat="@drawable/ic_flash_on_black_24dp"
                         tools:text="42 HP"
@@ -146,6 +165,8 @@
                 style="@style/CardViewListItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:background="@color/white"
                 app:layout_constraintTop_toBottomOf="@id/cvCapacitySpecification">
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -192,6 +213,7 @@
         android:layout_gravity="bottom"
         android:layout_marginTop="5sp"
         android:background="@color/white"
+        android:layout_marginBottom="@dimen/payu_dimen_50dp"
         android:orientation="horizontal"
         android:padding="@dimen/margin_5dp">
         <TextView

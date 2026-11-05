@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parent"
@@ -109,10 +110,12 @@
         android:background="@color/red"
         android:layout_height="@dimen/dimen_50dp"
         android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
+        android:layout_gravity="bottom|center"
         android:clickable="true"
         android:textColor="@color/white"
+        android:fontFamily="@font/manrope_medium"
         android:focusable="true"
+        android:textAlignment="center"
         android:gravity="center"
         android:text="@string/btn_submit" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -82,7 +82,7 @@ class RentTractorDetails:BaseActivity() {
     private lateinit var binding: RentTractorDetailsBinding
     private lateinit var viewModel: RentTractorDetailsViewModel
     private var popularTractorAdapter: SimilarRentTractorAdapter? = null
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState:Bundle?) {
         super.onCreate(savedInstanceState)
        // WindowCompat.setDecorFitsSystemWindows(window,false)
         binding = RentTractorDetailsBinding.inflate(layoutInflater)
@@ -129,7 +129,6 @@ class RentTractorDetails:BaseActivity() {
         }
         initSimilar()
     }
-
     private fun initSimilar() {
         binding.includeSimilar.tvLabel.text = getString(R.string.similar_tractors)
         binding.includeSimilar.tvSeeMore.visibility = View.GONE
@@ -145,14 +144,12 @@ class RentTractorDetails:BaseActivity() {
             }
         })
     }
-
     private fun readData(bundle: Bundle?) {
         if (bundle != null) {
             tractorId = bundle.getString("tractorId")
             position = bundle.getInt("position", -1)
         }
     }
-
     private fun readDeepLinkData() {
         if (intent.action != null && intent.action == Intent.ACTION_VIEW) {
             try {
@@ -166,8 +163,7 @@ class RentTractorDetails:BaseActivity() {
             Timber.e(tractorId)
         }
     }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    override fun onActivityResult(requestCode:Int,resultCode:Int,data:Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1) {
             if (session!!.isLoggedIn) {
@@ -175,7 +171,6 @@ class RentTractorDetails:BaseActivity() {
             }
         }
     }
-
     private fun setFavorites(tractorId: String?, fStatus: Boolean) {
         val rentTractor = RentTractor()
         rentTractor.rentTractorId = tractorId
@@ -342,8 +337,9 @@ class RentTractorDetails:BaseActivity() {
                 latLng?.let { getMap(it) }
             }
         }
+        //newTractorImagePath
         Glide.with(this)
-            .load(if (data.others != null && tractor.rentTractorTable.tractorImage != null) data.others.newTractorImagePath + tractor.rentTractorTable.tractorImage.tractor_img_name else "")
+            .load(if(data.others != null && tractor.rentTractorTable.tractorImage != null) data.others.tractorImagePath+tractor.rentTractorTable.tractorImage.tractor_img_name else "")
             .error(R.mipmap.no_image)
             .placeholder(R.mipmap.no_image)
             .into(binding.ivImage)
@@ -370,7 +366,8 @@ class RentTractorDetails:BaseActivity() {
                 i += 2
             }
         }
-        recentRepo!!.insert(Recent(tractor.rentTractorId.toInt(), binding.tvTractorName.text.toString(), if (data.others != null && tractor.rentTractorTable.tractorImage != null) data.others.newTractorImagePath + tractor.rentTractorTable.tractorImage.tractor_img_name else "", RecentType.RENT_TRACTOR, System.currentTimeMillis()))
+        //newTractorImagePath
+        recentRepo!!.insert(Recent(tractor.rentTractorId.toInt(), binding.tvTractorName.text.toString(), if (data.others != null && tractor.rentTractorTable.tractorImage != null) data.others.tractorImagePath + tractor.rentTractorTable.tractorImage.tractor_img_name else "", RecentType.RENT_TRACTOR, System.currentTimeMillis()))
     }
     private fun getMap(latLng: LatLng) {
         try {

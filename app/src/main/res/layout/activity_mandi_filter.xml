@@ -17,7 +17,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/dimen_50dp"
+        android:layout_marginBottom="@dimen/payu_dimen_114dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -81,6 +81,7 @@
         android:layout_marginTop="5sp"
         android:background="@color/white"
         android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/payu_dimen_54dp"
         android:padding="@dimen/margin_5dp"
         tools:visibility="visible">
         <TextView

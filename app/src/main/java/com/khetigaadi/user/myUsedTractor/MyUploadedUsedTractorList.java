@@ -3,18 +3,17 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
 import com.bumptech.glide.Glide;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -34,14 +33,13 @@ import com.khetigaadi.user.myUsedTractor.model.Filter;
 import com.khetigaadi.user.myUsedTractor.model.InterestedBuyersResp;
 import com.khetigaadi.user.myUsedTractor.model.MyUploadedTrReq;
 import com.khetigaadi.user.myUsedTractor.model.MyUsedTractorResp;
+import com.khetigaadi.user.profile.ProfileOtherActivity;
 import com.khetigaadi.user.util.MyUsedTractor;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javax.inject.Inject;
-
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
@@ -79,9 +77,13 @@ public class MyUploadedUsedTractorList extends Fragment {
     @Override
     public View onCreateView(@androidx.annotation.NonNull @NonNull LayoutInflater inflater,@Nullable ViewGroup container,@Nullable Bundle savedInstanceState) {
         binding = RecycleListBinding.inflate(inflater, container, false);
-        ((MainActivity) activity).setToolbarTitle(getString(R.string.myUploadedUsedTractor));
+        if(activity instanceof ProfileOtherActivity)
+            ((ProfileOtherActivity) activity).setToolbarTitle(getString(R.string.myUploadedUsedTractor));
+        else
+            ((MainActivity) activity).setToolbarTitle(getString(R.string.myUploadedUsedTractor));
+
         Bundle bundle = getArguments();
-        if (bundle != null) {
+        if(bundle != null) {
             filter = bundle.getString("filter");
         }
         Glide.with(activity).load(R.drawable.loader_white).into(binding.ivLoader);
@@ -91,7 +93,7 @@ public class MyUploadedUsedTractorList extends Fragment {
         return binding.getRoot();
     }
     private void init() {
-        mAdapter = new MyUploadedTractorsListAdapter(activity, binding.myRecyclerView);
+        mAdapter = new MyUploadedTractorsListAdapter(activity,binding.myRecyclerView);
         binding.myRecyclerView.setLayoutManager(new LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false));
         binding.myRecyclerView.setAdapter(mAdapter);
         mAdapter.setOnItemClickListener((position, v) -> {
@@ -104,7 +106,11 @@ public class MyUploadedUsedTractorList extends Fragment {
                 mAdapter.getItem(position).setInterestedBuyers(null);
                 mAdapter.getItem(position).setBuyersOpen(false);
                 mAdapter.notifyItemChanged(position);
-            } else {
+            }
+            else {
+               // int cet = mAdapter.getItem(position).getInterestedBuyers().size();
+               // if (cet<1)
+               // return;
                 getInterestedBuyers(position,mAdapter.getItem(position).getId());
                 mAdapter.getItem(position).setBuyersOpen(true);
             }
@@ -128,6 +134,7 @@ public class MyUploadedUsedTractorList extends Fragment {
                         try {
                             if (!myUsedTractorResp.isError()) {
                                 List<MyUsedTractor> data = myUsedTractorResp.getData();
+                                Log.d("cvbxcvxv===",""+data.size());
                                 for (MyUsedTractor myUsedTractor : data) {
                                     if (myUsedTractor.getImage() == null) {
                                         try {
@@ -171,7 +178,7 @@ public class MyUploadedUsedTractorList extends Fragment {
         d.show();
         dialogBinding.btnClose.setOnClickListener(v -> {
             InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+            imm.hideSoftInputFromWindow(getView().getWindowToken(),0);
             d.dismiss();
         });
         dialogBinding.btnSubmit.setOnClickListener(v -> {
@@ -234,7 +241,7 @@ public class MyUploadedUsedTractorList extends Fragment {
                                 mAdapter.notifyItemChanged(position);
                             } else {
                                 for (int i = 0; i < buyersResp.getMsg().size(); i++) {
-                                    Toast.makeText(activity, buyersResp.getMsg().get(i), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(activity,buyersResp.getMsg().get(i),Toast.LENGTH_LONG).show();
                                 }
                             }
                         } catch (Exception e) {
@@ -285,8 +292,11 @@ public class MyUploadedUsedTractorList extends Fragment {
                         }
                     });
 
-        } catch (Exception e) {
+        }
+        catch(Exception e) {
             e.printStackTrace();
         }
     }
+
+
 }

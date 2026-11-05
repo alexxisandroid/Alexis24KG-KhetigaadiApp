@@ -5,12 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
+ <!-- /Users/kgapp/Downloads/khetigaadi-latest/app/src/main/res/layout/recycle_list.xml   -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/my_Recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/pageBackGround"
+        android:backgroundTint="@color/pageBackGround"
         android:padding="2dp"
         android:scrollbars="vertical"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
@@ -56,6 +56,6 @@
             android:layout_height="80dp"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/loader_white"
-            android:contentDescription="@string/loader_msg" />
+            android:contentDescription="@string/loader_msg"/>
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

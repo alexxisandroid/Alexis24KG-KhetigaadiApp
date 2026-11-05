@@ -4,15 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true">
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/clll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingTop="@dimen/dimen_1dp"
+            android:fitsSystemWindows="true"
             android:theme="@style/AppTheme.AppBarOverlay">
             <include
                 android:id="@+id/toolbars"
@@ -24,7 +28,6 @@
             android:layout_height="match_parent"
             android:focusableInTouchMode="true"
             android:orientation="vertical"
-            android:layout_marginBottom="@dimen/dimen_10dp"
             android:fillViewport="true"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
             <androidx.cardview.widget.CardView
@@ -82,6 +85,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.cardview.widget.CardView>
         </FrameLayout>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
@@ -97,25 +101,35 @@
             app:labelVisibilityMode="labeled"
             app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:menu="@menu/bottom_bar_navigation_items"/>
     <!--   style="@style/Widget.BottomNavigationView"   -->
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/navView"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:layout_marginEnd="25dp"
-        android:layout_marginStart="@dimen/dimen_25dp"
+        android:fitsSystemWindows="true"
+        app:bottomInsetScrimEnabled="true"
+        android:backgroundTint="@color/white"
+        android:background="@color/white"
+
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:headerLayout="@layout/side_menu_header">
         <ExpandableListView
             android:id="@+id/navigationMenu"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="112dp"
-            android:layout_marginBottom="100dp"
+            android:layout_width="306dp"
+            android:layout_height="wrap_content"
+            android:minHeight="433dp"
+            android:layout_marginTop="116dp"
+            android:layout_marginBottom="42dp"
             android:background="@color/white"
             android:choiceMode="singleChoice"
+            android:paddingBottom="@dimen/dimen_5dp"
             android:divider="@color/grey_line"
             android:dividerHeight="0dp"
             android:groupIndicator="@android:color/transparent"/>
@@ -123,8 +137,9 @@
             android:id="@+id/includeFooter"
             layout="@layout/side_menu_footer"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/dimen_20dp"
+            android:layout_marginTop="@dimen/dimen_10dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dimen_40dp"
             android:layout_gravity="bottom"/>
     </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>

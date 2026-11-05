@@ -31,7 +31,7 @@ class BottomMenuListDialogFragment:BottomSheetDialogFragment() {
         items.add(NameAndImage(COMPARE,R.drawable.ic_compare_tractor_new))
         items.add(NameAndImage(SELL_TRACTOR,R.drawable.ic_sell_new))
         items.add(NameAndImage(IMPLEMENTS,R.drawable.ic_implement_new))
-        val adapter = BottomSheetListItemAdapter(items,object:BottomSheetListItemAdapter.ClickListener {
+        val adapter = BottomSheetListItemAdapter(items, requireContext(),object:BottomSheetListItemAdapter.ClickListener {
                 override fun onItemClick(position:Int,view:View) {
                     when (items[position].name) {
                         COMPARE ->

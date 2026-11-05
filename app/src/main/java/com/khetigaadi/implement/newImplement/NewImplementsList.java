@@ -1,11 +1,11 @@
 package com.khetigaadi.implement.newImplement;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -16,7 +16,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -29,9 +28,7 @@ import com.khetigaadi.model.LinearLayoutManagerWrapper;
 import com.khetigaadi.tractor.TractorFilterActivity;
 import com.khetigaadi.tractor.newTractor.NewTrGetOnRoadPriceActivity;
 import com.khetigaadi.tractor.newTractor.model.Filter;
-
 import javax.inject.Inject;
-
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class NewImplementsList extends Fragment {
@@ -59,7 +56,7 @@ public class NewImplementsList extends Fragment {
     public static NewImplementsList getInstance(Filter filter) {
         NewImplementsList fragment = new NewImplementsList();
         Bundle bundle = new Bundle();
-        bundle.putParcelable("filter", filter);
+        bundle.putParcelable("filter",filter);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -74,21 +71,21 @@ public class NewImplementsList extends Fragment {
         //Google analytic code
         mTracker.setScreenName(TAG);
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
-        if (mAdapter != null) {
+        if(mAdapter != null) {
             mAdapter.notifyItemChanged(position1);
         }
     }
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState)
     {
-        binding = RecycleListBinding.inflate(inflater, container, false);
+        binding = RecycleListBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
         viewModel = new ViewModelProvider(this).get(NewImplementListViewModel.class);
         Glide.with(activity)
                 .load(R.drawable.loader_white)
                 .into(binding.ivLoader);
         binding.myRecyclerView.setHasFixedSize(true);
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManagerWrapper(activity, LinearLayoutManager.VERTICAL, false);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManagerWrapper(activity,LinearLayoutManager.VERTICAL,false);
         binding.myRecyclerView.setLayoutManager(mLayoutManager);
         binding.filterIcon.setOnClickListener(v -> {
             Intent intent = new Intent(activity, TractorFilterActivity.class);
@@ -113,12 +110,15 @@ public class NewImplementsList extends Fragment {
             startActivity(intent);
         });
         mAdapter.setGetPriceClick((position, v) -> {
-            Intent intent = new Intent(activity, NewTrGetOnRoadPriceActivity.class);
-            intent.putExtra("id", mAdapter.getItem(position).getId());
-            intent.putExtra("name", mAdapter.getItem(position).getImplementName());
-            intent.putExtra("image", mAdapter.getOthers().getImplementImagePath() + mAdapter.getItem(position).getImplementImage().getImage());
-            intent.putExtra("priceType", PriceType.IMPLEMENT);
-            intent.putExtra("toolbarlabel", "Get Price");
+            String imgVall = "";
+            if(mAdapter.getItem(position).getImplementImage()!=null)
+               imgVall = mAdapter.getItem(position).getImplementImage().getImage();
+            Intent intent = new Intent(activity,NewTrGetOnRoadPriceActivity.class);
+            intent.putExtra("id",mAdapter.getItem(position).getId());
+            intent.putExtra("name",mAdapter.getItem(position).getImplementName());
+            intent.putExtra("image",mAdapter.getOthers().getImplementImagePath() + imgVall);
+            intent.putExtra("priceType",PriceType.IMPLEMENT);
+            intent.putExtra("toolbarlabel","Get Price");
             startActivity(intent);
         });
         mAdapter.setOnLoadMoreListener(this::getImpList);
@@ -137,9 +137,10 @@ public class NewImplementsList extends Fragment {
                        binding.llProgress.setVisibility(View.GONE);
                        binding.filterIcon.setVisibility(View.VISIBLE);
                        ImplementListResp implementListResp = implementListRespStateData.getData();
-                       if (implementListResp != null) {
+                       if(implementListResp != null) {
                            mAdapter.setTotPages(implementListResp.getData().getLastPage());
                            mAdapter.addItems(implementListResp.getData().getImps(), page, implementListResp.getOthers());
+                           // Log.d("bcvbvbvbbvcvbcv1234===",""+implementListResp.getData().getImps());
                        }
                        break;
                    case ERROR:

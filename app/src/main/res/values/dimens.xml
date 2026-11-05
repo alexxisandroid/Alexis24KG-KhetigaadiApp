@@ -15,4 +15,12 @@
     <dimen name="payu_dimen_260dp">260dp</dimen>
     <dimen name="dimen_230dp">230dp</dimen>
     <dimen name="dimen_220dp">220dp</dimen>
+
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="dimen_300dp">300dp</dimen>
+    <dimen name="payu_dimen_310dp">310dp</dimen>
+
+    <integer name="home_flow_max_elements">3</integer>
+    <dimen name="home_menu_item_height">120dp</dimen>
+    <dimen name="home_banner_height">200dp</dimen>
 </resources>

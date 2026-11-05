@@ -29,15 +29,17 @@ public class SellTractorActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
        // WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
 
+        EdgeToEdge.enable(this);
+
         binding = ActivitySellTractorBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-//        ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
-//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-//            return insets;
-//        });
-//        EdgeToEdge.enable(this);
+        ViewCompat.setOnApplyWindowInsetsListener(binding.toolbar,(v,insets) -> {
+            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.statusBars());  //.systemBars()
+            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+            return insets;
+        });
+      EdgeToEdge.enable(this);
         setSupportActionBar(binding.toolbar);
         binding.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
         binding.toolbar.setNavigationOnClickListener(v -> onBackPressed());

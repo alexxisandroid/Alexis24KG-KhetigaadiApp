@@ -61,36 +61,32 @@ public class NewImpSearchByName extends Fragment {
         ((MainActivity) activity).showSoftKeyboard();
         _textInput = BehaviorSubject.create();
         textInput = _textInput.toFlowable(BackpressureStrategy.LATEST);
-        disposable.add(
-                textInput
+        disposable.add(textInput
                         .debounce(1000, TimeUnit.MILLISECONDS)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(this::getNewImpSearchItem));
         binding.edSearchTractorByBrand.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s,int start,int count,int after) {
 
             }
-
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s,int start,int before,int count) {
 
             }
-
             @Override
             public void afterTextChanged(Editable s) {
                 System.out.println(binding.edSearchTractorByBrand.getText());
-                if (s.length() > 2)
-                    if (Constants.isConnectionAvailable(activity)) {
+                if(s.length() > 2)
+                    if(Constants.isConnectionAvailable(activity)) {
                         _textInput.onNext(binding.edSearchTractorByBrand.getText().toString());
-                    } else {
+                    }
+                else {
                         ((MainActivity) activity).noInternetConnection();
                     }
-
             }
         });
-
         return view;
     }
     private void getNewImpSearchItem(final String text) {

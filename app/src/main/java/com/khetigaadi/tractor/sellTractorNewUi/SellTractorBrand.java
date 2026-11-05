@@ -1,6 +1,7 @@
 package com.khetigaadi.tractor.sellTractorNewUi;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,12 +73,12 @@ public class SellTractorBrand extends BaseFragment {
     }
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
-        binding = ActivitySellTractorNewScreensBinding.inflate(inflater, container, false);
+        binding = ActivitySellTractorNewScreensBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
-        viewModel = new ViewModelProvider((SellTractorActivity) activity).get(SellViewModel.class);
+        viewModel = new ViewModelProvider((SellTractorActivity)activity).get(SellViewModel.class);
         binding.etSellTractorBrand.setOnClickListener(v -> {
-            Intent intent = new Intent(activity, BrandSelectionActivity.class);
-            intent.putExtra(BrandSelectionActivity.BRAND_TYPE, BrandType.OLD_TRACTOR);
+            Intent intent = new Intent(activity,BrandSelectionActivity.class);
+            intent.putExtra(BrandSelectionActivity.BRAND_TYPE,BrandType.OLD_TRACTOR);
             brandSelectResultLauncher.launch(intent);
         });
         return view;
@@ -141,12 +142,13 @@ public class SellTractorBrand extends BaseFragment {
                 try {
                     binding.llBrand.removeAllViews();
                     if (brandParents != null)
-                        for (int i = 0; i < brandParents.size(); i = i + 4) {
+                        for (int i = 0; i < brandParents.size(); i = i + 3) {
                             LinearLayout linearLayout = new LinearLayout(activity);
-                            linearLayout.setWeightSum(4);
+                            linearLayout.setWeightSum(3);
                             linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-                            for (int j = 0; j <= 3 && i + j < brandParents.size(); j++) {
+                            for (int j = 0; j <= 2 && i + j < brandParents.size(); j++) {
                                 BrandRow1Binding rowBinding = BrandRow1Binding.inflate(getLayoutInflater(), linearLayout, false);
+                                rowBinding.getRoot().setBackgroundColor(Color.WHITE);
                                 final Brand brand = brandParents.get(i + j);
                                 Glide.with(SellTractorBrand.this)
                                         .load(brand.getImage() != null ? baseUrl + brand.getImage() : "")
@@ -169,10 +171,10 @@ public class SellTractorBrand extends BaseFragment {
                             }
                             binding.llBrand.addView(linearLayout);
                         }
-                } catch (Exception e) {
+                }
+                catch(Exception e) {
                     e.printStackTrace();
                 }
-
                     }
                 }
                 catch(Exception e) {
@@ -180,11 +182,9 @@ public class SellTractorBrand extends BaseFragment {
                 }
             }
         });
-
-
     }
     private void searchBrandByModel(Brand brand) {
-        if (brand != null) {
+        if(brand != null) {
             viewModel.getUsedTractor().setBrand(brand);
             ((SellTractorActivity) activity).callFragments(2);
         }

@@ -32,7 +32,7 @@ public class SocialMediaFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
         binding = SocialMediaViewBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
-       // binding.webView.setWebViewClient(new MyBrowser());
+        // binding.webView.setWebViewClient(new MyBrowser());
         binding.webView.getSettings().setLoadsImagesAutomatically(true);
         binding.webView.getSettings().setJavaScriptEnabled(true);
 
@@ -70,10 +70,10 @@ public class SocialMediaFragment extends Fragment {
         Log.d("bcvbcvbcv===",""+getArguments()+"=="+getArguments().getString(url1));
         if(getArguments() != null) {
             try {
-               // binding.webView.loadUrl(getArguments().getString(url1));
+                // binding.webView.loadUrl(getArguments().getString(url1));
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
-               // intent.user
+                // intent.user
                 intent.setData(Uri.parse(getArguments().getString(url1)));
                 startActivity(intent);
             }

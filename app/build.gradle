@@ -22,10 +22,10 @@ android {
         //namespace 'com.khetigaadi'
         minSdkVersion    libs.versions.minSdkVersion.get().toInteger()
         targetSdkVersion libs.versions.targetSdkVersion.get().toInteger()
-        versionCode 99
-        versionName "5.4.20"
-        buildConfigField "int", "APP_TYPE", "1"
-        buildConfigField "int", "APP_DATA_VERSION", "22"
+        versionCode 126
+        versionName "5.4.48"
+        buildConfigField "int","APP_TYPE","1"
+        buildConfigField "int","APP_DATA_VERSION","22"
         multiDexEnabled true
         signingConfig signingConfigs.config
 //      testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -59,6 +59,7 @@ android {
     }
     buildFeatures {
         viewBinding true
+        buildConfig true
     }
     testOptions {
         unitTests.all {
@@ -95,8 +96,19 @@ android {
             buildConfigField "String","BASE_URL","\"https://khetigaadi.com/\""
         }
         release {
-            minifyEnabled false // Enables code shrinking for the release build type.
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+           //  minifyEnabled false // Enables code shrinking for the release build type.
+            minifyEnabled true
+
+            shrinkResources true
+            debuggable false
+           // proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+//            proguardFiles(
+//                    * getDefaultProguardFile("proguard*android-optimize.txt"),
+//                    "p*oguard-rules.pro")
+
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
             manifestPlaceholders = [crashlyticsCollectionEnabled: "true"]
             buildConfigField "String", "BASE_URL", "\"https://khetigaadi.com/\""
         }
@@ -120,23 +132,23 @@ android {
     google()
 }
  dependencies {
-        implementation fileTree(include: ['*.jar'], dir: 'libs')
+        implementation fileTree(include:['*.jar'],dir:'libs')
         implementation project(':ripple')
         implementation libs.kotlin.stdlib
     //    implementation libs.core
         implementation libs.androidx.lifecycle.livedata.ktx
         implementation libs.androidx.lifecycle.viewmodel.ktx
-        implementation project(path: ':pick-image')
+        implementation project(path:':pick-image')
        // implementation libs.androidx.core.ktx
-         implementation libs.app.update
-         implementation libs.app.update.ktx
-        implementation project(path: ':base')
-        implementation project(path: ':shop')
-        implementation project(path: ':user')
+        implementation libs.app.update
+        implementation libs.app.update.ktx
+        implementation project(path:':base')
+        implementation project(path:':shop')
+        implementation project(path:':user')
        // implementation libs.app.update.ktx
         implementation libs.review
-         implementation libs.androidx.activity
-         testImplementation(libs.junit.jupiter)
+        implementation libs.androidx.activity
+        testImplementation(libs.junit.jupiter)
         testImplementation(libs.junit.jupiter.api)
         androidTestImplementation libs.androidTestRules
         testRuntimeOnly(libs.junit.jupiter.engine)
@@ -163,11 +175,11 @@ android {
     //    implementation 'com.google.firebase:firebase-auth'
     //    implementation 'com.google.firebase:firebase-dynamic-links-ktx'
     //
-         implementation libs.firebase.crashlytics
-         implementation libs.firebase.messaging
-         implementation libs.firebase.analytics.ktx
-         implementation libs.firebase.auth
-         implementation libs.firebase.dynamic.links.ktx
+        implementation libs.firebase.crashlytics
+        implementation libs.firebase.messaging
+        implementation libs.firebase.analytics.ktx
+        implementation libs.firebase.auth
+        implementation libs.firebase.dynamic.links.ktx
         implementation libs.play.services.tasks
         implementation libs.play.services.places
         implementation libs.play.services.location
@@ -196,6 +208,7 @@ android {
         implementation libs.android.spinKit
         //Room
         kapt libs.androidx.room.compiler
+
         implementation libs.androidx.room.ktx
         implementation libs.androidx.room.rxjava3
        // implementation "androidx.room:room-rxjava3:2.7.2"
@@ -213,7 +226,7 @@ android {
         implementation libs.androidx.work.rxjava2
         implementation libs.androidx.hilt.work
         implementation libs.guava
-         implementation libs.androidyoutubeplayer.core
+        implementation libs.androidyoutubeplayer.core
         implementation libs.facebook.android.sdk
        // implementation libs.androidwm
         implementation libs.viewpagerdotsindicator
@@ -225,10 +238,15 @@ android {
          implementation libs.integrity
         // implementation "com.google.android.play:core:1.10.0"
          implementation libs.shimmer
-         annotationProcessor "androidx.room:room-compiler:2.6.1"
-        androidTestImplementation libs.hilt.android.testing.v248
-        kaptAndroidTest libs.hilt.compiler
-        // implementation project(":base")
+
+         implementation libs.play.services.ads
+
+         implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.9.4"
+
+         annotationProcessor libs.androidx.room.compiler.v261
+         androidTestImplementation libs.hilt.android.testing.v248
+         kaptAndroidTest libs.hilt.compiler
+         // implementation project(":base")
 }
  configurations.all {
     exclude group:'com.google.android.gms',module:'play-services-safetynet'

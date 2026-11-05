@@ -1,6 +1,8 @@
 package com.khetigaadi.ecom.list;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 
@@ -23,6 +25,7 @@ import com.khetigaadi.util.NumberFormatting;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
@@ -41,34 +44,35 @@ public class ProductListFilterActivity extends AppCompatActivity {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
         binding = ActivityProductListFilterBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-//        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
-//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-//            return insets;
-//        });
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
+
+        EdgeToEdge.enable(this);
+        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
+            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+            return insets;
+        });
 //        EdgeToEdge.enable(this);
         Log.d("bvcbcbvbcv22====","");
         viewModel = new ViewModelProvider(this).get(ProductListFilterViewModel.class);
         initToolbar();
         filter = viewModel.getFilter();
-
        try {
-           if(filter.getPrice() != null && ((float) filter.getPrice().getPriceFrom() / 1000)<((float) filter.getPrice().getPriceTo()/ 1000))
-               binding.rangeBarPrice.setValues((float) filter.getPrice().getPriceFrom() / 1000, (float) filter.getPrice().getPriceTo() / 1000);
+           if(filter.getPrice() != null && ((float) filter.getPrice().getPriceFrom() / 1000)<((float)filter.getPrice().getPriceTo()/ 1000))
+               binding.rangeBarPrice.setValues((float) filter.getPrice().getPriceFrom() / 1000,(float)filter.getPrice().getPriceTo() / 1000);
            else
                binding.rangeBarPrice.setValues(1f, 100f);
-           binding.tvMinPrice.setText(String.format("%s%s", getString(R.string.rs), NumberFormatting.format((long) (binding.rangeBarPrice.getValues().get(0) * 1000))));
-           binding.tvMaxPrice.setText(String.format("%s%s", " - " + getString(R.string.rs), NumberFormatting.format((long) (binding.rangeBarPrice.getValues().get(1) * 1000))));
-           binding.rangeBarPrice.addOnChangeListener((slider, value, fromUser) -> {
-               binding.tvMinPrice.setText(String.format("%s%s", getString(R.string.rs), NumberFormatting.format((long) (slider.getValues().get(0) * 1000))));
-               binding.tvMaxPrice.setText(String.format("%s%s"," - " +  getString(R.string.rs), NumberFormatting.format((long) (slider.getValues().get(1) * 1000))));
+           binding.tvMinPrice.setText(String.format("%s%s",getString(R.string.rs),NumberFormatting.format((long)(binding.rangeBarPrice.getValues().get(0) * 1000))));
+           binding.tvMaxPrice.setText(String.format("%s%s"," - "+ getString(R.string.rs),NumberFormatting.format((long)(binding.rangeBarPrice.getValues().get(1) * 1000))));
+           binding.rangeBarPrice.addOnChangeListener((slider,value,fromUser) -> {
+               binding.tvMinPrice.setText(String.format("%s%s",getString(R.string.rs),NumberFormatting.format((long)(slider.getValues().get(0) * 1000))));
+               binding.tvMaxPrice.setText(String.format("%s%s"," - "+getString(R.string.rs),NumberFormatting.format((long)(slider.getValues().get(1) * 1000))));
 //                Timber.e("onRangeChangeListener: leftPinValue= " + leftPinValue + " rightPinValue= " + rightPinValue);
            });
-           binding.rangeBarPrice.setLabelFormatter(value -> String.format("%s%s", getString(R.string.rs), NumberFormatting.format((long) (value * 1000))));
+           binding.rangeBarPrice.setLabelFormatter(value -> String.format("%s%s",getString(R.string.rs),NumberFormatting.format((long)(value * 1000))));
            mBrandNameAdapter = new ListFilterCategoryItemAdapter();
            // set the adapter object to the Recyclerview
            binding.rvCategories.setAdapter(mBrandNameAdapter);
@@ -76,14 +80,14 @@ public class ProductListFilterActivity extends AppCompatActivity {
        catch(Exception e) {
            e.printStackTrace();
        }
-
         binding.btnClearAll.setOnClickListener(v -> {
            // binding.rangeBarPrice.setValues(1f, 150f);
          try {
              float value = binding.rangeBarPrice.getValueTo();
-             if (value >= binding.rangeBarPrice.getValueFrom() && value <= binding.rangeBarPrice.getValueTo()) {
+             if(value >= binding.rangeBarPrice.getValueFrom() && value <= binding.rangeBarPrice.getValueTo()) {
                  binding.rangeBarPrice.setValues(value);
-             } else {
+             }
+             else {
                  binding.rangeBarPrice.setValues(binding.rangeBarPrice.getValueTo()); // or handle gracefully
              }
          }
@@ -101,7 +105,7 @@ public class ProductListFilterActivity extends AppCompatActivity {
                 setResult(RESULT_OK, returnIntent);
                 finish();
             }
-            catch (Exception e) {
+            catch(Exception e) {
                 e.printStackTrace();
             }
         });
@@ -116,6 +120,20 @@ public class ProductListFilterActivity extends AppCompatActivity {
                         brandArray1.add(item);
                     }
                     mBrandNameAdapter.updateItems(brandArray1);
+
+                    binding.etCategory.addTextChangedListener(new TextWatcher()
+                    {
+                        @Override
+                        public void onTextChanged(CharSequence s,int start,int before,int count) {
+                        }
+                        @Override
+                        public void beforeTextChanged(CharSequence s,int start,int count,int after) {
+                        }
+                        @Override
+                        public void afterTextChanged(Editable s) {
+                            mBrandNameAdapter.getFilter().filter(s.toString());
+                        }
+                    });
                 }
                 catch(Exception e) {
                     e.printStackTrace();
@@ -128,5 +146,6 @@ public class ProductListFilterActivity extends AppCompatActivity {
         binding.toolbars.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
         binding.toolbars.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         binding.toolbars.toolbar.setTitle(getString(R.string.shop));
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getResources().getString(R.string.shop));
     }
 }

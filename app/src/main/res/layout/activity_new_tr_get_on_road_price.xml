@@ -72,14 +72,15 @@
     <com.andexert.library.RippleView
         android:id="@+id/riRequest"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_50dp"
+        android:layout_height="@dimen/payu_dimen_54dp"
+        android:layout_marginStart="@dimen/dimen_10dp"
+        android:layout_marginEnd="@dimen/dimen_10dp"
+        android:layout_marginBottom="@dimen/payu_dimen_54dp"
         android:layout_alignParentBottom="true"
-
         android:layout_gravity="bottom"
         android:layout_marginTop="@dimen/margin_15dp">
         <!--   style="@style/ButtonStyleFilledRed"  -->
         <TextView
-
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAlignment="center"
@@ -87,6 +88,8 @@
             android:layout_margin="@dimen/margin_5dp"
             android:textSize="@dimen/dimen_14sp"
             android:gravity="center"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:layout_marginEnd="@dimen/dimen_10dp"
             android:fontFamily="@font/poppins_bold"
             android:textStyle="bold"
             android:layout_marginBottom="@dimen/margin_5dp"

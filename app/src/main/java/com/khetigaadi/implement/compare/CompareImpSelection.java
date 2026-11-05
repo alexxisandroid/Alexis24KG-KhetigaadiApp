@@ -6,14 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.bumptech.glide.Glide;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -30,12 +28,9 @@ import com.khetigaadi.implement.compare.model.ImplementsInfo;
 import com.khetigaadi.implement.model.ImplementDetailsResp;
 import com.khetigaadi.implement.newImplement.util.Type;
 import com.khetigaadi.retrofit.KhetiAPIs;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import javax.inject.Inject;
-
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.observers.DisposableSingleObserver;
@@ -86,7 +81,7 @@ public class CompareImpSelection extends Fragment {
     }
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,@Nullable ViewGroup container,@Nullable Bundle savedInstanceState) {
         binding = CompareImpSelectionBinding.inflate(inflater, container, false);
         View view = binding.getRoot();
         if (value == null) {
@@ -269,7 +264,7 @@ public class CompareImpSelection extends Fragment {
                     }
                 });
     }
-    private void getImpImage(final String brandId, final String typeId, final String modelId, final int i) {
+    private void getImpImage(final String brandId,final String typeId,final String modelId,final int i) {
         Brand brand = new Brand();
         brand.setId(Integer.parseInt(brandId));
         ImplementModel model = new ImplementModel();
@@ -284,17 +279,20 @@ public class CompareImpSelection extends Fragment {
                     @Override
                     public void onSuccess(@NonNull ImplementDetailsResp myResponse) {
                         try {
-                            if (!myResponse.isError()) {
-                                if (i == 1) {
+                            if(!myResponse.isError()) {
+                                if(i == 1) {
                                     for (int j = 0; j < 1; j++) {
+                                     if(myResponse.getData().size()>j)
                                         Glide.with(activity)
                                                 .load(Constants.decodeURL(myResponse.getOthers().getImplementImagePath() + myResponse.getData().get(j).getImplementImage().getImage()))
                                                 .placeholder(R.mipmap.no_image)
                                                 .error(R.mipmap.no_image)
                                                 .into(binding.image);
                                     }
-                                } else {
-                                    for (int j = 0; j < 1; j++) {
+                                }
+                                else {
+                                    for(int j = 0; j < 1; j++) {
+                                      if(myResponse.getData().size()>j)
                                         Glide.with(activity)
                                                 .load(Constants.decodeURL(myResponse.getOthers().getImplementImagePath() + myResponse.getData().get(j).getImplementImage().getImage()))
                                                 .placeholder(R.mipmap.no_image)
@@ -302,11 +300,13 @@ public class CompareImpSelection extends Fragment {
                                                 .into(binding.image1);
                                     }
                                 }
-                            } else {
+                            }
+                            else {
                                 for(int j = 0;j<myResponse.getMsg().size();j++) {
                                     Toast.makeText(activity,myResponse.getMsg().get(j),Toast.LENGTH_LONG).show();
                                 }
                             }
+                           // Log.d("cvbncvbcbcvb2342423===",""+myResponse.getData().size()+"=="+myResponse.isError()+"=="+myResponse.getMsg().size());
                         }
                         catch(Exception e) {
                             e.printStackTrace();

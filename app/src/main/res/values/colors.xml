@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:tools="http://schemas.android.com/tools">
-    <!--<color name="colorPrimary">#29BA00</color>-->
-    <!--<color name="colorPrimary">#27ae60</color>-->
+<resources
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- <color name="colorPrimary">#29BA00</color>-->
+    <!-- <color name="colorPrimary">#27ae60</color>-->
     <!-- <color name="colorPrimaryDark">#416016</color>-->
     <!-- <color name="colorAccent">#FF4081</color>-->
     <!-- <color name="colorPrimary">#2ecc71</color>
-     <color name="colorPrimaryDark">#2E7D32</color>-->
+     <color name="colorPrimaryDark">#2E7D32</color>  -->
+
     <color name="colorAccent">#2ecc71</color>
+    <color name="light_grey">#BFBFBF</color>
+
     <color name="colorPrimary">#2c3e50</color>
     <color name="colorPrimaryDark">#2c3e50</color>
     <color name="black">#2c3e50</color>
     <color name="white">#FFF</color>
     <color name="navy_blue">#2c3e50</color>
+    <color name="brightGray">#EEEEEE</color>
     <color name="color_blue">#0000FF</color>
+    <color name="dblack">#000000</color>
     <color name="red">#eb1b20</color>
     <color name="dark_grey">#3c3c3c</color>
     <color name="labalBackGround">#dedede</color>
     <color name="bottomBarIconTint">#2c3e50</color>
     <color name="darkGrey">#999999</color>
     <color name="grey_line">#DBD7D6</color>
-
     <!--<color name="labalBackGround">#99FF00</color>-->
     <!--<color name="labalBackGround">#a5d6a7</color>-->
     <color name="labelBackGround">#dedede</color>
@@ -44,7 +50,10 @@
     <color name="green">#00FF00</color>
     <color name="tabBackground">#F8F8F8</color>
     <color name="imageBackground">#f9f9f9</color>
-    <color name="detailsBackground">#f9f9f9</color>
+    <color name="detailsBackground2">#f9f9f9</color>
+
+    <color name="detailsBackground">#e1e0e3</color>
+
     <color name="gray_light">#f1f1f1</color>
     <color name="gray">#808080</color>
     <color name="glitter">#e6eff4</color>
@@ -76,8 +85,17 @@
     <color name="one_payu_colorPrimaryDark">@color/colorPrimaryDark</color>
     <color name="one_payu_colorAccent">@color/colorAccent</color>
     <color name="one_payu_baseTextColor">#ffffff</color>
-<!--    <color name="trans_black">#66000000</color>-->
+<!--<color name="trans_black">#66000000</color>-->
     <color name="trans">#00FFFFFF</color>
+
     <color name="trans_black">#32000000</color>
     <color name="whats_app_color">#075E54</color>
+    <color name="btnbgcolor2">#D2E3FC</color>
+    <color name="btnbgcolor">#e8eef5</color>
+
+    <color name="offBg">#DC0000</color>
+
+    <color name="cborder">#707070</color>
+
+    <color name="btnRedd">#e21219</color>
 </resources>

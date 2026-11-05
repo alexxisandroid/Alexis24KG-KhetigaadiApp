@@ -167,63 +167,65 @@ public class BrandSelectionActivity extends BaseActivity {
         hideSoftKeyboard(BrandSelectionActivity.this);
     }
     public void getBrands() {
-        int cnfg = brandRepository.getCountt();
-        if (cnfg>0)
-            return;
-        ProgressBar pbar = binding.llProgresss.llProgress;
-        pbar.setVisibility(View.VISIBLE);
-        disposable.add(khetiAPIs.getBrands()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableSingleObserver<BrandResp>() {
-                    @Override
-                    public void onSuccess(@NotNull BrandResp brandResp) {
-                        pbar.setVisibility(View.GONE);
-                        try {
-                          //  binding.tvTips.setText(Html.fromHtml(safetyTipsResp.getData().getContent()));
-                            List<com.khetigaadi.implement.newImplement.util.Brand> brands = brandResp.getBrand();
-                            Log.d("dfghdfhdhdghdghd=====",""+brands.size()+"==");
-                            binding.llProgresss.llProgress.setVisibility(View.GONE);
-                            final List<com.khetigaadi.implement.newImplement.util.Brand> filteredBrands = new ArrayList<>();
-                            @BrandType int type = getIntent().getExtras().getInt(BRAND_TYPE,BrandType.OLD_TRACTOR);
-                            switch(type) {
-                                case BrandType.NEW_TRACTOR: {
-                                  //  brandRepository.getNewTractorBrands().observe(this, this::setDataToAdapter);
-                                    for(int i=0;i<brands.size();i++) {
-                                        int brandStatus = brands.get(i).getBrand_status();
-                                        int brandType = brands.get(i).getBrand_type();
-                                        if((brandType == 0 || brandType == 1) && brandStatus == 1) {
-                                            brands.get(i).setName(brands.get(i).getName());
-                                            filteredBrands.add(brands.get(i));
-                                           Log.d("vcxbvcbcv===",""+brands.get(i).getName()+"=="+filteredBrands.get(filteredBrands.size()-1).getName());
-                                        }
-                                    }
-                                    break;
-                                }
-                                case BrandType.OLD_TRACTOR: {
-                                  //  brandRepository.getOldTractorBrands().observe(this, this::setDataToAdapter);
-                                    for(int i=0;i<brands.size();i++) {
-                                        int brandStatus = brands.get(i).getBrand_status();
-                                        int brandType = brands.get(i).getBrand_type();
-                                        if(brandType == 0 || brandType == 1) {
-                                            brands.get(i).setName(brands.get(i).getName());
-                                            filteredBrands.add(brands.get(i));
-                                        }
-                                    }
-                                    break;
-                                }
-                                case BrandType.IMPLEMENT: {
-                                    //brandRepository.getImplementBrands().observe(this, this::setDataToAdapter);
-                                    for(int i=0;i<brands.size();i++) {
-                                        int brandStatus = brands.get(i).getBrand_status();
-                                        int brandType = brands.get(i).getBrand_type();
-                                        if((brandType == 0 || brandType == 2) && brandStatus==1) {
-                                            brands.get(i).setName(brands.get(i).getName());
-                                            filteredBrands.add(brands.get(i));
-                                        }
-                                    }
-                                    break;  //
-                                }
+     try {
+         int cnfg = brandRepository.getCountt();
+
+         if (cnfg > 0)
+             return;
+         ProgressBar pbar = binding.llProgresss.llProgress;
+         pbar.setVisibility(View.VISIBLE);
+         disposable.add(khetiAPIs.getBrands()
+                 .subscribeOn(Schedulers.io())
+                 .observeOn(AndroidSchedulers.mainThread())
+                 .subscribeWith(new DisposableSingleObserver<BrandResp>() {
+                     @Override
+                     public void onSuccess(@NotNull BrandResp brandResp) {
+                         pbar.setVisibility(View.GONE);
+                         try {
+                             //  binding.tvTips.setText(Html.fromHtml(safetyTipsResp.getData().getContent()));
+                             List<com.khetigaadi.implement.newImplement.util.Brand> brands = brandResp.getBrand();
+                             Log.d("dfghdfhdhdghdghd=====", "" + brands.size() + "==");
+                             binding.llProgresss.llProgress.setVisibility(View.GONE);
+                             final List<com.khetigaadi.implement.newImplement.util.Brand> filteredBrands = new ArrayList<>();
+                             @BrandType int type = getIntent().getExtras().getInt(BRAND_TYPE, BrandType.OLD_TRACTOR);
+                             switch (type) {
+                                 case BrandType.NEW_TRACTOR: {
+                                     //  brandRepository.getNewTractorBrands().observe(this, this::setDataToAdapter);
+                                     for (int i = 0; i < brands.size(); i++) {
+                                         int brandStatus = brands.get(i).getBrand_status();
+                                         int brandType = brands.get(i).getBrand_type();
+                                         if ((brandType == 0 || brandType == 1) && brandStatus == 1) {
+                                             brands.get(i).setName(brands.get(i).getName());
+                                             filteredBrands.add(brands.get(i));
+                                             Log.d("vcxbvcbcv===", "" + brands.get(i).getName() + "==" + filteredBrands.get(filteredBrands.size() - 1).getName());
+                                         }
+                                     }
+                                     break;
+                                 }
+                                 case BrandType.OLD_TRACTOR: {
+                                     //  brandRepository.getOldTractorBrands().observe(this, this::setDataToAdapter);
+                                     for (int i = 0; i < brands.size(); i++) {
+                                         int brandStatus = brands.get(i).getBrand_status();
+                                         int brandType = brands.get(i).getBrand_type();
+                                         if (brandType == 0 || brandType == 1) {
+                                             brands.get(i).setName(brands.get(i).getName());
+                                             filteredBrands.add(brands.get(i));
+                                         }
+                                     }
+                                     break;
+                                 }
+                                 case BrandType.IMPLEMENT: {
+                                     //brandRepository.getImplementBrands().observe(this, this::setDataToAdapter);
+                                     for (int i = 0; i < brands.size(); i++) {
+                                         int brandStatus = brands.get(i).getBrand_status();
+                                         int brandType = brands.get(i).getBrand_type();
+                                         if ((brandType == 0 || brandType == 2) && brandStatus == 1) {
+                                             brands.get(i).setName(brands.get(i).getName());
+                                             filteredBrands.add(brands.get(i));
+                                         }
+                                     }
+                                     break;  //
+                                 }
 //                                default:
 //                                    for(int i=0;i<brands.size();i++) {
 //                                        int brandStatus = brands.get(i).getBrand_status();
@@ -232,34 +234,40 @@ public class BrandSelectionActivity extends BaseActivity {
 //                                        Log.d("vcxbvcbcv===",""+brands.get(i).getBrand_name()+"=="+filteredBrands.get(i).getBrand_name());
 //                                    }
 //                                    break;
-                            }
-                            mAdapter.setData(filteredBrands);
-                            binding.edSearch.addTextChangedListener(new TextWatcher() {
-                                @Override
-                                public void onTextChanged(CharSequence s,int start,int before,int count) {
-                                    mAdapter.getFilter().filter(s.toString());
-                                }
-                                @Override
-                                public void beforeTextChanged(CharSequence s,int start,int count,int after) {
+                             }
+                             mAdapter.setData(filteredBrands);
+                             binding.edSearch.addTextChangedListener(new TextWatcher() {
+                                 @Override
+                                 public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                     mAdapter.getFilter().filter(s.toString());
+                                 }
 
-                                }
-                                @Override
-                                public void afterTextChanged(Editable s) {
-                                }
-                            });
-                            brandRepository.insertAll(brands);
-                        }
-                        catch(Exception e) {
-                            pbar.setVisibility(View.GONE);
-                            Log.d("xcvcxvcxvxcvx===",""+e.getLocalizedMessage());
-                            e.printStackTrace();
-                        }
-                    }
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        Timber.e(e, "onError: ");
-                        pbar.setVisibility(View.GONE);
-                    }
-                }));
+                                 @Override
+                                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                                 }
+
+                                 @Override
+                                 public void afterTextChanged(Editable s) {
+                                 }
+                             });
+                             brandRepository.insertAll(brands);
+                         } catch (Exception e) {
+                             pbar.setVisibility(View.GONE);
+                             Log.d("xcvcxvcxvxcvx===", "" + e.getLocalizedMessage());
+                             e.printStackTrace();
+                         }
+                     }
+
+                     @Override
+                     public void onError(@NonNull Throwable e) {
+                         Timber.e(e, "onError: ");
+                         pbar.setVisibility(View.GONE);
+                     }
+                 }));
+     }
+     catch (Exception e) {
+             e.printStackTrace();
+        }
     }
 }

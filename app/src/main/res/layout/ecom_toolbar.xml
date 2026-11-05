@@ -8,11 +8,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/toolbar"
-        android:background="@color/trans"
+
         app:titleTextColor="@color/gray"
         app:subtitleTextColor="@color/gray_light"
         app:title="@string/shop"
-        android:foregroundTint="@color/gray"
+
         android:minHeight="?attr/actionBarSize"
         android:theme="@style/AppTheme.PopupOverlay">
     </androidx.appcompat.widget.Toolbar>

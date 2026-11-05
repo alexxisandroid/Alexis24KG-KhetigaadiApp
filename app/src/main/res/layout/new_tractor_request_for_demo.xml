@@ -19,7 +19,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/dimen_50dp"
+        android:layout_marginBottom="@dimen/payu_dimen_110dp"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/llContainer"
@@ -34,7 +34,8 @@
             <ImageView
                 android:id="@+id/ivImage"
                 android:layout_width="match_parent"
-                android:layout_height="287dp"
+                android:layout_height="@dimen/dimen_230dp"
+                android:background="@color/detailsBackground"
                 android:src="@mipmap/ic_launcher"
                 app:layout_constraintTop_toTopOf="parent"/>
             <TextView
@@ -43,6 +44,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_marginTop="@dimen/margin_10dp"
                 android:maxLines="2"
                 android:paddingTop="@dimen/margin_5dp"
                 android:paddingEnd="@dimen/margin_5dp"
@@ -69,15 +71,13 @@
     <com.andexert.library.RippleView
         android:id="@+id/riRequest"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_margin="@dimen/dimen_10dp"
+        android:layout_height="@dimen/dimen_50dp"
+        android:layout_marginEnd="@dimen/dimen_16dp"
+        android:layout_marginStart="@dimen/dimen_16dp"
         android:layout_alignParentBottom="true"
-
-
         android:outlineAmbientShadowColor="@color/red"
         android:background="@drawable/btn_rectangle_outline_bg_red"
-        android:layout_marginBottom="@dimen/dimen_10dp"
-
+        android:layout_marginBottom="@dimen/dimen_50dp"
         android:layout_gravity="bottom|center"
         android:layout_marginTop="@dimen/margin_15dp">
         <TextView

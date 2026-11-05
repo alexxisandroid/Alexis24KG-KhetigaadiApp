@@ -31,7 +31,7 @@ class UsedTractorHomeListAdapter(private val mContext:Context,private val userId
         this.myFavoritesClickListener = myFavoritesClickListener
     }
     override fun getItemViewType(position:Int):Int {
-        if (items.size == 0) {
+        if(items.size == 0) {
             return EMPTY_VIEW
         }
         return if (items[position] != null) VIEW_ITEM else VIEW_PROG

@@ -5,16 +5,12 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.Filter;
 import android.widget.Filterable;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 //import com.khetigaadi.base.databinding.FilterListSubItemNewBinding;
 import com.khetigaadi.commons.model.Hp;
 import com.khetigaadi.databinding.FilterListSubItemBinding;
-
 import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -34,7 +30,7 @@ public class HPFilterAdapter extends RecyclerView.Adapter<HPFilterAdapter.DataOb
     public void onBindViewHolder(DataObjectHolder holder, int position) {
         Log.d("fgvsgsgsdgfsdgs===",""+filteredData.get(holder.getAbsoluteAdapterPosition()).getHpRange());
         holder.binding.filterName.setText(filteredData.get(holder.getAbsoluteAdapterPosition()).getHpRange());
-        holder.binding.cbSelect.setText(filteredData.get(holder.getAbsoluteAdapterPosition()).getHpRange());
+       // holder.binding.cbSelect.setText(filteredData.get(holder.getAbsoluteAdapterPosition()).getHpRange());
         holder.binding.cbSelect.setChecked(filteredData.get(holder.getAbsoluteAdapterPosition()).isSelected());
         holder.binding.cbSelect.setOnClickListener(v -> filteredData.get(holder.getAbsoluteAdapterPosition()).setSelected(((CheckBox) v).isChecked()));
     }

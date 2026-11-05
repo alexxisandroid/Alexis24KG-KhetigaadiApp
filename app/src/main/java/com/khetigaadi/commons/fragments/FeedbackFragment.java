@@ -1,5 +1,7 @@
 package com.khetigaadi.commons.fragments;
-
+import android.content.ActivityNotFoundException;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -37,7 +39,6 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import timber.log.Timber;
-
 /**
  * Created by Irfan on 11-Jun-16.
  */
@@ -47,21 +48,16 @@ public class FeedbackFragment extends BaseFragment {
     private final String TAG = "FeedBack";
     @Inject
     Tracker mTracker;
-
     private FragmentFeedbackBinding binding;
     @Inject
     CompositeDisposable composite;
     @Inject
     KhetiAPIs khetiAPIs;
-
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = getActivity();
     }
-
-
     @Nullable
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -76,15 +72,43 @@ public class FeedbackFragment extends BaseFragment {
                 }
             }
         });
+        binding.llRate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                 String GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id=";
+                try {
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse("market://details?id=com.khetigaadi"));
+                    startActivity(i);
+                }
+                catch(ActivityNotFoundException e) {
+                    e.printStackTrace();
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(GOOGLE_PLAY_URL + "com.khetigaadi")));
+                }
+            }
+        });
+        binding.tvRate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id=";
+                try {
+                    Intent i = new Intent(Intent.ACTION_VIEW);
+                    i.setData(Uri.parse("market://details?id=com.khetigaadi"));
+                    startActivity(i);
+                }
+                catch(ActivityNotFoundException e) {
+                    e.printStackTrace();
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(GOOGLE_PLAY_URL + "com.khetigaadi")));
+                }
+            }
+        });
         return view;
     }
-
     private void initListener() {
         ArrayAdapter adapter = new ArrayAdapter(activity, R.layout.state_list_item, getResources().getStringArray(R.array.feedbackType));
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         binding.actvFeedbackType.setAdapter(adapter);
     }
-
     private void submitForm() {
         binding.llProgress.setVisibility(View.VISIBLE);
         Map<String, Object> params = new HashMap<>();
@@ -114,7 +138,6 @@ public class FeedbackFragment extends BaseFragment {
                     }
                 }));
     }
-
     private boolean validation() {
         if (TextUtils.isEmpty(binding.actvFeedbackType.getText())) {
             Toast.makeText(activity, getString(R.string.please_select_type), Toast.LENGTH_SHORT).show();
@@ -122,12 +145,9 @@ public class FeedbackFragment extends BaseFragment {
         }
         return validateComment();
     }
-
-
     private void findViewById() {
         binding.tvComments.addTextChangedListener(new MyTextWatcher(binding.tvComments));
     }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -135,7 +155,6 @@ public class FeedbackFragment extends BaseFragment {
         mTracker.setScreenName(TAG);
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
-
     private class MyTextWatcher implements TextWatcher {
 
         private final View view;
@@ -157,7 +176,6 @@ public class FeedbackFragment extends BaseFragment {
         }
 
     }
-
     private boolean validateComment() {
         String comm = binding.tvComments.getText().toString().trim();
         if (comm.isEmpty()) {
@@ -173,11 +191,9 @@ public class FeedbackFragment extends BaseFragment {
         }
         return true;
     }
-
     private void requestFocus(View view) {
         if (view.requestFocus()) {
             activity.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
     }
-
 }

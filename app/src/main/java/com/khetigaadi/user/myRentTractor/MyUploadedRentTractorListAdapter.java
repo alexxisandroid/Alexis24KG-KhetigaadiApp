@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.khetigaadi.AppConfig;
 import com.khetigaadi.R;
 import com.khetigaadi.commons.utils.EmptyViewHolder;
 import com.khetigaadi.commons.utils.MyClickListener;
@@ -113,9 +114,11 @@ public class MyUploadedRentTractorListAdapter extends RecyclerView.Adapter {
             } else {
                 ((ViewHolder) holder).binding.tvPrice.setText(String.format("%s%s/%s", mContext.getString(R.string.rs), Utils.priceConvert(item.getRentTractorImplement().getRate()), item.getRentTractorImplement().getUnit() != null ? item.getRentTractorImplement().getUnit().getUnitName() : "unit not coming"));
             }
+            String bUrl = AppConfig.BASE_ASSET_URL+"used_tractor/";
             if (item.getRentTractorTable() != null && item.getRentTractorTable().getTractorImage() != null)
-                Glide.with(mContext)
-                        .load(others.getTractorImagePath() + item.getRentTractorTable().getTractorImage().getTractor_img_name())
+
+                Glide.with(mContext)//others.getTractorImagePath()
+                        .load(bUrl + item.getRentTractorTable().getTractorImage().getTractor_img_name())
                         .error(R.mipmap.no_image)
                         .placeholder(R.mipmap.no_image)
                         .into(((ViewHolder) holder).binding.ivNewTractorImage);

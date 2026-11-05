@@ -1,4 +1,5 @@
 package com.khetigaadi.tractor.newTractor;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -9,12 +10,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.annotation.NonNull;
+import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.Observer;
 import com.khetigaadi.R;
+import com.khetigaadi.base.model.CityResp;
+import com.khetigaadi.commons.model.TypeResp;
+import com.khetigaadi.commons.utils.HpResponse;
 import com.khetigaadi.implement.newImplement.util.Brand;
 import com.khetigaadi.base.model.City;
 import com.khetigaadi.base.model.Price;
@@ -28,11 +32,14 @@ import com.khetigaadi.commons.utils.Drive;
 import com.khetigaadi.databinding.NewFilterListBinding;
 import com.khetigaadi.def.CallFrom;
 import com.khetigaadi.implement.newImplement.util.Type;
+import com.khetigaadi.retrofit.KhetiAPIs;
 import com.khetigaadi.room.repository.BrandRepository;
 import com.khetigaadi.room.repository.CityRepository;
 import com.khetigaadi.room.repository.HpRepository;
 import com.khetigaadi.room.repository.TypeRepository;
 import com.khetigaadi.tractor.newTractor.model.Filter;
+import com.khetigaadi.user.SessionManager;
+import com.khetigaadi.user.retrofit.UserAPIs;
 import com.khetigaadi.util.NumberFormatting;
 import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
@@ -40,6 +47,17 @@ import java.util.Iterator;
 import java.util.List;
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.observers.DisposableSingleObserver;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+import timber.log.Timber;
+import javax.inject.Inject;
+import dagger.hilt.android.AndroidEntryPoint;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.observers.DisposableSingleObserver;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 @AndroidEntryPoint
 public class NewTractorListFilter extends Fragment {
     private static final String TAG = NewTractorListFilter.class.getSimpleName();
@@ -52,7 +70,11 @@ public class NewTractorListFilter extends Fragment {
     @Inject
     HpRepository hpRepository;
     @Inject
+    SessionManager session;
+    @Inject
     TypeRepository typeRepository;
+    @Inject
+    UserAPIs userAPIs;
     @Inject
     CityRepository cityRepository;
     private NewFilterListBinding binding;
@@ -61,6 +83,11 @@ public class NewTractorListFilter extends Fragment {
     private int callFrom;
     private TypeFilterAdapter typesAdapter;
     private CityFilterAdapter cityAdapter;
+    @Inject
+    KhetiAPIs khetiAPIs;
+    @Inject
+    CompositeDisposable disposable;
+    List<Hp> list = new ArrayList<>();
     @Override
     public void onAttach(@NonNull Context context)
     {
@@ -123,28 +150,23 @@ public class NewTractorListFilter extends Fragment {
         super.onStart();
        // ((MainActivity)activity).reinstBNav();
         if(callFrom == CallFrom.NEW_TRACTOR || callFrom == CallFrom.DEALER) {
-            brandRepository.getNewTractorBrands().observe(getViewLifecycleOwner(),new Observer<List<Brand>>() {
-                @Override
-                public void onChanged(@Nullable List<Brand> brands) {
-                    try {
-                        Log.d("vxcvcxvcxvxvxcv===",""+brands.size());
-                        if(brands.size()>0) {
-                            List<Brand> brandArray1 = new ArrayList<>();
-                            for(Iterator<Brand> it = brands.iterator(); it.hasNext(); ) {
-                                Brand item = it.next();
-                                item.setSelected(filter.getBrands() != null && filter.getBrands().contains(item));
-                                brandArray1.add(item);
-                            }
-                            mBrandNameAdapter.updateItems(brandArray1);
+            brandRepository.getNewTractorBrands().observe(getViewLifecycleOwner(), brands -> {
+                try {
+                   // Log.d("vxcvcxvcxvxvxcv===",""+brands.size());
+                    if(brands.size()>0) {
+                        List<Brand> brandArray1 = new ArrayList<>();
+                        for(Iterator<Brand> it = brands.iterator(); it.hasNext(); ) {
+                            Brand item = it.next();
+                            item.setSelected(filter!=null && filter.getBrands() != null && filter.getBrands().contains(item));
+                            brandArray1.add(item);
                         }
-                    }
-                    catch(Exception e) {
-                        e.printStackTrace();
+                        mBrandNameAdapter.updateItems(brandArray1);
                     }
                 }
+                catch(Exception e) {
+                    e.printStackTrace();
+                }
             });
-
-
         }
         else if(callFrom == CallFrom.OLD_TRACTOR || callFrom == CallFrom.RENT_TRACTOR) {
             brandRepository.getOldTractorBrands().observe(getViewLifecycleOwner(),new Observer<List<com.khetigaadi.implement.newImplement.util.Brand>>() {
@@ -156,13 +178,14 @@ public class NewTractorListFilter extends Fragment {
                             List<Brand> brandArray1 = new ArrayList<>();
                             for (Iterator<Brand> it = brands.iterator(); it.hasNext(); ) {
                                 Brand item = it.next();
-                                item.setSelected(filter.getBrands() != null && filter.getBrands().contains(item));
+                                item.setSelected(filter!=null && filter.getBrands() != null && filter.getBrands().contains(item));
                                 brandArray1.add(item);
                             }
                             mBrandNameAdapter.updateItems(brandArray1);
                         }
                     }
                     catch(Exception e) {
+                        //noinspection CallToPrintStackTrace
                         e.printStackTrace();
                     }
                 }
@@ -173,14 +196,18 @@ public class NewTractorListFilter extends Fragment {
                 @Override
                 public void onChanged(@Nullable List<com.khetigaadi.implement.newImplement.util.Brand> brands) {
                     try {
+                    Log.d("cvbcbcbvbcv====",""+brands.size());
                     if(brands.size()>0) {
                         List<Brand> brandArray1 = new ArrayList<>();
                         for (Iterator<Brand> it = brands.iterator(); it.hasNext(); ) {
                             Brand item = it.next();
-                            item.setSelected(filter.getBrands() != null && filter.getBrands().contains(item));
+                            item.setSelected(filter!=null && filter.getBrands() != null && filter.getBrands().contains(item));
                             brandArray1.add(item);
                         }
                         mBrandNameAdapter.updateItems(brandArray1);
+                    }
+                    else {
+
                     }
                 }
                 catch(Exception e) {
@@ -192,23 +219,24 @@ public class NewTractorListFilter extends Fragment {
         else if(callFrom == CallFrom.HARVESTER) {
             brandRepository.getHarvesterBrands().observe(getViewLifecycleOwner(), brands -> {
                 try {
-                    if (brands.size()>0) {
+                    if(brands.size()>0) {
                         List<Brand> brandArray1 = new ArrayList<>();
-                        for (Iterator<Brand> it = brands.iterator(); it.hasNext(); ) {
+                        for(Iterator<Brand> it = brands.iterator(); it.hasNext(); ) {
                             Brand item = it.next();
-                            item.setSelected(filter.getBrands() != null && filter.getBrands().contains(item));
+                            item.setSelected(filter!=null && filter.getBrands() != null && filter.getBrands().contains(item));
                             brandArray1.add(item);
                         }
                         mBrandNameAdapter.updateItems(brandArray1);
                     }
-                } catch (Exception e) {
+                }
+                catch(Exception e) {
                     e.printStackTrace();
                 }
             });
         }
         if(callFrom != CallFrom.HARVESTER) {
             hpRepository.getHPs().observe(getViewLifecycleOwner(), listResource -> {
-                if (listResource.size()>0) {
+                if(listResource.size()>0) {
                     List<Hp> hps = listResource;
                     List<Hp> hpList = new ArrayList<>();
                     try {
@@ -224,11 +252,12 @@ public class NewTractorListFilter extends Fragment {
                         e.printStackTrace();
                     }
                 }
+                else getHpsList();
             });
         }
         if(callFrom == CallFrom.IMPLEMENT) {
             typeRepository.getTypes().observe(getViewLifecycleOwner(),listResource -> {
-                if (listResource.size()>0) {
+                if(listResource.size()>0) {
                     List<Type> hps = listResource;
                     List<Type> hpList = new ArrayList<>();
                     try {
@@ -244,6 +273,7 @@ public class NewTractorListFilter extends Fragment {
                         e.printStackTrace();
                     }
                 }
+                else getType();
             });
         }
         else if(callFrom == CallFrom.HARVESTER) {
@@ -284,6 +314,9 @@ public class NewTractorListFilter extends Fragment {
                     catch (Exception e) {
                         e.printStackTrace();
                     }
+                }
+                else {
+                    getCityy();
                 }
             });
         }
@@ -326,27 +359,27 @@ public class NewTractorListFilter extends Fragment {
             }
             binding.tvMinPrice.setText(String.format("%s%s",getString(R.string.rs),NumberFormatting.getShortPriceFromIndex(Math.round(binding.rangeBarPrice.getValues().get(0)))));
             binding.tvMaxPrice.setText(String.format("%s%s",getString(R.string.rs),NumberFormatting.getShortPriceFromIndex(Math.round(binding.rangeBarPrice.getValues().get(1)))));
-            binding.rangeBarPrice.addOnChangeListener((slider, value, fromUser) -> {
+            binding.rangeBarPrice.addOnChangeListener((slider,value,fromUser) -> {
                 binding.tvMinPrice.setText(String.format("%s%s", getString(R.string.rs), NumberFormatting.getShortPriceFromIndex(Math.round(slider.getValues().get(0)))));
                 binding.tvMaxPrice.setText(String.format("%s%s", getString(R.string.rs), NumberFormatting.getShortPriceFromIndex(Math.round(slider.getValues().get(1)))));
                 selectPriceButton(Math.round(slider.getValues().get(0)), Math.round(slider.getValues().get(1)));
             });
             binding.rangeBarPrice.setLabelFormatter(value -> String.format("%s%s", getString(R.string.rs),NumberFormatting.getShortPriceFromIndex(Math.round(value))));
-            binding.radio10To2.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                if (isChecked)
-                    binding.rangeBarPrice.setValues(0f, 11f);
+            binding.radio10To2.setOnCheckedChangeListener((buttonView,isChecked) -> {
+                if(isChecked)
+                    binding.rangeBarPrice.setValues(0f,11f);
             });
-            binding.radio2To3.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                if (isChecked)
-                    binding.rangeBarPrice.setValues(11f, 13f);
+            binding.radio2To3.setOnCheckedChangeListener((buttonView,isChecked) -> {
+                if(isChecked)
+                    binding.rangeBarPrice.setValues(11f,13f);
             });
-            binding.radio3To5.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                if (isChecked)
-                    binding.rangeBarPrice.setValues(13f, 17f);
+            binding.radio3To5.setOnCheckedChangeListener((buttonView,isChecked) -> {
+                if(isChecked)
+                    binding.rangeBarPrice.setValues(13f,17f);
             });
-            binding.radioAbove5.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                if (isChecked)
-                    binding.rangeBarPrice.setValues(17f, 37f);
+            binding.radioAbove5.setOnCheckedChangeListener((buttonView,isChecked) -> {
+                if(isChecked)
+                    binding.rangeBarPrice.setValues(17f,37f);
             });
         }
         else
@@ -457,5 +490,201 @@ public class NewTractorListFilter extends Fragment {
             driveList.add(wd4);
         }
         return driveList;
+    }
+    @SuppressLint("CheckResult")
+    private void getCityy() {
+        userAPIs.getCities()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new io.reactivex.rxjava3.observers.DisposableSingleObserver<CityResp>() {
+                    @Override
+                    public void onSuccess(@NotNull CityResp userResponse) {
+                        try {
+                            if (!userResponse.isError()) {
+                                cityRepository.insertAll(userResponse.getCity());
+                                cityRepository.getCities().observe(activity, states -> {
+                                    Timber.d("dssadasdasd===" + states.size() + "==" + states.toString());
+                                    if (states.size()>0) {
+                                       // mAdapter.setData(states);
+                                        List<City> hps = userResponse.getCity();
+                                        List<City> hpList = new ArrayList<>();
+                                        try {
+                                            if (hps != null) {
+                                                for (int i = 0; i < hps.size(); i++) {
+                                                    City obj = hps.get(i);
+                                                    obj.setSelected(filter.getCity() != null && filter.getCity().contains(hps.get(i)));
+                                                    hpList.add(obj);
+                                                }
+                                                cityAdapter.updateItems(hpList);
+                                            }
+                                        }
+                                        catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                        binding.etCity.addTextChangedListener(new TextWatcher() {
+                                            @Override
+                                            public void onTextChanged(CharSequence s,int start,int before,int count) {
+                                                cityAdapter.getFilter().filter(s.toString());
+                                            }
+                                            @Override
+                                            public void beforeTextChanged(CharSequence s,int start,int count,int after) {
+                                            }
+                                            @Override
+                                            public void afterTextChanged(Editable s) {
+                                            }
+                                        });
+                                    }
+                                });
+                            }
+                        }
+                        catch(Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    @Override
+                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                        Toast.makeText(activity, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+    public void getHpsList()
+    {
+        if (list.size()>0)
+            return;
+       // binding.llProgresss.llProgress.setVisibility(View.VISIBLE);
+        disposable.add(khetiAPIs.getHPs()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<HpResponse>() {
+                    @Override
+                    public void onSuccess(@NotNull HpResponse safetyTipsResp) {
+                       // binding.llProgresss.llProgress.setVisibility(View.GONE);
+                        try {
+                            // binding.tvTips.setText(Html.fromHtml(safetyTipsResp.getData().getContent()));
+                           // List<Hp> hps = safetyTipsResp.getHp();
+                             Log.d("cvbcvbcvbcvbczxc===",""+safetyTipsResp.getHp().size());
+
+                            List<Hp> hps =  safetyTipsResp.getHp();
+                            list.addAll(hps);
+                            List<Hp> hpList = new ArrayList<>();
+                            try {
+                                if (hps != null) {
+                                    for (int i = 0; i < hps.size(); i++) {
+                                        Hp obj = hps.get(i);
+                                        obj.setSelected(filter.getHps() != null && filter.getHps().contains(hps.get(i)));
+                                        hpList.add(obj);
+                                    }
+                                    mHPNamesAdapter.updateItems(hpList);
+                                }
+                            }
+                            catch(Exception e) {
+                                e.printStackTrace();
+                            }
+
+                          //  mHPNamesAdapter.updateItems(hps);
+                            binding.etHP.addTextChangedListener(new TextWatcher() {
+                                @Override
+                                public void onTextChanged(CharSequence s,int start,int before,int count) {
+                                    mHPNamesAdapter.getFilter().filter(s.toString());
+                                }
+                                @Override
+                                public void beforeTextChanged(CharSequence s,int start,int count,int after) {
+                                }
+                                @Override
+                                public void afterTextChanged(Editable s) {
+                                }
+                            });
+                            for(int i=0;i<hps.size();i++) {
+                                Hp cvbh = hps.get(i);
+                                hpRepository.deleteHP(cvbh);
+                            }
+                            hpRepository.insertAll(hps);
+                        }
+                        catch(Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    @Override
+                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                        Timber.e(e,"onError: ");
+                        //binding.llProgresss.llProgress.setVisibility(View.GONE);
+                    }
+                }));
+    }
+    void getType()
+    {
+        try {
+            int cnfg = typeRepository.getCountt();
+            if (cnfg > 0)
+                return;
+            khetiAPIs.getTypes()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new DisposableSingleObserver<>() {
+                        @Override
+                        public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull TypeResp myResponse) {
+                            // binding.llProgress.llProgress.setVisibility(GONE);
+                            try {
+                                if (!myResponse.isError()) {
+                                    // String baseUrl = SharedPreferenceUtils.getInstance(TypeSelectionActivity.this).getStringValue(Constants.BRAND_BASE_URL,"");
+                                    Timber.e("onChanged: %s", "" + myResponse);
+                                    try {
+                                        Log.d("cvbcvbcvbcfdgd===", "==" + myResponse.isError());
+                                        // binding.llProgresss.llProgress.setVisibility(View.GONE);
+                                        List<Type> typess = myResponse.getTypes();
+                                        // typesAdapter.updateItems(typess);
+                                        typeRepository.deleteAll();
+                                        binding.etType.addTextChangedListener(new TextWatcher() {
+                                            @Override
+                                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                                typesAdapter.getFilter().filter(s.toString());
+                                            }
+
+                                            @Override
+                                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                                            }
+
+                                            @Override
+                                            public void afterTextChanged(Editable s) {
+                                            }
+                                        });
+                                        typeRepository.insertAll(typess);
+
+                                        List<Type> hps = typess;
+                                        List<Type> hpList = new ArrayList<>();
+
+                                        if (hps != null) {
+                                            for (int i = 0; i < hps.size(); i++) {
+                                                Type obj = hps.get(i);
+                                                obj.setSelected(filter.getTypes() != null && filter.getTypes().contains(hps.get(i)));
+                                                hpList.add(obj);
+                                            }
+                                            typesAdapter.updateItems(hpList);
+                                        }
+
+                                    } catch (Exception e) {
+                                        Log.d("cvbcvbcvbcbvbvcv===", "" + e.getMessage());
+                                        // e.printStackTrace();
+                                    }
+                                } else {
+//                                for(int i = 0; i < myResponse.getMsg().size(); i++) {
+//                                    Toast.makeText(this,myResponse.getMsg().get(i),Toast.LENGTH_LONG).show();
+//                                }
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                            Timber.e("response Error: %s", e);
+                            // binding.llProgress.llProgress.setVisibility(GONE);
+                        }
+                    });
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

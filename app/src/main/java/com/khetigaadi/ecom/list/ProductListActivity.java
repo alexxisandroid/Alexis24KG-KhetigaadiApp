@@ -6,21 +6,13 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
-import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.khetigaadi.BuildConfig;
 import com.khetigaadi.R;
@@ -60,7 +52,7 @@ public class ProductListActivity extends AppCompatActivity {
     private ProductListViewModel viewModel;
     private ProductListAdapter agricultureToolsAdapter;
     @Inject
-     ShopAPIs shopAPIs;
+    ShopAPIs shopAPIs;
     String catId = "";
     int page =1;
     int fpage=0;
@@ -100,7 +92,14 @@ public class ProductListActivity extends AppCompatActivity {
         initAdapter();
         if(getIntent().hasExtra(ProductListFilterActivity.FILTER)) {
             viewModel.setFilter(getIntent().getParcelableExtra(ProductListFilterActivity.FILTER));
-         Log.d("bgvdfxgdgdfgdghjg====",""+getIntent().getParcelableExtra(ProductListFilterActivity.FILTER)+"=="+getIntent().getParcelableExtra(ProductListFilterActivity.FILTER).toString());
+        // Log.d("bgvdfxgdgdfgdghjg====",""+getIntent().getParcelableExtra(ProductListFilterActivity.FILTER)+"=="+getIntent().getParcelableExtra(ProductListFilterActivity.FILTER).toString());
+
+                ActionBar actionBar = getSupportActionBar();
+                if(actionBar != null) {
+                    actionBar.setDisplayHomeAsUpEnabled(true);
+                    actionBar.setDisplayShowHomeEnabled(true);
+                   // actionBar.setTitle(viewModel.getFilter().getCategories().get(0).name);
+                }
         }
         //getList(1);
         binding.fabFilter.setOnClickListener(v -> {
@@ -152,7 +151,7 @@ public class ProductListActivity extends AppCompatActivity {
         binding.toolbars.toolbar.setTitle(getString(R.string.shop));
 
         ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
+        if(actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
             actionBar.setTitle(getResources().getString(R.string.shop));
@@ -265,6 +264,14 @@ public class ProductListActivity extends AppCompatActivity {
     JSONArray jsonArray1 = new JSONArray();
     for(int i=0;i<cvc.size();i++) {
         Category category = cvc.get(i);
+        if(i==0) {
+            ActionBar actionBar = getSupportActionBar();
+            if (actionBar != null) {
+                actionBar.setDisplayHomeAsUpEnabled(true);
+                actionBar.setDisplayShowHomeEnabled(true);
+               // actionBar.setTitle(category.name);
+            }
+        }
         // Create a Gson instance
         Gson gson = new Gson();
 
@@ -356,7 +363,6 @@ public class ProductListActivity extends AppCompatActivity {
         OkHttpClient client = new OkHttpClient().newBuilder().build();
         MediaType mediaType = MediaType.parse("application/json");
         // RequestBody body = RequestBody.create(mediaType, "{\r\n    \"filter\": {\r\n        \"price\":null,\r\n        \"categories\": [\r\n            {\r\n                \"id\": 3\r\n            }\r\n        ]\r\n    }\r\n   \r\n}");
-
         List<Category> cvc = viewModel.getFilter().getCategories();
         Price price = viewModel.getFilter().getPrice();
         Gson gson = new Gson();
@@ -370,27 +376,28 @@ public class ProductListActivity extends AppCompatActivity {
             try {
                 JSONObject jsonObject = new JSONObject(json);
                // jsonArray1.put(jsonObject);
-
                 jsonArray1.put(new JSONObject().put("id",jsonObject.getInt("id")));
-
-
-            } catch (JSONException e) {
+            }
+            catch(JSONException e) {
                 throw new RuntimeException(e);
             }
         }
         Log.d("fdgdsgdgdf===",""+jsonPrice+"=="+jsonArray1);
         RequestBody body = RequestBody.create(mediaType, "{\r\n    \"filter\": {\r\n        \"price\":"+jsonPrice+",\r\n        \"categories\": "+jsonArray1+"\r\n    }\r\n   \r\n}");
+        String tknn = usrr.getToken();
+        if(tknn == null || tknn.equals(null))
+            tknn = "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiI3IiwianRpIjoiMTgyMzNiNmNmMGI0ZDllZWI1OWQ5YmEyM2E2MjEwNWZjZGIzOGU5MGIzZjkxYjlhZDE0YjdiMDJlNWNjOTM5ZTI0NTgyOWJmYWYyMzVjZjMiLCJpYXQiOjE3NTY1NDg5MTksIm5iZiI6MTc1NjU0ODkxOSwiZXhwIjoxNzg4MDg0OTE5LCJzdWIiOiIxMDE2NDk3Iiwic2NvcGVzIjpbXX0.Sdk0CZeX5I1m3P2fqsvolpyxIybtjPpkgjBvKQ_GYsrU-vxIYAE-JN2_V2JUcHKSaGkgARD55OtZcsfwiszyGdJYpjz-d-am4KnS3ph_0I_4MWhXbcbsleN9hapf0idNsxJ-kDEjh8xSBdfSj3FAPcAd-fnP7iB_ni_QKiXJjTR6SucaPU4ZXKVIrs4iIXGx_-hjzloNHuIY0TaJhsIGBXLfx1jE37c3sCt7rttWqkPpVOT3eIBA2-6t4Ur7xl68CGk1cuwlg1SrfF9xev4QgxvrjPfEzb4ozCqOyBF-YEdTHNyXFB-6ba5JmY7k2roGBMwEqnqj7eWISY6gQdknZzFFAFlirCiKg2tiWhdyeFxwRFbf7dzEbL8NOBm4T9J-tpzisTiuTlnkr5U93hci5TYcUXV1IzotMUbBeK7gBbzn_NQhNPGbqmo7aIeJYp83TCdAVyvNf6x4NUrFBTqBg9nlRS4twRxo8OU0IdOS629oVnPZKn5jdLGHYkGZZMpREaTHeWp4AiUrLjVFPJy-hyPNYr1INayZnEWjorPlvOyHyqib846a9yaSJ9oFf33uKmOLXYwDyybkMewq2bnt0upwESrPI9fxrzyVY89LpDx2FjcABFaglUimzPw5qKWr2un0CSVwPjJzF-Iq5ctcG7WbADVj_eH_-IBubI0X9-g";
         Request request = new Request.Builder()
                 .url(BuildConfig.BASE_URL+"mobile/api/v2/shop/products")
                 .method("POST",body)
-                .addHeader("Authorization",usrr.getToken())
+                .addHeader("Authorization",tknn)
                 .addHeader("Content-Type","application/json")
                 //.addHeader("Cookie", "khetiigaadi_session=eyVmKtezWX8vLTb0Ih9DaP5J7oWcOvqnIjAwvull")
                 .build();
         try {
             Response response = client.newCall(request).execute();
             String resp = response.body().string();
-            Log.d("vcxbcvbcvxbcb===",""+usrr.getToken()+"=="+response.code()+"=="+resp+"=="+response.isSuccessful()+"=="+response.body().toString()+"==");
+           // Log.d("vcxbcvbcvxbcb===",""+usrr.getToken()+"=="+response.code()+"=="+resp+"=="+response.isSuccessful()+"=="+response.body().toString()+"==");
             if(response.isSuccessful()) {
                 if(response.code()==200) {
                     JSONObject jsonObject = new JSONObject(resp);
@@ -400,7 +407,7 @@ public class ProductListActivity extends AppCompatActivity {
                     JSONObject jsonObject22 = jsonObject.getJSONObject("others");
                     Others others = gson.fromJson(jsonObject22.toString(),Others.class);
                     List<Product> lprv= new ArrayList<>();
-                    for (int i=0;i<jsonArray.length();i++) {
+                    for(int i=0;i<jsonArray.length();i++) {
                         JSONObject jsonObject2 = jsonArray.optJSONObject(i);
                         Product  data = gson.fromJson(jsonObject2.toString(),Product.class);
                         lprv.add(data);
@@ -409,7 +416,7 @@ public class ProductListActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             try {
-                                if (page == 1) {
+                                if(page == 1) {
                                     agricultureToolsAdapter.setOthers(others);
                                     agricultureToolsAdapter.updateItems(lprv);
                                 }
@@ -422,28 +429,23 @@ public class ProductListActivity extends AppCompatActivity {
                         }
                     });
                 }
-                else {
-
-                }
-            }
-            else{
-
             }
         }
         catch(IOException e) {
             throw new RuntimeException(e);
         }
-        catch (JSONException e) {
+        catch(JSONException e) {
             throw new RuntimeException(e);
         }
     }
     public void runnableS() {
-        binding.myStickyButton.setVisibility(View.VISIBLE);
+       // binding.myStickyButton.setVisibility(View.VISIBLE);
+           binding.llProgresss.llProgress.setVisibility(View.VISIBLE);
         Handler handler = new Handler();
         final Runnable r = new Runnable() {
             public void run() {
-                binding.myStickyButton.setVisibility(View.GONE);
-                handler.postDelayed(this,2000);
+                binding.llProgresss.llProgress.setVisibility(View.GONE);
+                handler.postDelayed(this,1000);
             }
         };
         handler.postDelayed(r,2000);

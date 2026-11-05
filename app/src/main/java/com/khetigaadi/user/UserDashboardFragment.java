@@ -1,8 +1,11 @@
 package com.khetigaadi.user;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -21,6 +25,7 @@ import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.khetigaadi.MainActivity;
 import com.khetigaadi.R;
+import com.khetigaadi.commons.CustomTypefaceSpan;
 import com.khetigaadi.commons.fragments.BaseFragment;
 import com.khetigaadi.commons.utils.Constants;
 import com.khetigaadi.databinding.UserDashboardBinding;
@@ -29,6 +34,7 @@ import com.khetigaadi.user.model.Dashboard;
 import com.khetigaadi.user.model.DashboardResp;
 import com.khetigaadi.user.myRentTractor.MyUploadedRentTractorList;
 import com.khetigaadi.user.myUsedTractor.MyUploadedUsedTractorList;
+import com.khetigaadi.user.profile.ProfileOtherActivity;
 import com.khetigaadi.user.util.MyValueFormatter;
 import org.jetbrains.annotations.NotNull;
 import java.text.DecimalFormat;
@@ -66,23 +72,33 @@ public class UserDashboardFragment extends BaseFragment {
     {
         super.onResume();
         //Google analytic code
-        Timber.i("Setting screen name: %s", TAG);
+        Timber.i("Setting screen name: %s",TAG);
         mTracker.setScreenName(TAG);
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
-        ((MainActivity) activity).hideSoftKeyboard();
+        if (activity instanceof ProfileOtherActivity)
+            ((ProfileOtherActivity) activity).hideSoftKeyboard();
+        else
+            ((MainActivity) activity).hideSoftKeyboard();
     }
     @Nullable
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater,@Nullable ViewGroup container,@Nullable Bundle savedInstanceState)
     {
-        binding = UserDashboardBinding.inflate(inflater, container, false);
+        binding = UserDashboardBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
-        ((MainActivity) activity).setToolbarTitle(getString(R.string.dashboard));
-        if (Constants.isConnectionAvailable(activity)) {
+        if(activity instanceof ProfileOtherActivity) {
+            ((ProfileOtherActivity) activity).setToolbarTitle(getString(R.string.dashboard));
+        }
+        else
+            ((MainActivity) activity).setToolbarTitle(getString(R.string.dashboard));
+        if(Constants.isConnectionAvailable(activity)) {
             getData();
         }
         else {
-            ((MainActivity) activity).noInternetConnection();
+            if(activity instanceof ProfileOtherActivity)
+                ((ProfileOtherActivity) activity).noInternetConnection();
+            else
+                ((MainActivity) activity).noInternetConnection();
         }
         binding.rvRentTr.setOnRippleCompleteListener(rippleView -> {
             FragmentManager mFragmentManager = getParentFragmentManager();
@@ -103,7 +119,7 @@ public class UserDashboardFragment extends BaseFragment {
         fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit,R.anim.pop_enter,R.anim.pop_exit);
         MyUploadedUsedTractorList fragment = new MyUploadedUsedTractorList();
         Bundle bundle = new Bundle();
-        bundle.putString("filter", status);
+        bundle.putString("filter",status);
         fragment.setArguments(bundle);
         fragmentTransaction.replace(R.id.containerView,fragment).addToBackStack(TAG).commit();
     }
@@ -138,7 +154,7 @@ public class UserDashboardFragment extends BaseFragment {
                             binding.tvRentTr.setText(String.format(Locale.US, "%d", response.getData().getUploadedRentTractor()));
                             getChart(response.getData());
                         } else {
-                            Toast.makeText(activity, response.getMsg().get(0), Toast.LENGTH_LONG).show();
+                            Toast.makeText(activity,response.getMsg().get(0),Toast.LENGTH_LONG).show();
                         }
                     }
                     @Override
@@ -191,7 +207,7 @@ public class UserDashboardFragment extends BaseFragment {
         PieData data = new PieData(dataSet);
         data.setValueTextSize(11f);
         data.setValueTextColor(Color.BLACK);
-        data.setValueFormatter(new MyValueFormatter(new DecimalFormat(), binding.userChart));
+        data.setValueFormatter(new MyValueFormatter(new DecimalFormat(),binding.userChart));
         binding.userChart.setData(data);
         // undo all highlights
         binding.userChart.highlightValues(null);
@@ -199,8 +215,11 @@ public class UserDashboardFragment extends BaseFragment {
     }
     private SpannableString generateCenterSpannableText()
     {
+      //  Typeface typeface = ResourcesCompat.getFont(requireContext(),R.font.poppins); // Typeface.createFromAsset(requireContext().getAssets(), "fonts/poppins_bold.ttf");
         SpannableString s = new SpannableString("Old\nTractors");
         s.setSpan(new RelativeSizeSpan(2.7f),0,12,0);
+        s.setSpan(new StyleSpan(Typeface.BOLD),0,12,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+       // s.setSpan(new CustomTypefaceSpan(typeface),0,12,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return s;
     }
 }

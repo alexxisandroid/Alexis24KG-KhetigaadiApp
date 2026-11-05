@@ -1,24 +1,19 @@
 package com.khetigaadi.isOwner;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.Observer;
 import com.bumptech.glide.Glide;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.khetigaadi.MainActivity;
 import com.khetigaadi.R;
 import com.khetigaadi.agri.activity.BrandSelectionActivity;
-//import com.khetigaadi.base.model.Brand;
 import com.khetigaadi.implement.newImplement.util.Brand;
 import com.khetigaadi.commons.SharedPreferenceUtils;
 import com.khetigaadi.commons.activities.BaseActivity;
@@ -29,7 +24,6 @@ import com.khetigaadi.def.BrandType;
 import com.khetigaadi.room.repository.BrandRepository;
 import java.util.List;
 import java.util.Objects;
-
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
@@ -133,21 +127,23 @@ public class IsOwnerTractorBrand extends BaseActivity {
                 try {
                     binding.llBrand.removeAllViews();
                     // for (int i = 0; i < brandParents.size(); i = i + 3) {
-                    for (int i = 0; i < brands.size(); i = i + 4) {
+                    for(int i = 0; i < brands.size(); i = i + 3) {
                         LinearLayout linearLayout = new LinearLayout(IsOwnerTractorBrand.this);
                         //linearLayout.setWeightSum(3);
-                        linearLayout.setWeightSum(4);
+                        linearLayout.setWeightSum(3);
                         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-                        for (int j = 0; j <= 3 && i + j < brands.size(); j++) {
+                        for(int j = 0; j <= 2 && i + j < brands.size(); j++) {
                             BrandRow1Binding rowBinding = BrandRow1Binding.inflate(getLayoutInflater(), linearLayout, false);
+                             rowBinding.getRoot().setBackgroundColor(Color.WHITE);
                             final Brand brand = brands.get(i + j);
-                            if (brand.getImage() != null) {
+                            if(brand.getImage() != null) {
                                 Glide.with(IsOwnerTractorBrand.this).load(baseUrl + brand.getImage()).into(rowBinding.image);
-                            } else {
+                            }
+                            else {
                                 Glide.with(IsOwnerTractorBrand.this).load(R.mipmap.ic_launcher).into(rowBinding.image);
                             }
-                            if (!pref.getIsOwnerBrandId().isEmpty()) {
-                                if (pref.getIsOwnerBrandId().equalsIgnoreCase(String.valueOf(brand.getId()))) {
+                            if(!pref.getIsOwnerBrandId().isEmpty()) {
+                                if(pref.getIsOwnerBrandId().equalsIgnoreCase(String.valueOf(brand.getId()))) {
                                     rowBinding.ll.setBackground(ContextCompat.getDrawable(IsOwnerTractorBrand.this,R.drawable.button_selector_red));
                                 }
                             }
@@ -164,15 +160,14 @@ public class IsOwnerTractorBrand extends BaseActivity {
                         binding.llBrand.addView(linearLayout);
                     }
                 }
-                catch (Exception e) {
+                catch(Exception e) {
                     e.printStackTrace();
                 }
-
             }
         });
     }
-    private void searchBrandByModel(Brand brand, Integer brandId) {
-        if (brandId != 0) {
+    private void searchBrandByModel(Brand brand,Integer brandId) {
+        if(brandId != 0) {
             pref.setIsOwnerBrandId(String.valueOf(brandId));
             Intent intent = new Intent(this, IsOwnerTractorModel.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -194,7 +189,7 @@ public class IsOwnerTractorBrand extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
-        if (item.getItemId() == R.id.menu_close) {
+        if(item.getItemId() == R.id.menu_close) {
             showAlerDialog();
             return true;
         }
@@ -203,24 +198,24 @@ public class IsOwnerTractorBrand extends BaseActivity {
     private void showAlerDialog() {
         new MaterialAlertDialogBuilder(this)
                 .setTitle(getResources().getString(R.string.are_you_sure_you_want_quit))
-                .setNegativeButton(getString(R.string.no), (dialog, which) -> dialog.cancel())
-                .setPositiveButton(getString(R.string.yes), (dialog, which) -> {
+                .setNegativeButton(getString(R.string.no),(dialog,which) -> dialog.cancel())
+                .setPositiveButton(getString(R.string.yes),(dialog,which) -> {
                     dialog.cancel();
                     addSomething();
                 }).show();
     }
     private void addSomething() {
-        if (!pref.getIsOwnerBrandId().isEmpty()) {
+        if(!pref.getIsOwnerBrandId().isEmpty()) {
             pref.removeKey("ISOWNERBRANDID");
         }
-        Intent intent = new Intent(IsOwnerTractorBrand.this, MainActivity.class);
+        Intent intent = new Intent(IsOwnerTractorBrand.this,MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (!pref.getIsOwnerBrandId().isEmpty()) {
+        if(!pref.getIsOwnerBrandId().isEmpty()) {
             pref.removeKey("ISOWNERBRANDID");
         }
     }

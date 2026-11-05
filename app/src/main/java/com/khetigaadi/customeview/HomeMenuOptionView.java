@@ -1,6 +1,7 @@
 package com.khetigaadi.customeview;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -24,20 +25,26 @@ public class HomeMenuOptionView extends LinearLayout {
         a.recycle();
         binding = ViewHomeMenuOptionsBinding.inflate(LayoutInflater.from(context),this,true);
         binding.tvLabel.setText(titleText);
+        binding.tvLabel.setTextColor(Color.WHITE);
+        binding.tvLabel.setTextSize(14f);
+        binding.tvLabel.setAllCaps(true);
+        // binding.tvLabel.caps
+        // binding.tvLabel.setGravity(View.TEXT_ALIGNMENT_CENTER);
         binding.tvLabel.setSingleLine();
-       // binding.tvLabel.setTextColor(tclr);
-        binding.tvLabel.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD),style);
+        // binding.tvLabel.setTextColor(tclr);
+        binding.tvLabel.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL),style);
         if(fontFamilyId > 0) {
-            binding.tvLabel.setTypeface(ResourcesCompat.getFont(getContext(),R.font.poppins_bold));
+            binding.tvLabel.setTypeface(ResourcesCompat.getFont(getContext(),R.font.manrope_medium));
         }
         binding.parent.getBackground().setTint(valueColor);
         binding.ivImage.setImageResource(image);
-       // setTypeface(getTypeface(), Typeface.BOLD);
+        // setTypeface(getTypeface(),Typeface.BOLD);
     }
     public HomeMenuOptionView(Context context) {
         this(context,null);
     }
-    public void setViewBackgroundColor(int color) {
+    public void setViewBackgroundColor(int color)
+    {
         binding.parent.getBackground().setTint(color);
     }
     public void setImageVisible(boolean visible) {

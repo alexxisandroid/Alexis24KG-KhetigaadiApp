@@ -24,10 +24,9 @@ public interface DaoBrand {
     int getBrandCount(int id);
     @Query("SELECT * FROM Brand WHERE brand_type IN (0,1) order by possition")
     LiveData<List<Brand>> fetchAllOldTractorBrand();
-
     @Query("SELECT * FROM Brand WHERE brand_type IN (0,1) and brand_status = 1 order by possition")
     LiveData<List<Brand>> fetchAllOldTractorBrandSell();
-    @Query("SELECT * FROM Brand WHERE (brand_type=2 or brand_type='2' or brand_type IN (0,2)) AND (brand_status=1 or brand_status='1') ORDER BY implement_possition ASC")
+    @Query("SELECT * FROM Brand WHERE (brand_type=2 or brand_type='2' or brand_type=0 or brand_type IN (0,2)) AND (brand_status=1 or brand_status='1') ORDER BY implement_possition ASC")
     LiveData<List<Brand>> fetchAllImplementBrand();
     @Query("SELECT * FROM Brand WHERE brand_id =:id")
     LiveData<Brand> getTask(int id);
@@ -42,7 +41,7 @@ public interface DaoBrand {
     @Query("SELECT Brand.* FROM Brand INNER JOIN BrandTypeMaster ON Brand.brand_id = BrandTypeMaster.brandId WHERE BrandTypeMaster.typeId=:typeId")
     LiveData<List<Brand>> getBrandsByType(int typeId);
    //@Query("SELECT * FROM Brand WHERE manufacturerType IN ('0','2') AND status='1' ORDER BY brand_name")
-    @Query("SELECT * FROM Brand WHERE brand_type IN (0,2) AND status=1 ORDER BY brand_name")
+    @Query("SELECT * FROM Brand WHERE brand_type=2 or brand_type='2' or brand_type=0 or brand_type IN (0,2) AND (brand_status=1 or brand_status='1') ORDER BY brand_name") //AND status=1
     LiveData<List<Brand>> fetchAllImplementBrandAsc();
     @Query("SELECT * FROM Brand WHERE isHarvesterBrand =1 or isHarvesterBrand='1' or isHarvesterBrand IN (1) order by implement_possition ASC")
     LiveData<List<Brand>> fetchHarvesterBrands();

@@ -7,7 +7,7 @@ public class ExpandedMenuModel {
     public ExpandedMenuModel() {
 
     }
-    public ExpandedMenuModel(@DrawerMenu int name, String iconName, int iconImg) {
+    public ExpandedMenuModel(@DrawerMenu int name,String iconName,int iconImg) {
         this.name = name;
         this.iconName = iconName;
         this.iconImg = iconImg;

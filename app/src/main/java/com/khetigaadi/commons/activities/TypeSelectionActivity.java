@@ -146,60 +146,65 @@ public class TypeSelectionActivity extends BaseActivity {
     }
     void getType()
     {
-        int cnfg = typeRepository.getCountt();
-        if (cnfg>0)
-            return;
-        khetiAPIs.getTypes()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<>() {
-                    @Override
-                    public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull TypeResp myResponse) {
-                        // binding.llProgress.llProgress.setVisibility(GONE);
-                        try {
-                            if (!myResponse.isError()) {
-                                String baseUrl = SharedPreferenceUtils.getInstance(TypeSelectionActivity.this).getStringValue(Constants.BRAND_BASE_URL,"");
-                                Timber.e("onChanged: %s",""+myResponse);
-                                try {
-                                    Log.d("cvbcvbcvbcfdgd===","=="+myResponse.isError());
-                                    binding.llProgresss.llProgress.setVisibility(View.GONE);
-                                    List<Type> typess = myResponse.getTypes();
-                                    mAdapter.setData(typess);
-                                    typeRepository.deleteAll();
-                                    binding.edSearch.addTextChangedListener(new TextWatcher() {
-                                        @Override
-                                        public void onTextChanged(CharSequence s, int start, int before, int count) {
-                                            mAdapter.getFilter().filter(s.toString());
-                                        }
-                                        @Override
-                                        public void beforeTextChanged(CharSequence s,int start,int count,int after) {
-                                        }
-                                        @Override
-                                        public void afterTextChanged(Editable s) {
-                                        }
-                                    });
-                                    typeRepository.insertAll(typess);
+        try {
+            int cnfg = typeRepository.getCountt();
+            if (cnfg > 0)
+                return;
+            khetiAPIs.getTypes()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new DisposableSingleObserver<>() {
+                        @Override
+                        public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull TypeResp myResponse) {
+                            // binding.llProgress.llProgress.setVisibility(GONE);
+                            try {
+                                if (!myResponse.isError()) {
+                                    String baseUrl = SharedPreferenceUtils.getInstance(TypeSelectionActivity.this).getStringValue(Constants.BRAND_BASE_URL, "");
+                                    Timber.e("onChanged: %s", "" + myResponse);
+                                    try {
+                                        Log.d("cvbcvbcvbcfdgd===", "==" + myResponse.isError());
+                                        binding.llProgresss.llProgress.setVisibility(View.GONE);
+                                        List<Type> typess = myResponse.getTypes();
+                                        mAdapter.setData(typess);
+                                        typeRepository.deleteAll();
+                                        binding.edSearch.addTextChangedListener(new TextWatcher() {
+                                            @Override
+                                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                                mAdapter.getFilter().filter(s.toString());
+                                            }
+
+                                            @Override
+                                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                                            }
+
+                                            @Override
+                                            public void afterTextChanged(Editable s) {
+                                            }
+                                        });
+                                        typeRepository.insertAll(typess);
+                                    } catch (Exception e) {
+                                        Log.d("cvbcvbcvbcbvbvcv===", "" + e.getMessage());
+                                        // e.printStackTrace();
+                                    }
+                                } else {
+                                    for (int i = 0; i < myResponse.getMsg().size(); i++) {
+                                        Toast.makeText(TypeSelectionActivity.this, myResponse.getMsg().get(i), Toast.LENGTH_LONG).show();
+                                    }
                                 }
-                                catch(Exception e) {
-                                    Log.d("cvbcvbcvbcbvbvcv===",""+e.getMessage());
-                                    // e.printStackTrace();
-                                }
-                            }
-                            else {
-                                for(int i = 0; i < myResponse.getMsg().size(); i++) {
-                                    Toast.makeText(TypeSelectionActivity.this,myResponse.getMsg().get(i),Toast.LENGTH_LONG).show();
-                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
                         }
-                        catch(Exception e) {
-                            e.printStackTrace();
+
+                        @Override
+                        public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                            Timber.e("response Error: %s", e);
+                            // binding.llProgress.llProgress.setVisibility(GONE);
                         }
-                    }
-                    @Override
-                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
-                        Timber.e("response Error: %s", e);
-                        // binding.llProgress.llProgress.setVisibility(GONE);
-                    }
-                });
+                    });
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

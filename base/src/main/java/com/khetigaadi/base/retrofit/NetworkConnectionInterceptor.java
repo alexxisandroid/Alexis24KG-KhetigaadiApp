@@ -26,8 +26,8 @@ public class NetworkConnectionInterceptor implements Interceptor {
         return chain.proceed(builder.build());
     }
     private Boolean isConnected(Context context) {
-        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             Network nw = connectivityManager.getActiveNetwork();
             if (nw == null) return false;
             NetworkCapabilities actNw = connectivityManager.getNetworkCapabilities(nw);

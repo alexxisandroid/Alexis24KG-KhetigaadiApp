@@ -5,12 +5,15 @@ import com.khetigaadi.shop.model.Address;
 import com.khetigaadi.shop.model.AddressListResp;
 import com.khetigaadi.shop.model.AddressResp;
 import com.khetigaadi.shop.model.CategoryListResp;
+import com.khetigaadi.shop.model.DeliveryCharges;
 import com.khetigaadi.shop.model.HomeProductResp;
 import com.khetigaadi.shop.model.MyOrderResp;
 import com.khetigaadi.shop.model.Order;
 import com.khetigaadi.shop.model.ProductListFilter;
 import com.khetigaadi.shop.model.ProductListResp;
 import com.khetigaadi.shop.model.ProductResp;
+import com.khetigaadi.user.profile.AboutResp;
+
 import java.util.Map;
 import io.reactivex.rxjava3.core.Single;
 import retrofit2.http.Body;
@@ -60,4 +63,30 @@ public  interface ShopAPIs {
    // LiveData<ApiResponse<CategoryListResp>> getCategories();
     @GET("mobile/api/v4/shop/categories")
     Single<CategoryListResp> getCategories();
+
+    @GET("mobile/api/v4/shop/deliveryCharges")
+    Single<DeliveryCharges> getDeliveryCharges();
+
+
+
+    @GET("mobile/api/v3/ambassador/policy-and-rules/ambassador-about-us")
+    Single<AboutResp> getAboutUs();
+
+    @GET("mobile/api/v3/ambassador/policy-and-rules/contact-us")
+    Single<AboutResp> getContactUs();
+
+    @GET("mobile/api/v3/ambassador/policy-and-rules/privacy-policy")
+    Single<AboutResp> getPrivacyPolicy();
+
+    @GET("mobile/api/v3/ambassador/policy-and-rules/ambassador-return-policy")
+    Single<AboutResp> getReturnPolicy();
+
+    @GET("mobile/api/v3/ambassador/policy-and-rules/ambassador-rules-and-regulation")
+    Single<AboutResp> getRulesAndRegulation();
+
+    @GET("mobile/api/v3/ambassador/policy-and-rules/ugc-policy")
+    Single<AboutResp> getUGCPolicy();
+
+    @GET("mobile/api/v3/ambassador/policy-and-rules/terms-conditions")
+    Single<AboutResp> getTermsAndCondition();
 }

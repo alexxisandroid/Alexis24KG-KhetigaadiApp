@@ -5,17 +5,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    app:cardUseCompatPadding="true"
+    android:layout_marginEnd="@dimen/payu_dimen_12dp"
+    android:backgroundTint="@color/white"
+    android:background="@color/white"
+    android:layout_marginStart="@dimen/payu_dimen_12dp"
+    app:cardCornerRadius="@dimen/payu_dimen_12dp"
     android:orientation="vertical">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/detailsBackground">
+        android:background="@color/white">
         <ImageView
             android:id="@+id/ivNewTractorImage"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:layout_gravity="center_vertical"
-            android:background="@color/white"
+            android:background="@color/detailsBackground"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
             android:src="@mipmap/ic_launcher"
             app:layout_constraintTop_toTopOf="parent"
             android:contentDescription="@string/new_implement"/>
@@ -38,6 +46,9 @@
             android:gravity="center_vertical"
             android:paddingTop="@dimen/dimen_5dp"
             android:textSize="@dimen/dimen_16sp"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:layout_marginEnd="@dimen/dimen_28dp"
+            android:layout_marginStart="@dimen/payu_dimen_6dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ivNewTractorImage"
             tools:text="Mahindra 415 DI"/>
@@ -71,11 +82,12 @@
             android:id="@+id/flow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_10dp"
-            android:paddingStart="@dimen/margin_15dp"
+            android:layout_marginBottom="@dimen/payu_dimen_12dp"
+            android:paddingStart="@dimen/dimen_8dp"
             android:paddingEnd="@dimen/dimen_0dp"
             app:constraint_referenced_ids="tvHP,tvOwnerPostedOn"
             app:flow_horizontalAlign="start"
+            android:paddingBottom="@dimen/payu_dimen_12dp"
             app:flow_maxElementsWrap="3"
             app:flow_wrapMode="aligned"
             app:layout_constraintStart_toStartOf="parent"
@@ -87,6 +99,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingEnd="@dimen/margin_2dp"
+            android:drawablePadding="@dimen/dimen_2dp"
+            android:fontFamily="@font/poppins_medium"
             android:paddingStart="@dimen/dimen_0dp"
             app:drawableStartCompat="@drawable/ic_flash_on_black_24dp"
             tools:text="80 HP"
@@ -100,10 +114,11 @@
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/dimen_10dp"
             android:paddingEnd="@dimen/margin_2dp"
+            android:drawablePadding="@dimen/dimen_2dp"
             app:drawableStartCompat="@drawable/ic_date_range_black_18dp"
             tools:text="12 JUN 2021"
             tools:visibility="visible"
-            app:drawableTint="@color/black" />
+            app:drawableTint="@color/black"/>
 
 
         <LinearLayout
@@ -111,7 +126,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="@dimen/payu_dimen_12dp"
             android:orientation="horizontal"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent">
@@ -128,6 +143,7 @@
                 android:id="@+id/tvWorkingArea"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_2dp"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
                 android:text="@string/minus" />

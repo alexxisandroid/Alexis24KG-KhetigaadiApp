@@ -15,6 +15,8 @@
         android:padding="4dp">
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
+            android:backgroundTint="@color/white"
+            android:background="@color/white"
             android:layout_height="wrap_content">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -93,10 +95,11 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:padding="10dp"
-                            android:textStyle="bold"
-                            android:fontFamily="@font/poppins_bold"
-                            android:text="@string/add_implement"
-                            android:textAppearance="?android:attr/textAppearanceMedium"/>
+                            android:textSize="@dimen/dimen_14sp"
+                            android:fontFamily="@font/manrope_medium"
+                            android:alpha="0.7"
+                            android:layout_marginBottom="@dimen/margin_10dp"
+                            android:text="@string/add_implement"/>
                     </LinearLayout>
                 </androidx.appcompat.widget.LinearLayoutCompat>
                 <FrameLayout
@@ -122,6 +125,7 @@
                             android:background="@drawable/rounded_corner_btn_with_light_color"
                             android:gravity="center"
                             android:padding="5dp"
+                            android:textSize="@dimen/dimen_12sp"
                             android:text="@string/vs"
                             android:textColor="@color/white" />
                         <View
@@ -204,11 +208,12 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:textStyle="bold"
-                            android:fontFamily="@font/poppins_bold"
+                           android:textSize="@dimen/dimen_14sp"
+                            android:fontFamily="@font/manrope_medium"
                             android:padding="10dp"
+                            android:layout_marginBottom="@dimen/margin_10dp"
                             android:text="@string/add_implement"
-                            android:textAppearance="?android:attr/textAppearanceMedium"/>
+                            android:alpha="0.7" />
                     </LinearLayout>
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </LinearLayout>
@@ -226,17 +231,20 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:minHeight="@dimen/payu_dimen_45dp"
+                android:minHeight="@dimen/dimen_40dp"
                 android:layout_marginTop="@dimen/dimen_10dp"
-                android:background="@drawable/btn_rectangle_outline_bg_red"
-                android:textColor="@color/red"
+                android:background="@drawable/rounded_corner"
+                android:textColor="@color/white"
+                android:paddingBottom="@dimen/dimen_4dp"
+                android:backgroundTint="@color/light_red"
+                android:layout_marginBottom="@dimen/margin_10dp"
                 android:gravity="center"
                 android:layout_marginEnd="@dimen/dimen_5dp"
                 android:layout_marginStart="@dimen/dimen_5dp"
                 android:layout_gravity="center"
                 android:text="@string/compare"
                 android:textStyle="bold"
-                android:fontFamily="@font/poppins_bold"/>
+                android:fontFamily="@font/manrope_semibold"/>
         </com.andexert.library.RippleView>
         <LinearLayout
             android:id="@+id/recycleViewRelativePopularTractors"
@@ -248,8 +256,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
-                android:fontFamily="@font/poppins_bold"
                 android:layout_margin="5dp"
+
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:fontFamily="@font/manrope_medium"
+                android:textSize="@dimen/dimen_14sp"
+
                 android:text="@string/popular_implements_comparison"
                 android:textColor="@color/black"/>
             <TextView

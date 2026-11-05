@@ -180,7 +180,7 @@ public class HomeFragment extends BaseFragment {
         });
         pDialog = new ProgressDialog(activity);
         pDialog.setCancelable(false);
-        if (!SharedPreferenceUtils.getInstance(activity).getStringValue(Constants.POPULAR_TRACTORS,"").equals("")) {
+        if(!SharedPreferenceUtils.getInstance(activity).getStringValue(Constants.POPULAR_TRACTORS,"").equals("")) {
             try {
                 setPopularTractorAndNewsAdapter(new Gson().fromJson(SharedPreferenceUtils.getInstance(activity).getStringValue(Constants.POPULAR_TRACTORS, ""),HomeListResp.class));
                 Log.d("bcvxbcb====",""+new Gson().fromJson(SharedPreferenceUtils.getInstance(activity).getStringValue(Constants.POPULAR_TRACTORS, ""),HomeListResp.class));
@@ -214,19 +214,19 @@ public class HomeFragment extends BaseFragment {
         });
         binding.cvNews.setOnClickListener(v -> ((MainActivity) activity).navigateToNewsFragment());
         binding.tvProfileUpdate.setOnClickListener(v -> startActivity(new Intent(getActivity(),EditProfileActivity.class)));
-        binding.tvMainMenuViewMore.setOnClickListener(v -> {
+        binding.lltvMainMenuViewMore.setOnClickListener(v -> {
             if(binding.tvMainMenuViewMore.getText().toString().equals(getString(R.string.view_more))) {
                 binding.tvMainMenuViewMore.setText(getString(R.string.view_less));
                // binding.tvMainMenuViewMore.setCompoundDrawables(null,null,ContextCompat.getDrawable(activity,R.drawable.up_arrow),null);
 
 
-                binding.tvMainMenuViewMore.setCompoundDrawablesRelativeWithIntrinsicBounds(
-                        0, // start drawable
-                        0, // top drawable
-                        R.drawable.up_arrow22, // end drawa4ble
-                        0  // bottom drawable
-                );
-
+//                binding.tvMainMenuViewMore.setCompoundDrawablesRelativeWithIntrinsicBounds(
+//                        0, // start drawable
+//                        0, // top drawable
+//                        R.drawable.up_arrow22, // end drawa4ble
+//                        0  // bottom drawable
+//                );
+         binding.ivVmore.setImageDrawable(getResources().getDrawable(R.drawable.up_arrow22));
                 binding.cvVideo.setVisibility(View.VISIBLE);
                 binding.cvCompare.setVisibility(View.VISIBLE);
                 // binding.cvTyre.setVisibility(View.VISIBLE);
@@ -237,8 +237,9 @@ public class HomeFragment extends BaseFragment {
                 binding.tvMainMenuViewMore.setText(getString(R.string.view_more));
                // binding.tvMainMenuViewMore.setCompoundDrawables(null,null,ContextCompat.getDrawable(activity,R.drawable.ic_down_arrow_black_24dp),null);
 
-                binding.tvMainMenuViewMore.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_down_arrow_black_24dp,0);
+               // binding.tvMainMenuViewMore.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_down_arrow_black_24dp,0);
 
+                binding.ivVmore.setImageDrawable(getResources().getDrawable(R.drawable.ic_down_arrow_black_24dp));
                 binding.cvVideo.setVisibility(View.GONE);
                 binding.cvCompare.setVisibility(View.GONE);
                 binding.cvTyre.setVisibility(View.GONE);
@@ -469,7 +470,7 @@ public class HomeFragment extends BaseFragment {
     private void showOldTractors() {
         binding.includeTractors.tvLabel.setText(getString(R.string.used_tractors));
         binding.includeTractors.llViewMore.setOnClickListener(v -> navigateToUsedTractorList(null));
-        if (usedTractorListAdapter == null) {
+        if(usedTractorListAdapter == null) {
             initUsedTractorAdapter();
         }
         binding.includeTractors.rvList.setAdapter(usedTractorListAdapter);
@@ -483,6 +484,7 @@ public class HomeFragment extends BaseFragment {
             chip.setText(optionList.get(i));
             chip.setOnCheckedChangeListener((buttonView,isChecked) -> {
                 if(isChecked) {
+                    Log.d("cvbvcbcbvcb====",""+binding.includeCompare.chipGroup.getCheckedChipId());
                     Object tag = buttonView.getTag();
                     if("Tractors".equals(tag)) {
                         showTractorCompare();
@@ -496,12 +498,13 @@ public class HomeFragment extends BaseFragment {
             if (i == 0)
                 chip.setChecked(true);
             binding.includeCompare.chipGroup.addView(chip);
+
         }
     }
     private void showTractorCompare() {
         binding.includeCompare.tvLabel.setText(getString(R.string.compareTractors));
-        binding.includeCompare.llViewMore.setOnClickListener(v -> ((MainActivity) activity).navigateToCompareFragment(CallFrom.NEW_TRACTOR));
-        if (compareTractorAdapter == null) {
+        binding.includeCompare.llViewMore.setOnClickListener(v ->((MainActivity) activity).navigateToCompareFragment(CallFrom.NEW_TRACTOR));
+        if(compareTractorAdapter == null) {
             initCompareTractorAdapter();
         }
         binding.includeCompare.rvList.setLayoutManager(new LinearLayoutManager(activity));
@@ -510,20 +513,20 @@ public class HomeFragment extends BaseFragment {
     private void showImplementsCompare() {
         binding.includeCompare.tvLabel.setText(getString(R.string.compareImplement));
         binding.includeCompare.llViewMore.setOnClickListener(v -> ((MainActivity) activity).navigateToCompareFragment(CallFrom.IMPLEMENT));
-        if (compareImplementAdapter == null) {
+        if(compareImplementAdapter == null) {
             initCompareImplementAdapter();
         }
         binding.includeCompare.rvList.setLayoutManager(new LinearLayoutManager(activity));
         binding.includeCompare.rvList.setAdapter(compareImplementAdapter);
-        if (compareImplementAdapter != null && compareImplementAdapter.getItemCount() <= 1) {
-            viewModel.getCompareImplements(1).observe(getViewLifecycleOwner(), tractorsResp -> {
-                switch (tractorsResp.getStatus()) {
+        if(compareImplementAdapter != null && compareImplementAdapter.getItemCount() <= 1) {
+            viewModel.getCompareImplements(1).observe(getViewLifecycleOwner(),tractorsResp -> {
+                switch(tractorsResp.getStatus()) {
                     case LOADING:
                         break;
                     case SUCCESS:
-                        if (tractorsResp.getData() != null) {
+                        if(tractorsResp.getData() != null) {
                             List<PopularImpComp> list = tractorsResp.getData().getData().getImplement().subList(0, 2);
-                            if (compareImplementAdapter == null) {
+                            if(compareImplementAdapter == null) {
                                 initCompareTractorAdapter();
                             }
                             compareImplementAdapter.setOthers(tractorsResp.getData().getOthers());
@@ -532,7 +535,7 @@ public class HomeFragment extends BaseFragment {
                         }
                         break;
                     case ERROR:
-                        Toast.makeText(activity, tractorsResp.getError(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity,tractorsResp.getError(),Toast.LENGTH_SHORT).show();
                         break;
                 }
             });
@@ -560,21 +563,22 @@ public class HomeFragment extends BaseFragment {
                 bundle.putString("value", postJsonObject.toString());
                 fragment.setArguments(bundle);
                 FragmentManager mFragmentManager = activity.getSupportFragmentManager();
-                if (!fragment.isAdded()) {
+                if(!fragment.isAdded()) {
                     FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
                     fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
                     FrameLayout contentView = (FrameLayout) activity.findViewById(R.id.containerView);
                     fragmentTransaction.replace(contentView.getId(), fragment).addToBackStack(TAG).commit();
                 }
-            } catch (Exception e) {
+            }
+            catch(Exception e) {
                 e.printStackTrace();
             }
         });
     }
     @Override
     public void onViewCreated(@NonNull View view,@Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        viewModel = new ViewModelProvider(((MainActivity) activity)).get(HomeFragmentViewModel.class);
+        super.onViewCreated(view,savedInstanceState);
+        viewModel = new ViewModelProvider(((MainActivity)activity)).get(HomeFragmentViewModel.class);
         if(pref.getIntValue(Constants.NO_OF_LAUNCHED,0) > 7) {
 //            ReviewManager manager = ReviewManagerFactory.create(activity);
 //            Task<ReviewInfo> request = manager.requestReviewFlow();
@@ -594,9 +598,9 @@ public class HomeFragment extends BaseFragment {
                     binding.includeCompare.container.setVisibility(View.GONE);
                     break;
                 case SUCCESS:
-                    if (tractorsResp.getData() != null) {
-                        List<Tractors> list = tractorsResp.getData().getData().getTractors().subList(0, 2);
-                        if (compareTractorAdapter == null) {
+                    if(tractorsResp.getData() != null) {
+                        List<Tractors> list = tractorsResp.getData().getData().getTractors().subList(0,2);
+                        if(compareTractorAdapter == null) {
                             initCompareTractorAdapter();
                         }
                         compareTractorAdapter.setOthers(tractorsResp.getData().getOthers());
@@ -610,17 +614,17 @@ public class HomeFragment extends BaseFragment {
             }
         });
         viewModel.getUsedTractors(1).observe(getViewLifecycleOwner(),tractorsResp -> {
-            switch (tractorsResp.getStatus()) {
+            switch(tractorsResp.getStatus()) {
                 case LOADING:
                     binding.includeTractors.container.setVisibility(View.GONE);
                     break;
                 case SUCCESS:
-                    if (tractorsResp.getData() != null) {
-                        if (usedTractorListAdapter == null) {
+                    if(tractorsResp.getData() != null) {
+                        if(usedTractorListAdapter == null) {
                             initUsedTractorAdapter();
                         }
                         usedTractorListAdapter.setOthers(tractorsResp.getData().getOthers());
-                        if (tractorsResp.getData().getData().getData().size() > 5)
+                        if(tractorsResp.getData().getData().getData().size() > 5)
                             usedTractorListAdapter.updateItems(tractorsResp.getData().getData().getData().subList(0,4));
                         else
                             usedTractorListAdapter.updateItems(tractorsResp.getData().getData().getData());
@@ -628,20 +632,25 @@ public class HomeFragment extends BaseFragment {
                     }
                     break;
                 case ERROR:
-                    Toast.makeText(activity, tractorsResp.getError(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity,tractorsResp.getError(),Toast.LENGTH_SHORT).show();
                     break;
             }
         });
-        viewModel.getVideos(getString(R.string.youtubeChannelID), getString(R.string.google_api_key),null);
+        viewModel.getVideos(getString(R.string.youtubeChannelID),getString(R.string.google_api_key),null);
         viewModel.videoList.observe(getViewLifecycleOwner(),items -> {
             if (items != null) {
+                Log.d("xvcvxvxcvcx===",""+items.size());
                 if(items.size()>6)
-                   videoAdapter.addItems(items.subList(0, 5),1);
+                   videoAdapter.addItems(items.subList(0,5),1);
+                else if(items.size()<3 && items.size()>=1) {
+                    videoAdapter.addItems(items.subList(0,1),1);
+                }
                 else if(items.size()<=6 && items.size()>=1)
-                   videoAdapter.addItems(items.subList(0, items.size()-1),1);
+                   videoAdapter.addItems(items.subList(0,items.size()-1),1);
 
                 binding.includeVideos.container.setVisibility(View.VISIBLE);
-            } else {
+            }
+            else {
                 binding.includeVideos.container.setVisibility(View.GONE);
             }
         });
@@ -687,7 +696,8 @@ public class HomeFragment extends BaseFragment {
                     categoriesAdapter.itemRemoveAll();
                     if(listResource.size()>4)
                          categoriesAdapter.addItems(listResource.subList(0,4),1,sessionManager.getEcomOther());
-                    else categoriesAdapter.addItems(listResource,1,sessionManager.getEcomOther());
+                    else
+                        categoriesAdapter.addItems(listResource,1,sessionManager.getEcomOther());
                    // binding.includeSmallFarmMachinery.tvViewMore.setVisibility(View.VISIBLE);
                 }
                 else {
@@ -757,7 +767,7 @@ public class HomeFragment extends BaseFragment {
                     @Override
                     public void onSuccess(@NonNull CategoryListResp productListResp) {
                         Log.d("cvxcxxcvxv234===",""+productListResp.isError()+"=="+productListResp.getCategories().size());
-                        if (productListResp.isError()) {
+                        if(productListResp.isError()) {
                             binding.includeSmallFarmMachinery.llViewMore.setVisibility(View.GONE);
                             binding.includeSmallFarmMachinery.container.setVisibility(View.GONE);
                         }
@@ -776,13 +786,13 @@ public class HomeFragment extends BaseFragment {
                     }
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        Timber.e(e, "onError: ");
+                        Timber.e(e,"onError: ");
                         binding.includeSmallFarmMachinery.container.setVisibility(View.GONE);
                         //gardenTools.postError(e.getMessage());
                     }
                 });
     }
-    @SuppressLint("CheckResult")
+  //  @SuppressLint("CheckResult")
 //    public void getSmallMach(){
 //        //noinspection ResultOfMethodCallIgnored
 //        khetiAPIs.getHomeList()
@@ -834,23 +844,25 @@ public class HomeFragment extends BaseFragment {
         });
     }
     private void initUsedTractorAdapter() {
-        usedTractorListAdapter = new UsedTractorHomeListAdapter(activity, user.getId(), binding.includeTractors.rvList, true);
-        usedTractorListAdapter.setOnItemClickListener((position, v) -> {
+        usedTractorListAdapter = new UsedTractorHomeListAdapter(activity,user.getId(),binding.includeTractors.rvList,true);
+        usedTractorListAdapter.setOnItemClickListener((position,v) -> {
             try {
-                Intent intent = new Intent(activity, UsedTractorDetailActivity.class);
-                intent.putExtra("tractorId", usedTractorListAdapter.getItem(position).getId());
-                intent.putExtra("position", position);
+                Intent intent = new Intent(activity,UsedTractorDetailActivity.class);
+                intent.putExtra("tractorId",usedTractorListAdapter.getItem(position).getId());
+                intent.putExtra("position",position);
                 startActivity(intent);
-            } catch (Exception e) {
+            }
+            catch(Exception e) {
                 e.printStackTrace();
             }
         });
-        usedTractorListAdapter.setOnSellerDetailsClickListener((position, v) -> {
+        usedTractorListAdapter.setOnSellerDetailsClickListener((position,v) -> {
             try {
-                Intent intent = new Intent(activity, GetUsedTrSellerDetails.class);
-                intent.putExtra("tractorId", usedTractorListAdapter.getItem(position).getId());
+                Intent intent = new Intent(activity,GetUsedTrSellerDetails.class);
+                intent.putExtra("tractorId",usedTractorListAdapter.getItem(position).getId());
                 startActivity(intent);
-            } catch (Exception e) {
+            }
+            catch(Exception e) {
                 e.printStackTrace();
             }
         });
@@ -977,13 +989,17 @@ public class HomeFragment extends BaseFragment {
                     }
                     @Override
                     public void onGetRoadPriceClick(int position,@Nullable View v) {
-                        Intent intent = new Intent(activity,NewTrGetOnRoadPriceActivity.class);
-                        intent.putExtra("id",popularTractorAdapter.getItem(position).getId());
-                        intent.putExtra("name",popularTractorAdapter.getItem(position).getName());
+                    try {
+                        Intent intent = new Intent(activity, NewTrGetOnRoadPriceActivity.class);
+                        intent.putExtra("id", popularTractorAdapter.getItem(position).getId());
+                        intent.putExtra("name", popularTractorAdapter.getItem(position).getName());
                         //intent.putExtra("image", popularTractorAdapter.getOthers().getNewTractorImage() + popularTractorAdapter.getItem(position).getImage().getTractor_img_name());
-                        intent.putExtra("image",popularTractorAdapter.getOthers().getNewTractorImage()+popularTractorAdapter.getItem(position).getImage());
-                        intent.putExtra("priceType",PriceType.TRACTOR);
+                        intent.putExtra("image", popularTractorAdapter.getOthers().getNewTractorImage() + popularTractorAdapter.getItem(position).getImage());
+                        intent.putExtra("priceType", PriceType.TRACTOR);
                         startActivity(intent);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
                     }
                 });
             }
@@ -1071,12 +1087,12 @@ public class HomeFragment extends BaseFragment {
         ((MainActivity) activity).hideSoftKeyboard();
         if (bannerList == null) {
             bannerList = ((MainActivity) activity).allBanner.getBanners().getHome();
-           if(((MainActivity) activity).allBanner.getBanners().getHome()!=null) {
-                bannerList.add(((MainActivity) activity).allBanner.getBanners().getHome().get(0));
-                bannerList.add(((MainActivity) activity).allBanner.getBanners().getHome().get(0));
-            }
+//           if(((MainActivity) activity).allBanner.getBanners().getHome()!=null) {
+//                bannerList.add(((MainActivity) activity).allBanner.getBanners().getHome().get(0));
+//                bannerList.add(((MainActivity) activity).allBanner.getBanners().getHome().get(0));
+//            }
         }
-        if (bannerList != null && bannerList.size() != 0) {
+        if(bannerList != null && bannerList.size() != 0) {
             configAdapter();
         }
         if (otherBannerList == null)
@@ -1096,38 +1112,38 @@ public class HomeFragment extends BaseFragment {
         }
     }
     private void initOtherBanners() {
-        if (otherBannerList != null) {
-            if (otherBannerList.size() >= 1) {
+        if(otherBannerList != null) {
+            if(otherBannerList.size() >= 1) {
                 binding.mcvBanner1.setVisibility(View.VISIBLE);
                 Glide.with(activity)
                         .load(otherBannerList.get(0).getImageUrl())
                         .into(binding.ivBanner1);
-            } else
+            }
+            else
                 binding.mcvBanner1.setVisibility(View.GONE);
-            if (otherBannerList.size() >= 2) {
+            if(otherBannerList.size() >= 2) {
                 binding.mcvBanner2.setVisibility(View.VISIBLE);
                 Glide.with(activity)
                         .load(otherBannerList.get(1).getImageUrl())
                         .into(binding.ivBanner2);
-            } else
+            }
+            else
                 binding.mcvBanner2.setVisibility(View.GONE);
-            if (otherBannerList.size() >= 2) {
+            if(otherBannerList.size() >= 2) {
                 binding.mcvBanner3.setVisibility(View.VISIBLE);
                 Glide.with(activity)
                         .load(otherBannerList.get(2).getImageUrl())
                         .into(binding.ivBanner3);
-            } else
+            }
+            else
                 binding.mcvBanner3.setVisibility(View.GONE);
         }
     }
     private void configAdapter() {
         binding.viewPager.setAdapter(new TwoBannerSlideAdapter(activity,bannerList));
         binding.viewPager.setClipToPadding(false);
-       // binding.viewPager.setPadding(0,0,120,0);
-        //if(binding.viewPager.getCurrentItem()==bannerList.size()-1)
-            binding.viewPager.setPadding(60,0,60,0);
-       //  else
-           // binding.viewPager.setPadding(0,0,120,0);
+        binding.viewPager.setPadding(0,0,0,0);
+        binding.viewPager.setPageMargin(0);
         binding.indicator.setViewPager(binding.viewPager);
         runnable(bannerList.size());
         //Re-run callback
@@ -1140,15 +1156,15 @@ public class HomeFragment extends BaseFragment {
     }
     private void showTractorOrImpBrands(@BrandType int type) {
         BrandAdapter adapter = new BrandAdapter(this.requireContext(),binding.includeBrands.rvList);
-        binding.includeBrands.rvList.setLayoutManager(new GridLayoutManager(this.getContext(),4));
+        binding.includeBrands.rvList.setLayoutManager(new GridLayoutManager(this.getContext(),3));
         binding.includeBrands.rvList.setAdapter(adapter);
-        switch (type) {
+        switch(type) {
             case BrandType.NEW_TRACTOR: {
                 adapter.setOnItemClickListener((position,v) -> callNewTractorListPage(adapter.getItem(position)));
                 brandRepository.getNewTractorBrands().observe(getViewLifecycleOwner(),brands -> {
                     if (brands.size()>0) {
                         if (brands != null && brands.size() != 0)
-                            adapter.updateItems(brands.subList(0, 16));
+                            adapter.updateItems(brands.subList(0, 15));
                     }
                 });
                 binding.includeBrands.llViewMore.setOnClickListener(v ->navigateToSearchNewTractor(true));
@@ -1158,8 +1174,8 @@ public class HomeFragment extends BaseFragment {
                 adapter.setOnItemClickListener((position,v) ->callImplementList(adapter.getItem(position)));
                 brandRepository.getImplementBrands().observe(getViewLifecycleOwner(),brands -> {
                     if (brands.size()>0) {
-                        if (Objects.requireNonNull(brands).size() != 0 && brands.size()>16)
-                            adapter.updateItems(brands.subList(0,16));
+                        if (Objects.requireNonNull(brands).size() != 0 && brands.size()>15)
+                            adapter.updateItems(brands.subList(0,15));
                         else  adapter.updateItems(brands.subList(0,brands.size()-1));
                     }
                 });

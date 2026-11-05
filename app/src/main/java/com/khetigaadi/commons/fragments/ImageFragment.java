@@ -1,5 +1,6 @@
 package com.khetigaadi.commons.fragments;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,6 +35,7 @@ public class ImageFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
         binding = FragmentImageBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
+        Log.d("vcbvcbcv_bcbc3242343",""+url);
         Glide.with(this)
                 .load(url)
                 .placeholder(R.mipmap.no_image)

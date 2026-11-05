@@ -64,14 +64,14 @@ public class RetrofitModule {
             Request original = chain.request();
             String isAuthorizable = original.headers().get("isAuthorizable");
             Request request;
-            if (TextUtils.isEmpty(isAuthorizable))
+            if(TextUtils.isEmpty(isAuthorizable))
                 request = original.newBuilder()
-                        .header("Content-Type", "application/json; charset=utf-8")
-                        .header("Accept", "application/json")
-                        .header("AppType", String.valueOf(BuildConfig.APP_TYPE))
-                        .header("Authorization", sessionManager.getToken() == null ? " " : sessionManager.getToken())
-                        .header("userId", sessionManager.getUser() == null ? " " : String.valueOf(sessionManager.getUser().getId()))
-                        .method(original.method(), original.body())
+                        .header("Content-Type","application/json; charset=utf-8")
+                        .header("Accept","application/json")
+                        .header("AppType",String.valueOf(BuildConfig.APP_TYPE))
+                        .header("Authorization",sessionManager.getToken() == null ? " " : sessionManager.getToken())
+                        .header("userId",sessionManager.getUser() == null ? " " : String.valueOf(sessionManager.getUser().getId()))
+                        .method(original.method(),original.body())
                         .build();
             else
                 request = original.newBuilder().build();

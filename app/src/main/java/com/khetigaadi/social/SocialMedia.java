@@ -9,7 +9,6 @@ import com.khetigaadi.commons.utils.Constants;
 import com.khetigaadi.databinding.SocialMediaBinding;
 import java.util.ArrayList;
 import java.util.Objects;
-
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class SocialMedia extends BaseActivity {
@@ -33,9 +32,9 @@ public class SocialMedia extends BaseActivity {
         socialMediaUrl.add("https://www.linkedin.com/in/khetigaadi");
         mFragmentManager = getSupportFragmentManager();
 //        callFacebookPage();
-        if (getIntent().getExtras() != null) {
-            int page = getIntent().getExtras().getInt("page", 1);
-            switch (page) {
+        if(getIntent().getExtras() != null) {
+            int page = getIntent().getExtras().getInt("page",1);
+            switch(page) {
                 case 1: {
                     callFacebookPage();
                     break;
@@ -48,7 +47,6 @@ public class SocialMedia extends BaseActivity {
                     callLinkedInPage();
                     break;
                 }
-
                 default: {
                     callFacebookPage();
                 }
@@ -57,7 +55,7 @@ public class SocialMedia extends BaseActivity {
         binding.imgBtnFacebook.setOnClickListener(v -> callFacebookPage());
         binding.imgBtnInstagram.setOnClickListener(v -> callInstagramPage());
         binding.imgBtnLinkedIn.setOnClickListener(v -> callLinkedInPage());
-        if (!Constants.isConnectionAvailable(this)) {
+        if(!Constants.isConnectionAvailable(this)) {
             noInternetConnection(binding.parent);
         }
     }

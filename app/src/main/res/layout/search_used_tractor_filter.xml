@@ -9,12 +9,16 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="@dimen/dimen_50dp"
         android:background="@color/pageBackGround">
+
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="225dp"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="0dp"/>
+
         <me.relex.circleindicator.CircleIndicator
             android:id="@+id/indicator"
             android:layout_width="match_parent"
@@ -31,6 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_10dp"
+            android:background="@color/white"
+            android:backgroundTint="@color/white"
             android:layout_marginTop="10dp"
             android:layout_marginRight="@dimen/margin_10dp"
             android:visibility="visible"
@@ -122,12 +128,14 @@
             android:text="@string/do_you_have_a_tractor_in_mind"
             android:textColor="@color/black"
             android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@id/tvOr" />
+            app:layout_constraintTop_toBottomOf="@id/tvOr"/>
         <androidx.cardview.widget.CardView
             android:id="@+id/cvBrandModel"
             style="@style/CardViewListItem"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:background="@color/white"
             android:layout_marginLeft="@dimen/margin_10dp"
             android:layout_marginTop="10dp"
             android:layout_marginRight="@dimen/margin_10dp"
@@ -148,7 +156,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/search_by_brand_and_model"
                     android:textColor="@color/black"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"/>
                 <EditText
                     android:id="@+id/etBrand"
                     style="@style/SearchEditText"
@@ -163,7 +171,7 @@
                     android:inputType="text"
                     android:longClickable="false"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    app:layout_constraintTop_toBottomOf="@+id/searchByBrand" />
+                    app:layout_constraintTop_toBottomOf="@+id/searchByBrand"/>
                 <EditText
                     android:id="@+id/etModel"
                     style="@style/SearchEditText"
@@ -185,7 +193,6 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
-
         <androidx.cardview.widget.CardView
             android:id="@+id/cvPrice"
             style="@style/CardViewListItem"
@@ -193,6 +200,8 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_10dp"
             android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:backgroundTint="@color/white"
             android:layout_marginRight="@dimen/margin_10dp"
             app:layout_constraintTop_toBottomOf="@id/cvBrandModel">
 
@@ -241,7 +250,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/tvMaxPrice"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/tvMinPrice"
-                    app:layout_constraintTop_toBottomOf="@id/searchByPrice" />
+                    app:layout_constraintTop_toBottomOf="@id/searchByPrice"/>
                 <TextView
                     android:id="@+id/tvMaxPrice"
                     style="@style/SearchPageHeading"
@@ -255,21 +264,23 @@
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/tvDash"
                     app:layout_constraintTop_toBottomOf="@id/searchByPrice"
-                    tools:text="15 L" />
+                    tools:text="15 L"/>
                 <com.google.android.material.slider.RangeSlider
                     android:id="@+id/rangeBarPrice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="10dp"
+                    style="@style/Myslider"
+                    android:layout_marginEnd="10dp"
                     android:contentDescription="@string/search_by_price"
                     android:stepSize="1"
                     android:valueFrom="0"
+                    app:labelBehavior="floating"
                     android:valueTo="38"
                     app:layout_constraintTop_toBottomOf="@id/tvMaxPrice"
                     app:thumbColor="@color/red"
                     app:tickColor="@color/red"
-                    app:trackColor="@color/red" />
+                    app:trackColor="@color/red"/>
                 <RadioGroup
                     android:id="@+id/radioGroup"
                     android:layout_width="match_parent"
@@ -291,7 +302,7 @@
                         android:fontFamily="@font/poppins_bold"
                         android:textStyle="bold"
                         android:textSize="12sp"
-                        tools:checked="false" />
+                        tools:checked="false"/>
                     <com.google.android.material.radiobutton.MaterialRadioButton
                         android:id="@+id/radio2To3"
                         style="@style/Widget.App.RadioButton.OutLine"
@@ -325,7 +336,7 @@
                         android:fontFamily="@font/poppins_bold"
                         android:textStyle="bold"
                         android:text="@string/above_5l"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"/>
                 </RadioGroup>
                 <!--  style="@style/OutLineButtonStyleSmall" -->
                 <TextView
@@ -346,7 +357,7 @@
                     android:layout_marginBottom="@dimen/margin_10dp"
                     android:text="@string/search"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/radioGroup" />
+                    app:layout_constraintTop_toBottomOf="@id/radioGroup"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
@@ -354,6 +365,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_10dp"
+            android:backgroundTint="@color/white"
+            android:background="@color/white"
             android:layout_marginTop="10dp"
             android:layout_marginRight="@dimen/margin_10dp"
             app:layout_constraintTop_toBottomOf="@+id/cvPrice">
@@ -369,13 +382,13 @@
                     android:fontFamily="@font/poppins_bold"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/search_by_brand" />
+                    android:text="@string/search_by_brand"/>
                 <LinearLayout
                     android:id="@+id/llBrand"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
-                    android:orientation="vertical" />
+                    android:orientation="vertical"/>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>

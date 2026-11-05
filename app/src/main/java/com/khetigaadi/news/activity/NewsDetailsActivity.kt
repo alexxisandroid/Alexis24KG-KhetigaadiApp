@@ -10,10 +10,23 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.Insets
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.MobileAds
+//import com.google.android.gms.ads.AdListener
+//import com.google.android.gms.ads.AdRequest
+//import com.google.android.gms.ads.LoadAdError
+//import com.google.android.gms.ads.MobileAds
 import com.google.android.gms.analytics.HitBuilders.ScreenViewBuilder
 import com.google.android.gms.analytics.Tracker
 import com.google.firebase.dynamiclinks.ktx.androidParameters
@@ -35,7 +48,6 @@ import com.khetigaadi.news.adapter.CommentListAdapter.CommentListClickListener
 import com.khetigaadi.news.model.Comment
 import com.khetigaadi.news.model.CommentResp
 import com.khetigaadi.retrofit.KhetiAPIs
-import com.khetigaadi.tractor.rent.model.RentTractorDetailsResp
 import com.khetigaadi.user.SessionManager
 import com.khetigaadi.user.profile.ProfileActivity
 import dagger.hilt.android.AndroidEntryPoint
@@ -63,33 +75,70 @@ class NewsDetailsActivity:BaseActivity() {
     override fun onCreate(savedInstanceState:Bundle?) {
         super.onCreate(savedInstanceState)
         println("vcbcvbcvbc====")
-       // WindowCompat.setDecorFitsSystemWindows(getWindow(),false)
+       // WindowCompat.setDecorFitsSystemWindows(window,false)
+        enableEdgeToEdge()
         binding = ActivityNewsDetailsBinding.inflate(layoutInflater)
         val view:View = binding.root
         setContentView(view)
-//        ViewCompat.setOnApplyWindowInsetsListener(
-//            view,
-//            OnApplyWindowInsetsListener { v: View?, insets: WindowInsetsCompat? ->
-//                val systemBarsInsets: Insets =
-//                    insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
-//                v!!.setPadding(
-//                    systemBarsInsets.left,
-//                    systemBarsInsets.top,
-//                    systemBarsInsets.right,
-//                    systemBarsInsets.bottom)
-//                insets
-//            })
+        ViewCompat.setOnApplyWindowInsetsListener(view) { v:View?,insets:WindowInsetsCompat? ->
+            val systemBarsInsets:Insets = insets!!.getInsets(WindowInsetsCompat.Type.statusBars())
+            v!!.setPadding(
+                systemBarsInsets.left,
+                systemBarsInsets.top,
+                systemBarsInsets.right,
+                systemBarsInsets.bottom)
+            insets
+        }
 //        this.enableEdgeToEdge()
-        viewModel = ViewModelProvider(this).get(NewsDetailsViewModel::class.java)
+        viewModel = ViewModelProvider(this)[NewsDetailsViewModel::class.java]
         initToolbar()
         readData(intent.extras)
         readDeepLinkData()
         Glide.with(this@NewsDetailsActivity)
             .load(R.drawable.loader_white)
+            .placeholder(R.drawable.cb_background_round_drawable_white)
             .into(binding.llProgresss.ivLoader)
         getNewDetails()
         initView()
         initCommentAdapter()
+        val adView = binding.adView
+        // Initialize Mobile Ads SDK
+
+        val adListener: AdListener = object:AdListener() {
+            override fun onAdClicked() {
+                // Code to be executed when the user clicks on an ad.
+            }
+            override fun onAdClosed() {
+                // Code to be executed when the user is about to return
+                // to the app after tapping on an ad.
+            }
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                // Code to be executed when an ad request fails.
+                println("adclosedd======")
+            }
+            override fun onAdImpression() {
+                // Code to be executed when an impression is recorded
+                // for an ad.
+                println("onAdImpression======")
+            }
+            override fun onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+                println("onAdLoaded======")
+            }
+            override fun onAdOpened() {
+                // Code to be executed when an ad opens an overlay that
+                // covers the screen.
+                println("onAdOpened======")
+            }
+        }
+       // MobileAds.initialize(this, adListener as OnInitializationCompleteListener);
+       //findViewById(R.id.adView);
+
+        MobileAds.initialize(this@NewsDetailsActivity)
+        val adRequest =  AdRequest.Builder().build()
+        adView.loadAd(adRequest)
+        binding.adView2.loadAd(adRequest)
+
     }
     private fun initView() {
         binding.coParent.viewTreeObserver.addOnGlobalLayoutListener {
@@ -204,37 +253,39 @@ class NewsDetailsActivity:BaseActivity() {
         binding.toolbars.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material)
         binding.toolbars.toolbar.setNavigationOnClickListener { onBackPressed() }
         binding.toolbars.toolbar.title = getString(R.string.news)
-        supportActionBar?.title =getString(R.string.news)
+        supportActionBar?.title = getString(R.string.details)
     }
     private fun readDeepLinkData() {
-        if (intent.action != null && intent.action.equals(Intent.ACTION_VIEW, ignoreCase = true)) {
+        if(intent.action != null && intent.action.equals(Intent.ACTION_VIEW,ignoreCase = true)) {
             try {
                 newsId = intent.data.toString().split("news/".toRegex()).toTypedArray()[1]
-            } catch (e: Exception) {
+            }
+            catch(e:Exception) {
                 e.printStackTrace()
             }
         }
     }
     private fun readData(bundle:Bundle?) {
-        if (bundle != null) {
+        if(bundle != null) {
             newsId = bundle.getString("news_id")
         }
     }
     // (News) newsDetailsResp.getNews();
     //Google analytic code
-    //                    getCommentList();
+    // getCommentList();
     private fun getNewDetails() {
         viewModel.newsDetails.observe(this) { newsDetailRespStateData:StateData<NewsDetailResp?> ->
-           println("vcbvcbcvbcvbvcdfsg===="+newsId+"=="+newsDetailRespStateData.status);
+           println("vcbvcbcvbcvbvcdfsg===="+newsId+"=="+newsDetailRespStateData.status)
             when(newsDetailRespStateData.status) {
                 StateData.Status.LOADING -> {
                     binding.llComments.visibility = View.GONE
-                    binding.llProgresss.llProgress.visibility = View.VISIBLE
+                    binding.llProgresss.ivLoader.visibility = View.VISIBLE
                 }
                 StateData.Status.SUCCESS -> {
                     if(newsDetailRespStateData.data != null) {
                         news = newsDetailRespStateData.data!!.news
                     }
+                    println("bvcxvvxvvvv====="+ news?.postContent);
                     // (News) newsDetailsResp.getNews();
                     //Google analytic code
                     Timber.i("Setting screen name: %s", TAG)
@@ -242,6 +293,7 @@ class NewsDetailsActivity:BaseActivity() {
                     mTracker!!.send(ScreenViewBuilder().build())
                     binding.tvNewsHeading.text = news!!.postTitle
                     if (news!!.postContent != null) {
+                        //supportActionBar?.title = news!!.postTitle
                         binding.description.settings.javaScriptEnabled = true
                         binding.description.visibility = View.VISIBLE
                         if (news!!.postContent != null) {
@@ -258,10 +310,8 @@ class NewsDetailsActivity:BaseActivity() {
                             .into(binding.ivImage)
                         binding.ivImage.visibility = View.VISIBLE
                     } else binding.ivImage.visibility = View.GONE
-                    if (news!!.postDate != null) {
+                    if(news!!.postDate != null) {
                        // binding.tvDate.text = DateUtils.convertDateToDate(news!!.postDate, DateUtils.DateFormat.yyyy_MM_dd_HH_mm_ss, DateUtils.DateFormat.MMM_dd_yyyy)
-
-
                         val formatter = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
                         val dateInString = news!!.postDate
                         val formatterOut = SimpleDateFormat("MMM-dd-yyyy")
@@ -272,13 +322,14 @@ class NewsDetailsActivity:BaseActivity() {
                             val dtt = formatterOut.format(date)
                             // binding.tvRegisteredOn.setText(String.format("%s %s", getString(R.string.registered_on),dtt));
                             binding.tvDate.text = dtt
-                        } catch (e: ParseException) {
+                        }
+                        catch(e:ParseException) {
                             e.printStackTrace()
                         }
                     }
                     //                    getCommentList();
-                    binding.llProgresss.llProgress.visibility = View.GONE
-                    getNewsDetails()
+                    binding.llProgresss.ivLoader.visibility = View.GONE
+                   // getNewsDetails()
                 }
                 StateData.Status.ERROR -> {
                     binding.llProgresss.llProgress.visibility = View.GONE

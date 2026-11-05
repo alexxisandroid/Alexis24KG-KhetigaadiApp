@@ -37,20 +37,20 @@ public class ImageUtils {
         return new File(mediaStorageDir.getPath() + File.separator +
                 "IMG_" + timeStamp + ".jpg");
     }
-    public static Uri getUriFromBitmap(Context context, @NotNull Bitmap resource) throws IOException {
+    public static Uri getUriFromBitmap(Context context,@NotNull Bitmap resource) throws IOException {
         File shareImage = getImageOutputCacheFile(context);
         FileOutputStream stream = new FileOutputStream(shareImage);
-        resource.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        resource.compress(Bitmap.CompressFormat.PNG,100,stream);
         stream.close();
         return Uri.fromFile(shareImage);
     }
-    public static Uri getUriFromBitmapForShare(@NotNull Context context, @NotNull Bitmap resource) throws IOException {
+    public static Uri getUriFromBitmapForShare(@NotNull Context context,@NotNull Bitmap resource) throws IOException {
         File shareImage = com.khetigaadi.pick_image.ImageUtils.geImageOutputMediaFile(context);
         FileOutputStream stream = new FileOutputStream(shareImage);
-        resource.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        resource.compress(Bitmap.CompressFormat.PNG, 100,stream);
         stream.close();
-        if (shareImage != null) {
-            return FileProvider.getUriForFile(context.getApplicationContext(), context.getApplicationContext().getPackageName() + ".provider", shareImage);
+        if(shareImage != null) {
+            return FileProvider.getUriForFile(context.getApplicationContext(),context.getApplicationContext().getPackageName() + ".provider", shareImage);
         }
         return null;
     }

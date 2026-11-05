@@ -50,4 +50,7 @@ public interface ShopParentAPIs {
     Single<OrderResp> getOrders(@Body Map<String,String> params);
     @POST("mobile/api/v3/shop/product/search")
     Single<ProductListResp> getProductsByName(@Body Map<String,String> params);
+
+
+
 }

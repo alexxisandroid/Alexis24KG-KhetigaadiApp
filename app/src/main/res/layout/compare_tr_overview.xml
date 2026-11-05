@@ -3,24 +3,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="5dp">
-
             <LinearLayout
                 android:id="@+id/llModel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="5dp">
-
                 <TextView
                     android:id="@+id/tvModel"
                     style="@style/ListFieldWithDrawable"
@@ -34,19 +30,18 @@
                     android:paddingStart="@dimen/margin_15dp"
                     android:paddingEnd="@dimen/dimen_4dp"
                     android:text="@string/dash"
-                    android:textAppearance="?android:attr/textAppearanceListItemSmall" />
-
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
                 <TextView
                     style="@style/ListFieldWithDrawable"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
+                    android:fontFamily="@font/poppins"
                     android:gravity="center"
                     android:text="@string/tractor_model"
                     android:textAppearance="?android:attr/textAppearanceListItemSmall"
-                    android:textColor="@color/spinnerRowText" />
-
+                    android:textColor="@color/spinnerRowText"/>
                 <TextView
                     android:id="@+id/tvModel1"
                     style="@style/ListFieldWithDrawable"
@@ -57,17 +52,14 @@
                     android:gravity="center"
                     android:maxLines="10"
                     android:text="@string/dash"
-                    android:textAppearance="?android:attr/textAppearanceListItemSmall" />
-
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/llDrive"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="5dp">
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -75,14 +67,12 @@
                     android:layout_marginLeft="35dp"
                     android:layout_marginRight="35dp"
                     android:background="@color/darkGrey"
-                    android:textAppearance="?android:attr/textAppearanceListItemSmall" />
-
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
                     android:orientation="horizontal">
-
                     <TextView
                         android:id="@+id/tvDrive"
                         style="@style/ListFieldWithDrawable"
@@ -93,19 +83,18 @@
                         android:gravity="center"
                         android:maxLines="10"
                         android:text="@string/dash"
-                        android:textAppearance="?android:attr/textAppearanceListItemSmall" />
-
+                        android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:fontFamily="@font/poppins"
                         style="@style/ListFieldWithDrawable"
                         android:text="@string/tractor_drive"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"
-                        android:textColor="@color/spinnerRowText" />
-
+                        android:textColor="@color/spinnerRowText"/>
                     <TextView
                         android:id="@+id/tvDrive1"
                         style="@style/ListFieldWithDrawable"
@@ -115,17 +104,15 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/dash"
-                        android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+                        android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
                 </LinearLayout>
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/llColor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="5dp">
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -133,15 +120,13 @@
                     android:layout_marginLeft="35dp"
                     android:layout_marginRight="35dp"
                     android:background="@color/darkGrey"
-                    android:textAppearance="?android:attr/textAppearanceListItemSmall" />
-
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
                     android:orientation="horizontal"
                     android:baselineAligned="false">
-
                     <LinearLayout
                         android:id="@+id/llTr1Color"
                         android:layout_width="match_parent"
@@ -164,10 +149,11 @@
                             android:layout_height="match_parent"
                             android:layout_gravity="center"
                             android:gravity="center"
+                            android:fontFamily="@font/poppins"
                             style="@style/ListFieldWithDrawable"
                             android:text="@string/tractor_color"
                             android:textAppearance="?android:attr/textAppearanceListItemSmall"
-                            android:textColor="@color/spinnerRowText" />
+                            android:textColor="@color/spinnerRowText"/>
                     </LinearLayout>
 
                     <LinearLayout
@@ -198,7 +184,7 @@
                     android:layout_marginLeft="35dp"
                     android:layout_marginRight="35dp"
                     android:background="@color/darkGrey"
-                    android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -216,7 +202,7 @@
                         android:gravity="center"
                         android:maxLines="10"
                         android:text="@string/dash"
-                        android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+                        android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -227,7 +213,8 @@
                         style="@style/ListFieldWithDrawable"
                         android:text="@string/tractor_hp"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"
-                        android:textColor="@color/spinnerRowText" />
+                        android:textColor="@color/spinnerRowText"
+                        android:fontFamily="@font/poppins"/>
 
                     <TextView
                         android:id="@+id/tvHp1"
@@ -239,7 +226,7 @@
                         android:gravity="center"
                         android:maxLines="10"
                         android:text="@string/dash"
-                        android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+                        android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -257,7 +244,7 @@
                     android:layout_marginLeft="35dp"
                     android:layout_marginRight="35dp"
                     android:background="@color/darkGrey"
-                    android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -274,7 +261,7 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/dash"
-                        android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+                        android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -282,10 +269,11 @@
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:fontFamily="@font/poppins"
                         style="@style/ListFieldWithDrawable"
                         android:text="@string/pto_hp"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"
-                        android:textColor="@color/spinnerRowText" />
+                        android:textColor="@color/spinnerRowText"/>
 
                     <TextView
                         android:id="@+id/tvPTOHp1"
@@ -296,17 +284,15 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/dash"
-                        android:textAppearance="?android:attr/textAppearanceListItemSmall" />
+                        android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
                 </LinearLayout>
             </LinearLayout>
-
             <LinearLayout
                 android:id="@+id/llPTORpm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="5dp">
-
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
@@ -314,14 +300,12 @@
                     android:layout_marginLeft="35dp"
                     android:layout_marginRight="35dp"
                     android:background="@color/darkGrey"
-                    android:textAppearance="?android:attr/textAppearanceListItemSmall" />
-
+                    android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"
                     android:orientation="horizontal">
-
                     <TextView
                         android:id="@+id/tvPTORpm"
                         style="@style/ListFieldWithDrawable"
@@ -331,19 +315,18 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/dash"
-                        android:textAppearance="?android:attr/textAppearanceListItemSmall" />
-
+                        android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_weight="1"
                         android:gravity="center"
+                        android:fontFamily="@font/poppins"
                         style="@style/ListFieldWithDrawable"
                         android:text="@string/pto_rpm"
                         android:textAppearance="?android:attr/textAppearanceListItemSmall"
-                        android:textColor="@color/spinnerRowText" />
-
+                        android:textColor="@color/spinnerRowText"/>
                     <TextView
                         android:id="@+id/tvPTORpm1"
                         style="@style/ListFieldWithDrawable"
@@ -353,11 +336,9 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         android:text="@string/dash"
-                        android:textAppearance="?android:attr/textAppearanceListItemSmall" />
-
+                        android:textAppearance="?android:attr/textAppearanceListItemSmall"/>
                 </LinearLayout>
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

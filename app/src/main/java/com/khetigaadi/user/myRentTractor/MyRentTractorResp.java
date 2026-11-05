@@ -3,7 +3,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.khetigaadi.model.Others;
 import com.khetigaadi.tractor.rent.model.RentTractor;
-
 import java.util.List;
 public class MyRentTractorResp {
     @SerializedName("data")

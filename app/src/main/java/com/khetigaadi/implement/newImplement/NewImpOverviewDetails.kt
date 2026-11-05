@@ -41,7 +41,6 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONObject
 import timber.log.Timber
 import javax.inject.Inject
-
 @AndroidEntryPoint
 class NewImpOverviewDetails : BaseActivity() {
     private val TAG = NewImpOverviewDetails::class.java.simpleName
@@ -50,7 +49,7 @@ class NewImpOverviewDetails : BaseActivity() {
     private var modelId = 0
     @JvmField
     @Inject
-    var mTracker: Tracker? = null
+    var mTracker:Tracker? = null
     private lateinit var binding:NewImplementOverviewDeatailsBinding
     private lateinit var viewModel:NewImplementDetailsViewModel
     private  var imp: NewImp?=null
@@ -58,22 +57,28 @@ class NewImpOverviewDetails : BaseActivity() {
     private lateinit var others: Others
     override fun onCreate(savedInstanceState:Bundle?) {
         super.onCreate(savedInstanceState)
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false)
         binding = NewImplementOverviewDeatailsBinding.inflate(layoutInflater)
         val view: View = binding.root
         setContentView(view)
-
-        ViewCompat.setOnApplyWindowInsetsListener(
-            binding.getRoot(),
-            OnApplyWindowInsetsListener { v: View?, insets: WindowInsetsCompat? ->
-                val systemBarsInsets = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
-                v!!.setPadding(
-                    systemBarsInsets.left,
-                    systemBarsInsets.top,
-                    systemBarsInsets.right,
-                    systemBarsInsets.bottom)
-                insets
-            })
+       try {
+           //WindowCompat.setDecorFitsSystemWindows(window,false)
+           enableEdgeToEdge()
+           ViewCompat.setOnApplyWindowInsetsListener(
+               binding.getRoot(),
+               OnApplyWindowInsetsListener { v:View?,insets:WindowInsetsCompat? ->
+                   val systemBarsInsets = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
+                   v!!.setPadding(
+                       systemBarsInsets.left,
+                       systemBarsInsets.top,
+                       systemBarsInsets.right,
+                       systemBarsInsets.bottom
+                   )
+                   insets
+               })
+       }
+       catch(e:Exception) {
+           e.printStackTrace()
+       }
         this.enableEdgeToEdge()
         viewModel = ViewModelProvider(this)[NewImplementDetailsViewModel::class.java]
         readData(intent.extras)
@@ -98,9 +103,11 @@ class NewImpOverviewDetails : BaseActivity() {
             intent.putExtra("demoType", PriceType.IMPLEMENT)
             startActivity(intent)
         }
-        if (Constants.isConnectionAvailable(this@NewImpOverviewDetails)) {
-            if (brandId != 0 && typeId != 0 && modelId != 0) getDetails()
-        } else {
+        if(Constants.isConnectionAvailable(this@NewImpOverviewDetails)) {
+            if(brandId != 0 && typeId != 0 && modelId != 0)
+                getDetails()
+        }
+        else {
             noInternetConnection(binding.parent)
         }
         initSimilar()
@@ -108,27 +115,27 @@ class NewImpOverviewDetails : BaseActivity() {
     private fun initSimilar() {
         binding.includeSimilar.tvLabel.text = getString(R.string.similar_implements)
         binding.includeSimilar.tvSeeMore.visibility = View.GONE
-        similarListAdapter = ImpsAdapter(this, binding.includeSimilar.rvList, false)
+        similarListAdapter = ImpsAdapter(this,binding.includeSimilar.rvList,false)
         binding.includeSimilar.rvList.adapter = similarListAdapter
-        similarListAdapter.setOnItemClickListener(object : ImpsAdapter.Listener {
-            override fun onItemClick(position: Int, v: View?) {
+        similarListAdapter.setOnItemClickListener(object:ImpsAdapter.Listener {
+            override fun onItemClick(position:Int,v:View?) {
                 finish()
                 val item = similarListAdapter.getItem(position)
-                if (item != null) {
-                    val intent = Intent(this@NewImpOverviewDetails, NewImpOverviewDetails::class.java)
-                    intent.putExtra("brandId", if (item.brand != null) item.brand.id else null)
-                    intent.putExtra("typeId", if (item.implementTypeId != null) item.implementTypeId else null)
-                    intent.putExtra("modelId", if (item.model != null) item.model.implementModelId.toInt() else null)
+                if(item != null) {
+                    val intent = Intent(this@NewImpOverviewDetails,NewImpOverviewDetails::class.java)
+                    intent.putExtra("brandId",if (item.brand != null) item.brand.id else null)
+                    intent.putExtra("typeId",if (item.implementTypeId != null) item.implementTypeId else null)
+                    intent.putExtra("modelId",if (item.model != null) item.model.implementModelId.toInt() else null)
                     startActivity(intent)
                 }
             }
-            override fun onGetPriceClick(position: Int, v: View?) {
-                val intent = Intent(this@NewImpOverviewDetails, NewTrGetOnRoadPriceActivity::class.java)
-                intent.putExtra("id", similarListAdapter.getItem(position)!!.id /*implementListResp.getImplementArrayList().get(position).getId()*/)
-                intent.putExtra("name", similarListAdapter.getItem(position)!!.implementName /*implementListResp.getImplementArrayList().get(position).getImplementName()*/)
-                intent.putExtra("image", if (similarListAdapter.getItem(position)!!.implementImage != null) others.implementImagePath + similarListAdapter.getItem(position)!!.implementImage.image else null)
-                intent.putExtra("priceType", PriceType.IMPLEMENT)
-                intent.putExtra("toolbarlabel", "Get Price")
+            override fun onGetPriceClick(position:Int,v:View?) {
+                val intent = Intent(this@NewImpOverviewDetails,NewTrGetOnRoadPriceActivity::class.java)
+                intent.putExtra("id",similarListAdapter.getItem(position)!!.id /*implementListResp.getImplementArrayList().get(position).getId()*/)
+                intent.putExtra("name",similarListAdapter.getItem(position)!!.implementName /*implementListResp.getImplementArrayList().get(position).getImplementName()*/)
+                intent.putExtra("image",if(similarListAdapter.getItem(position)!!.implementImage != null) others.implementImagePath + similarListAdapter.getItem(position)!!.implementImage.image else null)
+                intent.putExtra("priceType",PriceType.IMPLEMENT)
+                intent.putExtra("toolbarlabel","Get Price")
                 startActivity(intent)
             }
         })
@@ -148,12 +155,13 @@ class NewImpOverviewDetails : BaseActivity() {
             Timber.e("$brandId $typeId $modelId")
         }
     }
-    private fun readData(bundle: Bundle?) {
-        if (bundle != null) {
+    private fun readData(bundle:Bundle?) {
+        if(bundle != null) {
             brandId = bundle.getInt("brandId")
-            typeId = bundle.getInt("typeId")
+            typeId =  bundle.getInt("typeId")
             modelId = bundle.getInt("modelId")
             Timber.e("$brandId $typeId $modelId")
+            println("cxvvcxvxvxv===$brandId==$typeId==$modelId")
         }
     }
     // Tag used to cancel the request
@@ -161,17 +169,17 @@ class NewImpOverviewDetails : BaseActivity() {
             // Tag used to cancel the request
             val jsonObjectBrand = JSONObject()
             try {
-                jsonObjectBrand.put("brand_id", brandId)
+                jsonObjectBrand.put("brand_id",brandId)
                 val jsonObjectImplType = JSONObject()
-                jsonObjectImplType.put("implement_type_id", typeId)
+                jsonObjectImplType.put("implement_type_id",typeId)
                 val jsonObjectModel = JSONObject()
-                jsonObjectModel.put("implement_model_id", modelId)
+                jsonObjectModel.put("implement_model_id",modelId)
                 val jsonObjectOverview = JSONObject()
-                jsonObjectOverview.put("brands", jsonObjectBrand)
-                jsonObjectOverview.put("type", jsonObjectImplType)
-                jsonObjectOverview.put("model", jsonObjectModel)
+                jsonObjectOverview.put("brands",jsonObjectBrand)
+                jsonObjectOverview.put("type",jsonObjectImplType)
+                jsonObjectOverview.put("model",jsonObjectModel)
                 val params = JSONObject()
-                params.put("implements", jsonObjectOverview)
+                params.put("implements",jsonObjectOverview)
                 viewModel.getNewImplementDetails(Gson().fromJson(params.toString(), NewImpParams::class.java)).observe(this) { implementDetailsRespStateData: StateData<ImplementDetailsResp?> ->
                     when (implementDetailsRespStateData.status) {
                         StateData.Status.LOADING -> binding.llProgress.llProgress.visibility = View.VISIBLE
@@ -189,11 +197,11 @@ class NewImpOverviewDetails : BaseActivity() {
                         else -> {}
                     }
                 }
-            } catch (e: Exception) {
+            } catch(e:Exception) {
                 e.printStackTrace()
             }
         }
-    private fun getSimilarImps(newImp: NewImp) {
+    private fun getSimilarImps(newImp:NewImp) {
         viewModel.getSimilarNewImplements(newImp).observe(this) { implementDetailsRespStateData: StateData<SimilarImplementListResp?> ->
             when (implementDetailsRespStateData.status) {
                 StateData.Status.LOADING -> binding.includeSimilar.container.visibility = View.GONE
@@ -212,7 +220,7 @@ class NewImpOverviewDetails : BaseActivity() {
             }
         }
     }
-    private fun mapToUI(data: ImplementDetailsResp?) {
+    private fun mapToUI(data:ImplementDetailsResp?) {
         imp = data!!.data[0]
         others = data.others
         binding.tvName.text = imp?.implementName
@@ -274,9 +282,10 @@ class NewImpOverviewDetails : BaseActivity() {
             }
         } catch (Exception e) {
             e.printStackTrace();
-        }*/try {
+        }*/
+        try {
             binding.llSubDetails.removeAllViews()
-            if (imp?.implementSpecification != null) {
+            if(imp?.implementSpecification != null) {
                 if (imp?.implementSpecification?.size != 0) {
                     for (j in imp?.implementSpecification?.indices!!) {
                         val specification = imp?.implementSpecification!![j]
@@ -292,7 +301,8 @@ class NewImpOverviewDetails : BaseActivity() {
                     binding.cvDetails.visibility = View.GONE
                 }
             }
-        } catch (e: Exception) {
+        }
+        catch(e:Exception) {
             e.printStackTrace()
         }
     }

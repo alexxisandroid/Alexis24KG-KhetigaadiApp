@@ -320,11 +320,11 @@ public class UsedTractor implements Parcelable {
     @Override
     public void writeToParcel(@NonNull Parcel dest,int flags) {
         dest.writeString(id);
-        dest.writeParcelable(brand, flags);
-        dest.writeParcelable(model, flags);
-        dest.writeParcelable(drive, flags);
-        dest.writeParcelable(hp, flags);
-        dest.writeParcelable(user, flags);
+        dest.writeParcelable(brand,flags);
+        dest.writeParcelable(model,flags);
+        dest.writeParcelable(drive,flags);
+        dest.writeParcelable(hp,flags);
+        dest.writeParcelable(user,flags);
         dest.writeString(price);
         dest.writeString(hoursDriven);
         dest.writeString(modelYear);

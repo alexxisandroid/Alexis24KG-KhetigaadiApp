@@ -7,22 +7,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.khetigaadi.social.SocialMedia">
-
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
-
         <include
             android:id="@+id/toolbars"
-            layout="@layout/toolbar" />
+            layout="@layout/toolbar"/>
     </com.google.android.material.appbar.AppBarLayout>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
-
         <ImageButton
             android:id="@+id/imgBtnFacebook"
             android:layout_width="40dp"
@@ -30,14 +26,13 @@
             android:layout_marginStart="2dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="2dp"
-            android:background="@drawable/ic_facebook"
+            android:background="@drawable/ic_facebookk"
             app:layout_constraintEnd_toStartOf="@+id/imgBtnInstagram"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintHorizontal_chainStyle="packed"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:contentDescription="@string/com_facebook_loading" />
-
         <ImageButton
             android:id="@+id/imgBtnInstagram"
             android:layout_width="40dp"
@@ -78,4 +73,5 @@
             app:layout_constraintTop_toBottomOf="@+id/imgBtnLinkedIn"
             app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

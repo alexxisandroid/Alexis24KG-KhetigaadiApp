@@ -7,6 +7,8 @@
     android:layout_height="110dp"
     android:layout_gravity="center"
     android:layout_margin="@dimen/margin_2dp"
+    android:backgroundTint="@color/white"
+    android:background="@color/white"
     android:layout_weight="1"
     android:orientation="vertical"
     tools:layout_width="100dp">

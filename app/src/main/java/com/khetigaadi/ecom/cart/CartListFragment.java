@@ -4,12 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -21,8 +23,11 @@ import com.khetigaadi.ecom.AddressListActivity;
 import com.khetigaadi.ecom.adapter.CartListAdapter;
 import com.khetigaadi.ecom.address.AddAddressActivity;
 import com.khetigaadi.ecom.address.AddressViewModel;
+import com.khetigaadi.retrofit.ShopAPIs;
 import com.khetigaadi.room.repository.CartRepository;
 import com.khetigaadi.shop.model.Address;
+import com.khetigaadi.shop.model.CategoryListResp;
+import com.khetigaadi.shop.model.DeliveryCharges;
 import com.khetigaadi.shop.model.Order;
 import com.khetigaadi.shop.model.OrderProduct;
 import com.khetigaadi.user.SessionManager;
@@ -30,6 +35,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.observers.DisposableSingleObserver;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+import timber.log.Timber;
+
 @AndroidEntryPoint
 public class CartListFragment extends Fragment {
     public static final String TAG = "CartListFragment";
@@ -43,6 +53,8 @@ public class CartListFragment extends Fragment {
     private CartListAdapter cartListAdapter;
     private AddressViewModel viewModel;
     private Address address;
+    @Inject
+    ShopAPIs shopAPIs;
     ActivityResultLauncher<Intent> addressActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -73,9 +85,10 @@ public class CartListFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(AddressViewModel.class);
         binding.btnChangeAddress.setOnClickListener(v -> addressActivityResultLauncher.launch(new Intent(activity,AddressListActivity.class)));
         binding.btnContinue.setOnClickListener(v -> {
-            if (address == null) {
+            if(address == null) {
                 Toast.makeText(activity, R.string.please_add_address,Toast.LENGTH_SHORT).show();
-            } else if (cartListAdapter.getList().size() == 0)
+            }
+            else if(cartListAdapter.getList().size() == 0)
                 Toast.makeText(activity,R.string.please_add_products,Toast.LENGTH_SHORT).show();
             else {
                 Order order = new Order();
@@ -95,7 +108,7 @@ public class CartListFragment extends Fragment {
     private void initAddress()
     {
         viewModel.getAddresses(null).observe(getViewLifecycleOwner(),addressListRespStateData -> {
-            switch (addressListRespStateData.getStatus()) {
+            switch(addressListRespStateData.getStatus()) {
                 case LOADING:
                     binding.tvAddressLine1.setVisibility(View.GONE);
                     binding.tvAddressLine2.setVisibility(View.GONE);
@@ -104,10 +117,11 @@ public class CartListFragment extends Fragment {
                     binding.tvAddressLine1.setVisibility(View.VISIBLE);
                     binding.tvAddressLine2.setVisibility(View.VISIBLE);
                     try {
-                        if (addressListRespStateData.getData() != null && addressListRespStateData.getData().getData().size() > 0) {
+                        if(addressListRespStateData.getData() != null && addressListRespStateData.getData().getData().size() > 0) {
                             updateView(addressListRespStateData.getData().getData().get(0));
                         }
-                    } catch (Exception e) {
+                    }
+                    catch(Exception e) {
                         e.printStackTrace();
                     }
                     break;
@@ -120,28 +134,29 @@ public class CartListFragment extends Fragment {
         try {
             this.address = address;
             binding.tvAddressLine1.setText(address.getAddress());
-            binding.tvAddressLine2.setText(String.format("%s, %s - %s", address.getCity().getName(), address.getState().getName(), address.getPinCode()));
-        } catch (Exception e) {
+            binding.tvAddressLine2.setText(String.format("%s, %s - %s",address.getCity().getName(),address.getState().getName(),address.getPinCode()));
+        }
+        catch(Exception e) {
             e.printStackTrace();
         }
     }
     private void initAdapter() {
-        binding.rvCartList.setLayoutManager(new LinearLayoutManager(activity, LinearLayoutManager.VERTICAL, false));
-        cartListAdapter = new CartListAdapter(activity, binding.rvCartList);
+        binding.rvCartList.setLayoutManager(new LinearLayoutManager(activity,LinearLayoutManager.VERTICAL,false));
+        cartListAdapter = new CartListAdapter(activity,binding.rvCartList);
         binding.rvCartList.setAdapter(cartListAdapter);
         cartListAdapter.setOthers(sessionManager.getEcomOther());
         cartListAdapter.setOnItemClickListener(new CartListAdapter.ClickListener() {
             @Override
-            public void onItemClick(int position, View v) {
+            public void onItemClick(int position,View v) {
             }
             @Override
-            public void itemUpdate(OrderProduct item, int position) {
+            public void itemUpdate(OrderProduct item,int position) {
                 cartRepository.insertItem(item);
             }
             @Override
-            public void onMinusClick(View view, int position) {
+            public void onMinusClick(View view,int position) {
                 OrderProduct product = cartListAdapter.getList().get(position);  //.getItem(position);
-                if (product.getQuantity() > 1) {
+                if(product.getQuantity() > 1) {
                     product.setQuantity(product.getQuantity() - 1);
                     cartRepository.updateProductQuantity(product.getQuantity(),product.getProductId());
 
@@ -192,7 +207,7 @@ public class CartListFragment extends Fragment {
 //            else Log.d("xcvcxvcxvxv===",""+products);
 //        });
         List<OrderProduct> products = cartRepository.getAllItemss();
-        if (products != null) {
+        if(products != null) {
             //Log.d("xcvcxvcxvxv===",""+products.size()+"=="+products.get(0).getProduct().toString());
             cartListAdapter.updateItems(products);
             calculatePayable(products);
@@ -201,19 +216,50 @@ public class CartListFragment extends Fragment {
     @SuppressLint("DefaultLocale")
     private void calculatePayable(List<OrderProduct> products) {
         totalAmt = 0;
-        for (OrderProduct product : products) {
+        for(OrderProduct product:products) {
             if(product.getProduct()!=null && !product.getProduct().equals(null) && !product.getProduct().equals("null"))
-               totalAmt += (product.getProduct().getFinalPrice() * product.getQuantity());
+               totalAmt += (product.getProduct().getFinalPrice()*product.getQuantity());
         }
         binding.tvSubTotalAmount.setText(String.format("%s %d",getString(R.string.rs),totalAmt));
-        if (totalAmt < 1000) {
-            binding.tvShippingAmount.setText(String.format("%s 70", getString(R.string.rs)));
-            totalAmt += 70;
+        if(totalAmt < 1000) {
+            binding.tvShippingAmount.setText(String.format("%s 100",getString(R.string.rs)));
+            totalAmt+= 100;
         }
         else {
             binding.tvShippingAmount.setText(String.format("%s 0", getString(R.string.rs)));
         }
         binding.tvTotalAmount.setText(String.format("%s %d",getString(R.string.rs),totalAmt));
         binding.btnContinue.setClickable(true);
+    }
+    @SuppressLint("CheckResult")
+    public void delvCharges()
+    {
+        //noinspection ResultOfMethodCallIgnored
+        shopAPIs.getDeliveryCharges()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeWith(new DisposableSingleObserver<DeliveryCharges>() {
+                    @SuppressLint("CheckResult")
+                    @Override
+                    public void onSuccess(@NonNull DeliveryCharges productListResp) {
+//                        Log.d("cvxcxxcvxv234===",""+productListResp.isError()+"=="+productListResp.getCategories().size());
+//                        if(productListResp.isError()) {
+//                           // binding.rvProductList.setVisibility(View.GONE);
+//                        }
+//                        else {
+//                          //  binding.rvProductList.setVisibility(View.VISIBLE);
+//                            Log.d("cvxcxxcvxv===",""+productListResp.getCategories().size());
+//                          //  categoryRepository.insertItems(productListResp.getCategories());
+//                          //  binding.rvProductList.setVisibility(View.VISIBLE);
+//                          //  categoriesAdapter.addItems(productListResp.getCategories(),1,sessionManager.getEcomOther());
+//                        }
+                    }
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Timber.e(e,"onError: ");
+                        // binding.rvProductList.setVisibility(View.GONE);
+                        // gardenTools.postError(e.getMessage());
+                    }
+                });
     }
 }

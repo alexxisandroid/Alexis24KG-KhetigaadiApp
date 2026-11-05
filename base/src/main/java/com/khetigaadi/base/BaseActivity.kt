@@ -30,34 +30,32 @@ abstract class BaseActivity:AppCompatActivity() {
     private fun createObjectOfConnectionReceiver() {
         connectionReceiver = ConnectionReceiver { isConnectionAvailable ->
             isInternetAvailable.setValue(isConnectionAvailable)
-            if (!isConnectionAvailable) {
-                noInternetDialog = Dialog(
-                    this@BaseActivity,
-                    android.R.style.Theme_NoTitleBar_Fullscreen
-                )
+            if(!isConnectionAvailable) {
+                noInternetDialog = Dialog(this@BaseActivity,android.R.style.Theme_NoTitleBar_Fullscreen)
                 noInternetDialog!!.setContentView(R.layout.no_internet_dialog)
                 noInternetDialog!!.setCancelable(false)
                 noInternetDialog!!.setOnKeyListener { dialog: DialogInterface?, keyCode: Int, event: KeyEvent? ->
-                    if (keyCode == KeyEvent.KEYCODE_BACK) {
+                    if(keyCode == KeyEvent.KEYCODE_BACK) {
                         noInternetDialog!!.dismiss()
                         finishAndRemoveTask()
                     }
                     true
                 }
                 noInternetDialog!!.show()
-            } else {
-                if (noInternetDialog != null && noInternetDialog!!.isShowing) {
+            }
+            else {
+                if(noInternetDialog != null && noInternetDialog!!.isShowing) {
                     noInternetDialog!!.dismiss()
                 }
             }
         }
     }
     fun broadcastIntent() {
-        registerReceiver(connectionReceiver, IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
+        registerReceiver(connectionReceiver,IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION))
     }
     override fun onResume() {
         super.onResume()
-        if (connectionReceiver == null) {
+        if(connectionReceiver == null) {
             createObjectOfConnectionReceiver()
             broadcastIntent()
         }
@@ -131,7 +129,7 @@ abstract class BaseActivity:AppCompatActivity() {
     protected fun dismissProgressDialog() {
         // For handling orientation changed.
         try {
-            if (progressDialog != null && progressDialog!!.isShowing) {
+            if(progressDialog != null && progressDialog!!.isShowing) {
                 progressDialog!!.dismiss()
             }
         }
@@ -164,7 +162,7 @@ abstract class BaseActivity:AppCompatActivity() {
             var ids:List<Int?> = ArrayList()
             if(exceptIDs != null) ids = Arrays.asList(*exceptIDs)
             //Set up touch listener for non-text box views to hide keyboard.
-            if (view !is EditText) {
+            if(view !is EditText) {
                 if(!ids.isEmpty() && ids.contains(view.id)) {
                     return
                 }

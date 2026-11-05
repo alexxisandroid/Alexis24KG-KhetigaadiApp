@@ -8,6 +8,7 @@
     android:focusableInTouchMode="true"
     tools:context=".tractor.sellTractorNewUi.SellTractorActivity">
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/aapBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
@@ -36,6 +37,7 @@
             android:id="@+id/fragmentContainerView"
             android:name="com.khetigaadi.tractor.sellTractorNewUi.SellTractorBrand"
             android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/dimen_10dp"
             android:layout_height="match_parent"/>
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

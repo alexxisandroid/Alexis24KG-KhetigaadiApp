@@ -18,6 +18,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/rounded_corner22"
+        android:backgroundTint="@color/rv_back_color"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <include
             android:id="@+id/llProgresss"
@@ -25,8 +27,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvAddressList"
             android:layout_width="match_parent"
+            android:paddingTop="@dimen/dimen_8dp"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/payu_dimen_64dp"/>
+            android:layout_marginBottom="@dimen/dimen_120dp"/>
         <include
             android:id="@+id/inInputComment"
             layout="@layout/comment_input"
@@ -41,9 +44,10 @@
             android:contentDescription="@string/app_name"
             android:src="@drawable/ic_star_black_24dp"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/dimen_70dp"
+            android:layout_marginBottom="@dimen/dimen_50dp"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/dimen_50dp"
+            android:visibility="gone"
+            android:layout_marginEnd="@dimen/dimen_10dp"
             android:tint="@color/gray"
             app:backgroundTint="@color/white"
             app:layout_anchorGravity="bottom|start"
@@ -53,7 +57,7 @@
             android:layout_height="wrap_content"
             app:layout_anchorGravity="bottom|start"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/dimen_5dp"
+            android:layout_marginBottom="@dimen/payu_dimen_54dp"
             android:orientation="horizontal">
             <!--   style="@style/ButtonStyleFilledPrimary"  -->
             <TextView

@@ -5,7 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -14,76 +13,235 @@
         <include
             android:id="@+id/toolbars"
             layout="@layout/ecom_toolbar"/>
+
     </com.google.android.material.appbar.AppBarLayout>
+
+<!--    <com.google.android.material.appbar.AppBarLayout-->
+<!--        android:id="@+id/app_bar_layout"-->
+<!--        android:layout_width="match_parent"-->
+<!--        tools:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:fitsSystemWindows="true"-->
+<!--        app:liftOnScroll="true"-->
+<!--        app:theme="@style/AppTheme.AppBarOverlay"> &lt;!&ndash;  @style/ThemeOverlay.AppCompat.Dark.ActionBar" &ndash;&gt;-->
+<!--        <com.google.android.material.appbar.MaterialToolbar-->
+<!--            android:id="@+id/toolbars"-->
+<!--            style="@style/Toolbar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="?attr/actionBarSize"-->
+<!--            app:layout_scrollFlags="scroll|enterAlways"-->
+<!--            android:gravity="start"-->
+<!--            app:title="@string/app_name">-->
+<!--            <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent">-->
+<!--                &lt;!&ndash; android:textAppearance="@style/TextAppearance.AppCompat.Medium" &ndash;&gt;-->
+<!--                <TextView-->
+<!--                    android:id="@+id/tvAppName"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginEnd="10dp"-->
+<!--                    android:fontFamily="@font/poppins_semi_bold"-->
+<!--                    android:text="@string/app_name"-->
+<!--                    android:gravity="center_vertical"-->
+<!--                    android:textAppearance="@style/TextAppearanceMedium"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    app:layout_constraintEnd_toStartOf="@id/tvSearch"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"/>-->
+<!--                <TextView-->
+<!--                    android:id="@+id/tvSearch"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="42dp"-->
+<!--                    android:layout_marginTop="@dimen/margin_20dp"-->
+<!--                    android:layout_marginEnd="@dimen/dimen_40dp"-->
+<!--                    android:layout_marginBottom="@dimen/margin_20dp"-->
+<!--                    android:background="@drawable/bg_rounded_search_box_home"-->
+<!--                    android:clickable="true"-->
+<!--                    android:drawablePadding="@dimen/dimen_5dp"-->
+<!--                    android:fontFamily="@font/manrope_regular"-->
+<!--                    android:gravity="center_vertical"-->
+
+<!--                    android:paddingStart="@dimen/dimen_10dp"-->
+<!--                    android:paddingTop="@dimen/margin_10dp"-->
+<!--                    android:paddingEnd="@dimen/dimen_20dp"-->
+<!--                    android:paddingBottom="@dimen/margin_10dp"-->
+<!--                    android:text="@string/search"-->
+<!--                    android:textColor="#9b9fa8"-->
+<!--                    android:textSize="@dimen/dimen_13sp"-->
+<!--                    app:drawableEndCompat="@drawable/ic_voice_recording"-->
+<!--                    app:drawableStartCompat="@drawable/search"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toEndOf="@id/tvAppName"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"/>-->
+<!--                <View-->
+<!--                    android:id="@+id/viewVoiceRecording"-->
+<!--                    android:layout_width="50dp"-->
+<!--                    android:layout_height="55dp"-->
+<!--                    app:layout_constraintBottom_toBottomOf="@id/tvSearch"-->
+<!--                    app:layout_constraintEnd_toEndOf="@id/tvSearch"-->
+<!--                    app:layout_constraintTop_toTopOf="@id/tvSearch"/>-->
+<!--                &lt;!&ndash;   android:src="@drawable/ic_shopping_cart_black_24dp"-->
+<!--                                &ndash;&gt;-->
+<!--                <include-->
+<!--                    android:id="@+id/ivAddToCart"-->
+<!--                    layout="@layout/cart_option_with_badge"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+
+<!--                    android:layout_marginTop="@dimen/margin_10dp"-->
+<!--                    android:layout_marginEnd="@dimen/margin_10dp"-->
+<!--                    android:layout_marginStart="@dimen/margin_10dp"-->
+<!--                    android:layout_marginBottom="@dimen/payu_dimen_14dp"-->
+<!--                    app:layout_constraintTop_toTopOf="parent"-->
+<!--                    app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                    app:layout_constraintStart_toEndOf="@+id/tvSearch"/>-->
+
+<!--            </androidx.constraintlayout.widget.ConstraintLayout>-->
+<!--        </com.google.android.material.appbar.MaterialToolbar>-->
+
+
+<!--    </com.google.android.material.appbar.AppBarLayout>-->
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="@dimen/margin_15dp">
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewPager"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_marginTop="5dp"
-                app:layout_constraintTop_toTopOf="parent"/>
 
-            <me.relex.circleindicator.CircleIndicator
-                android:id="@+id/viewPagerIndicator"
-                android:layout_width="match_parent"
-                android:layout_height="12dp"
-                app:ci_drawable="@drawable/ic_circle_red_24dp"
-                app:ci_drawable_unselected="@drawable/ic_circle_black_24dp"
-                app:ci_height="6dp"
-                app:ci_margin="@dimen/dimen_4dp"
-                app:ci_width="6dp"
-                app:layout_constraintTop_toBottomOf="@id/viewPager"/>
-            <ProgressBar
-                android:id="@+id/progressBar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintTop_toBottomOf="@id/viewPager"
-                android:visibility="gone" />
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvCategories"
+<!--            <androidx.viewpager.widget.ViewPager-->
+<!--                android:id="@+id/viewPager"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="180dp"-->
+<!--                android:layout_marginTop="5dp"-->
+<!--                app:layout_constraintTop_toTopOf="parent"/>-->
+<!--            &lt;!&ndash;                app:ci_drawable="@drawable/ic_circle_red_24dp"&ndash;&gt;-->
+<!--            &lt;!&ndash;                app:ci_drawable_unselected="@drawable/ic_circle_black_24dp"&ndash;&gt;-->
+<!--            <me.relex.circleindicator.CircleIndicator-->
+<!--                android:id="@+id/viewPagerIndicator"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="@dimen/dimen_10dp"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:gravity="center"-->
+<!--                android:padding="10dip"-->
+<!--                android:layout_marginBottom="@dimen/dimen_20dp"-->
+<!--                android:paddingEnd="@dimen/dimen_10dp"-->
+<!--                app:ci_drawable="@drawable/sselectedv"-->
+<!--                app:ci_drawable_unselected="@drawable/unselected"-->
+<!--                app:ci_gravity="center"-->
+<!--                app:ci_height="@dimen/dimen_5dp"-->
+<!--                app:ci_margin="@dimen/payu_dimen_7dp"-->
+<!--                app:ci_width="@dimen/dimen_16dp"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/viewPager"-->
+<!--                tools:layout_editor_absoluteX="2dp" />-->
+<!--            <ProgressBar-->
+<!--                android:id="@+id/progressBar"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/viewPager"-->
+<!--                android:visibility="gone"/>-->
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/rvCategories"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:background="@drawable/rounded_corner22"-->
+<!--                android:backgroundTint="@color/rv_back_color"-->
+<!--                android:layout_marginTop="@dimen/dimen_10dp"-->
+<!--                android:orientation="horizontal"-->
+<!--                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--                app:layout_constraintTop_toBottomOf="@id/viewPagerIndicator"/>-->
+<!--            -->
+
+
+            <LinearLayout
+                android:id="@+id/lltopp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@id/viewPagerIndicator"/>
+                app:layout_constraintTop_toTopOf="parent"
+                android:background="@drawable/rounded_bottom_corner"
+                android:backgroundTint="#F5F5F5"
+                android:paddingBottom="@dimen/dimen_20dp"
+                android:orientation="vertical">
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    app:layout_constraintTop_toTopOf="parent"/>
+                <me.relex.circleindicator.CircleIndicator
+                    android:id="@+id/viewPagerIndicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"
+                    app:ci_drawable="@drawable/sselectedv"
+                    app:ci_drawable_unselected="@drawable/unselected"
+                    app:ci_height="5dp"
+                    android:padding="10dip"
+                    android:gravity="center"
+                    android:layout_marginTop="@dimen/margin_10dp"
+                    android:paddingEnd="@dimen/dimen_10dp"
+                    app:ci_gravity="center"
+                    app:ci_margin="@dimen/payu_dimen_7dp"
+                    app:ci_width="@dimen/dimen_16dp"
+                    app:layout_constraintTop_toBottomOf="@id/viewPager"/>
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintTop_toBottomOf="@id/viewPager"
+                    android:visibility="gone"/>
+
+                <ProgressBar
+                    android:id="@+id/progressBarr"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="6dp"
+                    android:visibility="gone"
+                    android:layout_alignParentBottom="true"
+                    android:max="100"
+                    android:progress="0"
+                    android:progressDrawable="@drawable/progress_bar_style" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvCategories"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/payu_dimen_28dp"
+                    android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@id/viewPagerIndicator"/>
+            </LinearLayout>
+
             <com.facebook.shimmer.ShimmerFrameLayout
                 android:id="@+id/my_sticky_button"
                 style="@style/ShimmerStyle"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/payu_dimen_250dp"
-
-                app:layout_constraintTop_toBottomOf="@id/rvCategories">
+                app:layout_constraintTop_toBottomOf="@id/lltopp">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/white"
                     android:orientation="horizontal"
                     android:padding="@dimen/margin_8dp">
-
                     <Button
                         android:id="@+id/btnAddToCart"
                         android:layout_width="0dp"
                         style="@style/ButtonStyleFilledRed"
                         android:layout_height="match_parent"
-                        android:layout_weight=".5" />
-
+                        android:layout_weight=".5"/>
                     <Button
                         android:id="@+id/btnExpertAdvice"
                         style="@style/ButtonStyleFilledRed"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginStart="@dimen/margin_2dp"
-                        android:layout_weight=".5" />
+                        android:layout_weight=".5"/>
                 </LinearLayout>
             </com.facebook.shimmer.ShimmerFrameLayout>
             <com.andexert.library.RippleView
@@ -91,7 +249,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@id/my_sticky_button">
-
                 <TextView
                     android:id="@+id/tvTrendingProductsLabel"
                     style="@style/homePageLabel"
@@ -99,119 +256,151 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:fontFamily="@font/poppins_bold"
-
                     android:textStyle="bold"
-
-                    android:textSize="@dimen/payu_dimen_18sp"
+                    android:textSize="@dimen/dimen_16sp"
                     android:layout_marginTop="@dimen/dimen_10dp"
                     android:layout_marginBottom="@dimen/dimen_10dp"
                     android:layout_alignParentEnd="true"
                     android:text="@string/trending_products"/>
-            </com.andexert.library.RippleView>
 
-            <include
-                android:id="@+id/includeTrendingLarge"
-                layout="@layout/trending_list_item_large"
-                android:layout_width="0dp"
+            </com.andexert.library.RippleView>
+            <LinearLayout
+                android:id="@+id/llincludeTrendingLarge"
+                android:layout_width="match_parent"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/shopMiddleBanner"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                android:padding="@dimen/dimen_4dp"
+                android:background="@drawable/rounded_corner22"
+                android:layout_marginStart="@dimen/dimen_10dp"
+                android:layout_marginEnd="@dimen/dimen_10dp"
+                android:backgroundTint="@color/rv_back_color"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/rvTrendingProductsLabel"
+                android:orientation="horizontal">
+                <!--
                 android:layout_marginStart="@dimen/dimen_4dp"
                 android:layout_marginEnd="@dimen/dimen_4dp"
                 android:layout_marginBottom="@dimen/dimen_4dp"
-                app:layout_constraintBottom_toTopOf="@+id/shopMiddleBanner"
-                app:layout_constraintEnd_toStartOf="@+id/guideline"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/rvTrendingProductsLabel"/>
-
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/guideline"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toEndOf="@+id/includeTrendingLarge"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.65"/>
-
-            <include
-                android:id="@+id/includeTrending1"
-                layout="@layout/trending_list_item"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/dimen_4dp"
-                android:layout_marginBottom="@dimen/dimen_2dp"
-                app:layout_constraintBottom_toTopOf="@id/includeTrending2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@+id/rvTrendingProductsLabel"/>
-
-            <include
-                android:id="@+id/includeTrending2"
-                layout="@layout/trending_list_item"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/dimen_2dp"
-                android:layout_marginEnd="@dimen/dimen_4dp"
-                android:layout_marginBottom="0dp"
-                app:layout_constraintBottom_toBottomOf="@id/includeTrendingLarge"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/guideline"
-                app:layout_constraintTop_toBottomOf="@id/includeTrending1"/>
-
+                 -->
+                <include
+                    android:id="@+id/includeTrendingLarge"
+                    layout="@layout/trending_list_item_large"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/gray_light"
+                    app:layout_constraintBottom_toTopOf="@+id/shopMiddleBanner"
+                    app:layout_constraintEnd_toStartOf="@+id/guideline"
+                    app:layout_constraintHorizontal_chainStyle="packed"
+                    android:layout_marginEnd="@dimen/dimen_1dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/rvTrendingProductsLabel"/>
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/guideline"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimen_10dp"
+                    android:visibility="gone"
+                    app:layout_constraintStart_toEndOf="@+id/includeTrendingLarge"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.65"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <include
+                        android:id="@+id/includeTrending1"
+                        layout="@layout/trending_list_item"
+                        android:layout_width="match_parent"
+                        android:backgroundTint="@color/gray_light"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/dimen_1dp"
+                        android:layout_marginStart="@dimen/dimen_2dp"
+                        android:background="@drawable/rounded_corner"
+                        android:layout_marginBottom="@dimen/dimen_2dp"
+                        app:layout_constraintBottom_toTopOf="@id/includeTrending2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/guideline"
+                        app:layout_constraintTop_toBottomOf="@+id/rvTrendingProductsLabel"/>
+                    <include
+                        android:id="@+id/includeTrending2"
+                        layout="@layout/trending_list_item"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/dimen_2dp"
+                        android:backgroundTint="@color/gray_light"
+                        android:layout_marginStart="@dimen/dimen_2dp"
+                        android:layout_marginEnd="@dimen/dimen_1dp"
+                        app:layout_constraintBottom_toBottomOf="@id/includeTrendingLarge"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/guideline"
+                        app:layout_constraintTop_toBottomOf="@id/includeTrending1"/>
+                </LinearLayout>
+            </LinearLayout>
             <androidx.constraintlayout.widget.Group
                 android:id="@+id/groupTrending"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="visible"
-                app:constraint_referenced_ids="rvTrendingProductsLabel,includeTrendingLarge,includeTrending1,includeTrending2"/>
-
+                android:layout_height="wrap_content"/>
+            <!--                android:visibility="visible"-->
+            <!--                app:constraint_referenced_ids="rvTrendingProductsLabel,includeTrendingLarge,includeTrending1,includeTrending2"/>-->
+            <!--            -->
             <TextView
                 style="@style/seeMore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/ad"
-                android:textSize="@dimen/dimen_8dp"
+                android:textSize="@dimen/payu_dimen_8sp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toTopOf="@id/shopMiddleBanner"
                 app:layout_constraintEnd_toEndOf="parent"/>
-
             <androidx.cardview.widget.CardView
                 android:id="@+id/shopMiddleBanner"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="@dimen/dimen_25dp"
                 android:visibility="gone"
-                app:layout_constraintTop_toBottomOf="@id/includeTrendingLarge"
+                app:layout_constraintTop_toBottomOf="@id/llincludeTrendingLarge"
                 tools:visibility="visible">
-
                 <ImageView
                     android:id="@+id/ivShopMiddleBanner"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scaleType="fitXY"/>
-        </androidx.cardview.widget.CardView>
-
+            </androidx.cardview.widget.CardView>
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvHomeList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/dimen_2dp"
                 android:layout_marginTop="@dimen/dimen_10dp"
+                android:background="@color/rv_back_color"
+
                 android:nestedScrollingEnabled="false"
-                app:layout_constraintTop_toBottomOf="@id/shopMiddleBanner" />
+                app:layout_constraintTop_toBottomOf="@id/shopMiddleBanner"/>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dimen_80dp"
+                app:layout_constraintTop_toBottomOf="@id/rvHomeList"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
-        style="@style/Widget.BottomNavigationView"
         android:layout_width="match_parent"
+        style="@style/Widget.BottomNavigationView"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@color/white"
-        app:itemIconTint="@color/bottomBarIconTint"
-        app:itemRippleColor="@color/bottomBarIconTint"
+        app:itemIconTint="@color/colorPrimary"
+        app:itemRippleColor="@color/colorPrimary"
         app:itemTextAppearanceActive="@style/BottomNavigationView.Active"
         app:itemTextAppearanceInactive="@style/BottomNavigationView.InActive"
-        app:itemTextColor="@color/bottomBarIconTint"
+        app:itemTextColor="@color/colorPrimary"
         app:labelVisibilityMode="labeled"
         app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:menu="@menu/ecom_bottom_bar_navigation_items" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:menu="@menu/ecom_bottom_bar_navigation_items"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

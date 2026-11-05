@@ -2,6 +2,7 @@ package com.khetigaadi.ecom.address;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ import com.khetigaadi.databinding.ActivityAddAddressBinding;
 import com.khetigaadi.shop.def.AddressType;
 import com.khetigaadi.shop.model.Address;
 import com.khetigaadi.util.Utils;
+import java.util.Objects;
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class AddAddressActivity extends AppCompatActivity  {
@@ -64,15 +66,17 @@ public class AddAddressActivity extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+
         binding = ActivityAddAddressBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-//        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
-//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-//            return insets;
-//        });
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
+        EdgeToEdge.enable(this);
+        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(),(v,insets) -> {
+            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.statusBars());
+            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+            return insets;
+        });
 //        EdgeToEdge.enable(this);
         viewModel = new ViewModelProvider(this).get(AddAddressViewModel.class);
         initToolbar();
@@ -129,14 +133,20 @@ public class AddAddressActivity extends AppCompatActivity  {
     }
     private void initUI(Address address) {
         this.address = address;
+        if(getIntent().hasExtra("type") && Objects.equals(getIntent().getStringExtra("type"),"edit"))
+        {
+            binding.toolbarTitle.setText(getResources().getString(R.string.edit_address));
+            binding.btnSaveAndContinue.setText(getResources().getString(R.string.edit_address));
+        }
+        Log.d("vcbcbcvbc====",""+address);
         binding.etFname.setText(address.getFirstName());
         binding.etLastName.setText(address.getLastName());
         binding.etAddress.setText(address.getAddress());
-        if (address.getState() != null) {
+        if(address.getState() != null) {
             selectedState = address.getState();
             binding.etState.setText(selectedState.getName());
         }
-        if (address.getCity() != null) {
+        if(address.getCity() != null) {
             selectedCity = address.getCity();
             binding.etCity.setText(selectedCity.getName());
         }
@@ -148,6 +158,10 @@ public class AddAddressActivity extends AppCompatActivity  {
         binding.toolbarI.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
         binding.toolbarI.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         binding.toolbarI.toolbar.setTitle(getString(R.string.add_address));
+        if(getIntent().hasExtra("type") && Objects.equals(getIntent().getStringExtra("type"),"edit"))
+        {
+            binding.toolbarTitle.setText(getResources().getString(R.string.edit_address));
+        }
     }
     private boolean validate() {
         if (!validateFName()) {

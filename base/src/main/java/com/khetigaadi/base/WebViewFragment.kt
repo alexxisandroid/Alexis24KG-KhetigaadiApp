@@ -1,4 +1,5 @@
 package com.khetigaadi.base
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 import android.os.Build
@@ -22,7 +23,7 @@ class WebViewFragment : Fragment() {
     private var activity: FragmentActivity? = null
     private var url: String? = null
     private var htmlContent: String? = null
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState:Bundle?) {
         super.onCreate(savedInstanceState)
         activity = getActivity()
         if (arguments != null) {
@@ -31,58 +32,57 @@ class WebViewFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentWebViewBinding.inflate(inflater, container, false)
+    override fun onCreateView(inflater:LayoutInflater,container:ViewGroup?,savedInstanceState:Bundle?):View? {
+        binding = FragmentWebViewBinding.inflate(inflater,container,false)
         return binding!!.getRoot()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    @SuppressLint("SetJavaScriptEnabled")
+    override fun onViewCreated(view:View,savedInstanceState:Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding!!.webView.getSettings().setLoadsImagesAutomatically(true)
-        binding!!.webView.getSettings().setJavaScriptEnabled(true)
+        binding!!.webView.getSettings().loadsImagesAutomatically = true
+        binding!!.webView.getSettings().javaScriptEnabled = true
         binding!!.webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY)
-        if (!TextUtils.isEmpty(url)) {
+        if(!TextUtils.isEmpty(url)) {
             binding!!.webView.setWebViewClient(MyBrowser())
             binding!!.webView.loadUrl(url!!)
-        } else {
+        }
+        else {
             htmlContent =
                 "<html><head><style type=\"text/css\">@font-face {font-family: Museosans-Regular; src: url(\"file:///android_asset/Font/Museosans-Regular.otf\")} @font-face {font-family: Museosans-Bold; src: url(\"file:///android_asset/Font/Museosans-Bold.otf\")} body {font-family:Museosans-Regular;font-size:18px;padding: 17px 17px 0 17px;} b{font-family:Museosans-Bold;}</style></head><body>$htmlContent</body></html>"
-            binding!!.webView.loadDataWithBaseURL(null, htmlContent!!, "text/html", "utf-8", null)
+            binding!!.webView.loadDataWithBaseURL(null,htmlContent!!,"text/html","utf-8",null)
         }
         Glide.with(this)
             .load(R.drawable.loader_white)
-            .into<Target<Drawable>>(binding!!.llProgress.findViewById(R.id.ivLoader))
+            .into(binding!!.llProgress.findViewById(R.id.ivLoader))
     }
-    internal inner class MyBrowser : WebViewClient() {
-        override fun shouldOverrideUrlLoading(view: WebView, url: String): Boolean {
+    internal inner class MyBrowser:WebViewClient() {
+        override fun shouldOverrideUrlLoading(view:WebView,url:String):Boolean {
             view.loadUrl(url)
             return true
         }
         override fun onPageStarted(view:WebView,url:String,favicon:Bitmap) {
             super.onPageStarted(view, url, favicon)
-            if (binding?.llProgress!!.getVisibility() === View.GONE) {
-                binding?.llProgress!!.setVisibility(View.VISIBLE)
+            if(binding?.llProgress!!.getVisibility() === View.GONE) {
+                binding?.llProgress!!.visibility = View.VISIBLE
             }
         }
         override fun onPageFinished(view:WebView,url:String) {
-            if (binding!!.llProgress.getVisibility() === View.VISIBLE) {
-                binding!!.llProgress.setVisibility(View.GONE)
+            if(binding!!.llProgress.getVisibility() === View.VISIBLE) {
+                binding!!.llProgress.visibility = View.GONE
             }
         }
         override fun onReceivedError(view:WebView,request:WebResourceRequest,error:WebResourceError) {
-            super.onReceivedError(view, request, error)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                Toast.makeText(activity, error.description.toString(), Toast.LENGTH_SHORT).show()
+            super.onReceivedError(view, request, error)  //error.description.toString()
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                Toast.makeText(activity,resources.getString(R.string.something_went_wrong),Toast.LENGTH_SHORT).show()
             }
         }
     }
     companion object {
         const val URL = "url"
         const val HTML_CONTENT = "htmlContent"
-        fun newInstance(url: String?, htmlContent: String?): WebViewFragment {
+        fun newInstance(url:String?,htmlContent:String?):WebViewFragment {
             val fragment = WebViewFragment()
             val args = Bundle()
             args.putString(URL, url)

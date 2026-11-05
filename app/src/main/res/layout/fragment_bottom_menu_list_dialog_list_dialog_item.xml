@@ -16,15 +16,16 @@
         app:layout_constraintBottom_toTopOf="@id/tvTitle"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@mipmap/no_image"/>
+    <!--  android:textAppearance="@style/TextAppearance.AppCompat.Small" -->
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/dimen_8dp"
-        android:fontFamily="@font/poppins_bold"
+        android:fontFamily="@font/manrope_semibold"
         android:textStyle="bold"
         android:gravity="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivImage"

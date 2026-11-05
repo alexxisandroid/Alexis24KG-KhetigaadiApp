@@ -94,11 +94,7 @@ public class Type implements Parcelable {
     public boolean getSelected() {
         return selected;
     }
-    @NonNull
-    @Override
-    public String toString() {
-        return name;
-    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -109,5 +105,17 @@ public class Type implements Parcelable {
     @Override
     public int hashCode() {
         return Objects.hash(id,name,image,status,selected);
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+        return "Type{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", image='" + image + '\'' +
+                ", status=" + status +
+                ", selected=" + selected +
+                '}';
     }
 }

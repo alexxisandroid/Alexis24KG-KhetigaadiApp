@@ -11,15 +11,14 @@
     app:chipBackgroundColor="@color/chip_back_tint"
     style="@style/CustomSuggestionChip"
     android:fontFamily="@font/poppins_semi_bold"
-    app:chipMinHeight="@dimen/dimen_25dp"
+    app:chipMinHeight="@dimen/dimen_30dp"
     app:chipMinTouchTargetSize="@dimen/dimen_30dp"
     app:chipStrokeColor="@color/charcoal"
     tools:visibility="visible"/>
 <!--  style="@style/Widget.Material3.Chip.Suggestion"
       android:fontFamily="@font/poppins_semi_bold"
-
-    app:chipBackgroundColor="@color/chip_back_tint"
-    app:chipMinHeight="@dimen/dimen_25dp"
-    app:chipMinTouchTargetSize="@dimen/dimen_30dp"
-    app:chipStrokeColor="@color/charcoal"
+      app:chipBackgroundColor="@color/chip_back_tint"
+      app:chipMinHeight="@dimen/dimen_25dp"
+      app:chipMinTouchTargetSize="@dimen/dimen_30dp"
+      app:chipStrokeColor="@color/charcoal"
       -->

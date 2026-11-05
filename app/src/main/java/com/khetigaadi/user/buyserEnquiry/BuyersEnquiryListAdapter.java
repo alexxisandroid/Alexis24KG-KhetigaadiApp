@@ -1,12 +1,14 @@
 package com.khetigaadi.user.buyserEnquiry;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.khetigaadi.AppConfig;
 import com.khetigaadi.R;
 //import com.khetigaadi.base.util.DateUtils;
 import com.khetigaadi.commons.utils.EmptyViewHolder;
@@ -19,6 +21,8 @@ import com.khetigaadi.databinding.ProgressbarItemBinding;
 import com.khetigaadi.model.Others;
 import com.khetigaadi.tractor.usedTractor.util.UsedTractor;
 import com.khetigaadi.user.util.BuyersEnq;
+import com.khetigaadi.util.NumberFormatting;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -64,7 +68,7 @@ public class BuyersEnquiryListAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
-            UsedTractor usedTractor = mTractors.get(position).getUsedTractor();
+            UsedTractor usedTractor = mTractors.get(position).getUsedTractor();   //usedTractor.getUserViews()
             if (usedTractor != null) {
                 if (usedTractor.getBrand() != null && usedTractor.getModel() != null)
                     ((ViewHolder) holder).binding.tvTractorName.setText(usedTractor.getBrand().getName().concat(" " + usedTractor.getModel().getName()));
@@ -81,12 +85,15 @@ public class BuyersEnquiryListAdapter extends RecyclerView.Adapter {
                         ((ViewHolder) holder).binding.tvMobile.setText(usedTractor.getUser().getMobile());
                     }
                 }
-                if (mTractors.get(position).getCreatedAt().isEmpty()) {
-                    ((ViewHolder) holder).binding.tvDate.setVisibility(View.GONE);
+                if(usedTractor.getUserViews()!=null)
+                  ((ViewHolder) holder).binding.tvViews.setText(NumberFormatting.format(usedTractor.getUserViews()));
+
+                if(mTractors.get(position).getCreatedAt().isEmpty()) {
+                    ((ViewHolder)holder).binding.tvDate.setVisibility(View.GONE);
                 } else {
                    // ((ViewHolder) holder).binding.tvDate.setText(DateUtils.convertDateToDate(mTractors.get(position).getCreatedAt(),DateUtils.DateFormat.yyyy_MM_dd_HH_mm_ss,DateUtils.DateFormat.dd_MM_yyyy));
 
-                    @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy MMM dd HH:mm:ss");
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                     String dateInString = mTractors.get(position).getCreatedAt();
                     @SuppressLint("SimpleDateFormat") SimpleDateFormat formatterOut = new SimpleDateFormat("dd-MM-yyyy");
                     try {
@@ -98,20 +105,28 @@ public class BuyersEnquiryListAdapter extends RecyclerView.Adapter {
                     }
                     catch(ParseException e)
                     {
+                        Log.d("vbcxvbcbc===",""+e.getLocalizedMessage());
                         e.printStackTrace();
                     }
                 }
-
+             String bUrl = AppConfig.BASE_ASSET_URL+"used_tractor/"; //others.getTractorImagePath()
                 Glide.with(mContext)
-                        .load(others != null && usedTractor.getImage() != null ? others.getTractorImagePath() + usedTractor.getImage().getUsedTractorImage() : null)
+                        .load(others != null && usedTractor.getImage() != null ? bUrl + usedTractor.getImage().getUsedTractorImage() : null)
                         .placeholder(R.mipmap.no_image)
                         .error(R.mipmap.no_image)
                         .into(((ViewHolder) holder).binding.ivImage);
+
                 Glide.with(mContext)
                         .load(others != null && usedTractor.getBrand() != null ? others.getBrandLogoPath() + usedTractor.getBrand().getImage() : null)
                         .placeholder(R.mipmap.no_image)
                         .error(R.mipmap.no_image)
                         .into(((ViewHolder) holder).binding.brandImage);
+
+                if(others != null && usedTractor.getImage() != null)
+                    Log.d("vcbvcbcv_bcbc===",""+others.getTractorImagePath() + usedTractor.getImage().getUsedTractorImage());
+                if(others != null && usedTractor.getBrand() != null)
+                    Log.d("vcbvcbcv_bcbc22===",""+others.getBrandLogoPath() + usedTractor.getBrand().getImage());
+
             }
         }
     }

@@ -5,8 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:focusableInTouchMode="true"
     tools:context=".user.profile.EditProfileActivity">
+    <!--   app:contentScrim="?attr/colorPrimary"   -->
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
@@ -18,15 +20,17 @@
             android:layout_height="@dimen/payu_dimen_100dp"
             android:background="@drawable/profile_back_banner"
             android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
+            app:contentScrim="@color/white"
             app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:layout_anchor="@id/main_collapsing"
+                android:layout_marginTop="@dimen/dimen_20dp"
                 app:layout_collapseMode="pin"
                 app:theme="@style/ThemeOverlay.AppCompat.Dark"
+                app:titleTextColor="@color/white"
                 app:title="">
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -42,20 +46,32 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            style="@style/CardViewHorizontalListItem"
+            app:cardUseCompatPadding="true"
+            app:cardCornerRadius="@dimen/dimen_10dp"
+            android:layout_margin="@dimen/dimen_1dp"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingStart="@dimen/margin_15dp"
             android:paddingTop="@dimen/margin_10dp"
-         android:paddingBottom="@dimen/payu_dimen_250dp"
+            android:paddingBottom="@dimen/payu_dimen_250dp"
             android:paddingEnd="@dimen/margin_15dp">
             <LinearLayout
                 android:id="@+id/llUserImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginTop="@dimen/dimen_16dp"
                 android:padding="4dp"
+                android:gravity="center"
                 android:weightSum="1"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -63,23 +79,24 @@
                     android:layout_width="122dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:fontFamily="@font/poppins_bold"
                     android:text="@string/user_image"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="@color/black"
-                    android:visibility="invisible"/>
+                    android:visibility="gone"/>
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/ivImage"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/camera"/>
+                    android:layout_gravity="center_vertical|center_horizontal"
+                    android:src="@drawable/user_rounded"/>
                 <ImageView
                     android:id="@+id/ivEditImage"
                     android:layout_width="40dp"
                     android:layout_height="45dp"
                     android:layout_gravity="center|bottom"
-                    android:layout_marginStart="10dp"
                     android:clickable="true"
+                    android:layout_marginStart="-10dp"
                     android:src="@drawable/ic_edit_image"
                     android:contentDescription="@string/app_name"
                     android:focusable="true"/>
@@ -99,8 +116,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:backgroundTint="@color/white"
                 android:hint="@string/first_name"
-                android:layout_marginTop="@dimen/dimen_10dp"
+
                 android:layout_marginBottom="@dimen/dimen_30dp"
                 app:errorTextAppearance="@style/MyAppTheme.TextInputLayout"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -129,6 +147,7 @@
                 android:layout_marginTop="@dimen/dimen_10dp"
                 android:hint="@string/hint_last_name"
                 android:layout_marginStart="@dimen/dimen_4dp"
+                android:backgroundTint="@color/white"
                 android:layout_marginEnd="@dimen/dimen_4dp"
                 app:errorTextAppearance="@style/MyAppTheme.TextInputLayout"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -154,6 +173,7 @@
                 android:layout_marginTop="@dimen/dimen_10dp"
                 android:layout_marginEnd="@dimen/dimen_4dp"
                 android:layout_marginBottom="@dimen/dimen_30dp"
+                android:backgroundTint="@color/white"
                 android:hint="@string/hint_mobile"
                 app:errorTextAppearance="@style/MyAppTheme.TextInputLayout"
                 app:layout_constraintTop_toBottomOf="@id/tilLastName">
@@ -172,6 +192,7 @@
                 android:layout_marginBottom="@dimen/dimen_30dp"
                 android:layout_marginTop="@dimen/dimen_10dp"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
                 android:layout_marginStart="@dimen/dimen_4dp"
                 android:layout_marginEnd="@dimen/dimen_4dp"
                 android:hint="@string/hint_email"
@@ -190,6 +211,7 @@
                 android:layout_marginStart="@dimen/dimen_4dp"
                 android:layout_marginEnd="@dimen/dimen_4dp"
                 android:layout_marginTop="@dimen/dimen_10dp"
+                android:backgroundTint="@color/white"
                 android:layout_marginBottom="@dimen/dimen_20dp"
                 android:hint="@string/what_kind_of_user_are_you"
                 app:errorTextAppearance="@style/MyAppTheme.TextInputLayout"
@@ -213,6 +235,7 @@
                 android:layout_marginTop="@dimen/dimen_10dp"
                 android:layout_marginStart="@dimen/dimen_4dp"
                 android:layout_marginEnd="@dimen/dimen_4dp"
+                android:backgroundTint="@color/white"
                 android:layout_marginBottom="@dimen/dimen_20dp"
                 android:hint="@string/describe_yourself_to_others"
                 app:errorTextAppearance="@style/MyAppTheme.TextInputLayout"
@@ -234,6 +257,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dimen_4dp"
                 android:layout_marginTop="@dimen/dimen_10dp"
+                android:backgroundTint="@color/white"
                 android:layout_marginEnd="@dimen/dimen_4dp"
                 android:hint="@string/awards"
                 app:errorTextAppearance="@style/MyAppTheme.TextInputLayout"
@@ -257,6 +281,7 @@
                 android:layout_marginStart="@dimen/dimen_4dp"
                 android:layout_marginEnd="@dimen/dimen_4dp"
                 android:layout_marginTop="@dimen/dimen_10dp"
+                android:backgroundTint="@color/white"
                 android:layout_marginBottom="@dimen/dimen_20dp"
                 android:clickable="true"
                 android:hint="@string/crops"
@@ -280,6 +305,7 @@
                 android:layout_marginStart="@dimen/dimen_4dp"
                 android:layout_marginEnd="@dimen/dimen_4dp"
                 android:layout_marginTop="@dimen/dimen_10dp"
+                android:backgroundTint="@color/white"
                 android:layout_marginBottom="@dimen/dimen_20dp"
                 android:hint="@string/land"
                 app:errorTextAppearance="@style/MyAppTheme.TextInputLayout"
@@ -296,13 +322,15 @@
                     android:maxLength="15"
                     android:singleLine="true"/>
             </com.google.android.material.textfield.TextInputLayout>
+            <!--    android:textAppearance="@style/TextAppearance.AppCompat.Medium"  -->
             <TextView
                 android:id="@+id/tvAreYouOwner"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_20dp"
+                android:layout_marginStart="@dimen/dimen_4dp"
+                android:fontFamily="@font/poppins_bold"
                 android:text="@string/are_you_tractor_owner"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tilLand"/>
             <RadioGroup
@@ -335,6 +363,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_10dp"
+                android:fontFamily="@font/poppins_bold"
+                android:layout_marginStart="@dimen/dimen_4dp"
                 android:text="@string/owned_brand"
                 android:visibility="gone"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -355,13 +385,16 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tvOwnedBrand"
                 app:layout_constraintTop_toBottomOf="@id/tvAreYouOwner"/>
+            <!--  android:textAppearance="@style/TextAppearance.AppCompat.Medium"  -->
             <TextView
                 android:id="@+id/tvSmartPhone"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dimen_20dp"
+                android:layout_marginStart="@dimen/dimen_4dp"
                 android:text="@string/smart_phone_user"
-                android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                android:fontFamily="@font/poppins_bold"
+
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvOwnedBrand"/>
             <RadioGroup
@@ -398,6 +431,7 @@
                 android:layout_marginStart="@dimen/dimen_4dp"
                 android:layout_marginEnd="@dimen/dimen_4dp"
                 android:layout_marginTop="@dimen/dimen_20dp"
+                android:backgroundTint="@color/white"
                 android:hint="@string/state"
                 android:layout_marginBottom="@dimen/dimen_20dp"
                 app:errorTextAppearance="@style/MyAppTheme.TextInputLayout"
@@ -421,6 +455,7 @@
                 android:layout_marginTop="@dimen/dimen_10dp"
                 android:layout_marginStart="@dimen/dimen_4dp"
                 android:layout_marginEnd="@dimen/dimen_4dp"
+                android:backgroundTint="@color/white"
                 android:layout_weight="1"
                 android:layout_marginBottom="@dimen/dimen_20dp"
                 android:hint="@string/city"
@@ -447,6 +482,7 @@
                 android:layout_marginTop="@dimen/dimen_10dp"
                 android:layout_marginStart="@dimen/dimen_4dp"
                 android:layout_marginEnd="@dimen/dimen_4dp"
+                android:backgroundTint="@color/white"
                 android:layout_marginBottom="@dimen/dimen_20dp"
                 android:layout_weight="1"
                 android:hint="@string/taluka"
@@ -474,6 +510,7 @@
                 android:layout_marginStart="@dimen/dimen_4dp"
                 android:layout_marginEnd="@dimen/dimen_4dp"
                 android:layout_marginBottom="@dimen/dimen_20dp"
+                android:backgroundTint="@color/white"
                 android:layout_marginTop="@dimen/dimen_10dp"
                 android:layout_weight="1"
                 android:hint="@string/dob"
@@ -503,7 +540,7 @@
                 android:layout_marginStart="@dimen/dimen_4dp"
                 android:layout_marginEnd="@dimen/dimen_4dp"
                 android:layout_marginBottom="@dimen/dimen_20dp"
-                android:layout_marginTop="@dimen/dimen_20dp"
+                android:layout_marginTop="@dimen/dimen_16dp"
                 android:layout_weight="1"
                 android:hint="@string/gender"
                 app:errorTextAppearance="@style/MyAppTheme.TextInputLayout"
@@ -536,7 +573,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="@dimen/dimen_10dp"
+                android:layout_marginTop="@dimen/dimen_20dp"
                 android:layout_marginBottom="@dimen/dimen_40dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tilGender">
@@ -556,23 +593,28 @@
                 android:textColor="@color/color_blue"
                 android:text="@string/terms_and_conditions"/>
             </LinearLayout>
-            <Button
+            <TextView
                 android:id="@+id/btn_update"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/payu_dimen_44dp"
-                android:minWidth="@dimen/payu_dimen_100dp"
+                android:minWidth="@dimen/payu_dimen_145dp"
                 android:layout_marginStart="@dimen/margin_20dp"
-                android:layout_marginTop="@dimen/margin_10dp"
+                android:layout_marginTop="@dimen/dimen_20dp"
+                android:layout_marginEnd="@dimen/dimen_20dp"
                 android:layout_marginBottom="@dimen/payu_dimen_100dp"
-                android:background="@drawable/rounded_corner_btn"
-                android:backgroundTint="@color/red"
+                android:fontFamily="@font/poppins"
+                android:background="@drawable/btn_rectangle_outline_bg_red"
                 android:text="@string/update"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textColor="@color/red"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/clTerms"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.cardview.widget.CardView>
+
     </ScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

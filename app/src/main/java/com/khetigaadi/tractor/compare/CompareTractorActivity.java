@@ -38,10 +38,12 @@ public class CompareTractorActivity extends AppCompatActivity {
         initToolbar();
     }
     private void initToolbar() {
-        setSupportActionBar(binding.toolbarI.toolbar);
-        binding.toolbarI.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
-        binding.toolbarI.toolbar.setNavigationOnClickListener(v -> onBackPressed());
-        binding.toolbarI.toolbar.setTitle(getString(R.string.compareTractor));
-        Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.compareTractor));
+        setSupportActionBar(binding.toolbar);
+        binding.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
+        binding.toolbar.setNavigationOnClickListener(v -> onBackPressed());
+        binding.toolbar.setTitle(getString(R.string.compareTractor));
+        //Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.compareTractor));
+
+        getSupportActionBar().setTitle(getResources().getString(R.string.compareTractor));
     }
 }

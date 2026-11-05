@@ -21,7 +21,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/dimen_16dp">
+            android:paddingBottom="@dimen/payu_dimen_54dp"
+            android:paddingStart="@dimen/dimen_16dp"
+            android:paddingTop="@dimen/dimen_16dp"
+            android:paddingEnd="@dimen/dimen_16dp">
             <TextView
                 android:id="@+id/tvTypeOfFinance"
                 style="@style/ItemTitle"
@@ -236,6 +239,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/dimen_15dp"
                 android:layout_marginEnd="@dimen/margin_20dp"
+                android:layout_marginBottom="@dimen/payu_dimen_54dp"
                 android:text="@string/call_now"
                 android:textColor="@color/white"
                 app:backgroundTint="@color/red"
@@ -254,6 +258,7 @@
                 android:layout_gravity="center"
                 android:layout_marginStart="@dimen/dimen_20dp"
                 android:layout_marginTop="@dimen/dimen_15dp"
+                android:layout_marginBottom="@dimen/payu_dimen_54dp"
                 android:text="@string/whatsApp"
                 app:strokeColor="@color/whats_app_color"
                 android:textAllCaps="false"

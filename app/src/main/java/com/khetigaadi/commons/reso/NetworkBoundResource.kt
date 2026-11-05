@@ -1,5 +1,4 @@
 package com.khetigaadi.commons.reso
-
 import com.khetigaadi.base.room.repository.utils.ApiEmptyResponse
 import com.khetigaadi.base.room.repository.utils.ApiErrorResponse
 import com.khetigaadi.base.room.repository.utils.ApiResponse
@@ -28,45 +27,32 @@ import androidx.annotation.MainThread
 import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
-
-/**
- * A generic class that can provide a resource backed by both the sqlite database and the network.
- *
- *
- * You can read more about it in the [Architecture
- * Guide](https://developer.android.com/arch).
- * @param <ResultType>
- * @param <RequestType>
-</RequestType></ResultType> */
-abstract class NetworkBoundResource<ResultType, RequestType>
-@MainThread constructor(private val appExecutors: AppExecutors) {
-
+abstract class NetworkBoundResource<ResultType,RequestType>
+@MainThread constructor(private val appExecutors:AppExecutors) {
     private val result = MediatorLiveData<Resource<ResultType>>()
-
     init {
         result.value = Resource.loading(null)
         @Suppress("LeakingThis")
         val dbSource = loadFromDb()
         result.addSource(dbSource) { data ->
             result.removeSource(dbSource)
-            if (shouldFetch(data)) {
+            if(shouldFetch(data)) {
                 fetchFromNetwork(dbSource)
-            } else {
+            }
+            else {
                 result.addSource(dbSource) { newData ->
                     setValue(Resource.success(newData))
                 }
             }
         }
     }
-
     @MainThread
-    private fun setValue(newValue: Resource<ResultType>) {
-        if (result.value != newValue) {
+    private fun setValue(newValue:Resource<ResultType>) {
+        if(result.value != newValue) {
             result.value = newValue
         }
     }
-
-    private fun fetchFromNetwork(dbSource: LiveData<ResultType>) {
+    private fun fetchFromNetwork(dbSource:LiveData<ResultType>) {
         val apiResponse = createCall()
         // we re-attach dbSource as a new source, it will dispatch its latest value quickly
         result.addSource(dbSource) { newData ->
@@ -75,7 +61,7 @@ abstract class NetworkBoundResource<ResultType, RequestType>
         result.addSource(apiResponse) { response ->
             result.removeSource(apiResponse)
             result.removeSource(dbSource)
-            when (response) {
+            when(response) {
                 is ApiSuccessResponse -> {
                     appExecutors.diskIO().execute {
                         saveCallResult(processResponse(response))
@@ -106,23 +92,16 @@ abstract class NetworkBoundResource<ResultType, RequestType>
             }
         }
     }
-
     protected open fun onFetchFailed() {}
-
     fun asLiveData() = result as LiveData<Resource<ResultType>>
-
     @WorkerThread
-    protected open fun processResponse(response: ApiSuccessResponse<RequestType>) = response.body
-
+    protected open fun processResponse(response:ApiSuccessResponse<RequestType>) = response.body
     @WorkerThread
-    protected abstract fun saveCallResult(item: RequestType)
-
+    protected abstract fun saveCallResult(item:RequestType)
     @MainThread
-    protected abstract fun shouldFetch(data: ResultType?): Boolean
-
+    protected abstract fun shouldFetch(data:ResultType?): Boolean
     @MainThread
-    protected abstract fun loadFromDb(): LiveData<ResultType>
-
+    protected abstract fun loadFromDb():LiveData<ResultType>
     @MainThread
-    protected abstract fun createCall(): LiveData<ApiResponse<RequestType>>
+    protected abstract fun createCall():LiveData<ApiResponse<RequestType>>
 }

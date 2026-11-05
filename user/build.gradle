@@ -4,15 +4,17 @@ plugins {
 android {
     namespace 'com.khetigaadi.user'
     //noinspection GrDeprecatedAPIUsage
-    compileSdk 36
+    compileSdk 37
     defaultConfig {
        // minSdk 23
         minSdkVersion 23
         // targetSdk 34
         //noinspection OldTargetApi
-        targetSdkVersion 35
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
+    }
+    buildFeatures {
+        buildConfig = true
     }
     buildTypes {
         release {
@@ -40,6 +42,12 @@ android {
                 srcDirs 'src/main/java', 'src/main/java/2'
             }
         }
+    }
+    lint {
+        targetSdk 37
+    }
+    testOptions {
+        targetSdk 37
     }
 }
 dependencies {

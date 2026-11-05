@@ -1,6 +1,7 @@
 package com.khetigaadi.user.myfavorites;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,8 +69,8 @@ public class MyFavoritesUsedTrList extends BaseFragment {
     }
     @Nullable
     @Override
-    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = RecycleListBinding.inflate(inflater, container, false);
+    public View onCreateView(@NotNull LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
+        binding = RecycleListBinding.inflate(inflater,container,false);
         viewModel = new ViewModelProvider(this.getParentFragment()).get(MyFavoritesViewModel.class);
         Glide.with(activity)
                 .load(R.drawable.loader_white)
@@ -124,19 +125,23 @@ public class MyFavoritesUsedTrList extends BaseFragment {
         viewModel.getUsedTractors().observe(getViewLifecycleOwner(), myFavUsedTractors -> mAdapter.updateItems(myFavUsedTractors));
     }
     private void getUsedTractorList() {
-        viewModel.getTractors().observe(getViewLifecycleOwner(), myFavoritesRespStateData -> {
+        viewModel.getTractors().observe(getViewLifecycleOwner(),myFavoritesRespStateData -> {
             switch (myFavoritesRespStateData.getStatus()) {
                 case LOADING:
                     binding.llProgress.setVisibility(View.VISIBLE);
                     break;
                 case SUCCESS:
-                    if (myFavoritesRespStateData.getData() != null) {
+                    if(myFavoritesRespStateData.getData() != null) {
                         mAdapter.setOthers(myFavoritesRespStateData.getData().getOthers());
+
+                        Log.d("vcxxvxvxvcxv===",""+myFavoritesRespStateData.getData());
+
+                        Log.d("vcxxvxvxvcxv22===",""+myFavoritesRespStateData.getData().getOthers());
                     }
                     binding.llProgress.setVisibility(View.GONE);
                     break;
                 case ERROR:
-                    Toast.makeText(activity, myFavoritesRespStateData.getError(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(activity,myFavoritesRespStateData.getError(),Toast.LENGTH_LONG).show();
                     break;
             }
         });

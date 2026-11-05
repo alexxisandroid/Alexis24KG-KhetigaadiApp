@@ -6,7 +6,7 @@
     style="@style/DrawerSubMenu"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingStart="80dp"
+    android:paddingStart="50dp"
     android:paddingTop="10dp"
     android:fontFamily="@font/poppins_bold"
     android:paddingEnd="10dp"

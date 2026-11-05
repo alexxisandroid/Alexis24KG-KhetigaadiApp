@@ -20,6 +20,7 @@ import static android.graphics.Paint.ANTI_ALIAS_FLAG;
 import static android.widget.LinearLayout.HORIZONTAL;
 import static android.widget.LinearLayout.VERTICAL;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
@@ -40,6 +41,8 @@ import androidx.core.view.ViewConfigurationCompat;
 import androidx.viewpager.widget.ViewPager;
 
 import com.khetigaadi.R;
+
+import java.util.Objects;
 
 
 /**
@@ -207,6 +210,7 @@ public class CirclePageIndicator extends View implements com.khetigaadi.commons.
         if (mViewPager == null) {
             return;
         }
+        assert mViewPager.getAdapter() != null;
         final int count = mViewPager.getAdapter().getCount();
         if (count == 0) {
             return;
@@ -284,17 +288,19 @@ public class CirclePageIndicator extends View implements com.khetigaadi.commons.
         canvas.drawCircle(dX, dY, mRadius, mPaintFill);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     public boolean onTouchEvent(MotionEvent ev) {
         if (super.onTouchEvent(ev)) {
             return true;
         }
-        if ((mViewPager == null) || (mViewPager.getAdapter().getCount() == 0)) {
+        if ((mViewPager == null) || (Objects.requireNonNull(mViewPager.getAdapter()).getCount() == 0)) {
             return false;
         }
 
         final int action = ev.getAction() & MotionEventCompat.ACTION_MASK;
         switch (action) {
             case MotionEvent.ACTION_DOWN:
+                //noinspection deprecation
                 mActivePointerId = MotionEventCompat.getPointerId(ev, 0);
                 mLastMotionX = ev.getX();
                 break;
@@ -472,6 +478,7 @@ public class CirclePageIndicator extends View implements com.khetigaadi.commons.
             result = specSize;
         } else {
             //Calculate the width according the views count
+            assert mViewPager.getAdapter() != null;
             final int count = mViewPager.getAdapter().getCount();
             result = (int) (getPaddingLeft() + getPaddingRight()
                     + (count * 2 * mRadius) + (count - 1) * mRadius + 1);

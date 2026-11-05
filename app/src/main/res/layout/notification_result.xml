@@ -38,6 +38,7 @@
             android:layout_width="match_parent"
             android:layout_height="267dp"
             android:contentDescription="@string/Images"
+            android:background="@color/detailsBackground"
             android:src="@mipmap/ic_launcher"
             app:layout_constraintTop_toBottomOf="@id/tvTitle" />
 

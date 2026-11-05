@@ -19,14 +19,15 @@
         android:id="@+id/my_Recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/dimen_50dp"
+        android:layout_marginBottom="@dimen/dimen_60dp"
         android:background="@color/pageBackGround"
         android:padding="2dp"
         android:scrollbars="vertical"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" />
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_gravity="bottom"
         android:background="@color/ValueGrey"
         android:gravity="center"
@@ -36,17 +37,27 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="end"
+            android:fontFamily="@font/manrope_medium"
+            android:layout_marginEnd="@dimen/payu_dimen_10dp"
             android:padding="@dimen/margin_5dp"
             android:text="@string/khetiKeTantra"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/white"/>
-        <Button
+        <TextView
             android:id="@+id/btnSubscribe"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:minWidth="@dimen/payu_dimen_100dp"
+            android:layout_height="@dimen/payu_dimen_40dp"
             style="@style/ButtonStyleFilledRed"
-            android:layout_marginStart="@dimen/dimen_5dp"
+            android:background="@drawable/rounded_corner_12dp"
+            android:backgroundTint="@color/red"
+            android:includeFontPadding="false"
+            android:layout_margin="@dimen/dimen_5dp"
             android:text="@string/subscribe"
+            android:fontFamily="@font/manrope_medium"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:textColor="@color/white"/>
     </LinearLayout>
     <LinearLayout

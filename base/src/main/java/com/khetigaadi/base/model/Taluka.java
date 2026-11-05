@@ -19,7 +19,6 @@ public class Taluka implements Parcelable {
     @SerializedName("name")
     @Expose
     private String name;
-
     public Taluka() {
     }
     @Ignore
@@ -29,7 +28,7 @@ public class Taluka implements Parcelable {
         name = in.readString();
     }
     @Override
-    public void writeToParcel(Parcel dest, int flags) {
+    public void writeToParcel(Parcel dest,int flags) {
         dest.writeInt(id);
         dest.writeInt(cityId);
         dest.writeString(name);
@@ -65,5 +64,13 @@ public class Taluka implements Parcelable {
     }
     public void setName(String name) {
         this.name = name;
+    }
+    @Override
+    public String toString() {
+        return "Taluka{" +
+                "id=" + id +
+                ", cityId=" + cityId +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

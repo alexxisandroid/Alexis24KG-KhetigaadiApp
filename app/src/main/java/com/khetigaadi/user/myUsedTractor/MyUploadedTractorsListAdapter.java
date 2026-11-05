@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
+import com.khetigaadi.AppConfig;
 import com.khetigaadi.R;
 import com.khetigaadi.base.util.BaseRecyclerViewAdapter;
 //import com.khetigaadi.base.util.DateUtils;
@@ -98,60 +99,62 @@ public class MyUploadedTractorsListAdapter extends BaseRecyclerViewAdapter<MyUse
             }
             if (currentTractor.getModelYear().equals("") || currentTractor.getModelYear().isEmpty()) {
                 ((ViewHolder) holder).binding.tvYear.setVisibility(View.GONE);
-            } else {
+            }
+            else {
                 ((ViewHolder) holder).binding.tvYear.setVisibility(View.VISIBLE);
                 ((ViewHolder) holder).binding.tvYear.setText(currentTractor.getModelYear());
             }
             if (currentTractor.getHoursDriven().equals("") || currentTractor.getHoursDriven().isEmpty()) {
                 ((ViewHolder) holder).binding.tvDriven.setVisibility(View.GONE);
-            } else {
+            }
+            else {
                 ((ViewHolder) holder).binding.tvDriven.setVisibility(View.VISIBLE);
                 ((ViewHolder) holder).binding.tvDriven.setText(currentTractor.getHoursDriven());
             }
             if (currentTractor.getPrice().equals("") || currentTractor.getPrice().isEmpty()) {
                 ((ViewHolder) holder).binding.tvPrice.setVisibility(View.GONE);
-            } else {
+            }
+            else {
                 ((ViewHolder) holder).binding.tvPrice.setVisibility(View.VISIBLE);
-                ((ViewHolder) holder).binding.tvPrice.setText(Utils.priceConvert(currentTractor.getPrice()));
+                ((ViewHolder) holder).binding.tvPrice.setText(context.getResources().getString(R.string.rs)+" "+Utils.priceConvert(currentTractor.getPrice()));
             }
             ((ViewHolder) holder).binding.tvViews.setText(currentTractor.getUserViews());
             try {
-                if (Integer.parseInt(currentTractor.getSoldUnsoldStatus()) == 0) {
+                if(Integer.parseInt(currentTractor.getSoldUnsoldStatus()) == 0) {
                     ((ViewHolder) holder).binding.btnSoldStatus.setText(context.getString(R.string.click_to_sold));
-
                 } else {
                     ((ViewHolder) holder).binding.btnSoldStatus.setText(context.getString(R.string.click_to_unsold));
 
                 }
-            } catch (Exception e) {
+            }
+            catch(Exception e) {
                 e.printStackTrace();
             }
             ((ViewHolder) holder).binding.pbSold.setVisibility(View.GONE);
             ((ViewHolder) holder).binding.btnSoldStatus.setVisibility(View.VISIBLE);
+           String bPath = AppConfig.BASE_ASSET_URL+"used_tractor/";  //others.getTractorImagePath()
             Glide.with(context)
-                    .load(currentTractor.getImage() != null ? getImagePath(others.getTractorImagePath(), currentTractor.getImage().getUsedTractorImage()) : "")
+                    .load(currentTractor.getImage() != null ? getImagePath(bPath, currentTractor.getImage().getUsedTractorImage()) : "")
                     .placeholder(R.mipmap.no_image)
                     .error(R.mipmap.no_image)
                     .into(((ViewHolder) holder).binding.ivImage);
 
-            if (!currentTractor.getBuyersCount().isEmpty()) {
+            if(!currentTractor.getBuyersCount().isEmpty()) {
                 ((ViewHolder) holder).binding.tvIntrestedBuyersCount.setText(currentTractor.getBuyersCount());
             }
-            if (currentTractor.getInterestedBuyers() != null && !currentTractor.getBuyersCount().equals("0")) {
+            if(currentTractor.getInterestedBuyers() != null && !currentTractor.getBuyersCount().equals("0")) {
                 LinearLayout linearLayout = new LinearLayout(context);
                 linearLayout.setOrientation(LinearLayout.VERTICAL);
                 ((ViewHolder) holder).binding.llIntrestedBuyers.removeAllViews();
                 List<InterestedBuyersData> list = currentTractor.getInterestedBuyers();
-                for (int j = 0; j < list.size(); j++) {
+                for(int j = 0; j < list.size(); j++) {
                     IntrestedBuyersListItemBinding rowBinding = IntrestedBuyersListItemBinding.inflate(((Activity) context).getLayoutInflater(),linearLayout,false);
                     rowBinding.tvName.setText(list.get(j).getUser().getFname() + " " + list.get(j).getUser().getLname());
                    // rowBinding.tvDate.setText(DateUtils.convertDateToDate(list.get(j).getCreatedAt(),DateUtils.DateFormat.yyyy_MM_dd_hh_mm_ss,DateUtils.DateFormat.dd_MM_yyyy));
-
-
                     // binding.etDOB.setText(DateUtils.getDate(selection,DateUtils.DateFormat.dd_mm_yyyy));
-                    @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy MMM dd HH:mm:ss");
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
                     String dateInString = list.get(j).getCreatedAt();
-                    @SuppressLint("SimpleDateFormat") SimpleDateFormat formatterOut = new SimpleDateFormat("dd-MM-yyyy");
+                    @SuppressLint("SimpleDateFormat") SimpleDateFormat formatterOut = new SimpleDateFormat("dd-MMM-yyyy");
                     try {
                         Date date = formatter.parse(dateInString);
                         System.out.println(date);
@@ -163,9 +166,7 @@ public class MyUploadedTractorsListAdapter extends BaseRecyclerViewAdapter<MyUse
                     catch(ParseException e) {
                         e.printStackTrace();
                     }
-
                    // list.get(j).getUser().
-
                     rowBinding.tvEmail.setText(list.get(j).getUser().getEmail());
                     rowBinding.tvMobile.setText(list.get(j).getUser().getMobile());
                     int i = j;
@@ -174,15 +175,16 @@ public class MyUploadedTractorsListAdapter extends BaseRecyclerViewAdapter<MyUse
                 }
                 ((ViewHolder) holder).binding.llIntrestedBuyers.addView(linearLayout);
                 ((ViewHolder) holder).binding.ivInterestedBuyers.setImageResource(R.drawable.up_arrow);
-            } else {
+            }
+            else {
                 ((ViewHolder) holder).binding.ivInterestedBuyers.setImageResource(R.drawable.down_arrow);
             }
         }
     }
     private String getImagePath(String basePath,String usedTractorImage) {
-        if (usedTractorImage.contains("file"))
+        if(usedTractorImage.contains("file"))
             return usedTractorImage;
-        else return basePath + usedTractorImage;
+        else return basePath+usedTractorImage;
     }
     @Override
     public int getItemCount() {

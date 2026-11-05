@@ -5,14 +5,16 @@ plugins {
 android {
     namespace 'com.khetigaadi.base'
     //noinspection GrDeprecatedAPIUsage
-    compileSdk 36
+    compileSdk 37
     defaultConfig {
         // minSdk 23 // Integer.parseInt(project.MIN_SDK)
         minSdkVersion 23
         // targetSdk 35
         //noinspection OldTargetApi
-        targetSdkVersion 35
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildFeatures {
+        buildConfig = true
     }
     buildTypes {
         release {
@@ -37,6 +39,12 @@ android {
     }
     viewBinding {
         enabled = true
+    }
+    lint {
+        targetSdk 37
+    }
+    testOptions {
+        targetSdk 37
     }
 }
 dependencies {

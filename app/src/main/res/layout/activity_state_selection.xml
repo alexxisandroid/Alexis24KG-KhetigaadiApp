@@ -26,10 +26,14 @@
             android:id="@+id/edSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            style="@style/EditViewOutlineSearch"
             android:hint="@string/type_to_search"
+            android:padding="@dimen/margin_10dp"
             android:inputType="textPersonName"
-            android:minHeight="@dimen/payu_dimen_54dp"
+            android:layout_marginStart="@dimen/margin_10dp"
+            android:layout_marginEnd="@dimen/margin_10dp"
+            android:layout_marginBottom="@dimen/dimen_5dp"
+            android:minHeight="@dimen/dimen_50dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
@@ -37,7 +41,7 @@
             android:id="@+id/mRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/dimen_20dp"
+            android:layout_marginBottom="@dimen/dimen_50dp"
             android:layout_below="@id/edSearch"
             app:layout_constraintTop_toBottomOf="@id/edSearch"/>
         <include

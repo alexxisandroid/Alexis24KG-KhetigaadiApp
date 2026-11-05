@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.khetigaadi.AppConfig;
 import com.khetigaadi.commons.utils.Product;
 import com.khetigaadi.databinding.NewTractorPicturesBinding;
@@ -38,13 +37,12 @@ public class NewTractorDetailsPicture extends Fragment {
         return view;
     }
     private void initView(List<Product> urls) {
-        NewTractorDetailsPictureAdapter adapter = new NewTractorDetailsPictureAdapter(activity, urls);
+        NewTractorDetailsPictureAdapter adapter = new NewTractorDetailsPictureAdapter(activity,urls);
         binding.viewPager.setAdapter(adapter);
     }
     @Override
     public void onViewCreated(@NonNull View view,@Nullable Bundle savedInstanceState) {
         super.onViewCreated(view,savedInstanceState);
-
         NewTractorViewModel viewModel = new ViewModelProvider((NewTractorDetails)activity).get(NewTractorViewModel.class);
         viewModel.getPictureDetails().observe(getViewLifecycleOwner(),pictureResp -> {
             Log.d("vcbvcbcbcvcvds1234====",""+pictureResp.getStatus());

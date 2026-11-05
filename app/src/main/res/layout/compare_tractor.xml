@@ -45,6 +45,10 @@
                         android:id="@+id/tvTractor1Name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="@dimen/dimen_14sp"
+                        android:textAllCaps="true"
+                        android:maxLines="2"
+                        android:ellipsize="end"
                         android:gravity="center"
                         android:fontFamily="@font/poppins_bold"
                         android:textAppearance="?android:attr/textAppearanceSmall"
@@ -59,6 +63,7 @@
                             android:id="@+id/tvTractor1Hp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/poppins_medium"
                             android:layout_gravity="center_vertical"
                             android:gravity="center"
                             android:text="@string/minus"
@@ -68,12 +73,16 @@
                 </LinearLayout>
             </LinearLayout>
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="@dimen/dimen_40dp"
+                android:layout_height="@dimen/dimen_40dp"
                 android:layout_gravity="center"
-                android:layout_margin="@dimen/margin_2dp"
+                android:layout_marginStart="@dimen/margin_2dp"
+                android:layout_marginEnd="@dimen/dimen_2dp"
+                android:textAlignment="center"
+                android:gravity="center"
+                android:layout_marginBottom="@dimen/payu_dimen_34dp"
                 android:background="@drawable/rounded_corner_btn_with_light_color"
-                android:padding="@dimen/margin_5dp"
+                android:padding="@dimen/dimen_2dp"
                 android:text="@string/vs"
                 android:textColor="@color/white" />
             <LinearLayout
@@ -102,7 +111,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:maxLines="2"
+                        android:ellipsize="end"
+                        android:textSize="@dimen/dimen_14sp"
                         android:fontFamily="@font/poppins_bold"
+                        android:textAllCaps="true"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:textColor="@color/black"
                         tools:text="Force Motors Balwan 400"/>
@@ -117,7 +130,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:gravity="center"
-                            android:fontFamily="@font/poppins_bold"
+                            android:fontFamily="@font/poppins_medium"
                             android:text="@string/minus"
                             android:textAppearance="?android:attr/textAppearanceSmall"
                             android:visibility="visible"/>

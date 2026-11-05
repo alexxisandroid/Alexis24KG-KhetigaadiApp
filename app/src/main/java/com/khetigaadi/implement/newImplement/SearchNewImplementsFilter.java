@@ -1,6 +1,7 @@
 package com.khetigaadi.implement.newImplement;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -137,19 +138,20 @@ public class SearchNewImplementsFilter extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
-        brandRepository.getImplementBrands().observe(getViewLifecycleOwner(), listResource -> {
+        brandRepository.getImplementBrands().observe(getViewLifecycleOwner(),listResource -> {
             if (listResource.size()>0) {
                 List<Brand> brands = listResource;
                 if (brands != null) {
                     String baseUrl = SharedPreferenceUtils.getInstance(activity).getStringValue(Constants.BRAND_BASE_URL, "");
                     try {
                         binding.llBrand.removeAllViews();
-                        for (int i = 0; i < brands.size(); i = i + 4) {
+                        for (int i = 0; i < brands.size(); i = i + 3) {
                             LinearLayout linearLayout = new LinearLayout(activity);
-                            linearLayout.setWeightSum(4);
+                            linearLayout.setWeightSum(3);
                             linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-                            for (int j = 0; j <= 3 && i + j < brands.size(); j++) {
+                            for (int j = 0; j <= 2 && i + j < brands.size(); j++) {
                                 BrandRow1Binding rowBinding = BrandRow1Binding.inflate(getLayoutInflater(), linearLayout, false);
+                                rowBinding.getRoot().setBackgroundColor(Color.WHITE);
                                 Glide.with(activity)
                                         .load(brands.get(i + j).getImage() != null ? Constants.decodeURL(baseUrl + brands.get(i + j).getImage()) : null)
                                         .placeholder(R.mipmap.no_image)
@@ -158,12 +160,13 @@ public class SearchNewImplementsFilter extends BaseFragment {
                                 final int finalJ = j;
                                 final int finalI = i;
                                 rowBinding.getRoot().setOnClickListener(v ->
-                                        callList(brands.get(finalI + finalJ), null, null));
+                                        callList(brands.get(finalI + finalJ),null,null));
                                 linearLayout.addView(rowBinding.getRoot());
                             }
                             binding.llBrand.addView(linearLayout);
                         }
-                    } catch (Exception e) {
+                    }
+                    catch (Exception e) {
                         e.printStackTrace();
                     }
                     if (forBrand) {
@@ -181,17 +184,16 @@ public class SearchNewImplementsFilter extends BaseFragment {
     public void onResume() {
         super.onResume();
         addFabButtonItems();
-        if (bannerList == null)
+        if(bannerList == null)
             bannerList = ((MainActivity) activity).allBanner.getBanners().getNewImplement();
-        if (bannerList != null) {
-            if (bannerList.size() != 0) {
+        if(bannerList != null) {
+            if(bannerList.size() != 0) {
                 binding.viewPager.setAdapter(new TwoBannerSlideAdapter(activity, bannerList));
                 binding.viewPager.setClipToPadding(false);
-                binding.viewPager.setPadding(60, 0, 60, 0);
+                binding.viewPager.setPadding(60,0,60,0);
                 binding.indicator.setViewPager(binding.viewPager);
                 runnable(bannerList.size());
-                handler.postDelayed(animateViewPager,
-                        Constants.ANIM_VIEWPAGER_DELAY);
+                handler.postDelayed(animateViewPager,Constants.ANIM_VIEWPAGER_DELAY);
             }
         }
         //Google analytic code
@@ -226,23 +228,23 @@ public class SearchNewImplementsFilter extends BaseFragment {
             viewModel.setSelectedBrand(null);
             FragmentManager mFragmentManager = activity.getSupportFragmentManager();
             FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
-            fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.exit, R.anim.pop_enter, R.anim.pop_exit);
-            FrameLayout contentView = (FrameLayout) activity.findViewById(R.id.containerView);
-            fragmentTransaction.replace(contentView.getId(), NewImplementsList.getInstance(filter)).addToBackStack(TAG).commit();
+            fragmentTransaction.setCustomAnimations(R.anim.enter,R.anim.exit,R.anim.pop_enter,R.anim.pop_exit);
+            FrameLayout contentView = activity.findViewById(R.id.containerView);
+            fragmentTransaction.replace(contentView.getId(),NewImplementsList.getInstance(filter)).addToBackStack(TAG).commit();
         }
-        catch (Exception e) {
+        catch(Exception e) {
             e.printStackTrace();
         }
     }
     @Override
     public void onActivityResult(int requestCode,int resultCode,Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode,resultCode,data);
         switch(requestCode) {
             case HpSelectionActivity.HP_SELECTION_REQ: {
                 if (resultCode == Activity.RESULT_OK) {
                     if (data != null) {
                         Hp selectedHP = data.getParcelableExtra(HpSelectionActivity.SELECTED_HP);
-                        callList(null, null, selectedHP);
+                        callList(null,null,selectedHP);
                     }
                 }
                 break;
@@ -282,89 +284,95 @@ public class SearchNewImplementsFilter extends BaseFragment {
     }
     void getBrands()
     {
-        int cnfg = brandRepository.getCountt();
-        if (cnfg>0)
-            return;
-        khetiAPIs.getBrands()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<>() {
-                    @Override
-                    public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull BrandResp myResponse) {
-                        // binding.llProgress.llProgress.setVisibility(GONE);
-                        try {
-                            if (!myResponse.isError()) {
-                                String baseUrl = SharedPreferenceUtils.getInstance(activity).getStringValue(Constants.BRAND_BASE_URL, "");
-                                Timber.e("onChanged: %s",""+myResponse);
-                                try {
-                                    Log.d("cvbcvbcvbcfdgd===",""+myResponse.getBrand().size()+"=="+myResponse.isError());
-                                    binding.llBrand.removeAllViews();
-                                    if(!myResponse.isError()) {
-                                        String lpath = myResponse.getOthers().getBrandLogoPath(); // "https://khetigaadi.com/images/brandlogos/";
-                                        List<Brand> brands = new ArrayList<Brand>();
-                                        for (int i = 0; i < myResponse.getBrand().size(); i++) {
-                                            final Brand brandd = myResponse.getBrand().get(i);
-                                            int brandType = brandd.getBrand_type();
-                                            int brandStatus = brandd.getBrand_status();
-                                            brandRepository.insertBrand(brandd);
-                                            if ((brandType == 0 || brandType == 2) && brandStatus==1) {
-                                                brands.add(brandd);
+        try {
+            int cnfg = brandRepository.getCountt();
+            if (cnfg > 0)
+                return;
+            khetiAPIs.getBrands()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new DisposableSingleObserver<>() {
+                        @Override
+                        public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull BrandResp myResponse) {
+                            // binding.llProgress.llProgress.setVisibility(GONE);
+                            try {
+                                if (!myResponse.isError()) {
+                                    String baseUrl = SharedPreferenceUtils.getInstance(activity).getStringValue(Constants.BRAND_BASE_URL, "");
+                                    Timber.e("onChanged: %s", "" + myResponse);
+                                    try {
+                                        Log.d("cvbcvbcvbcfdgd===", "" + myResponse.getBrand().size() + "==" + myResponse.isError());
+                                        binding.llBrand.removeAllViews();
+                                        if (!myResponse.isError()) {
+                                            String lpath = myResponse.getOthers().getBrandLogoPath(); // "https://khetigaadi.com/images/brandlogos/";
+                                            List<Brand> brands = new ArrayList<Brand>();
+                                            for (int i = 0; i < myResponse.getBrand().size(); i++) {
+                                                final Brand brandd = myResponse.getBrand().get(i);
+                                                int brandType = brandd.getBrand_type();
+                                                int brandStatus = brandd.getBrand_status();
+
+                                                brandRepository.deleteBrand(brandd);
+                                                brandRepository.insertBrand(brandd);
+                                                if ((brandType == 0 || brandType == 2) && brandStatus == 1) {
+                                                    brands.add(brandd);
+                                                }
+                                            }
+                                            Log.d("vcbcvbcv34324242====", "" + brands.size());
+                                            for (int i = 0; i < brands.size(); i = i + 4) {
+                                                LinearLayout linearLayout = new LinearLayout(activity);
+                                                linearLayout.setWeightSum(4);
+                                                linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+                                                Log.d("vbvcbcvbcvbvcvbcvbvbvbcvbc===", myResponse.getMsg().get(0));
+                                                for (int j = 0; j <= 3 && i + j < brands.size(); j++) {
+                                                    Log.d("vbvcbcvbcvbvcxv11===", "" + myResponse);
+                                                    BrandRow1Binding rowBinding = BrandRow1Binding.inflate(getLayoutInflater(), linearLayout, false);
+                                                    rowBinding.getRoot().setBackgroundColor(Color.WHITE);
+                                                    final Brand brand = brands.get(i + j);
+                                                    String manufacturerType = brand.getBrand_type() + "==" + brand.getBrand_status();
+                                                    Log.d("vbvcbcvbcvbvxvcx===", "" + manufacturerType + "==" + baseUrl + brand.getImage());
+                                                    // if(manufacturerType.contains("0") || manufacturerType.contains("1")) {
+
+                                                    Glide.with(activity)
+                                                            //.load(brand.getImage() != null ? Constants.decodeURL(baseUrl + brand.getImage()) : null)
+                                                            .load(lpath + brand.getImage())
+                                                            .placeholder(R.mipmap.no_image)
+                                                            .error(R.mipmap.no_image)
+                                                            .into(rowBinding.image);
+                                                    // rowBinding.getRoot().setOnClickListener(v -> callListPage(brand));
+                                                    linearLayout.addView(rowBinding.getRoot());
+
+                                                    //    }
+
+                                                }
+                                                binding.llBrand.addView(linearLayout);
                                             }
                                         }
-                                        Log.d("vcbcvbcv34324242====",""+brands.size());
-                                        for (int i = 0; i < brands.size(); i = i + 4) {
-                                            LinearLayout linearLayout = new LinearLayout(activity);
-                                            linearLayout.setWeightSum(4);
-                                            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-                                            Log.d("vbvcbcvbcvbvcvbcvbvbvbcvbc===", myResponse.getMsg().get(0));
-                                            for (int j = 0; j <= 3 && i + j < brands.size(); j++) {
-                                                Log.d("vbvcbcvbcvbvcxv11===", "" + myResponse);
-                                                BrandRow1Binding rowBinding = BrandRow1Binding.inflate(getLayoutInflater(), linearLayout, false);
-                                                final Brand brand = brands.get(i + j);
-                                                String manufacturerType = brand.getBrand_type() + "==" + brand.getBrand_status();
-                                                Log.d("vbvcbcvbcvbvxvcx===", "" + manufacturerType + "==" + baseUrl + brand.getImage());
-                                                // if(manufacturerType.contains("0") || manufacturerType.contains("1")) {
-
-                                                Glide.with(activity)
-                                                        //.load(brand.getImage() != null ? Constants.decodeURL(baseUrl + brand.getImage()) : null)
-                                                        .load(lpath + brand.getImage())
-                                                        .placeholder(R.mipmap.no_image)
-                                                        .error(R.mipmap.no_image)
-                                                        .into(rowBinding.image);
-                                                // rowBinding.getRoot().setOnClickListener(v -> callListPage(brand));
-                                                linearLayout.addView(rowBinding.getRoot());
-
-                                                //    }
-
-                                            }
-                                            binding.llBrand.addView(linearLayout);
-                                        }
+                                    } catch (Exception e) {
+                                        Log.d("cvbcvbcvbcbvbvcv===", "" + e.getMessage());
+                                        // e.printStackTrace();
                                     }
-                                }
-                                catch (Exception e) {
-                                    Log.d("cvbcvbcvbcbvbvcv===",""+e.getMessage());
-                                    // e.printStackTrace();
-                                }
 //                                if (forBrand) {
 //                                    binding.container.post(() -> binding.container.fullScroll(ScrollView.FOCUS_DOWN));
 //                                    forBrand = false;
 //                                }
-                            }
-                            else {
-                                for (int i = 0; i < myResponse.getMsg().size(); i++) {
-                                    Toast.makeText(activity, myResponse.getMsg().get(i), Toast.LENGTH_LONG).show();
+                                } else {
+                                    for (int i = 0; i < myResponse.getMsg().size(); i++) {
+                                        Toast.makeText(activity, myResponse.getMsg().get(i), Toast.LENGTH_LONG).show();
+                                    }
                                 }
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
                         }
-                        catch(Exception e) {
-                            e.printStackTrace();
+
+                        @Override
+                        public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                            Timber.e("response Error: %s", e);
+                            // binding.llProgress.llProgress.setVisibility(GONE);
                         }
-                    }
-                    @Override
-                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
-                        Timber.e("response Error: %s", e);
-                        // binding.llProgress.llProgress.setVisibility(GONE);
-                    }
-                });
+                    });
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

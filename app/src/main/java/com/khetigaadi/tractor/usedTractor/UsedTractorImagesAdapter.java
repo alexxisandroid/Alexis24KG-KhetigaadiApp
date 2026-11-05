@@ -1,13 +1,10 @@
 package com.khetigaadi.tractor.usedTractor;
 import android.view.View;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
-
 import com.khetigaadi.commons.fragments.ImageFragment;
-
 import java.util.List;
 public class UsedTractorImagesAdapter extends FragmentStateAdapter {
     private final List<String> items;

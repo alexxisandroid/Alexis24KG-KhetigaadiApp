@@ -7,18 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
@@ -32,12 +26,10 @@ import com.khetigaadi.databinding.RecycleListBinding;
 import com.khetigaadi.retrofit.KhetiAPIs;
 import com.khetigaadi.tractor.rent.RentTractorDetails;
 import com.khetigaadi.user.SessionManager;
-
+import com.khetigaadi.user.profile.ProfileOtherActivity;
 import org.jetbrains.annotations.NotNull;
-
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -45,6 +37,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+
 import timber.log.Timber;
 @AndroidEntryPoint
 public class MyUploadedRentTractorList extends BaseFragment {
@@ -70,20 +63,23 @@ public class MyUploadedRentTractorList extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ((MainActivity) activity).setToolbarTitle(getString(R.string.myUploadedRentTractor));
+        if(activity instanceof ProfileOtherActivity)
+            ((ProfileOtherActivity) activity).setToolbarTitle(getString(R.string.myUploadedRentTractor));
+        else
+            ((MainActivity) activity).setToolbarTitle(getString(R.string.myUploadedRentTractor));
     }
     @Override
     public void onResume() {
         super.onResume();
         //Google analytic code
-        Timber.i("Setting screen name: %s", TAG);
+        Timber.i("Setting screen name: %s",TAG);
         mTracker.setScreenName(TAG);
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
     @Nullable
     @Override
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater,@Nullable ViewGroup container,@Nullable Bundle savedInstanceState) {
-        binding = RecycleListBinding.inflate(getLayoutInflater(), container, false);
+        binding = RecycleListBinding.inflate(getLayoutInflater(),container,false);
         Glide.with(activity)
                 .load(R.drawable.loader_white)
                 .into(binding.ivLoader);
@@ -96,7 +92,7 @@ public class MyUploadedRentTractorList extends BaseFragment {
     public void onViewCreated(@NonNull @NotNull View view,@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(this).get(MyRentTractorListViewModel.class);
-        viewModel.getRentTractors().observe(getViewLifecycleOwner(), rentTractorRespStateData -> {
+        viewModel.getRentTractors().observe(getViewLifecycleOwner(),rentTractorRespStateData -> {
             switch (rentTractorRespStateData.getStatus()) {
                 case LOADING:
                     binding.llProgress.setVisibility(View.VISIBLE);
@@ -134,7 +130,10 @@ public class MyUploadedRentTractorList extends BaseFragment {
         // create an alert dialog
         dialogBinding. btnClose.setOnClickListener(v -> {
             d.dismiss();
-            ((MainActivity) activity).hideSoftKeyboard();
+            if(activity instanceof ProfileOtherActivity)
+                ((ProfileOtherActivity) activity).hideSoftKeyboard();
+            else
+               ((MainActivity) activity).hideSoftKeyboard();
         });
         dialogBinding. btnSubmit.setOnClickListener(v -> {
             if (!dialogBinding.spReasonType.getSelectedItem().toString().equalsIgnoreCase("Select Reason")) {
@@ -152,39 +151,45 @@ public class MyUploadedRentTractorList extends BaseFragment {
                                     @Override
                                     public void onSuccess(@NonNull MyResponse myResponse) {
                                         try {
-                                            if (!myResponse.isError()) {
+                                            if(!myResponse.isError()) {
                                                 for (int i = 0; i < myResponse.getMsg().size(); i++) {
                                                     Toast.makeText(activity, myResponse.getMsg().get(i), Toast.LENGTH_LONG).show();
                                                 }
                                                 d.dismiss();
-                                                ((MainActivity) activity).hideSoftKeyboard();
-                                            } else {
-                                                for (int i = 0; i < myResponse.getMsg().size(); i++) {
+                                                if(activity instanceof ProfileOtherActivity)
+                                                    ((ProfileOtherActivity) activity).hideSoftKeyboard();
+                                                else
+                                                    ((MainActivity) activity).hideSoftKeyboard();
+                                            }
+                                            else {
+                                                for(int i = 0; i < myResponse.getMsg().size(); i++) {
                                                     Toast.makeText(activity, myResponse.getMsg().get(i), Toast.LENGTH_LONG).show();
                                                 }
                                                 d.dismiss();
                                             }
-                                        } catch (Exception e) {
+                                        }
+                                        catch(Exception e) {
                                             e.printStackTrace();
                                         }
                                     }
-
                                     @Override
                                     public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
-                                        Timber.e(e, "onError: ");
+                                        Timber.e(e,"onError: ");
 
                                     }
                                 }));
-                    } catch (Exception e) {
+                    }
+                    catch(Exception e) {
                         e.printStackTrace();
                     }
-                } else {
-                    Toast.makeText(activity, "Please enter Reason", Toast.LENGTH_SHORT).show();
                 }
-            } else {
+                else {
+                    Toast.makeText(activity,"Please enter Reason",Toast.LENGTH_SHORT).show();
+                }
+            }
+            else {
                 Toast.makeText(activity, "Please Select Reason.", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 }

@@ -37,7 +37,13 @@
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:listitem="@layout/date_item" />
-
+        <include
+            android:id="@+id/llProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            layout="@layout/progressbar"/>
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -164,6 +170,7 @@
                     android:layout_marginStart="@dimen/margin_10dp"
                     android:layout_marginTop="@dimen/margin_40dp"
                     android:layout_marginEnd="@dimen/margin_10dp"
+                    android:layout_marginBottom="@dimen/payu_dimen_54dp"
                     android:background="@color/rv_back_color"
                     android:paddingBottom="@dimen/margin_2dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -226,7 +233,5 @@
         android:id="@+id/noWeather"
         layout="@layout/no_weather_message"
         android:visibility="gone"/>
-    <include
-        android:id="@+id/llProgressBar"
-        layout="@layout/progressbar"/>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

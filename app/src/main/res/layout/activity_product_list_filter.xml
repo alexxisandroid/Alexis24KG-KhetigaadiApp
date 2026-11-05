@@ -17,10 +17,11 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_marginTop="@dimen/payu_dimen_63dp"
+        android:layout_marginBottom="@dimen/dimen_60dp"
         android:layout_height="wrap_content">
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_above="@+id/ccccc"
+       android:layout_above="@+id/ccccc"
         android:layout_height="match_parent"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -48,8 +49,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_bold"
+                        android:textStyle="bold"
                         android:text="@string/search_by_category"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textColor="@color/black"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -129,7 +130,6 @@
             android:layout_marginBottom="@dimen/margin_5dp"
             android:text="@string/clear_all"
             android:visibility="visible"
-
             android:minHeight="@dimen/payu_dimen_45dp"
             android:background="@drawable/btn_rectangle_outline_bg_red"
             android:textAlignment="center"
@@ -150,7 +150,6 @@
             android:autoLink="web"
             android:text="@string/apply_filters"
             android:gravity="center"
-
             android:minHeight="@dimen/payu_dimen_45dp"
             android:background="@drawable/btn_rectangle_outline_bg_red"
             android:textAlignment="center"

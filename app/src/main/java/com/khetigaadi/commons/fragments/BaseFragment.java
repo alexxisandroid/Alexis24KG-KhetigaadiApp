@@ -9,11 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
-
 import com.khetigaadi.MainActivity;
 import com.khetigaadi.R;
 import com.khetigaadi.commons.activities.OnRoadPriceActivity;
@@ -22,9 +20,7 @@ import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionHelper;
 import com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout;
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem;
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList;
-
 import org.jetbrains.annotations.NotNull;
-
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,10 +40,11 @@ public abstract class BaseFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try {
-            if (!Constants.isConnectionAvailable(activity)) {
-                ((MainActivity) activity).noInternetConnection();
+            if(!Constants.isConnectionAvailable(activity)) {
+                ((MainActivity)activity).noInternetConnection();
             }
-        } catch (Exception e) {
+        }
+        catch(Exception e) {
             e.printStackTrace();
         }
     }
@@ -56,7 +53,7 @@ public abstract class BaseFragment extends Fragment {
         return super.onCreateView(inflater,container,savedInstanceState);
     }
     public void removeFabButton() {
-        if (rapidFloatingActionLayout != null)
+        if(rapidFloatingActionLayout != null)
             rapidFloatingActionLayout.setVisibility(View.GONE);
     }
     public void addFabLayout(List<RFACLabelItem> items) {
@@ -83,7 +80,7 @@ public abstract class BaseFragment extends Fragment {
         });
     }
     protected void fabAction(int position) {
-        switch (position) {
+        switch(position) {
             case 1: {
                 try {
                     startActivity(new Intent(getActivity(),OnRoadPriceActivity.class));
@@ -107,7 +104,6 @@ public abstract class BaseFragment extends Fragment {
     protected void addFabButtonItems() {
         addFabLayout(initFabItems());
     }
-
     private List<RFACLabelItem> initFabItems() {
         ArrayList<RFACLabelItem> items = new ArrayList<>();
         items.add(new RFACLabelItem<Integer>()
@@ -126,14 +122,12 @@ public abstract class BaseFragment extends Fragment {
         );
         return items;
     }
-
     protected void addFabButtonItems(ArrayList<RFACLabelItem<Integer>> newItems) {
         List<RFACLabelItem> items = initFabItems();
-        if (newItems != null)
+        if(newItems != null)
             items.addAll(newItems);
         addFabLayout(items);
     }
-
     protected void onWhatsAppClick(FragmentActivity activity) {
         try {
             PackageManager packageManager = activity.getPackageManager();
@@ -148,47 +142,42 @@ public abstract class BaseFragment extends Fragment {
             e.printStackTrace();
         }
     }
-
-
     @Override
     public void onPause() {
         removeFabButton();
         super.onPause();
     }
-
     protected void showProgressDialog(String message) {
-        if (progressDialog == null) {
+        if(progressDialog == null) {
             progressDialog = new ProgressDialog(getActivity());
         }
-        if (!progressDialog.isShowing()) {
+        if(!progressDialog.isShowing()) {
             progressDialog = new ProgressDialog(getActivity());
             progressDialog.setMessage(message);
             progressDialog.show();
         }
     }
-
     protected void showOrUpdateProgressDialog(String message) {
-        if (progressDialog == null) {
+        if(progressDialog == null) {
             progressDialog = new ProgressDialog(getActivity());
         }
-
-        if (!progressDialog.isShowing()) {
+        if(!progressDialog.isShowing()) {
             progressDialog = new ProgressDialog(getActivity());
             progressDialog.setMessage(message);
             progressDialog.show();
 //        }
-        } else progressDialog.setMessage(message);
+        }
+        else progressDialog.setMessage(message);
     }
-
     protected void dismissProgressDialog() {
         // For handling orientation changed.
         try {
-            if (progressDialog != null && progressDialog.isShowing()) {
+            if(progressDialog != null && progressDialog.isShowing()) {
                 progressDialog.dismiss();
             }
-        } catch (Exception e) {
+        }
+        catch(Exception e) {
             e.printStackTrace();
         }
     }
-
 }

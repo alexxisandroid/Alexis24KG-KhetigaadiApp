@@ -21,7 +21,7 @@ class PopularTractorAdapter(private val mContext:Context,recyclerView:RecyclerVi
         myClickListener = listener
     }
     override fun getItemViewType(position:Int):Int {
-        if (items.size == 0) {
+        if(items.size == 0) {
             return EMPTY_VIEW
         }
         return if (items[position] != null) VIEW_ITEM else VIEW_PROG
@@ -40,11 +40,11 @@ class PopularTractorAdapter(private val mContext:Context,recyclerView:RecyclerVi
         }
     }
     override fun onBindViewHolder(holder:RecyclerView.ViewHolder,position:Int) {
-        if (holder is ViewHolder) {
+        if(holder is ViewHolder) {
             val currentTractor = list[position]!!
             holder.binding.popularTractorTitle.text = currentTractor.name
             holder.binding.tvHP.text = String.format("%s %s", currentTractor.exactHp, mContext.getString(R.string.hp))
-            if (currentTractor.userView != null && !TextUtils.isEmpty(currentTractor.userView)) {
+            if(currentTractor.userView != null && !TextUtils.isEmpty(currentTractor.userView)) {
                 holder.binding.tvViews.text = NumberFormatting.format(currentTractor.userView.toInt().toLong())
             }
             Glide.with(mContext).load(if (others != null && currentTractor.image.tractor_img_name != null) others!!.newTractorImage + currentTractor.image.tractor_img_name else "").placeholder(R.mipmap.no_image).error(R.mipmap.no_image).into(holder.binding.popularTractorImage)
@@ -53,19 +53,16 @@ class PopularTractorAdapter(private val mContext:Context,recyclerView:RecyclerVi
     private class ViewHolder(val binding:PopularTractorNewListItemBinding):
         RecyclerView.ViewHolder(binding.root) {
         init {
-            binding.root.setOnClickListener { v: View? ->
-                myClickListener?.onItemClick(
-                    absoluteAdapterPosition,
-                    v
-                )
+            binding.root.setOnClickListener { v:View? ->
+                myClickListener?.onItemClick(absoluteAdapterPosition,v)
             }
-            binding.btnGetOnRoadPrice.setOnClickListener { v: View? ->
-                run { myClickListener?.onGetRoadPriceClick(absoluteAdapterPosition, v) }
+            binding.btnGetOnRoadPrice.setOnClickListener { v:View? ->
+                run { myClickListener?.onGetRoadPriceClick(absoluteAdapterPosition,v) }
             }
         }
     }
     companion object {
-        private var myClickListener: Listener? = null
+        private var myClickListener:Listener? = null
         private const val VIEW_ITEM = 1
         private const val VIEW_PROG = 0
         private const val EMPTY_VIEW = 10

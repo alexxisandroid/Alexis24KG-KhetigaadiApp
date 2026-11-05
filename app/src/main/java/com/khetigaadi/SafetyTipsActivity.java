@@ -9,18 +9,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 import com.bumptech.glide.Glide;
 import com.khetigaadi.databinding.ActivitySafetyTipsBinding;
 import com.khetigaadi.model.SafetyTipsResp;
 import com.khetigaadi.retrofit.KhetiAPIs;
-
 import org.jetbrains.annotations.NotNull;
-
 import java.util.Objects;
-
 import javax.inject.Inject;
-
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
@@ -37,19 +32,18 @@ public class SafetyTipsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
 
         binding = ActivitySafetyTipsBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
+        EdgeToEdge.enable(this);
 //        EdgeToEdge.enable(this);
-//        ViewCompat.setOnApplyWindowInsetsListener(view,(v,insets) -> {
-//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-//            return insets;
-//        });
-        
+        ViewCompat.setOnApplyWindowInsetsListener(view,(v,insets) -> {
+            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+            return insets;
+        });
         initToolbar();
         Glide.with(SafetyTipsActivity.this).load(R.drawable.loader_white).into(binding.llProgresss.ivLoader);
         getTips();

@@ -1,14 +1,12 @@
 package com.khetigaadi.user.myfavorites;
-
 import android.content.Context;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
+import com.khetigaadi.AppConfig;
 import com.khetigaadi.R;
 import com.khetigaadi.base.util.BaseRecyclerViewAdapter;
 import com.khetigaadi.commons.SharedPreferenceUtils;
@@ -26,9 +24,7 @@ import com.khetigaadi.user.myfavorites.model.MyFavUsedTractor;
 import com.khetigaadi.user.myfavorites.model.Others;
 import com.khetigaadi.util.NumberFormatting;
 import com.khetigaadi.util.Utils;
-
 import org.jetbrains.annotations.NotNull;
-
 public class MyFavUsedTractorListAdapter extends BaseRecyclerViewAdapter<MyFavUsedTractor, Others> {
     private final int VIEW_ITEM = 1;
     private final int VIEW_PROG = 0;
@@ -38,35 +34,29 @@ public class MyFavUsedTractorListAdapter extends BaseRecyclerViewAdapter<MyFavUs
     private static MyClickListener myClickListener;
     private static MyTrashClickListener myTrashClickListener;
     private static MyFavoritesClickListener myFavoritesClickListener;
-
-    public MyFavUsedTractorListAdapter(Context mContext, User user, RecyclerView recyclerView) {
+    public MyFavUsedTractorListAdapter(Context mContext,User user,RecyclerView recyclerView) {
         super(mContext, recyclerView);
         this.mContext = mContext;
         this.user = user;
     }
-
     public void setOnItemClickListener(MyClickListener myClickListener) {
         MyFavUsedTractorListAdapter.myClickListener = myClickListener;
     }
-
     public void setOnSellerDetailsClickListener(MyTrashClickListener myTrashClickListener) {
         MyFavUsedTractorListAdapter.myTrashClickListener = myTrashClickListener;
     }
-
     public void setOnFavoritesClickListener(MyFavoritesClickListener myFavoritesClickListener) {
         MyFavUsedTractorListAdapter.myFavoritesClickListener = myFavoritesClickListener;
     }
-
     @Override
     public int getItemViewType(int position) {
-        if (items.size() == 0) {
+        if(items.size() == 0) {
             return EMPTY_VIEW;
         }
         return items.get(position) != null ? VIEW_ITEM : VIEW_PROG;
     }
-
     @Override
-    public RecyclerView.@NotNull ViewHolder onCreateViewHolder(@NotNull ViewGroup parent, int viewType) {
+    public RecyclerView.@NotNull ViewHolder onCreateViewHolder(@NotNull ViewGroup parent,int viewType) {
         RecyclerView.ViewHolder vh;
 
         if (viewType == EMPTY_VIEW) {
@@ -84,10 +74,9 @@ public class MyFavUsedTractorListAdapter extends BaseRecyclerViewAdapter<MyFavUs
         }
         return vh;
     }
-
     @Override
     public void onBindViewHolder(final RecyclerView.@NotNull ViewHolder holder, int position) {
-        if (holder instanceof ViewHolder) {
+        if(holder instanceof ViewHolder) {
             //UsedTractors currentTractor = mTractors.get(position);
             UsedTractor currentTractor = items.get(position).getUsedTractor();
             ((ViewHolder) holder).binding.tvTractorName.setText(currentTractor.getBrand().getName().concat(" ").concat(currentTractor.getModel().getName()));
@@ -123,30 +112,35 @@ public class MyFavUsedTractorListAdapter extends BaseRecyclerViewAdapter<MyFavUs
             }
             if (currentTractor.getPrice().isEmpty()) {
                 ((ViewHolder) holder).binding.tvPrice.setVisibility(View.GONE);
-            } else {
-                ((ViewHolder) holder).binding.tvPrice.setText(String.format("%s%s", mContext.getString(R.string.rs), Utils.priceConvert(currentTractor.getPrice())));
             }
-            if (currentTractor.getUserViews() != null) {
+            else {
+                ((ViewHolder) holder).binding.tvPrice.setText(String.format("%s%s",mContext.getString(R.string.rs),Utils.priceConvert(currentTractor.getPrice())));
+            }
+            if(currentTractor.getUserViews() != null) {
                 try {
                     ((ViewHolder) holder).binding.tvViews.setText(NumberFormatting.format(Integer.parseInt(currentTractor.getUserViews())));
-                } catch (Exception e) {
+                }
+                catch(Exception e) {
                     e.printStackTrace();
                 }
             }
-            //Temporarly commented by PRANAV
-            //            ((ViewHolder) holder).binding.tvSponser.setVisibility(View.GONE);
+            //    Temporarly commented by PRANAV
+            //    ((ViewHolder) holder).binding.tvSponser.setVisibility(View.GONE);
 
-            if (currentTractor.getImage() != null) {
+            if(currentTractor.getImage() != null) {
                /* if (!TextUtils.isEmpty(currentTractor.getImage().getUsedTractorImage()) && currentTractor.getImage().getUsedTractorImage() != null &&
                         !TextUtils.equals(currentTractor.getImage().getUsedTractorImage(), "null")) {*/
+               // Log.d("fdgdfgdfgd====",others.getTractorImagePath()+currentTractor.getImage().getUsedTractorImage());
+                String bUrl = AppConfig.BASE_ASSET_URL+"used_tractor/"; //others.getTractorImagePath()
+               //others.getTractorImagePath()
                 Glide.with(mContext)
-                        .load(Constants.decodeURL(others.getOldTractorImagePath() + currentTractor.getImage().getUsedTractorImage()))
+                        .load(Constants.decodeURL(bUrl+currentTractor.getImage().getUsedTractorImage()))
                         .error(R.mipmap.no_image)
                         .placeholder(R.mipmap.no_image)
                         .into(((ViewHolder) holder).binding.ivImage);
                 //}
             }
-            if (currentTractor.getBrand() != null) {
+            if(currentTractor.getBrand() != null) {
                 if (!TextUtils.isEmpty(currentTractor.getBrand().getImage())) {
                     String baseUrl = SharedPreferenceUtils.getInstance(mContext).getStringValue(Constants.BRAND_BASE_URL, "");
                     Glide.with(mContext)
@@ -156,7 +150,7 @@ public class MyFavUsedTractorListAdapter extends BaseRecyclerViewAdapter<MyFavUs
                             .into(((ViewHolder) holder).binding.brandImage);
                 }
             }
-            if (user.getId() != null && currentTractor.getUser() != null) {
+            if(user.getId() != null && currentTractor.getUser() != null) {
                 if (!currentTractor.getUser().getId().isEmpty() && user.getId().equals(currentTractor.getUser().getId())) {
                     ((ViewHolder) holder).binding.btnSellerDetails.setVisibility(View.GONE);
                 } else if (currentTractor.getSoldUnsoldStatus() != null && !currentTractor.getSoldUnsoldStatus().equals("0")) {
@@ -164,27 +158,28 @@ public class MyFavUsedTractorListAdapter extends BaseRecyclerViewAdapter<MyFavUs
                 } else {
                     ((ViewHolder) holder).binding.btnSellerDetails.setVisibility(View.VISIBLE);
                 }
-            } else {
+            }
+            else {
                 ((ViewHolder) holder).binding.btnSellerDetails.setVisibility(View.GONE);
             }
 
-            if (currentTractor.getSoldUnsoldStatus() != null && !currentTractor.getSoldUnsoldStatus().equals("0")) {
+            if(currentTractor.getSoldUnsoldStatus() != null && !currentTractor.getSoldUnsoldStatus().equals("0")) {
                 ((ViewHolder) holder).binding.ivSold.setVisibility(View.VISIBLE);
-            } else {
+            }
+            else {
                 ((ViewHolder) holder).binding.ivSold.setVisibility(View.GONE);
             }
-            if (currentTractor.getFavoritesStatus()) {
+            if(currentTractor.getFavoritesStatus()) {
                 ((ViewHolder) holder).binding.ivFavorites.setImageResource(R.drawable.ic_favorites);
-            } else {
+            }
+            else {
                 ((ViewHolder) holder).binding.ivFavorites.setImageResource(R.drawable.ic_favorites_border);
             }
         }
     }
-
     public void setLoaded() {
         loading = false;
     }
-
     @Override
     public int getItemCount() {
         if (items != null) {
@@ -192,23 +187,18 @@ public class MyFavUsedTractorListAdapter extends BaseRecyclerViewAdapter<MyFavUs
         }
         return 0;
     }
-
-
     private static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final UsedTractorListItemBinding binding;
-
         public ViewHolder(UsedTractorListItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
             binding.getRoot().setOnClickListener(this);
             binding.btnSellerDetails.setOnClickListener(v -> myTrashClickListener.onTrashClick(getAbsoluteAdapterPosition(), v));
             binding.ivFavorites.setOnClickListener(v -> myFavoritesClickListener.onClick(getAbsoluteAdapterPosition(), v));
-
         }
-
         @Override
         public void onClick(View v) {
-            myClickListener.onItemClick(getAbsoluteAdapterPosition(), v);
+            myClickListener.onItemClick(getAbsoluteAdapterPosition(),v);
         }
     }
 }

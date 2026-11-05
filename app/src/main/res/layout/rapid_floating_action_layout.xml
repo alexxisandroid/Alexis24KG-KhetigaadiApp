@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     rfal:rfal_frame_alpha="0.5"
     rfal:rfal_frame_color="#000000">
-
     <com.wangjie.rapidfloatingactionbutton.RapidFloatingActionButton
         xmlns:rfab="http://schemas.android.com/apk/res-auto"
         android:id="@+id/activity_main_rfab"
@@ -15,9 +14,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="66dp"
-        android:padding="8dp"
+        android:layout_marginEnd="@dimen/dimen_2dp"
+        android:layout_marginBottom="@dimen/payu_dimen_75dp"
+        android:padding="6dp"
         rfab:rfab_color_normal="@color/red"
         rfab:rfab_color_pressed="@color/red"
         rfab:rfab_drawable="@drawable/rfab__drawable_rfab_default"
@@ -25,5 +24,5 @@
         rfab:rfab_shadow_dx="0dp"
         rfab:rfab_shadow_dy="1dp"
         rfab:rfab_shadow_radius="5dp"
-        rfab:rfab_size="normal" />
+        rfab:rfab_size="normal"/>
 </com.wangjie.rapidfloatingactionbutton.RapidFloatingActionLayout>

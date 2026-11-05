@@ -32,7 +32,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/margin_40dp"
+        android:layout_marginBottom="@dimen/payu_dimen_110dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/llContainer"
@@ -106,14 +106,16 @@
     <com.andexert.library.RippleView
         android:id="@+id/riRequest"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dimen_50dp"
+        android:layout_height="@dimen/payu_dimen_54dp"
         android:layout_gravity="bottom"
+        android:layout_marginStart="@dimen/dimen_10dp"
+        android:layout_marginEnd="@dimen/dimen_10dp"
+        android:layout_marginBottom="@dimen/dimen_10dp"
         android:layout_marginTop="@dimen/margin_10dp">
         <TextView
             style="@style/ButtonStyleFilledRed"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:minHeight="@dimen/dimen_40dp"
             android:textAlignment="center"
             android:textColor="@color/red"
             android:layout_margin="@dimen/margin_5dp"
@@ -124,7 +126,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             android:background="@drawable/btn_rectangle_outline_bg_red"
-
-            android:text="@string/btn_request" />
+            android:text="@string/btn_request"/>
     </com.andexert.library.RippleView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

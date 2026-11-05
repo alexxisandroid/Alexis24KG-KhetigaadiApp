@@ -38,23 +38,27 @@ public class WeatherNewActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
         binding = ActivityWeatherNewBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
 
-//        ViewCompat.setOnApplyWindowInsetsListener(view, (v,insets) -> {
-//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-//            return insets;
-//        });
+        EdgeToEdge.enable(this);
+        ViewCompat.setOnApplyWindowInsetsListener(view, (v,insets) -> {
+            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+            return insets;
+        });
 //        EdgeToEdge.enable(this);
 
         viewModel = new ViewModelProvider(this).get(WeatherViewModel.class);
-        weather = new Gson().fromJson(getIntent().getStringExtra("weather"), WeatherResp.class);
-        if (weather != null) {
+        weather = new Gson().fromJson(getIntent().getStringExtra("weather"),WeatherResp.class);
+       Log.d("bvcxcxvcvxcv===",""+weather);
+        if(weather != null) {
+            binding.llProgressBar.llProgress.setVisibility(View.VISIBLE);
             initUI(weather);
-        } else {
+        }
+        else {
             String city = session.getUserLocation().getName();
             if (!city.equals("")) {
                 getWeather(city);
@@ -82,7 +86,7 @@ public class WeatherNewActivity extends BaseActivity {
                 e.printStackTrace();
             }
         }
-        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.news);
+        Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.weather);
     }
     private void initUI(WeatherResp weather) {
         this.weather = weather;
@@ -105,6 +109,7 @@ public class WeatherNewActivity extends BaseActivity {
         Glide.with(this)
                 .load(R.drawable.loader_white)
                 .into(binding.llProgressBar.ivLoader);
+        binding.llProgressBar.llProgress.setVisibility(View.GONE);
     }
     private void setDataToUI(ForecastDay forecast) {
         Glide.with(this)
@@ -123,9 +128,10 @@ public class WeatherNewActivity extends BaseActivity {
     }
     private void getWeather(String city) {
        try {
+           binding.llProgressBar.llProgress.setVisibility(View.VISIBLE);
            viewModel.getWeather(city).observe(this, weatherRespStateData -> {
-               Log.d("bvcxbcvbcvbc===", "" + weatherRespStateData.getStatus() + "==" + weatherRespStateData.getData());
-               switch (weatherRespStateData.getStatus()) {
+               Log.d("bvcxbcvbcvbc===","" + weatherRespStateData.getStatus() + "==" + weatherRespStateData.getData());
+               switch(weatherRespStateData.getStatus()) {
                    case LOADING:
                        binding.llProgressBar.llProgress.setVisibility(View.VISIBLE);
                    case SUCCESS:
@@ -133,25 +139,27 @@ public class WeatherNewActivity extends BaseActivity {
                            if (weatherRespStateData.getData() != null) {
                                initUI(weatherRespStateData.getData());
                            }
+                           else
                            binding.llProgressBar.llProgress.setVisibility(View.GONE);
-                       } catch (Exception e) {
+                       }
+                       catch(Exception e) {
                            e.printStackTrace();
                        }
                        break;
                    case ERROR:
                        binding.llProgressBar.llProgress.setVisibility(View.GONE);
                        assert weatherRespStateData.getError() != null;
-                       if (weatherRespStateData.getError().equalsIgnoreCase("HTTP 400 ")) {
+                       if(weatherRespStateData.getError().equalsIgnoreCase("HTTP 400 ")) {
                            binding.noWeather.getRoot().setVisibility(View.VISIBLE);
                        }
-                       Toast.makeText(this, weatherRespStateData.getError(), Toast.LENGTH_SHORT).show();
+                       //Toast.makeText(this, weatherRespStateData.getError(), Toast.LENGTH_SHORT).show();
+                       Toast.makeText(this,getResources().getString(R.string.something_went_wrong),Toast.LENGTH_SHORT).show();
                        break;
                }
            });
        }
-       catch (Exception e) {
+       catch(Exception e) {
            e.printStackTrace();
        }
-
     }
 }

@@ -22,7 +22,7 @@ public class ListFilterDriveAdapter extends RecyclerView.Adapter<ListFilterDrive
     @Override
     public void onBindViewHolder(DataObjectHolder holder,int position) {
         holder.binding.filterName.setText(stList.get(holder.getAbsoluteAdapterPosition()).getName());
-        holder.binding.cbSelect.setText(stList.get(holder.getAbsoluteAdapterPosition()).getName());
+        //holder.binding.cbSelect.setText(stList.get(holder.getAbsoluteAdapterPosition()).getName());
         holder.binding.cbSelect.setChecked(stList.get(holder.getAbsoluteAdapterPosition()).isSelected());
         holder.binding.cbSelect.setOnClickListener(v -> stList.get(holder.getAbsoluteAdapterPosition()).setSelected(((CheckBox)v).isChecked()));
     }

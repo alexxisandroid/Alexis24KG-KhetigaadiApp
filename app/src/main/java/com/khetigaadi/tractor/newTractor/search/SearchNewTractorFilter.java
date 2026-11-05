@@ -1,6 +1,7 @@
 package com.khetigaadi.tractor.newTractor.search;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -222,54 +223,59 @@ public class SearchNewTractorFilter extends BaseFragment {
     }
     private void initList() {
     // brandRepository.deleteAll();
-        binding.tvSearchByBrand.setVisibility(View.GONE);
-        Log.d("bcvvbfvdfdvbcvxb===",""+brandRepository.getCountt()+"=="+brandRepository.fetchAllBrandss().size());
-        brandRepository.getNewTractorBrands().observe(getViewLifecycleOwner(),brandParents -> {
-        Log.d("cvbcvbcvbzcxxz===",""+brandParents.size());
-            if (brandParents.size()>0) {
-                String baseUrl = SharedPreferenceUtils.getInstance(activity).getStringValue(Constants.BRAND_BASE_URL, "");
-               // if(baseUrl==null || baseUrl.isEmpty() || baseUrl.equalsIgnoreCase("") || baseUrl.equalsIgnoreCase("null"))
-                baseUrl = "https://khetigaadi.com/images/brandlogos/";
-                binding.tvSearchByBrand.setVisibility(View.VISIBLE);
-                Timber.e("onChanged: %s",brandParents.toString());
-                try {
-                    binding.llBrand.removeAllViews();
-                    if (!brandParents.isEmpty()) {
-                        for (int i = 0; i < brandParents.size(); i = i + 4) {
-                            LinearLayout linearLayout = new LinearLayout(activity);
-                            linearLayout.setWeightSum(4);
-                            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-                            for (int j = 0; j <= 3 && i + j < brandParents.size(); j++) {
-                                BrandRow1Binding rowBinding = BrandRow1Binding.inflate(getLayoutInflater(), linearLayout, false);
-                                final Brand brand = brandParents.get(i + j);
-                                Glide.with(activity)
-                                        // .load(brand.getImage() != null ? Constants.decodeURL(baseUrl + brand.getImage()) : null)
-                                        .load(baseUrl + brand.getImage())
-                                        .placeholder(R.mipmap.no_image)
-                                        .error(R.mipmap.no_image)
-                                        .into(rowBinding.image);
-                                rowBinding.getRoot().setOnClickListener(v -> callListPage(brand));
-                                linearLayout.addView(rowBinding.getRoot());
-                                Log.d("cvbcvbcvbzcxxzdfsg===", "" + baseUrl + brand.getImage());
-                            }
-                            binding.llBrand.addView(linearLayout);
-                        }
-                    }
-                }
-                catch(Exception e) {
-                    e.printStackTrace();
-                }
-                if(forBrand) {
-                    binding.container.post(() -> binding.container.fullScroll(ScrollView.FOCUS_DOWN));
-                    forBrand = false;
-                }
-            }
-            else {
-                int cntt = brandRepository.getCountt();
-                if(cntt<=0)
-                  getBrands();
-            }
-        });
+     try {
+         binding.tvSearchByBrand.setVisibility(View.GONE);
+         Log.d("bcvvbfvdfdvbcvxb===", "" + brandRepository.getCountt() + "==" + brandRepository.fetchAllBrandss().size());
+         brandRepository.getNewTractorBrands().observe(getViewLifecycleOwner(), brandParents -> {
+             Log.d("cvbcvbcvbzcxxz===", "" + brandParents.size());
+             if (brandParents.size() > 0) {
+                 String baseUrl = SharedPreferenceUtils.getInstance(activity).getStringValue(Constants.BRAND_BASE_URL, "");
+                 // if(baseUrl==null || baseUrl.isEmpty() || baseUrl.equalsIgnoreCase("") || baseUrl.equalsIgnoreCase("null"))
+                 baseUrl = "https://khetigaadi.com/images/brandlogos/";
+                 binding.tvSearchByBrand.setVisibility(View.VISIBLE);
+                 Timber.e("onChanged: %s", brandParents.toString());
+                 try {
+                     binding.llBrand.removeAllViews();
+                     if (!brandParents.isEmpty()) {
+                         for (int i = 0; i < brandParents.size(); i = i + 3) {
+                             LinearLayout linearLayout = new LinearLayout(activity);
+                             linearLayout.setWeightSum(3);
+                             linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+                             for (int j = 0; j <= 2 && i + j < brandParents.size(); j++) {
+                                 BrandRow1Binding rowBinding = BrandRow1Binding.inflate(getLayoutInflater(), linearLayout, false);
+                                 final Brand brand = brandParents.get(i + j);
+                                 Glide.with(activity)
+                                         // .load(brand.getImage() != null ? Constants.decodeURL(baseUrl + brand.getImage()) : null)
+                                         .load(baseUrl + brand.getImage())
+                                         .placeholder(R.mipmap.no_image)
+                                         .error(R.mipmap.no_image)
+                                         .into(rowBinding.image);
+                                 rowBinding.getRoot().setOnClickListener(v -> callListPage(brand));
+                                 rowBinding.getRoot().setBackgroundColor(Color.WHITE);
+                                 linearLayout.addView(rowBinding.getRoot());
+                                 Log.d("cvbcvbcvbzcxxzdfsg===", "" + baseUrl + brand.getImage());
+                             }
+                             binding.llBrand.addView(linearLayout);
+                         }
+                     }
+                 } catch (Exception e) {
+                     e.printStackTrace();
+                 }
+                 if (forBrand) {
+                     binding.container.post(() -> binding.container.fullScroll(ScrollView.FOCUS_DOWN));
+                     forBrand = false;
+                 }
+             } else {
+                 int cntt = brandRepository.getCountt();
+                 if (cntt <= 0)
+                     getBrands();
+             }
+         });
+     }
+     catch (Exception e) {
+         e.printStackTrace();
+     }
+
     }
     private void callListPage(Brand currentTractor) {
         Filter newTractorListParam = new Filter();
@@ -278,7 +284,7 @@ public class SearchNewTractorFilter extends BaseFragment {
         List<Brand> bdg = new ArrayList<Brand>();
         bdg.add(currentTractor);
         newTractorListParam.setBrands(bdg);
-        Log.d("vbvcxbcvbcvcvbcbcv======",""+newTractorListParam.getBrands().toString()+"=="+currentTractor);
+       // Log.d("vbvcxbcvbcvcvbcbcv======",""+newTractorListParam.getBrands().toString()+"=="+currentTractor);
         //newTractorListParam.setModels(Collections.singletonList());
         FragmentManager mFragmentManager = activity.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
@@ -383,70 +389,70 @@ public class SearchNewTractorFilter extends BaseFragment {
     }
     void getBrands()
     {
-        Log.d("cxvcxvcxvxv===",""+brands.size());
-        if(brands.size()>0)
-            return;
-        brands.clear();
-        khetiAPIs.getBrands()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new DisposableSingleObserver<>() {
-                    @Override
-                    public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull BrandResp myResponse)
-                    {
-                        // binding.llProgress.llProgress.setVisibility(GONE);
-                        brands.clear();
-                        try {
-                             if(!myResponse.isError()) {
-                                 brandRepository.deleteAll();
-                                 binding.tvSearchByBrand.setVisibility(View.VISIBLE);
-                                 String baseUrl = SharedPreferenceUtils.getInstance(activity).getStringValue(Constants.BRAND_BASE_URL,"");
+        try {
+            Log.d("cxvcxvcxvxv===", "" + brands.size());
+            if (brands.size() > 0)
+                return;
+            brands.clear();
 
-                                 Timber.e("onChanged: %s",""+myResponse);
-                                try {
-                                    Log.d("cvbcvbcvbcfdgd===",""+myResponse.getBrand().size()+"=="+myResponse.isError());
-                                    binding.llBrand.removeAllViews();
-                                    if (!myResponse.isError()) {
-                                        String lpath = myResponse.getOthers().getBrandLogoPath(); // "https://khetigaadi.com/images/brandlogos/";
-                                        SharedPreferenceUtils sharedPreferenceUtils = SharedPreferenceUtils.getInstance(activity);
-                                        sharedPreferenceUtils.setValue(Constants.BRAND_BASE_URL,lpath);
+            khetiAPIs.getBrands()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new DisposableSingleObserver<>() {
+                        @Override
+                        public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull BrandResp myResponse) {
+                            // binding.llProgress.llProgress.setVisibility(GONE);
+                            brands.clear();
+                            try {
+                                if (!myResponse.isError()) {
+                                    brandRepository.deleteAll();
+                                    binding.tvSearchByBrand.setVisibility(View.VISIBLE);
+                                    String baseUrl = SharedPreferenceUtils.getInstance(activity).getStringValue(Constants.BRAND_BASE_URL, "");
+
+                                    Timber.e("onChanged: %s", "" + myResponse);
+                                    try {
+                                        Log.d("cvbcvbcvbcfdgd===", "" + myResponse.getBrand().size() + "==" + myResponse.isError());
+                                        binding.llBrand.removeAllViews();
+                                        if (!myResponse.isError()) {
+                                            String lpath = myResponse.getOthers().getBrandLogoPath(); // "https://khetigaadi.com/images/brandlogos/";
+                                            SharedPreferenceUtils sharedPreferenceUtils = SharedPreferenceUtils.getInstance(activity);
+                                            sharedPreferenceUtils.setValue(Constants.BRAND_BASE_URL, lpath);
 
 
-                                        //  String baseUrl = SharedPreferenceUtils.getInstance(activity).getStringValue(Constants.BRAND_BASE_URL, "");
-                                       // SharedPreferenceUtils.getInstance(activity).s
-                                        for (int i = 0; i < myResponse.getBrand().size(); i++) {
-                                            final Brand brandd = myResponse.getBrand().get(i);
-                                           // myResponse.
-                                            int brandType = brandd.getBrand_type();
-                                            int brandStatus = brandd.getBrand_status();
+                                            //  String baseUrl = SharedPreferenceUtils.getInstance(activity).getStringValue(Constants.BRAND_BASE_URL, "");
+                                            // SharedPreferenceUtils.getInstance(activity).s
+                                            for (int i = 0; i < myResponse.getBrand().size(); i++) {
+                                                final Brand brandd = myResponse.getBrand().get(i);
+                                                // myResponse.
+                                                int brandType = brandd.getBrand_type();
+                                                int brandStatus = brandd.getBrand_status();
 
-                                           // insertBrand(brandd);
-                                            if ((brandType == 0 || brandType == 1) && brandStatus == 1) {
-                                                brands.add(brandd);
-                                                try {
-                                                    int cCount = brandRepository.getBrandCounts(brandd.getId());
-                                                    if (cCount>0)
-                                                        brandRepository.deleteBrand(brandd);
-                                                    brandRepository.insertBrand(brandd);
-                                                }
-                                                catch(Exception e) {
-                                                    Log.d("cvbcbcbcvbcvbcvbcv===",""+e.getLocalizedMessage());
+                                                // insertBrand(brandd);
+                                                if ((brandType == 0 || brandType == 1) && brandStatus == 1) {
+                                                    brands.add(brandd);
+                                                    try {
+                                                        int cCount = brandRepository.getBrandCounts(brandd.getId());
+                                                        if (cCount > 0)
+                                                            brandRepository.deleteBrand(brandd);
+                                                        brandRepository.insertBrand(brandd);
+                                                    } catch (Exception e) {
+                                                        Log.d("cvbcbcbcvbcvbcvbcv===", "" + e.getLocalizedMessage());
+                                                    }
                                                 }
                                             }
-                                        }
-                                        Log.d("vcbcvbcv34324242====",""+brands.size());
-                                        for (int i = 0; i < brands.size(); i = i + 4) {
-                                            LinearLayout linearLayout = new LinearLayout(activity);
-                                            linearLayout.setWeightSum(4);
-                                            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-                                            Log.d("vbvcbcvbcvbvcvbcvbvbvbcvbc===", myResponse.getMsg().get(0));
-                                            for (int j = 0; j <= 3 && i + j < brands.size(); j++) {
-                                                Log.d("vbvcbcvbcvbvcxv11===", "" + myResponse);
-                                                BrandRow1Binding rowBinding = BrandRow1Binding.inflate(getLayoutInflater(), linearLayout, false);
-                                                final Brand brand = brands.get(i + j);
-                                                  Brand brr = brand; // new Brand();
-                                                //  brr = brand;
-                                                 // brr.setBrand_id(brand.getBrand_id());
+                                            Log.d("vcbcvbcv34324242====", "" + brands.size());
+                                            for (int i = 0; i < brands.size(); i = i + 4) {
+                                                LinearLayout linearLayout = new LinearLayout(activity);
+                                                linearLayout.setWeightSum(4);
+                                                linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+                                                Log.d("vbvcbcvbcvbvcvbcvbvbvbcvbc===", myResponse.getMsg().get(0));
+                                                for (int j = 0; j <= 3 && i + j < brands.size(); j++) {
+                                                    Log.d("vbvcbcvbcvbvcxv11===", "" + myResponse);
+                                                    BrandRow1Binding rowBinding = BrandRow1Binding.inflate(getLayoutInflater(), linearLayout, false);
+                                                    final Brand brand = brands.get(i + j);
+                                                    Brand brr = brand; // new Brand();
+                                                    //  brr = brand;
+                                                    // brr.setBrand_id(brand.getBrand_id());
 //                                                  brr.setBrand_name(brand.getBrand_name());
 //                                                  brr.setBrand_status(brand.getBrand_status());
 //                                                  brr.setBrand_type(brand.getBrand_type());
@@ -455,58 +461,57 @@ public class SearchNewTractorFilter extends BaseFragment {
 //                                                  brr.setId(brand.getId());
 
 
-
-                                                //brands.get(i+j).mo;
-                                                String manufacturerType = brand.getBrand_type() + "==" + brand.getBrand_status();
-                                                Log.d("vbvcbcvbcvbvxvcx===", "" + manufacturerType + "==" + baseUrl + brand.getImage()+"=="+brr.getImage()+"=="+brand);
-                                                // if(manufacturerType.contains("0") || manufacturerType.contains("1")) {
-                                                Model model = new Model();
-                                               // model.set
-                                                Glide.with(activity)
-                                                        //.load(brand.getImage() != null ? Constants.decodeURL(baseUrl + brand.getImage()) : null)
-                                                        .load(lpath + brand.getImage())
-                                                        .placeholder(R.mipmap.no_image)
-                                                        .error(R.mipmap.no_image)
-                                                        .into(rowBinding.image);
-                                                if(selectedModel!=null) {
-                                                    rowBinding.getRoot().setOnClickListener(v ->callListPage(brr,selectedModel));
-                                                }
-                                                else {
-                                                    Log.d("hjghjhgdbvnvnvnbv===",""+brand+"=="+brr);
-                                                    rowBinding.getRoot().setOnClickListener(v -> callListPage(brr));
-                                                }
+                                                    //brands.get(i+j).mo;
+                                                    String manufacturerType = brand.getBrand_type() + "==" + brand.getBrand_status();
+                                                    Log.d("vbvcbcvbcvbvxvcx===", "" + manufacturerType + "==" + baseUrl + brand.getImage() + "==" + brr.getImage() + "==" + brand);
+                                                    // if(manufacturerType.contains("0") || manufacturerType.contains("1")) {
+                                                    Model model = new Model();
+                                                    // model.set
+                                                    Glide.with(activity)
+                                                            //.load(brand.getImage() != null ? Constants.decodeURL(baseUrl + brand.getImage()) : null)
+                                                            .load(lpath + brand.getImage())
+                                                            .placeholder(R.mipmap.no_image)
+                                                            .error(R.mipmap.no_image)
+                                                            .into(rowBinding.image);
+                                                    if (selectedModel != null) {
+                                                        rowBinding.getRoot().setOnClickListener(v -> callListPage(brr, selectedModel));
+                                                    } else {
+                                                        Log.d("hjghjhgdbvnvnvnbv===", "" + brand + "==" + brr);
+                                                        rowBinding.getRoot().setOnClickListener(v -> callListPage(brr));
+                                                    }
                                                     linearLayout.addView(rowBinding.getRoot());
+                                                }
+                                                binding.llBrand.addView(linearLayout);
                                             }
-                                            binding.llBrand.addView(linearLayout);
                                         }
+                                    } catch (Exception e) {
+                                        Log.d("cvbcvbcvbcbvbvcv===", "" + e.getMessage());
+                                        // e.printStackTrace();
+                                    }
+                                    if (forBrand) {
+                                        binding.container.post(() -> binding.container.fullScroll(ScrollView.FOCUS_DOWN));
+                                        forBrand = false;
+                                    }
+                                } else {
+                                    for (int i = 0; i < myResponse.getMsg().size(); i++) {
+                                        Toast.makeText(activity, myResponse.getMsg().get(i), Toast.LENGTH_LONG).show();
                                     }
                                 }
-                                catch(Exception e) {
-                                    Log.d("cvbcvbcvbcbvbvcv===",""+e.getMessage());
-                                   // e.printStackTrace();
-                                }
-                                if(forBrand) {
-                                    binding.container.post(() -> binding.container.fullScroll(ScrollView.FOCUS_DOWN));
-                                    forBrand = false;
-                                }
-                            }
-                            else {
-                                for(int i = 0; i < myResponse.getMsg().size(); i++) {
-                                    Toast.makeText(activity, myResponse.getMsg().get(i),Toast.LENGTH_LONG).show();
-                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
                         }
-                        catch(Exception e) {
-                            e.printStackTrace();
+
+                        @Override
+                        public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+                            Log.d("vcxvcxvcxvxvc3424234===", "" + e.getLocalizedMessage());
+                            Timber.e("response Error: %s", e);
+                            // binding.llProgress.llProgress.setVisibility(GONE);
                         }
-                    }
-                    @Override
-                    public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e)
-                    {
-                        Log.d("vcxvcxvcxvxvc3424234===",""+e.getLocalizedMessage());
-                        Timber.e("response Error: %s", e);
-                        // binding.llProgress.llProgress.setVisibility(GONE);
-                    }
-                });
+                    });
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

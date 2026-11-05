@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cvParent"
     android:layout_width="0dp"
     android:layout_height="70dp"
     android:layout_gravity="center"
+    app:strokeColor="@color/brightGray"
+    app:strokeWidth="@dimen/dimen_1dp"
+    android:elevation="@dimen/dimen_4dp"
+    app:cardElevation="@dimen/dimen_4dp"
     android:layout_margin="@dimen/margin_2dp"
     android:layout_weight="1"
+    app:cardCornerRadius="@dimen/dimen_0dp"
     android:orientation="vertical">
     <LinearLayout
         android:id="@+id/ll"
@@ -18,10 +24,11 @@
         <ImageView
             android:id="@+id/image"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:scaleType="fitCenter"
             android:layout_gravity="center"
-            android:padding="8dp"
+            android:adjustViewBounds="true"
+            android:padding="@dimen/dimen_5dp"
             android:src="@mipmap/ic_launcher"/>
     </LinearLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

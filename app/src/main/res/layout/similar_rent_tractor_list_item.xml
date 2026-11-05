@@ -5,23 +5,26 @@
     android:id="@+id/cardView"
     style="@style/CardViewHorizontalListItem"
     android:layout_width="wrap_content"
+    android:backgroundTint="@color/white"
+    android:background="@color/white"
     android:layout_height="wrap_content"
     android:layout_margin="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="260dp"
-        android:layout_height="290dp"
-        android:background="@color/detailsBackground">
+        android:layout_height="280dp"
+        android:background="@color/white">
         <ImageView
             android:id="@+id/popularTractorImage"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:background="@color/white"
-            android:padding="@dimen/margin_5dp"
+            android:background="@color/detailsBackground"
+            android:padding="@dimen/dimen_5dp"
             android:src="@mipmap/ic_launcher"
-            android:scaleType="fitXY"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toTopOf="@id/popularTractorTitle"
             app:layout_constraintTop_toTopOf="parent"
             android:contentDescription="@string/popular_tractor"/>
@@ -35,7 +38,6 @@
             android:textAlignment="center"
             android:gravity="center"
             android:layout_marginEnd="@dimen/margin_5dp"
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="0k"/>

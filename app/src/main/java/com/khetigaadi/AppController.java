@@ -2,6 +2,7 @@ package com.khetigaadi;
 import android.app.Application;
 import android.content.Context;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.hilt.work.HiltWorkerFactory;
 import androidx.multidex.MultiDex;
 import androidx.work.Configuration;
@@ -26,6 +27,17 @@ public class AppController extends Application implements Configuration.Provider
     @Inject
     public AppController() {
     }
+    //6LexOREuAAAAAGnn06GUB0hr3ftOM5eIDhgmMBRG
+//    @Override
+//    protected void attachBaseContext(Context base) {
+//              SessionManager sessionManager = new SessionManager(base);
+//             super.attachBaseContext(new LocaleManager(sessionManager).setLocale(base));
+//              super.attachBaseContext(base);
+//        //  SessionManager sessionManager = new SessionManager(base);
+//           new LocaleManager(sessionManager).setLocale(this);
+//        MultiDex.install(this);
+//        Timber.tag(TAG).d("attachBaseContext");
+//    }
     @NonNull
     @Override
     public Configuration getWorkManagerConfiguration() {
@@ -38,15 +50,25 @@ public class AppController extends Application implements Configuration.Provider
     protected void attachBaseContext(Context base) {
         SessionManager sessionManager = new SessionManager(base);
         super.attachBaseContext(new LocaleManager(sessionManager).setLocale(base));
+
+      //  super.attachBaseContext(base);
+             //SessionManager sessionManager = new SessionManager(base);
+          //  new LocaleManager(sessionManager).setLocale(this);
+
         MultiDex.install(this);
         Timber.tag(TAG).d("attachBaseContext");
+
+
+
     }
     @Override
     public void onCreate() {
         super.onCreate();
-        if (BuildConfig.DEBUG) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        if(BuildConfig.DEBUG) {
             appEnvironment = AppEnvironment.DEV;
-        } else
+        }
+        else
             appEnvironment = AppEnvironment.PRODUCTION;
         mInstance = this;
         pref.setValue(Constants.NO_OF_LAUNCHED,pref.getIntValue(Constants.NO_OF_LAUNCHED,0)+1);

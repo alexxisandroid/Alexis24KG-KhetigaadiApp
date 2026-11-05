@@ -38,21 +38,18 @@ public class CommentListAdapter extends RecyclerView.Adapter {
         posts = new ArrayList<>();
         this.recyclerView = recyclerView;
         if (recyclerView.getLayoutManager() instanceof LinearLayoutManager) {
-            final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView
-                    .getLayoutManager();
+            final LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
             recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
                         @Override
                         public void onScrolled(@NonNull RecyclerView recyclerView,
                                                int dx, int dy) {
-                            super.onScrolled(recyclerView, dx, dy);
+                            super.onScrolled(recyclerView,dx,dy);
                             totalItemCount = linearLayoutManager.getItemCount();
-                            lastVisibleItem = linearLayoutManager
-                                    .findLastVisibleItemPosition();
-                            if (!loading
-                                    && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
+                            lastVisibleItem = linearLayoutManager.findLastVisibleItemPosition();
+                            if(!loading && totalItemCount <= (lastVisibleItem + visibleThreshold)) {
                                 // End has been reached
                                 // Do something
-                                if (onLoadMoreListener != null) {
+                                if(onLoadMoreListener != null) {
                                     onLoadMoreListener.onLoadMore();
                                 }
                                 loading = true;
@@ -84,10 +81,14 @@ public class CommentListAdapter extends RecyclerView.Adapter {
     }
     @Override
     public void onBindViewHolder(@NonNull final RecyclerView.ViewHolder holder,int position) {
-        if (holder instanceof MyViewHolder) {
+        if(holder instanceof MyViewHolder) {
             Comment currentPost = posts.get(position);
-            if (currentPost.getUser() != null) {
-                Glide.with(context).load(sessionManager.getUserOthers().getUserPath() + currentPost.getUser().getImage()).into(((MyViewHolder) holder).binding.civUser);
+            if(currentPost.getUser() != null) {
+                Glide.with(context)
+                        .load(sessionManager.getUserOthers().getUserPath()+currentPost.getUser().getImage())
+                        .error(R.drawable.ic_user_profile)
+                        .placeholder(R.drawable.ic_user_profile)
+                        .into(((MyViewHolder) holder).binding.civUser);
             }
             ((MyViewHolder) holder).binding.tvUserName.setText(currentPost.getUser().getFname().concat(" " + currentPost.getUser().getLname()));
             ((MyViewHolder) holder).binding.tvCommment.setText(currentPost.getComment());
@@ -131,9 +132,10 @@ public class CommentListAdapter extends RecyclerView.Adapter {
     }
     public void addItem(int position,Comment data) {
         posts.add(position, data);
-        if (posts.size() == 1) {
+        if(posts.size() == 1) {
             notifyDataSetChanged();
-        } else {
+        }
+        else {
             notifyItemInserted(position);
         }
     }

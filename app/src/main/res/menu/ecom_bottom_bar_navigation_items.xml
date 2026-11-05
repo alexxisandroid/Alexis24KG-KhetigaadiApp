@@ -7,7 +7,7 @@
         android:title="@string/home"/>
     <item
         android:id="@+id/action_category"
-        android:icon="@drawable/baseline_category_24"
+        android:icon="@drawable/outline_grid_view_24"
         android:title="@string/category"/>
     <item
         android:id="@+id/action_my_orders"

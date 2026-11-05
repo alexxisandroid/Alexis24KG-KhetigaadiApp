@@ -32,7 +32,7 @@ public class ListFilterBrandItemAdapter1 extends RecyclerView.Adapter<ListFilter
         if(filteredData.get(position).getName()!=null && !filteredData.get(position).getName().equalsIgnoreCase(null) && !filteredData.get(position).getName().isEmpty()) {
            Log.d("fgdgdfgfdfg===",""+filteredData.get(position).getName());
            holder.binding.filterName.setText(filteredData.get(position).getName());
-           holder.binding.cbSelect.setText(filteredData.get(position).getName());
+           //holder.binding.cbSelect.setText(filteredData.get(position).getName());
            holder.binding.cbSelect.setChecked(filteredData.get(position).getSelected());
            holder.binding.cbSelect.setOnClickListener(v -> filteredData.get(position).setSelected(((CheckBox) v).isChecked()));
        }
@@ -55,7 +55,7 @@ public class ListFilterBrandItemAdapter1 extends RecyclerView.Adapter<ListFilter
     }
     public void clearSelection() {
         stList = stList.stream().peek(brand -> {
-                    if (brand.getSelected())
+                    if(brand.getSelected())
                         brand.setSelected(false);
                 }
         ).collect(Collectors.toList());
@@ -78,9 +78,9 @@ public class ListFilterBrandItemAdapter1 extends RecyclerView.Adapter<ListFilter
             int count = list.size();
             final ArrayList<Brand> nlist = new ArrayList<>(count);
             Brand filterableString;
-            for (int i = 0; i < count; i++) {
+            for(int i = 0; i < count; i++) {
                 filterableString = list.get(i);
-                if (filterableString.getName().toLowerCase().contains(filterString)) {
+                if(filterableString.getName().toLowerCase().contains(filterString)) {
                     nlist.add(filterableString);
                 }
             }

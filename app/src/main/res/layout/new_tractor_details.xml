@@ -28,13 +28,14 @@
         android:id="@+id/viewPager2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/dimen_50dp"
+        android:layout_marginBottom="@dimen/payu_dimen_57dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:layout_marginTop="5sp"
+        android:layout_marginBottom="@dimen/dimen_5dp"
         android:background="@color/white"
         android:orientation="horizontal"
         android:padding="@dimen/margin_5dp">
@@ -44,7 +45,7 @@
             android:layout_height="@dimen/margin_40dp"
             android:layout_margin="@dimen/margin_5dp"
             android:layout_marginBottom="@dimen/margin_5dp"
-            android:text="@string/getOnRoadPrice"
+            android:text="@string/getPrice"
             android:minHeight="@dimen/payu_dimen_45dp"
             android:background="@drawable/btn_rectangle_outline_bg_red"
             android:textAlignment="center"
@@ -53,7 +54,7 @@
             android:visibility="visible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnRequestForDemo"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.3"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:visibility="visible"/>
@@ -69,11 +70,30 @@
             android:textAlignment="center"
             android:textColor="@color/red"
             android:gravity="center"
-            android:text="@string/request_for_demo"
+            android:text="@string/demo_request"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintEnd_toStartOf="@+id/btnWhatsApp"
+            app:layout_constraintHorizontal_bias="0.3"
             app:layout_constraintStart_toEndOf="@+id/btnOnRoadPrice"
             app:layout_constraintTop_toTopOf="parent"/>
+
+        <TextView
+            android:id="@+id/btnWhatsApp"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/margin_40dp"
+            android:layout_margin="@dimen/margin_5dp"
+            android:layout_marginBottom="@dimen/margin_5dp"
+            android:autoLink="web"
+            android:minHeight="@dimen/payu_dimen_45dp"
+            android:background="@drawable/btn_rectangle_outline_bg_red"
+            android:textAlignment="center"
+            android:textColor="@color/red"
+            android:gravity="center"
+            android:text="@string/whatsApp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.3"
+            app:layout_constraintStart_toEndOf="@+id/btnRequestForDemo"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

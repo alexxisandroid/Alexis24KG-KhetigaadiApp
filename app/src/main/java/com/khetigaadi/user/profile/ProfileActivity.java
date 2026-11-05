@@ -13,14 +13,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.core.content.res.ResourcesCompat;
 import com.bumptech.glide.Glide;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.khetigaadi.R;
 import com.khetigaadi.base.WebViewActivity;
 import com.khetigaadi.base.model.MyResponse;
@@ -29,6 +26,9 @@ import com.khetigaadi.commons.SharedPreferenceUtils;
 import com.khetigaadi.commons.activities.BaseActivity;
 import com.khetigaadi.commons.utils.Constants;
 import com.khetigaadi.databinding.ActivityProfileBinding;
+import com.khetigaadi.isOwner.IsOwnerTractorBrand;
+import com.khetigaadi.language.SelectLanguage;
+import com.khetigaadi.user.LoginActivity;
 import com.khetigaadi.user.SessionManager;
 import com.khetigaadi.user.model.User;
 import com.khetigaadi.user.model.UserResponse;
@@ -46,6 +46,9 @@ import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 @AndroidEntryPoint
 public class ProfileActivity extends BaseActivity {
     private static final int HIDE_MENU = 1;
@@ -53,7 +56,7 @@ public class ProfileActivity extends BaseActivity {
     private boolean isAWardEnable;
     private boolean isBiographyEnable;
     private String paramUserId;
-    private User secondUser;
+    public User secondUser;
     private int mState = 0;
     @Inject
     SharedPreferenceUtils pref;
@@ -62,6 +65,9 @@ public class ProfileActivity extends BaseActivity {
     SessionManager sessionManager;
     @Inject
     UserAPIs userAPIs;
+    @Inject
+    SessionManager session;
+    private String TAG = ProfileActivity.class.getName();
     private final io.reactivex.rxjava3.disposables.CompositeDisposable disposable = new io.reactivex.rxjava3.disposables.CompositeDisposable();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +92,53 @@ public class ProfileActivity extends BaseActivity {
             intent.putExtra(WebViewActivity.URL, "https://khetigaadi.com/delete-user/user/en");
             startActivity(intent);
         });
+
+       binding.tvDashboard.setOnClickListener(v -> {
+           // mFragmentTransaction.replace(binding.containerView.id,new UserDashboardFragment()).addToBackStack(TAG).commit();
+                Intent intent = new Intent(ProfileActivity.this,ProfileOtherActivity.class);
+                intent.putExtra("typeVal","dashboard");
+                startActivity(intent);
+        });
+
+       binding.tvMyOldTractors.setOnClickListener(v -> {
+           Intent intent = new Intent(ProfileActivity.this,ProfileOtherActivity.class);
+           intent.putExtra("typeVal","my_old_tractor");
+           startActivity(intent);
+       });
+
+       binding.tvMyRentTractors.setOnClickListener(v -> {
+           Intent intent = new Intent(ProfileActivity.this,ProfileOtherActivity.class);
+           intent.putExtra("typeVal","my_rent_tractor");
+           startActivity(intent);
+       });
+
+       binding.tvBuyEnquiry.setOnClickListener(v -> {
+           Intent intent = new Intent(ProfileActivity.this,ProfileOtherActivity.class);
+           intent.putExtra("typeVal","buy_enq");
+           startActivity(intent);
+       });
+
+       binding.tvMyFav.setOnClickListener(v -> {
+           Intent intent = new Intent(ProfileActivity.this,ProfileOtherActivity.class);
+           intent.putExtra("typeVal","my_fav");
+           startActivity(intent);
+       });
+
+       binding.tvAddOwnerTractor.setOnClickListener(v -> {
+           Intent intent = new Intent(ProfileActivity.this,IsOwnerTractorBrand.class);
+           intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK); // || Intent.FLAG_ACTIVITY_CLEAR_TOP);
+           intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+           startActivity(intent);
+       });
+
+       binding.tvAddedTractor.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               Intent intent = new Intent(ProfileActivity.this,ProfileOtherActivity.class);
+               intent.putExtra("typeVal","my_tract");
+               startActivity(intent);
+           }
+       });
     }
     @Override
     public void onStart() {
@@ -94,27 +147,30 @@ public class ProfileActivity extends BaseActivity {
         initListener();
     }
     private void handleDeepLinking() {
-        if (getIntent() != null) {
+        if(getIntent() != null) {
             Intent intent = getIntent();
-            if (getIntent().getAction() != null && getIntent().getAction().equalsIgnoreCase(Intent.ACTION_VIEW)) {
+            if(getIntent().getAction() != null && getIntent().getAction().equalsIgnoreCase(Intent.ACTION_VIEW)) {
                 paramUserId = intent.getData().toString().split("profile/")[1];
-            } else {
+            }
+            else {
                 paramUserId = getIntent().getExtras().getString("userId");
             }
-            if (paramUserId != null)
+            if(paramUserId != null)
                 getProfile(paramUserId);
         }
         Log.d("vcbcvbvcbcvbcvb====",""+paramUserId);
     }
     private void hideShowView(String userId) {
-        if (userLoggedIn.getId().equals(userId)) {
+        Log.d("cxvxcvxvxcv====",""+userLoggedIn.getId()+"=="+userId+"=="+userLoggedIn.getId().equals(userId));
+        if(userLoggedIn.getId().equals(userId)) {
             binding.tvCommentsByMe.setText(getString(R.string.my_posts));
             binding.inUserCredit.getRoot().setVisibility(View.GONE);
             binding.inUserCreditLarge.getRoot().setVisibility(View.VISIBLE);
             binding.btnFollow.setVisibility(View.GONE);
             binding.ivEditBiography.setVisibility(View.VISIBLE);
             binding.ivAwards.setVisibility(View.VISIBLE);
-        } else {
+        }
+        else {
             binding.inUserCredit.getRoot().setVisibility(View.VISIBLE);
             binding.inUserCreditLarge.getRoot().setVisibility(View.GONE);
             binding.tvCommentsByMe.setText(String.format("Post By %s", secondUser.getFname()));
@@ -124,11 +180,20 @@ public class ProfileActivity extends BaseActivity {
             mState = HIDE_MENU;
             invalidateOptionsMenu();
         }
-        binding.ivLikeBottom.setOnClickListener(v -> callLikeApi(binding.ivLikeBottom, secondUser));
+        binding.ivLikeBottom.setOnClickListener(v -> callLikeApi(binding.ivLikeBottom,secondUser));
         binding.ivShareBottom.setOnClickListener(v -> {
             callSharePostApi(secondUser.getId());
             sharePost(secondUser.getId());
         });
+
+//        binding.tvShareProfv.setOnClickListener(v -> {
+//             Toast.makeText(this,""+userId,Toast.LENGTH_LONG).show();
+//            if(secondUser!=null) {
+//                callSharePostApi(secondUser.getId());
+//                sharePost(secondUser.getId());
+//            }
+//        });
+
         binding.tvCommentsByMe.setOnClickListener(v -> {
 
         });
@@ -137,26 +202,30 @@ public class ProfileActivity extends BaseActivity {
         String sharePostText = "https://www.khetigaadi.com/khetiguru/profile/" + secondUserId;
         final Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, sharePostText);
+        intent.putExtra(Intent.EXTRA_TEXT,sharePostText);
         try {
-            startActivity(Intent.createChooser(intent, "Select an action"));
-        } catch (ActivityNotFoundException ex) {
+            startActivity(Intent.createChooser(intent,"Select an action"));
+        }
+        catch(ActivityNotFoundException ex) {
             // (handle error)
         }
     }
     private void callSharePostApi(String secondUserId) {
-        shareStateChange();
+        shareStateChange(secondUserId);
         Map<String, String> params = new HashMap<>();
         try {
-            params.put("to_user_id", secondUserId);
+            params.put("to_user_id",secondUserId);
             userAPIs.shareUser(params);
-        } catch (Exception e) {
+        }
+        catch(Exception e) {
             e.printStackTrace();
         }
     }
-    private void shareStateChange() {
-        secondUser.setShareCount((int) (secondUser.getShareCount() + 1));
-        binding.inUserCredit.tvShares.setText(String.valueOf(secondUser.getShareCount()));
+    private void shareStateChange(String secondUserId) {
+        if(secondUser!=null) {
+            secondUser.setShareCount((int) (secondUser.getShareCount() + 1));
+            binding.inUserCredit.tvShares.setText(String.valueOf(secondUser.getShareCount()));
+        }
     }
     private void callLikeApi(ImageView ivLikeBottom,User secondUser) {
         likeStateChange(ivLikeBottom);
@@ -209,11 +278,13 @@ public class ProfileActivity extends BaseActivity {
     private void initListener() {
         binding.btnFollow.setOnClickListener(v -> callFollowApi((Button) v));
         binding.ivEditBiography.setOnClickListener(v -> {
-            if (isBiographyEnable) {
-                if (binding.etBiagraphy.getText().toString().length() > 0) {
+            binding.etBiagraphy.setVisibility(View.VISIBLE);
+            if(isBiographyEnable) {
+                if(binding.etBiagraphy.getText().toString().length() > 0) {
                     updateBiographyEnable(binding.etBiagraphy.getText().toString());
-                } else {
-                    Toast.makeText(ProfileActivity.this, getString(R.string.please_enter_biography), Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(ProfileActivity.this,getString(R.string.please_enter_biography),Toast.LENGTH_SHORT).show();
                 }
                 isBiographyEnable = false;
             }
@@ -226,14 +297,17 @@ public class ProfileActivity extends BaseActivity {
             }
         });
         binding.ivAwards.setOnClickListener(v -> {
-            if (isAWardEnable) {
-                if (binding.etAwards.getText().toString().length() > 0) {
+            binding.etAwards.setVisibility(View.VISIBLE);
+            if(isAWardEnable) {
+                if(binding.etAwards.getText().toString().length() > 0) {
                     updateAwards(binding.etAwards.getText().toString());
-                } else {
-                    Toast.makeText(ProfileActivity.this, getString(R.string.please_enter_award), Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(ProfileActivity.this,getString(R.string.please_enter_award), Toast.LENGTH_SHORT).show();
                 }
                 isAWardEnable = false;
-            } else {
+            }
+            else {
                 binding.etAwards.setEnabled(true);
                 binding.ivAwards.setImageResource(R.drawable.baseline_send_black_24);
                 binding.etAwards.requestFocus();
@@ -241,6 +315,30 @@ public class ProfileActivity extends BaseActivity {
                 isAWardEnable = true;
             }
         });
+
+        binding.tvProfileSettings.setOnClickListener(v -> {
+            startActivity(new Intent(this,ProfilrSettingActivity.class));
+        });
+
+        binding.tvProfileEditt.setOnClickListener(v -> {
+            addSomething();
+        });
+
+        binding.tvChangeLang.setOnClickListener(v -> {
+            startActivity(new Intent(this,SelectLanguage.class));
+        });
+
+        binding.tvLogout.setOnClickListener(v -> {
+            logout();
+        });
+
+//        binding.tvShareProfv.setOnClickListener(v -> {
+//             Toast.makeText(this,""+secondUser,Toast.LENGTH_LONG).show();
+//          if(secondUser!=null) {
+//              callSharePostApi(secondUser.getId());
+//              sharePost(secondUser.getId());
+//          }
+//        });
     }
     private void callFollowApi(Button btnFollow) {
         followStateChange(btnFollow);
@@ -431,7 +529,7 @@ public class ProfileActivity extends BaseActivity {
     private void initUI(User user) {
         try {
             binding.llProgresss.llProgress.setVisibility(View.GONE);
-            Glide.with(ProfileActivity.this).load(Constants.decodeURL(sessionManager.getUserOthers().getUserPath() + user.getImage())).into(binding.civProfile);
+            Glide.with(ProfileActivity.this).load(Constants.decodeURL(sessionManager.getUserOthers().getUserPath() + user.getImage())).error(R.drawable.user_rounded).into(binding.civProfile);
 
             if(user.getUserDetail().getType() != null) {
                 if(user.getUserDetail().getType().getUserLevelName() != null && !user.getUserDetail().getType().getUserLevelName().equals("null")) {
@@ -450,17 +548,7 @@ public class ProfileActivity extends BaseActivity {
            Log.d("dvfdzsfsfsf====",""+user.getUserDetail().getType().getUserLevelName());
             SimpleDateFormat formatterOut = new SimpleDateFormat("dd-MM-yyyy");
 
-            try {
-                Date date = formatter.parse(dateInString);
-                System.out.println(date);
-                //System.out.println(formatterOut.format(date));
-                assert date != null;
-                String dtt = formatterOut.format(date);
-               binding.tvRegisteredOn.setText(String.format("%s %s", getString(R.string.registered_on),dtt));
-            }
-            catch(ParseException e) {
-                e.printStackTrace();
-            }
+
            // binding.tvRegisteredOn.setText(String.format("%s %s", getString(R.string.registered_on),DateUtils.convertDateToDate(user.getRegisteredDate(),DateUtils.DateFormat.yyyy_MM_dd_T_HH_mm_ss_SSS_Z,DateUtils.DateFormat.MMM_dd_yyyy)));
             if(user.isFollowerStatus()) {
                 binding.btnFollow.setText(getString(R.string.following));
@@ -489,10 +577,40 @@ public class ProfileActivity extends BaseActivity {
             binding.inUserCredit.tvShares.setText(NumberFormatting.format(user.getShareCount()));
             if(user.getUserDetail().getBiography() != null) {
                 binding.etBiagraphy.setText(user.getUserDetail().getBiography());
+                if(!user.getUserDetail().getBiography().isEmpty())
+                   binding.etBiagraphy.setVisibility(View.VISIBLE);
             }
             if(user.getUserDetail().getAwards() != null) {
                 binding.etAwards.setText(user.getUserDetail().getAwards());
+                if(!user.getUserDetail().getAwards().isEmpty())
+                   binding.etAwards.setVisibility(View.VISIBLE);
             }
+
+            binding.tvShareProfv.setOnClickListener(v -> {
+               // Toast.makeText(this,""+user,Toast.LENGTH_LONG).show();
+                if(secondUser==null) {
+                    callSharePostApi(user.getId());
+                    sharePost(user.getId());
+                }
+                else {
+                    callSharePostApi(secondUser.getId());
+                    sharePost(secondUser.getId());
+                }
+            });
+
+            try {
+                Date date = formatter.parse(dateInString);
+                System.out.println(date);
+                //System.out.println(formatterOut.format(date));
+                assert date != null;
+                String dtt = formatterOut.format(date);
+                binding.tvRegisteredOn.setText(String.format("%s %s", getString(R.string.registered_on),dtt));
+            }
+            catch(ParseException e) {
+                Log.d("cxxzcxzcxz===",""+e.getLocalizedMessage());
+                e.printStackTrace();
+            }
+
         }
         catch(Exception e) {
             binding.llProgresss.llProgress.setVisibility(View.GONE);
@@ -502,10 +620,20 @@ public class ProfileActivity extends BaseActivity {
     }
     private void initCropView(@NonNull LinearLayout llCrops,List<Crop> crops) {
         llCrops.removeAllViews();
+        Log.d("crops___",""+crops.size());
         binding.llProgresss.llProgress.setVisibility(View.GONE);
         if(crops != null) {
             for(int i = 0; i < crops.size(); i++) {
                 TextView rowLayout = (TextView) getLayoutInflater().inflate(R.layout.crop_profile_item, llCrops, false);
+                rowLayout.setTypeface(ResourcesCompat.getFont(this,R.font.manrope_semibold));
+                rowLayout.setPadding(32,16,32,16);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+                params.rightMargin=20;
+                rowLayout.setLayoutParams(params);
+
                 rowLayout.setText(crops.get(i).getName());
                 llCrops.addView(rowLayout);
             }
@@ -525,7 +653,7 @@ public class ProfileActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(@androidx.annotation.NonNull Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.profile_menu, menu);
+        getMenuInflater().inflate(R.menu.profile_menu,menu);
         if(mState == HIDE_MENU) {
             for(int i = 0; i < menu.size(); i++)
                 menu.getItem(i).setVisible(false);
@@ -539,12 +667,26 @@ public class ProfileActivity extends BaseActivity {
             addSomething();
             return true;
         }
+        else if(item.getItemId() == R.id.menu_language) {
+            startActivity(new Intent(this,SelectLanguage.class));
+            finish();
+            return true;
+        }
+        else if(item.getItemId() == R.id.menu_settings) {
+            startActivity(new Intent(this,ProfilrSettingActivity.class));
+            //finish();
+            return true;
+        }
+        else if(item.getItemId() == R.id.menu_logout) {
+            logout();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
     @Override
     protected void onResume() {
         super.onResume();
-        if (paramUserId != null && paramUserId.equals(userLoggedIn.getId())) {
+        if(paramUserId != null && paramUserId.equals(userLoggedIn.getId())) {
             userLoggedIn = sessionManager.getUser();
             initUI(userLoggedIn);
         }
@@ -557,5 +699,33 @@ public class ProfileActivity extends BaseActivity {
     }
     private void addSomething() {
         startActivity(new Intent(ProfileActivity.this,EditProfileActivity.class));
+    }
+    private void logoutUser() {
+        session.Logout();
+        startActivity(new Intent(ProfileActivity.this,LoginActivity.class));
+        finish();
+    }
+    private void logOutFCM() {
+        userAPIs.deregisterPushToken().enqueue(new Callback<MyResponse>() {
+            @Override
+            public void onResponse(Call<MyResponse> call,Response<MyResponse> response) {
+                // Implementation here
+            }
+            @Override
+            public void onFailure(Call<MyResponse> call,Throwable t) {
+                // Implementation here
+            }
+        });
+    }
+    private void logout() {
+        new MaterialAlertDialogBuilder(this)
+                .setTitle(getString(R.string.logout))
+                .setMessage(getString(R.string.are_you_sure_you_want))
+                .setNegativeButton(getString(R.string.no),(dialog,which) -> dialog.cancel())
+                .setPositiveButton(getString(R.string.yes),(dialog,which) -> {
+                    dialog.dismiss();
+                    logOutFCM();
+                    logoutUser();
+                }).show();
     }
 }

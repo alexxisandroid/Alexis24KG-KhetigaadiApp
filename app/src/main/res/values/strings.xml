@@ -11,6 +11,9 @@
     <string name="loader_msg" translatable="false">Loading...</string>
     <string name="Continue" translatable="false">Continue</string>
     <string name="products" translatable="false">Products</string>
+    <string name="ADMOB_APP_ID" translatable="false">ca-app-pub-3940256099942544~3347511713</string>
+    <string name="BANNER_AD_UNIT_ID" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
+
 
     <string name="change_or_add_address" translatable="false">Change or Add Address</string>
     <string name="deliveryAndPaymentOption" translatable="false">Delivery and Payment Option</string>
@@ -37,7 +40,7 @@
     <string name="available_new_Tractor">Available New Tractor</string>
     <string name="err_msg_f_name">Please Enter Correct Name</string>
     <string name="err_msg_addres">please Enter Address</string>
-    <string name="err_msg_mobile">Please Enter Mobile No.</string>
+    <string name="err_msg_mobile">Please Enter Mobile Number</string>
     <string name="hint_pincode">Pincode</string>
     <string name="btn_login">Login</string>
     <string name="hint_exPrice">Expected Price</string>
@@ -83,7 +86,7 @@
     <string name="facebook_app_id" translatable="false">357663048153638</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb357663048153638</string>
     <string name="facebook_client_token" translatable="false">7094d23c266da7ca9eb98db1381df11b</string>
-<!--    <string name="rs" translatable="false"><![CDATA[&#x20B9;]]></string>-->
+    <!--    <string name="rs" translatable="false"><![CDATA[&#x20B9;]]></string>-->
 
     <string name="rs" translatable="false">₹ </string>
     <string name="err_msg_comment">Please Enter Comment</string>
@@ -316,7 +319,7 @@
     <string name="user_image">User Image</string>
 
     <string name="email_id">Email ID</string>
-    <string name="mobile_no">Mobile No.</string>
+    <string name="mobile_no">Mobile Number</string>
     <string name="plan_name">Plan Name</string>
     <string name="newsletter_subscribe_or_unsubscribe">Newsletter : (Subscribe / Unsubscribe)</string>
     <string name="i_would_like_to_subscribe_khetigaadi_newsletter">I would like to subscribe Khetigaadi Newsletter</string>
@@ -354,7 +357,7 @@
     <string name="share_msg"><![CDATA[Hey! Check out KhetiGaadi app. Search new tractors,used tractors,compare & find dealers in your city. Download Free App Now! https://khetigaadi.page.link/rniX]]></string>
     <string name="click_to_sold">Click to Sold</string>
     <string name="status">Status</string>
-    <string name="intrested_buyers">Intrested Buyers</string>
+    <string name="intrested_buyers">Interested Buyers</string>
     <string name="click_to_unsold">Click to Unsold</string>
     <string name="imp_type">Type</string>
     <string name="click_back_again_to_exit">Please click BACK again to exit.</string>
@@ -579,10 +582,10 @@
     <string name="second" translatable="false">2nd</string>
     <string name="third" translatable="false">3rd</string>
     <string name="more_than_three" translatable="false">More than 3</string>
-    <string name="poor_engine" translatable="false"><![CDATA[0 &#8211; 25% \n(Poor)]]></string>
-    <string name="average_engine" translatable="false"><![CDATA[26 &#8211; 50% \n(Average)]]></string>
-    <string name="good_engine" translatable="false"><![CDATA[51 &#8211; 75% \n(Good)]]></string>
-    <string name="very_good_engine" translatable="false"><![CDATA[76 &#8211; 100% \n(Very Good)]]></string>
+    <string name="poor_engine" translatable="false">0-25% \n(Poor)</string>
+    <string name="average_engine" translatable="false">26-50%\n(Average)</string>
+    <string name="good_engine" translatable="false">51-75% \n(Good)</string>
+    <string name="very_good_engine" translatable="false">76-100%\n(Very Good)</string>
     <string name="tractor_image" translatable="false">Please upload tractor image</string>
     <string name="implement_image" translatable="false">Please upload implement image</string>
     <string name="want_buy_tract" translatable="false">Do You Own a tractor?</string>
@@ -731,6 +734,8 @@
     <string name="btn_submit" translatable="false">Submit</string>
     <string name="aadhar_upload_failed" translatable="false">Aadhar Upload failed</string>
 
+    <string name="default_web_client_id" translatable="false">492228174849-1eikfnshf24upo6cs3ud9j27voeh1rv2.apps.googleusercontent.com</string>
+
     <string name="no_internet_connection" translatable="false">No Internet Connection</string>
     <string name="please_add_address" translatable="false">Please Add Address</string>
     <string name="select_address" translatable="false">Select Address</string>
@@ -779,10 +784,41 @@
     <string name="no">No</string>
     <string name="yes">Yes</string>
     <string name="total_amount">Total Amount</string>
+    <string name="edit_address" translatable="false">Edit Address</string>
+    <string name="expert_mobile_number" translatable="false">+918007003377</string>
+
+    <string name="details" translatable="false">Details</string>
+    <string name="_0_" translatable="false">0</string>
+    <string name="demo_request" translatable="false">Demo Request</string>
+    <string name="profile_settings">Profile Settings</string>
+    <string name="rate" translatable="false">Rate</string>
+    <string name="_3" translatable="false">3</string>
+    <!--    <string name="profile_settings">Profile Settings</string>-->
     <string-array name="gender_val">
         <item>Select Gender</item>
         <item>Male</item>
         <item>Female</item>
         <item>Others</item>
     </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="my_added_tractors" translatable="false">My Added Tractors</string>
+    <string name="version" translatable="false">Version</string>
+
+    <string name="contact_us" translatable="false">Contact Us</string>
+    <string name="settings" translatable="false">Settings</string>
+    <string name="blocked_users" translatable="false">Blocked Users</string>
+    <string name="chat_with_expert" translatable="false">Chat with Expert</string>
+    <string name="my_address" translatable="false">My Address</string>
+
+    <string name="ugc_policy" translatable="false">UGC Policy</string>
+    <string name="return_policy" translatable="false">Return Policy</string>
+    <string name="rules_regulations" translatable="false"><![CDATA[Rules & Regulations]]></string>
+    <string name="add_own_tractor">Add Own Tractor</string>
+    <string name="share_kare">Share it</string>
+    <string name="login_register">Login or Register</string>
+    <string name="mobile_num">Mobile Number</string>
+
+    <string name="no_data_found">No data found</string>
+    <string name="start_typing_to_search">Start typing to search...</string>
 </resources>

@@ -8,10 +8,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".tractor.sellTractorNewUi.SellTractorPrice">
-
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="@dimen/payu_dimen_100dp"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -93,20 +92,25 @@
                 app:layout_constraintTop_toBottomOf="@id/tvAboutUs"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-        <androidx.cardview.widget.CardView
+    <androidx.cardview.widget.CardView
             android:id="@+id/cv_update_sell_tractor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dimen_40dp"
+            android:layout_marginEnd="@dimen/dimen_10dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
             android:layout_gravity="bottom">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:background="@color/red"
+                android:background="@drawable/btn_rectangle_outline_bg_red"
                 android:gravity="center"
-                android:padding="20dp"
+                android:padding="@dimen/payu_dimen_14dp"
+                android:fontFamily="@font/poppins_bold"
                 android:text="@string/btn_submit"
-                android:textColor="@color/white"
+                android:textAlignment="center"
+                android:textColor="@color/red"
                 android:textSize="15sp"/>
         </androidx.cardview.widget.CardView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -4,17 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardView"
     style="?attr/materialCardViewElevatedStyle"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/dimen_4dp"
     android:layout_marginTop="@dimen/dimen_2dp"
     android:layout_marginEnd="@dimen/dimen_4dp"
+    app:strokeColor="@color/brightGray"
+    app:strokeWidth="@dimen/dimen_1dp"
+    android:elevation="@dimen/margin_2dp"
+    app:cardElevation="@dimen/margin_2dp"
+    android:background="@drawable/spinner_border"
+    android:backgroundTint="@color/black"
     android:layout_marginBottom="@dimen/dimen_4dp"
-    app:cardCornerRadius="8dp">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <!--
+    android:layout_marginStart="@dimen/dimen_4dp"
+    android:layout_marginTop="@dimen/dimen_2dp"
+    android:layout_marginEnd="@dimen/dimen_4dp"
+    android:layout_marginBottom="@dimen/dimen_4dp" -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/payu_dimen_220dp"
-        android:background="@color/munsell">
+        android:minHeight="@dimen/dimen_220dp"
+        android:background="@color/white">
         <ImageView
             android:id="@+id/popularTractorImage"
             android:layout_width="match_parent"
@@ -22,9 +33,10 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/margin_5dp"
-            android:background="@color/white"
+            android:background="@color/detailsBackground"
             android:scaleType="fitXY"
-            android:padding="@dimen/margin_5dp"
+            android:adjustViewBounds="true"
+            android:padding="@dimen/margin_2dp"
             android:src="@mipmap/ic_launcher"
             app:layout_constraintBottom_toTopOf="@id/popularTractorTitle"
             app:layout_constraintTop_toTopOf="parent"
@@ -49,7 +61,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
              style = "@style/TractorListItemTitle"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/manrope_bold"
             android:textStyle="bold"
             android:maxLines="1"
             android:textColor="@color/charcoal"
@@ -67,7 +79,7 @@
             android:layout_marginStart="@dimen/payu_dimen_12dp"
             style="@style/ItemTitle"
             android:layout_marginBottom="@dimen/dimen_5dp"
-            android:fontFamily="@font/poppins"
+            android:fontFamily="@font/manrope_regular"
             android:textColor="@color/charcoal"
             android:textSize="@dimen/dimen_12sp"
             app:layout_constraintBottom_toTopOf="@id/btnGetOnRoadPrice"
@@ -92,7 +104,7 @@
             android:id="@+id/btnGetOnRoadPrice"
             android:layout_width="match_parent"
 
-            android:fontFamily="@font/poppins_medium"
+            android:fontFamily="@font/manrope_medium"
             android:layout_height="@dimen/payu_dimen_38dp"
             android:layout_gravity="center"
             android:gravity="center"
@@ -106,7 +118,7 @@
             android:background="@drawable/btn_rectangle_outline_bg_red"
             android:layout_marginBottom="@dimen/dimen_10dp"
             android:text="@string/getOnRoadPrice"
-            android:textSize="@dimen/dimen_14sp"
+            android:textSize="@dimen/dimen_12sp"
             app:layout_constraintBottom_toBottomOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

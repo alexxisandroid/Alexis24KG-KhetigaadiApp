@@ -62,6 +62,7 @@ import com.khetigaadi.tractor.usedTractor.util.UsedTractor;
 import com.khetigaadi.user.buyserEnquiry.model.InterestedBuyersResp;
 import com.khetigaadi.user.model.DashboardResp;
 import com.khetigaadi.user.model.UserResponse;
+import com.khetigaadi.user.myAddedTractor.MyAddedTractorResp;
 import com.khetigaadi.user.myRentTractor.MyRentTractorResp;
 import com.khetigaadi.user.myUsedTractor.model.MyUploadedTrReq;
 import com.khetigaadi.user.myUsedTractor.model.MyUsedTractorResp;
@@ -82,7 +83,6 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
-
 public interface KhetiAPIs {
     @GET("/mobile/api/v1/banner")
     Single<AllBannerResp> getBanner();
@@ -115,6 +115,9 @@ public interface KhetiAPIs {
     Single<RentTractorResp> getRentTractors(@Body TractorFilter tractorFilter,@Query("page") int page);
     @GET("mobile/api/v1/tractor/rent")
     Single<MyRentTractorResp> getMyRentTractors();
+
+    @GET("mobile/api/v5/tractor/owner")
+    Single<MyAddedTractorResp> getMyAddedTractors();
     @POST("mobile/api/v1/tractor/rent/delete-request")
     Single<MyResponse> rentTrDeleteReq(@Body Map<String,Object> params);
     @POST("mobile/api/v2/tractor/rent")
@@ -272,4 +275,5 @@ public interface KhetiAPIs {
     Single<CompImpResp> getCompareImp(@Body CompImpReq compImpReq);
     @POST("mobile/api/v2/tractor/rent/insert")
     Single<RentTractorUploadResp> uploadRentTractor(@Body UploadRentTrReq compImpReq);
+
 }

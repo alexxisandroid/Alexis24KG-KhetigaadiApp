@@ -3,16 +3,13 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.SavedStateHandle;
 import androidx.lifecycle.ViewModel;
-
 import com.khetigaadi.base.util.StateMutableLiveData;
 import com.khetigaadi.retrofit.ShopAPIs;
 import com.khetigaadi.shop.model.Filter;
 import com.khetigaadi.shop.model.ProductListFilter;
 import com.khetigaadi.shop.model.ProductListResp;
 import com.khetigaadi.user.SessionManager;
-
 import javax.inject.Inject;
-
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -27,7 +24,7 @@ public class ProductListViewModel extends ViewModel {
     private final ShopAPIs shopAPIs;
     private SessionManager sessionManager;
     @Inject
-    ProductListViewModel(ShopAPIs shopAPIs, SessionManager sessionManager,  SavedStateHandle savedStateHandle) {
+    ProductListViewModel(ShopAPIs shopAPIs,SessionManager sessionManager,SavedStateHandle savedStateHandle) {
         this.shopAPIs = shopAPIs;
         this.sessionManager = sessionManager;
         filter = savedStateHandle.getLiveData(ProductListFilterActivity.FILTER);

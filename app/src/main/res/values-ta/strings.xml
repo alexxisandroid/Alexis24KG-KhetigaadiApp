@@ -1199,6 +1199,7 @@
     <string name="no">இல்லை</string>
     <string name="yes">ஆம்</string>
     <string name="total_amount">மொத்த தொகை</string>
+    <string name="profile_settings">Profile Settings</string>
     <string-array name="gender_val">
         <item>பாலினத்தைத் தேர்ந்தெடுக்கவும்</item>
         <item>ஆண்</item>

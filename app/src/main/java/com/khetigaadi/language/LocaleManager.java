@@ -33,30 +33,62 @@ public class LocaleManager {
         // immediately that prevents apply() from finishing
         sessionManager.setLanguage(language);
     }
+//    private Context updateResources(Context context,String language) {
+//        Locale locale = new Locale(language);
+//        Locale.setDefault(locale);
+//        Resources res = context.getResources();
+//        Configuration config = new Configuration(res.getConfiguration());
+//        if (Utils.isAtLeastVersion(N)) {
+//            setLocaleForApi24(config, locale);
+//            context = context.createConfigurationContext(config);
+//        } else if (Utils.isAtLeastVersion(JELLY_BEAN_MR1)) {
+//            config.setLocale(locale);
+//            context = context.createConfigurationContext(config);
+//        } else {
+//            config.locale = locale;
+//            res.updateConfiguration(config, res.getDisplayMetrics());
+//        }
+//        return context;
+//    }
+
     private Context updateResources(Context context,String language) {
-        Locale locale = new Locale(language);
+        @SuppressWarnings("deprecation") Locale locale = new Locale(language);
         Locale.setDefault(locale);
         Resources res = context.getResources();
         Configuration config = new Configuration(res.getConfiguration());
-        if (Utils.isAtLeastVersion(N)) {
+        if(Utils.isAtLeastVersion(N)) {
             setLocaleForApi24(config, locale);
-            context = context.createConfigurationContext(config);
-        } else if (Utils.isAtLeastVersion(JELLY_BEAN_MR1)) {
-            config.setLocale(locale);
-            context = context.createConfigurationContext(config);
-        } else {
-            config.locale = locale;
-            res.updateConfiguration(config, res.getDisplayMetrics());
+             context = context.createConfigurationContext(config);
         }
-        return context;
+        else if(Utils.isAtLeastVersion(JELLY_BEAN_MR1)) {
+            config.setLocale(locale);
+             context = context.createConfigurationContext(config);
+        }
+        else {
+            //noinspection deprecation
+            config.locale = locale;
+            //noinspection deprecation
+            res.updateConfiguration(config,res.getDisplayMetrics());
+        }
+        //noinspection deprecation
+        res.updateConfiguration(config,res.getDisplayMetrics());
+              if(context instanceof android.app.Application) {
+                   return context;
+              }
+              if(Utils.isAtLeastVersion(JELLY_BEAN_MR1)) {
+                      return context.createConfigurationContext(config);
+              }
+              else {
+                      return context;
+              }
     }
     @RequiresApi(api = N)
-    private void setLocaleForApi24(Configuration config, Locale target) {
+    private void setLocaleForApi24(Configuration config,Locale target) {
         Set<Locale> set = new LinkedHashSet<>();
         // bring the target locale to the front of the list
         set.add(target);
         LocaleList all = LocaleList.getDefault();
-        for (int i = 0; i < all.size(); i++) {
+        for(int i = 0; i < all.size(); i++) {
             // append other locales supported by the user
             set.add(all.get(i));
         }
@@ -65,6 +97,7 @@ public class LocaleManager {
     }
     public static Locale getLocale(Resources res) {
         Configuration config = res.getConfiguration();
-        return Utils.isAtLeastVersion(N) ? config.getLocales().get(0) : config.locale;
+        //noinspection deprecation
+        return Utils.isAtLeastVersion(N) ? config.getLocales().get(0):config.locale;
     }
 }

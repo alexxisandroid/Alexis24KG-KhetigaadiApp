@@ -32,9 +32,11 @@ class SearchNewTractorAdapter(
         }
     }
     override fun onBindViewHolder(holder:RecyclerView.ViewHolder,position:Int) {
-        if (holder is DataObjectHolder) {
+        if(holder is DataObjectHolder) {
             val product: NewTractor = mDataset[position]
             holder.binding.serchRes.text = product.name
+            println("bvcbcbcv1234===="+others.tractorImagePath + product.image?.tractor_img_name)
+            //data.others.tractorImagePath + tractor.image.tractor_img_name
             Glide.with(context)
                 .load(others.tractorImagePath + product.image?.tractor_img_name)
                 .placeholder(R.mipmap.no_image)

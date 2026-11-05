@@ -22,23 +22,27 @@
             android:id="@+id/cvCapacitySpecification"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:backgroundTint="@color/white"
             android:layout_margin="4dp">
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/detailsBackground"
+                android:background="@color/white"
                 android:orientation="vertical"
                 android:paddingBottom="@dimen/margin_10dp">
                 <ImageView
                     android:id="@+id/ivImage"
                     android:layout_width="match_parent"
+                    android:adjustViewBounds="true"
                     android:layout_height="287dp"
+                    android:background="@color/detailsBackground"
                     android:src="@mipmap/ic_launcher"
                     app:layout_constraintTop_toTopOf="parent"
                     android:contentDescription="@string/images"/>
                 <TextView
                     android:id="@+id/tvName"
-                    style="@style/TractorListItemTitle"
+                    style="@style/homePageLabelTl"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -74,7 +78,7 @@
                     android:layout_gravity="end"
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="@dimen/margin_15dp"
-                    android:src="@drawable/share_normal"
+                    android:src="@drawable/ic_share_black_24dp"
                     app:layout_constraintBottom_toBottomOf="@id/ivImage"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:contentDescription="@string/share"/>

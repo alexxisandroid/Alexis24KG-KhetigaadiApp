@@ -1,6 +1,6 @@
 package com.khetigaadi.tractor.dealer;
-
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -8,8 +8,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
@@ -18,32 +19,25 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.bumptech.glide.Glide;
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.khetigaadi.MainActivity;
 import com.khetigaadi.R;
 import com.khetigaadi.commons.fragments.BaseFragment;
+import com.khetigaadi.databinding.DealerNameBinding;
 import com.khetigaadi.databinding.DealerRecycleListBinding;
+import com.khetigaadi.databinding.DeleteTrFeedbackFormDialogBinding;
 import com.khetigaadi.def.CallFrom;
 import com.khetigaadi.tractor.TractorFilterActivity;
 import com.khetigaadi.user.SessionManager;
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RFACLabelItem;
 import com.wangjie.rapidfloatingactionbutton.contentimpl.labellist.RapidFloatingActionContentLabelList;
-
 import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
-
 import javax.inject.Inject;
-
 import dagger.hilt.android.AndroidEntryPoint;
 import timber.log.Timber;
-
-/**
- * Created by Irfan on 2/6/2016.
- */
 @AndroidEntryPoint
 public class DealerListFragment extends BaseFragment {
     private static final String TAG = DealerListFragment.class.getSimpleName();
@@ -66,13 +60,11 @@ public class DealerListFragment extends BaseFragment {
                     getDealersList(1);
                 }
             });
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activity = getActivity();
     }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -82,7 +74,6 @@ public class DealerListFragment extends BaseFragment {
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
         addFabButtonItems(null);
     }
-
     @Nullable
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -90,8 +81,6 @@ public class DealerListFragment extends BaseFragment {
         View view = binding.getRoot();
         return view;
     }
-
-
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -109,9 +98,8 @@ public class DealerListFragment extends BaseFragment {
         init();
         getDealersList(1);
     }
-
     private void init() {
-        mAdapter = new DealersListAdapter(activity, binding.myRecyclerView);
+        mAdapter = new DealersListAdapter(activity,binding.myRecyclerView);
         binding.myRecyclerView.setAdapter(mAdapter);
         ActivityResultLauncher<Intent> dealerDetailsResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
@@ -125,35 +113,33 @@ public class DealerListFragment extends BaseFragment {
                         }
                     }
                 });
-        mAdapter.setOnGetDetailsClickListener((position, v) -> {
+        mAdapter.setOnGetDetailsClickListener((position,v) -> {
             Intent intent = new Intent(activity, GetDealersDetails.class);
             intent.putExtra("dealerId", mAdapter.getList().get(position).getId());
             intent.putExtra("position", position);
             dealerDetailsResultLauncher.launch(intent);
         });
-        mAdapter.setOnCallClickListener((position, v) -> {
+        mAdapter.setOnCallClickListener((position,v) -> {
             int permissionCheck = ContextCompat.checkSelfPermission(activity, android.Manifest.permission.CALL_PHONE);
             if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(
-                        activity,
-                        new String[]{android.Manifest.permission.CALL_PHONE},
-                        123);
-
-            } else {
+                ActivityCompat.requestPermissions(activity,new String[]{android.Manifest.permission.CALL_PHONE},123);
+            }
+            else {
                 try {
                     String[] paths = mAdapter.getItem(position).getContact().split("/");
                     Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + paths[0]));
                     startActivity(intent);
-                } catch (Exception e) {
+                }
+                catch(Exception e) {
                     e.printStackTrace();
                 }
             }
         });
-
         mAdapter.setOnLoadMoreListener(this::getDealersList);
+
+
+
     }
-
-
     @Override
     protected void addFabButtonItems(ArrayList<RFACLabelItem<Integer>> newItems) {
         ArrayList<RFACLabelItem<Integer>> items = new ArrayList<>();
@@ -166,7 +152,6 @@ public class DealerListFragment extends BaseFragment {
         );
         super.addFabButtonItems(items);
     }
-
     @Override
     protected void setOnRapidFloatingActionContentLabelListListener(RapidFloatingActionContentLabelList rfaContent) {
         rfaContent.setOnRapidFloatingActionContentLabelListListener(new RapidFloatingActionContentLabelList.OnRapidFloatingActionContentLabelListListener() {
@@ -182,7 +167,6 @@ public class DealerListFragment extends BaseFragment {
 
         });
     }
-
     @Override
     protected void fabAction(int position) {
         if (position == 2) {
@@ -192,8 +176,6 @@ public class DealerListFragment extends BaseFragment {
             super.fabAction(position);
         }
     }
-
-
     private void getDealersList(int page) {
         viewModel.getDealers(page).observe(getViewLifecycleOwner(), dealerListRespStateData -> {
             switch (dealerListRespStateData.getStatus()) {
@@ -214,5 +196,16 @@ public class DealerListFragment extends BaseFragment {
             }
         });
     }
-
+    private void showDialogg(final String name) {
+        // get prompts.xml view
+        final Dialog d = new Dialog(activity);
+        d.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        d.setCancelable(true);
+        d.setCanceledOnTouchOutside(true);
+        DealerNameBinding dialogBinding = DealerNameBinding.inflate(getLayoutInflater());
+        d.setContentView(dialogBinding.getRoot());
+        TextView textView = d.findViewById(R.id.tv_dealerName);
+        textView.setText(name);
+        d.show();
+    }
 }

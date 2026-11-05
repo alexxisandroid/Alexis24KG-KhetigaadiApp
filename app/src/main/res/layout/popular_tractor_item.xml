@@ -4,14 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardView"
     style="@style/CardViewHorizontalListItem"
+
     app:cardUseCompatPadding="true"
     android:layout_width="wrap_content"
+    android:backgroundTint="@color/white"
+    android:background="@color/white"
     app:cardCornerRadius="@dimen/dimen_4dp"
     android:layout_height="wrap_content">
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="260dp"
+        android:layout_width="246dp"
         android:layout_height="@dimen/payu_dimen_280dp"
-        android:background="@color/detailsBackground">
+        android:background="@color/white">
         <ImageView
             android:id="@+id/popularTractorImage"
             android:layout_width="match_parent"
@@ -19,9 +22,9 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/margin_5dp"
-            android:scaleType="fitXY"
-            android:background="@color/white"
-            android:padding="@dimen/margin_5dp"
+            android:scaleType="fitCenter"
+            android:background="@color/detailsBackground"
+            android:padding="@dimen/dimen_2dp"
             android:src="@mipmap/ic_launcher"
             app:layout_constraintBottom_toTopOf="@id/popularTractorTitle"
             app:layout_constraintTop_toTopOf="parent"

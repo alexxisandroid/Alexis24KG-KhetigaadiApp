@@ -88,14 +88,14 @@ public class SellTractorDocument extends BaseFragment {
             binding.btnMoreOwner.setChecked(true);
         });
         binding.cvDocumentNext.setOnClickListener(View -> {
-            if (!noc.isEmpty() && !rc.isEmpty() && !owner.isEmpty()) {
+            if(!noc.isEmpty() && !rc.isEmpty() && !owner.isEmpty()) {
                 viewModel.getUsedTractor().setTractorNoc(noc);
                 viewModel.getUsedTractor().setRC(rc);
                 viewModel.getUsedTractor().setOwner(owner);
                 ((SellTractorActivity)activity).callFragments(8);
-
-            } else {
-                Toast.makeText(activity,"Please select fields!!!", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(activity,"Please select fields!!!",Toast.LENGTH_SHORT).show();
             }
         });
         return view;
@@ -103,6 +103,6 @@ public class SellTractorDocument extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        ((SellTractorActivity) activity).iconColorChange(7);
+        ((SellTractorActivity)activity).iconColorChange(7);
     }
 }

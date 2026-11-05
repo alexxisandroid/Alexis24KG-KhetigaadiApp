@@ -7,6 +7,7 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/payu_dimen_110dp"
         android:orientation="vertical">
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/ll_alertbox"
@@ -117,7 +118,10 @@
         android:outlineAmbientShadowColor="@color/red"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        android:layout_margin="@dimen/dimen_10dp"
+        android:layout_marginBottom="@dimen/payu_dimen_54dp"
+        android:layout_marginTop="@dimen/dimen_10dp"
+        android:layout_marginEnd="@dimen/dimen_10dp"
+        android:layout_marginStart="@dimen/dimen_10dp"
         android:background="@drawable/btn_rectangle_outline_bg_red"
         android:textColor="@color/red"
         android:text="@string/add_implements"

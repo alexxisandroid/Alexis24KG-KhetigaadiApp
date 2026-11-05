@@ -8,6 +8,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -20,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.bumptech.glide.Glide;
 import com.google.gson.Gson;
+import com.khetigaadi.BuildConfig;
 import com.khetigaadi.R;
 import com.khetigaadi.base.WebViewActivity;
 import com.khetigaadi.base.adapter.TwoBannerSlideAdapter;
@@ -34,7 +36,6 @@ import com.khetigaadi.ecom.list.ProductListActivity;
 import com.khetigaadi.ecom.list.ProductListFilterActivity;
 import com.khetigaadi.model.Others;
 import com.khetigaadi.room.repository.CategoryRepository;
-//import com.khetigaadi.shop.databinding.ActivityEcomHomeBinding;
 import com.khetigaadi.shop.model.Category;
 import com.khetigaadi.shop.model.Filter;
 import com.khetigaadi.shop.model.Product;
@@ -42,10 +43,8 @@ import com.khetigaadi.user.SessionManager;
 import com.khetigaadi.util.TextUtil;
 import com.khetigaadi.util.Utils;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
-
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 import kotlin.jvm.JvmField;
@@ -75,7 +74,6 @@ public class EcomHomeActivity extends CartBaseActivity {
                     }
                 }
             });
-
    // @Inject
   //  CategoryRepository categoryRepository;
     @JvmField
@@ -83,17 +81,16 @@ public class EcomHomeActivity extends CartBaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-
         binding = ActivityEcomHomeBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
-//        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
-//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-//            return insets;
-//        });
+       // WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
+        EdgeToEdge.enable(this);
+        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(),(v,insets) -> {
+            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.statusBars());
+            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+            return insets;
+        });
 //        EdgeToEdge.enable(this);
         viewModel = new ViewModelProvider(this).get(EComHomeViewModel.class);
         runnableS();
@@ -105,24 +102,35 @@ public class EcomHomeActivity extends CartBaseActivity {
         binding.toolbars.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
         binding.toolbars.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         binding.toolbars.toolbar.setTitle(getString(R.string.shop));
-        binding.toolbars.toolbar.setOverflowIcon(ContextCompat.getDrawable(this, R.drawable.ic_baseline_more_vert_24));
+        binding.toolbars.toolbar.setOverflowIcon(ContextCompat.getDrawable(this,R.drawable.ic_baseline_more_vert_24));
         Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.shop));
     }
     private void initUI() {
         initBannerAdapter();
         initCategory();
         initHomeProducts();
-        binding.myStickyButton.setVisibility(View.VISIBLE);
-        binding.myStickyButton.startShimmer();
-        categoryRepository.getAllCategories().observe(this, listStateData -> {
-            if (listStateData.size()>0) {
+     //   binding.myStickyButton.setVisibility(View.VISIBLE);
+      //  binding.myStickyButton.startShimmer();
+        categoryRepository.getAllCategories().observe(this,listStateData -> {
+            if(listStateData.size()>0) {
                     binding.rvCategories.setVisibility(View.VISIBLE);
-                    List<Category> categories = listStateData;
+                List<Category> categories = new ArrayList<>();
+                    for(int i=0;i<listStateData.size();i++) {
+                        Category category = listStateData.get(i);
+//                        if(category.getName().equals("Agriculture Drone")) {
+//                            category.setImage("drone.svg");
+//                            category.colorCode = category.colorCode;
+//                        }
+                        categories.add(category);
+                    }
+                   // List<Category> categories = listStateData;
                     Category allCategory = new Category();
                     allCategory.setName("All");
-                    allCategory.setImage("all-apps-icon.png");
+                    //allCategory.setImage("all-apps-icon.png");
+                    allCategory.setImage("lady_bug1.png");
+                    allCategory.colorCode = "#3498db";
                     if (categories != null) {
-                        categories.add(0, allCategory);
+                        categories.add(0,allCategory);
                     }
                     categoriesAdapter.setOthers(sessionManager.getEcomOther());
                     categoriesAdapter.updateItems(categories);
@@ -133,18 +141,25 @@ public class EcomHomeActivity extends CartBaseActivity {
             }
         });
         binding.bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
-                    if (item.getItemId() == R.id.action_home) {
+                    if(item.getItemId() == R.id.action_home) {
                         finish();
-                    } else if (item.getItemId() == R.id.action_category) {
-                        categoryActivityResultLauncher.launch(new Intent(EcomHomeActivity.this, CategoriesListActivity.class));
-                    } else if (item.getItemId() == R.id.action_my_orders) {
-                        navigateToMyOrders();
-                    } else if (item.getItemId() == R.id.action_cart) {
-                        navigateToCart();
+                        return true;
                     }
-                    return true;
-                }
-        );
+                    else if(item.getItemId() == R.id.action_category) {
+                        categoryActivityResultLauncher.launch(new Intent(EcomHomeActivity.this, CategoriesListActivity.class));
+                        return false;
+                    }
+                    else if(item.getItemId() == R.id.action_my_orders) {
+                        navigateToMyOrders();
+                        return false;
+                    }
+                    else if(item.getItemId() == R.id.action_cart) {
+                        navigateToCart();
+                        return false;
+                    }
+                    else
+                      return true;
+                });
     }
     @Override
     public void onStart() {
@@ -162,11 +177,10 @@ public class EcomHomeActivity extends CartBaseActivity {
                 navigateToDetails(product,agricultureToolsAdapter.getOthers().getShopProductImagePath());
             }
             @Override
-            public void onSeeMoreClick(int position, View v) {
+            public void onSeeMoreClick(int position,View v) {
                 navigateToProductList(agricultureToolsAdapter.getItem(position));
             }
         });
-
         viewModel.getHomeProducts().observe(this,productListRespStateData -> {
             switch(productListRespStateData.getStatus()) {
                 case LOADING:
@@ -180,11 +194,11 @@ public class EcomHomeActivity extends CartBaseActivity {
                     break;
                 case SUCCESS:
                     binding.progressBar.setVisibility(View.GONE);
-                    if (productListRespStateData.getData() != null) {
+                    if(productListRespStateData.getData() != null) {
                         binding.rvHomeList.setVisibility(View.VISIBLE);
-                       // productListRespStateData.getData().
+                        // productListRespStateData.getData().
                         Others others = sessionManager.getEcomOther();
-                        if (others != null && productListRespStateData.getData().getTrendingProduct().getShopProductImagePath() != null) {
+                        if(others != null && productListRespStateData.getData().getTrendingProduct().getShopProductImagePath() != null) {
                             others.setShopProductImagePath(productListRespStateData.getData().getTrendingProduct().getShopProductImagePath());
                             Log.d("vbcxcvxvxvxcv====",""+productListRespStateData.getData().getTrendingProduct().getShopProductImagePath());
                             sessionManager.setEcomOther(others);
@@ -198,20 +212,20 @@ public class EcomHomeActivity extends CartBaseActivity {
         });
     }
     private void navigateToDetails(Product product,String imagePath) {
-        Intent intent = new Intent(this, ProductDetailsActivity.class);
-        intent.putExtra("product", product);
-        intent.putExtra("imagePath", imagePath);
+        Intent intent = new Intent(this,ProductDetailsActivity.class);
+        intent.putExtra("product",product);
+        intent.putExtra("imagePath",imagePath);
         startActivity(intent);
     }
     private void initTrendingProducts(List<Product> products,Others others) {
        binding.progressBar.setVisibility(View.VISIBLE);
-        if (products.size() > 0) {
+        if(products.size() > 0) {
             Product item = products.get(0);
             binding.includeTrendingLarge.tvTitle.setText(item.getName());
             String spath = others.getShopProductImagePath();
             if(spath==null || spath.equalsIgnoreCase(null) || spath.equalsIgnoreCase("null") || spath.isEmpty())
-                spath = "https://khetigaadi.com/images/shop_product/";
-         Log.d("zxcxczcxzcxzcz===",""+spath+item.getImage().getImage());
+                spath = BuildConfig.BASE_URL+"images/shop_product/";
+       //  Log.d("zxcxczcxzcxzcz===",""+spath+item.getImage().getImage());
             Glide.with(this)
                     //.load(others.getShopProductImagePath() + item.getImage().getImage())
                     .load(spath+item.getImage().getImage())
@@ -219,20 +233,25 @@ public class EcomHomeActivity extends CartBaseActivity {
                     .placeholder(R.mipmap.no_image).into(binding.includeTrendingLarge.image);
             binding.includeTrendingLarge.getRoot().setOnClickListener(v -> navigateToDetails(products.get(0), others.getShopProductImagePath()));
             binding.includeTrendingLarge.tvPrice.setPaintFlags(binding.includeTrendingLarge.tvPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            binding.includeTrendingLarge.tvPrice.setText(Utils.priceConvert(item.getPrice() + ""));
-            binding.includeTrendingLarge.tvDiscPrice.setText(String.format("%s %s", getString(R.string.rs), Utils.priceConvert(item.getFinalPrice() + "")));
-            if (!TextUtil.isEmptyOrZero(item.getDiscountPer())) {
-                binding.includeTrendingLarge.priceGroup.setVisibility(View.VISIBLE);
-                binding.includeTrendingLarge.tvDiscPer.setText(String.format("%s%% %s", item.getDiscountPer(), getString(R.string.off)));
-            } else
-                binding.includeTrendingLarge.priceGroup.setVisibility(View.INVISIBLE);
+            binding.includeTrendingLarge.tvPrice.setText(String.format("%s %s",getString(R.string.rs),Utils.priceConvert(item.getPrice() + "")));
+            binding.includeTrendingLarge.tvDiscPrice.setText(String.format("%s %s",getString(R.string.rs),Utils.priceConvert(item.getFinalPrice() + "")));
 
+           binding.llincludeTrendingLarge.setVisibility(View.VISIBLE);
+            if(!TextUtil.isEmptyOrZero(item.getDiscountPer())) {
+                binding.includeTrendingLarge.priceGroup.setVisibility(View.VISIBLE);
+               // binding.includeTrendingLarge.tvDiscPer.setText(String.format("%s%% %s",item.getDiscountPer(),getString(R.string.off)));
+
+                binding.includeTrendingLarge.tvDiscount.setText(String.format("%s%% %s",item.getDiscountPer(),getString(R.string.off)));
+
+            }
+            else
+                binding.includeTrendingLarge.priceGroup.setVisibility(View.INVISIBLE);
         }
-        if (products.size() > 1) {
+        if(products.size() > 1) {
             Product item = products.get(1);
             binding.includeTrending1.tvTitle.setText(item.getName());
             String spath =   others.getShopProductImagePath();
-            if (spath==null || spath.equalsIgnoreCase(null) || spath.equalsIgnoreCase("null") || spath.equalsIgnoreCase("null") || spath.isEmpty())
+            if(spath==null || spath.equalsIgnoreCase(null) || spath.equalsIgnoreCase("null") || spath.equalsIgnoreCase("null") || spath.isEmpty())
                 spath = "https://khetigaadi.com/images/shop_product/";
             Glide.with(this)
                     //.load(others.getShopProductImagePath() + item.getImage().getImage())
@@ -241,20 +260,23 @@ public class EcomHomeActivity extends CartBaseActivity {
                     .placeholder(R.mipmap.no_image).into(binding.includeTrending1.image);
             binding.includeTrending1.getRoot().setOnClickListener(v -> navigateToDetails(products.get(1), others.getShopProductImagePath()));
             binding.includeTrending1.tvPrice.setPaintFlags(binding.includeTrending1.tvPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            binding.includeTrending1.tvPrice.setText(Utils.priceConvert(item.getPrice() + ""));
+            binding.includeTrending1.tvPrice.setText(String.format("%s %s",getResources().getString(R.string.rs),Utils.priceConvert(item.getPrice() + "")));
             binding.includeTrending1.tvDiscPrice.setText(String.format("%s %s", getString(R.string.rs), Utils.priceConvert(item.getFinalPrice() + "")));
-            if (!TextUtil.isEmptyOrZero(item.getDiscountPer())) {
+            if(!TextUtil.isEmptyOrZero(item.getDiscountPer())) {
                 binding.includeTrending1.tvDiscPer.setVisibility(View.VISIBLE);
-                binding.includeTrending1.tvDiscPer.setText(String.format("%s%% %s", item.getDiscountPer(), getString(R.string.off)));
+               // binding.includeTrending1.tvDiscPer.setText(String.format("%s%% %s", item.getDiscountPer(), getString(R.string.off)));
+
+                binding.includeTrending1.tvDiscount.setText(String.format("%s%% %s",item.getDiscountPer(), getString(R.string.off)));
+
             } else
                 binding.includeTrending1.tvDiscPer.setVisibility(View.INVISIBLE);
         }
-        if (products.size() > 2) {
+        if(products.size() > 2) {
             Product item = products.get(2);
             binding.includeTrending2.tvTitle.setText(item.getName());
             String spath =   others.getShopProductImagePath();
             if (spath==null || spath.equalsIgnoreCase(null) || spath.equalsIgnoreCase("null") || spath.equalsIgnoreCase("null") || spath.isEmpty())
-                spath = "https://khetigaadi.com/images/shop_product/";
+                spath = BuildConfig.BASE_URL+"images/shop_product/";
             Glide.with(this)
                    // .load(others.getShopProductImagePath() + item.getImage().getImage())
                     .load(spath+item.getImage().getImage())
@@ -262,29 +284,32 @@ public class EcomHomeActivity extends CartBaseActivity {
                     .placeholder(R.mipmap.no_image).into(binding.includeTrending2.image);
             binding.includeTrending2.getRoot().setOnClickListener(v -> navigateToDetails(products.get(2), others.getShopProductImagePath()));
             binding.includeTrending2.tvPrice.setPaintFlags(binding.includeTrending2.tvPrice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-            binding.includeTrending2.tvPrice.setText(Utils.priceConvert(item.getPrice() + ""));
+            binding.includeTrending2.tvPrice.setText(String.format("%s %s",getResources().getString(R.string.rs),Utils.priceConvert(item.getPrice() + "")));
             binding.includeTrending2.tvDiscPrice.setText(String.format("%s %s", getString(R.string.rs), Utils.priceConvert(item.getFinalPrice() + "")));
-            if (!TextUtil.isEmptyOrZero(item.getDiscountPer())) {
+            if(!TextUtil.isEmptyOrZero(item.getDiscountPer())) {
                 binding.includeTrending2.tvDiscPer.setVisibility(View.VISIBLE);
-                binding.includeTrending2.tvDiscPer.setText(String.format("%s%% %s", item.getDiscountPer(), getString(R.string.off)));
-            } else
+               // binding.includeTrending2.tvDiscPer.setText(String.format("%s%% %s",item.getDiscountPer(), getString(R.string.off)));
+
+                binding.includeTrending2.tvDiscount.setText(String.format("%s%% %s",item.getDiscountPer(), getString(R.string.off)));
+
+            }
+            else
                 binding.includeTrending2.tvDiscPer.setVisibility(View.INVISIBLE);
         }
        binding.progressBar.setVisibility(View.GONE);
     }
     private void initCategory() {
-        binding.rvCategories.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        categoriesAdapter = new HomeCategoriesAdapter(this, binding.rvCategories);
+        binding.rvCategories.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL, false));
+        categoriesAdapter = new HomeCategoriesAdapter(this,binding.rvCategories);
         binding.rvCategories.setAdapter(categoriesAdapter);
-        categoriesAdapter.setListener((View v, int position, Category item) -> {
-            if (position != 0) {
+        categoriesAdapter.setListener((View v,int position,Category item) -> {
+            if(position != 0) {
                 navigateToProductList(categoriesAdapter.getItem(position));
-            } else {
+            }
+            else {
                // Log.d("xcvcvcxvcxvxvx21===",""+categoriesAdapter.getItem(position)+"=="+categoriesAdapter.getItem(position).getName());
-
                 categoryActivityResultLauncher.launch(new Intent(EcomHomeActivity.this,CategoriesListActivity.class));
                // Log.d("xcvcvcxvcxvxvx11===",""+categoriesAdapter.getItem(position).getImage().length()+"=="+categoriesAdapter.getItem(position).getId());
-
             }
         });
     }
@@ -343,6 +368,7 @@ public class EcomHomeActivity extends CartBaseActivity {
         };
     }
     public void runnableS() {
+      binding.myStickyButton.setVisibility(View.GONE);
       Handler  handler = new Handler();
         final Runnable r = new Runnable() {
             public void run() {

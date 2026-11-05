@@ -4,15 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
-
-import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.bumptech.glide.Glide;
@@ -24,7 +18,6 @@ import com.khetigaadi.ecom.address.AddAddressActivity;
 import com.khetigaadi.ecom.address.AddressViewModel;
 //import com.khetigaadi.shop.databinding.ActivityAddressListBinding;
 import java.util.Objects;
-
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class AddressListActivity extends AppCompatActivity {
@@ -51,11 +44,9 @@ public class AddressListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        // WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-
         binding = ActivityAddressListBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
 //        ViewCompat.setOnApplyWindowInsetsListener(binding.getRoot(), (v, insets) -> {
 //            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
 //            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
@@ -88,18 +79,19 @@ public class AddressListActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.select_address));
     }
     private void initAdapter() {
-        binding.rvAddressList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        binding.rvAddressList.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL, false));
         addressListAdapter = new AddressListAdapter(this, binding.rvAddressList);
         binding.rvAddressList.setAdapter(addressListAdapter);
         addressListAdapter.setOnItemClickListener(new AddressListAdapter.ClickListener() {
             @Override
-            public void onItemClick(View v, int position) {
+            public void onItemClick(View v,int position) {
                 callSetAsDefaultApi(position);
             }
             @Override
-            public void onEditClick(View view, int position) {
-                Intent intent = new Intent(AddressListActivity.this, AddAddressActivity.class);
+            public void onEditClick(View view,int position) {
+                Intent intent = new Intent(AddressListActivity.this,AddAddressActivity.class);
                 intent.putExtra("address",addressListAdapter.getItem(position));
+                intent.putExtra("type","edit");
                 addAddressActivityResultLauncher.launch(intent);
             }
             @Override
@@ -107,20 +99,20 @@ public class AddressListActivity extends AppCompatActivity {
                 callDeleteApi(position);
             }
         });
-        viewModel.getAddresses(null).observe(this, addressListRespStateData -> {
-            switch (addressListRespStateData.getStatus()) {
+        viewModel.getAddresses(null).observe(this,addressListRespStateData -> {
+            switch(addressListRespStateData.getStatus()) {
                 case LOADING:
                     binding.llProgresss.llProgress.setVisibility(View.VISIBLE);
                     break;
                 case SUCCESS:
                     binding.llProgresss.llProgress.setVisibility(View.GONE);
-                    if (addressListRespStateData.getData() != null) {
+                    if(addressListRespStateData.getData() != null) {
                         addressListAdapter.updateItems(addressListRespStateData.getData().getData());
                     }
                     break;
                 case ERROR:
                     onBackPressed();
-                    Toast.makeText(this, addressListRespStateData.getError(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,addressListRespStateData.getError(),Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -136,13 +128,16 @@ public class AddressListActivity extends AppCompatActivity {
                     break;
                 case ERROR:
                     onBackPressed();
-                    Toast.makeText(AddressListActivity.this, addressListRespStateData.getError(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddressListActivity.this,addressListRespStateData.getError(),Toast.LENGTH_SHORT).show();
             }
         });
     }
     private void callSetAsDefaultApi(int position) {
-        viewModel.setAsDefault(""+addressListAdapter.getItem(position).getId(), null).observe(this, addressListRespStateData -> {
-            switch (addressListRespStateData.getStatus()) {
+        binding.btnContinue.setEnabled(false);
+        binding.btnContinue.setClickable(false);
+        binding.btnContinue.setFocusable(false);
+        viewModel.setAsDefault(""+addressListAdapter.getItem(position).getId(),null).observe(this,addressListRespStateData -> {
+            switch(addressListRespStateData.getStatus()) {
                 case LOADING:
                     binding.llProgresss.llProgress.setVisibility(View.VISIBLE);
                     break;
@@ -152,10 +147,18 @@ public class AddressListActivity extends AppCompatActivity {
                     returnIntent.putExtra(AddAddressActivity.SELECTED_ADDRESS,addressListAdapter.getItem(position));
                     setResult(RESULT_OK, returnIntent);
                     finish();
+                    binding.btnContinue.setEnabled(true);
+                    binding.btnContinue.setClickable(true);
+                    binding.btnContinue.setFocusable(true);
+
                     break;
                 case ERROR:
                     onBackPressed();
-                    Toast.makeText(AddressListActivity.this,addressListRespStateData.getError(), Toast.LENGTH_SHORT).show();
+                    binding.btnContinue.setEnabled(true);
+                    binding.btnContinue.setClickable(true);
+                    binding.btnContinue.setFocusable(true);
+
+                    Toast.makeText(AddressListActivity.this,addressListRespStateData.getError(),Toast.LENGTH_SHORT).show();
                     break;
             }
         });

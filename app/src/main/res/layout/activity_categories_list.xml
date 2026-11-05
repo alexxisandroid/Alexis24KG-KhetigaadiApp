@@ -25,7 +25,11 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvProductList"
             android:layout_width="match_parent"
+            android:paddingBottom="@dimen/payu_dimen_54dp"
             android:layout_height="match_parent"
+            android:background="@drawable/rounded_corner22"
+            android:layout_margin="@dimen/dimen_1dp"
+            android:backgroundTint="@color/rv_back_color"
             android:layout_marginBottom="@dimen/margin_50dp"/>
         <include
             android:id="@+id/inInputComment"
@@ -40,6 +44,9 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/app_name"
             android:src="@drawable/ic_star_black_24dp"
+            android:paddingBottom="@dimen/payu_dimen_54dp"
+            android:visibility="gone"
+            android:layout_marginBottom="@dimen/payu_dimen_54dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentEnd="true"
             android:tint="@color/gray"

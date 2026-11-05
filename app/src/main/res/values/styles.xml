@@ -1,14 +1,24 @@
 <resources>
     <!-- Base application theme.  Parent.AppTheme -->
-    <style name="AppTheme2"  parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme2" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here -->
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
     <style name="AppTheme22" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Customize your theme here -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
-    <style name="AppThemee"  parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="TextAppearanceMedium" parent="TextAppearance.AppCompat.Medium">
+        <item name="fontFamily">@font/manrope_semibold</item>
+    </style>
+    <style name="drawerItemStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/manrope_regular</item>
+    </style>
+    <style name="AppThemee" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your theme -->
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary</item>
@@ -17,20 +27,21 @@
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/black</item>
 <!--    <item name="android:windowFullscreen">true</item>  -->
+        <item name="android:windowLightStatusBar">true</item>
         <item name="colorSecondaryVariant">@color/black</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="colorOnSurface">@color/colorPrimary</item>
         <item name="android:colorBackground">@color/white</item>
         <item name="colorSurface">@color/white</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor">@color/gray</item>
+        <item name="android:statusBarColor">@color/white</item>
 
 <!--    <item name="android:windowLightStatusBar">true</item>  -->
 <!--        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>-->
 <!--        <item name="materialButtonStyle">@style/OutLineButtonStyleMedium</item>-->
 <!--   -->
     </style>
-    <style name="AppTheme"   parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+    <style name="AppTheme"  parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryVariant">@color/colorPrimaryDark</item>
@@ -40,11 +51,13 @@
         <item name="colorSecondaryVariant">@color/black</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="colorOnSurface">@color/colorPrimary</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="android:colorBackground">@color/white</item>
         <item name="colorSurface">@color/white</item>
+
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/white</item>
-        <item name="android:windowLightStatusBar">true</item>
+<!--        <item name="android:windowLightStatusBar">true</item>-->
 
 <!--        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>-->
 <!--        <item name="materialButtonStyle">@style/OutLineButtonStyleMedium</item>-->
@@ -60,13 +73,14 @@
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/black</item>
         <item name="colorSecondaryVariant">@color/black</item>
+        <item name="android:windowLightStatusBar">true</item>
         <item name="colorOnSecondary">@color/black</item>
         <item name="colorOnSurface">@color/colorPrimary</item>
         <item name="android:colorBackground">@color/white</item>
         <item name="colorSurface">@color/white</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">@color/white</item>
-        <item name="android:windowLightStatusBar">true</item>
+<!--        <item name="android:windowLightStatusBar">true</item>-->
 
 
 <!--        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>-->
@@ -80,7 +94,8 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/black</item>
         <item name="colorPrimaryDark">@color/black</item>
-        <item name="colorAccent">@color/black</item>
+        <item name="colorAccent">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
     <style name="Widget.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="fontFamily">@font/poppins_medium</item>
@@ -119,10 +134,11 @@
     <style name="DrawerSubMenu">
         <item name="android:textColor">@color/black</item>
         <item name="fontFamily">@font/poppins_medium</item>
-        <item name="android:textSize">@dimen/dimen_12sp</item>
+        <item name="android:textSize">@dimen/dimen_14sp</item>
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
     </style>
+
 <!--    <style name="seeMore">-->
 <!--        <item name="android:textSize">10sp</item>-->
 <!--        <item name="android:padding">4sp</item>-->
@@ -169,7 +185,7 @@
 <!--    </style>-->
     <style name="TractorPrice">
         <item name="android:textColor">@color/black</item>
-        <item name="fontFamily">@font/poppins_semi_bold</item>
+        <item name="fontFamily">@font/poppins_semibold</item>
         <item name="android:textSize">12sp</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:maxLines">1</item>
@@ -181,7 +197,7 @@
         <item name="android:paddingEnd">@dimen/margin_2dp</item>
         <item name="android:textSize">12sp</item>
         <item name="android:drawableTint">@color/gray</item>
-        <item name="android:drawablePadding">@dimen/margin_5dp</item>
+        <item name="android:drawablePadding">@dimen/dimen_2dp</item>
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
     </style>
@@ -190,7 +206,7 @@
         <item name="android:paddingTop">@dimen/margin_5dp</item>
         <item name="android:drawablePadding">@dimen/margin_10dp</item>
     </style>
-    <style name="FormTextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox" />
+    <style name="FormTextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox"/>
 <!--    <style name="ButtonStylePrimary">-->
 <!--    </style>-->
     <style name="error_appearance" parent="@android:style/TextAppearance">
@@ -199,10 +215,10 @@
         <item name="android:textSize">12sp</item>
     </style>
     <style name="FormEditText">
-        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:fontFamily">@font/manrope_medium</item>
         <item name="android:textSize">14sp</item>
         <item name="android:backgroundTint">@color/grey_line</item>
-        <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>
+<!--    <item name="android:textAppearance">?android:attr/textAppearanceMedium</item>  -->
     </style>
     <style name="AgreementStyle">
         <item name="android:fontFamily">@font/poppins</item>
@@ -255,7 +271,6 @@
         <item name="android:textColor">@color/red</item>
         <item name="backgroundTint">@color/trans</item>
         <item name="android:background">@drawable/btn_rectangle_outline_bg_red</item>
-
         <item name="strokeColor">@color/red</item>
         <item name="android:textSize">12sp</item>
     </style>
@@ -266,8 +281,17 @@
     <style name="TractorListItemTitle">
         <item name="android:textColor">@color/black</item>
         <item name="android:paddingStart">@dimen/dimen_8dp</item>
-        <item name="fontFamily">@font/poppins_bold</item>
+        <item name="fontFamily">@font/poppins_semibold</item>
         <item name="android:textSize">@dimen/dimen_13sp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+    <style name="TractorListItemTitle2">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:paddingStart">@dimen/dimen_8dp</item>
+        <item name="fontFamily">@font/poppins_semibold</item>
+        <item name="android:textSize">@dimen/dimen_18sp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:maxLines">1</item>
         <item name="android:ellipsize">end</item>
@@ -298,7 +322,11 @@
     <style name="TabTextStyleLarge" parent="TabTextStyle">
         <item name="android:textSize">14sp</item>
     </style>
- <!--   <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light">
+                <item name="android:background">@color/white</item>
+                <item name="backgroundTint">@color/white</item>
+    </style>
+    <!--   <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
         <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
             <item name="android:editTextColor">@color/dark_grey</item>
         </style>-->
@@ -342,17 +370,17 @@
         <item name="android:background">@drawable/btn_selector</item>
         <item name="android:drawableStart">@drawable/ic_search2</item>
         <item name="android:drawablePadding">@dimen/dimen_5dp</item>
-        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:fontFamily">@font/manrope_medium</item>
         <item name="android:drawableTint">@color/gray</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">false</item>
         <item name="android:longClickable">false</item>
     </style>
     <style name="EditViewOutlineSearch">
-        <item name="android:background">@drawable/btn_selector</item>
+        <item name="android:background">@drawable/spinner_border</item>
         <item name="android:drawableStart">@drawable/ic_search2</item>
         <item name="android:drawablePadding">@dimen/dimen_5dp</item>
-        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:fontFamily">@font/manrope_medium</item>
         <item name="android:drawableTint">@color/gray</item>
         <item name="android:clickable">true</item>
     <!--        <item name="android:focusable">false</item>-->
@@ -410,6 +438,13 @@
     <style name="TextAppearance.AppCompat.Small">
         <item name="android:textSize">14sp</item>
     </style>
+    <style name="PageMenuCat">
+        <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/manrope_semibold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:maxLines">2</item>
+    </style>
     <style name="SearchPageHeading" parent="homePageLabel">
         <item name="android:textSize">12sp</item>
         <item name="android:clickable">false</item>
@@ -427,16 +462,17 @@
 <!--        <item name="android:textColor">@color/suggestion_chip_text</item>-->
     </style>
     <style name="CustomSuggestionChipFilter" parent="Widget.Material3.Chip.Filter">
+        <item name="chipBackgroundColor">@color/btnbgcolor</item>
     </style>
     <style name="CardViewHorizontalListItem">
-        <item name="android:layout_marginEnd">4dp</item>
+        <item name="android:layout_marginEnd">2dp</item>
         <item name="android:layout_marginTop">2dp</item>
         <item name="android:layout_marginBottom">4dp</item>
-        <item name="android:layout_marginStart">4dp</item>
+        <item name="android:layout_marginStart">2dp</item>
     </style>
     <style name="ProductItemTitle">
         <item name="android:textColor">@color/black</item>
-        <item name="fontFamily">@font/poppins_light</item>
+        <item name="fontFamily">@font/poppins_bold</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/dimen_12sp</item>
         <item name="android:layout_gravity">center</item>
@@ -469,21 +505,19 @@
     </style>
     <style name="seeMore">
         <item name="android:textSize">10sp</item>
-        <item name="android:padding">4sp</item>
+        <item name="android:padding">7sp</item>
         <item name="android:clickable">true</item>
         <item name="android:focusable">true</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:layout_marginEnd">@dimen/margin_10dp</item>
         <item name="android:gravity">center_vertical</item>
         <item name="android:background">@drawable/comment_text_background</item>
-        <item name="fontFamily">@font/poppins</item>
+        <item name="fontFamily">@font/poppins_semibold</item>
     </style>
     <style name="ButtonStylePrimary" parent="ButtonStyleFilledRed">
         <item name="android:background">@drawable/btn_rectangle_bg_primary</item>
         <item name="android:textColor">@color/white</item>
     </style>
-
-
     <style name="HeadingTextView" parent="android:Theme">
         <item name="android:background">@color/grey_line</item>
         <item name="android:paddingStart">15sp</item>
@@ -501,8 +535,46 @@
         <item name="android:textColor">@color/black</item>
         <item name="fontFamily">@font/poppins_semi_bold</item>
     </style>
+
+    <style name="homePageLabelTl">
+        <item name="android:textSize">15sp</item>
+        <item name="android:padding">12sp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:focusable">true</item>
+        <item name="backgroundColor">@color/labelBackGround</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/poppins_semi_bold</item>
+    </style>
+    <style name="homePageLabelTl2">
+        <item name="android:textSize">15sp</item>
+        <item name="android:padding">12sp</item>
+        <item name="android:clickable">true</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:focusable">true</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="fontFamily">@font/poppins_semi_bold</item>
+    </style>
+
     <style name="ShimmerStyle">
         <item name="shimmer_highlight_alpha">0.5</item>
         <item name="shimmer_base_alpha">1</item>
     </style>
+    <style name="Myslider" parent="@style/Widget.MaterialComponents.Slider">
+        <item name="labelStyle">@style/My_Tooltip</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.Slider</item>
+    </style>
+    <style name="My_Tooltip" parent="Widget.MaterialComponents.Tooltip">
+        <!-- background color of the Tooltip -->
+        <item name="backgroundTint">@color/red</item>
+    </style>
+    <style name="ThemeOverlay.Slider" parent="">
+        <!--   color used by the text in the Tooltip   -->
+        <item name="colorOnPrimary">@color/black</item>
+    </style>
+
+    <style name="Theme.BlurryDialog" parent="Theme.MaterialComponents.Dialog">
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
 </resources>

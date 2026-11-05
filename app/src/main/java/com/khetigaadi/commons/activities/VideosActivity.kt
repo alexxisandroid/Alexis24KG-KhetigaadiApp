@@ -1,4 +1,5 @@
 package com.khetigaadi.commons.activities
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -38,21 +39,23 @@ class VideosActivity:BaseActivity() {
     lateinit var disposable:CompositeDisposable
     override fun onCreate(savedInstanceState:Bundle?) {
         super.onCreate(savedInstanceState)
-      //  WindowCompat.setDecorFitsSystemWindows(getWindow(),false)
+       // WindowCompat.setDecorFitsSystemWindows(window,false)
+
+        enableEdgeToEdge()
         binding = ActivityVideosBinding.inflate(layoutInflater)
         val view: View = binding.root
         setContentView(view)
-//        ViewCompat.setOnApplyWindowInsetsListener(
-//            binding.getRoot(),
-//            OnApplyWindowInsetsListener { v:View?,insets:WindowInsetsCompat? ->
-//                val systemBarsInsets = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
-//                v!!.setPadding(
-//                    systemBarsInsets.left,
-//                    systemBarsInsets.top,
-//                    systemBarsInsets.right,
-//                    systemBarsInsets.bottom)
-//                insets
-//            })
+        ViewCompat.setOnApplyWindowInsetsListener(
+            binding.getRoot(),
+            OnApplyWindowInsetsListener { v:View?,insets:WindowInsetsCompat? ->
+                val systemBarsInsets = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
+                v!!.setPadding(
+                    systemBarsInsets.left,
+                    systemBarsInsets.top,
+                    systemBarsInsets.right,
+                    systemBarsInsets.bottom)
+                insets
+            })
 //        this.enableEdgeToEdge()
         initToolbar()
         binding.myRecyclerView.setHasFixedSize(true)
@@ -71,7 +74,7 @@ class VideosActivity:BaseActivity() {
         mAdapter = VideoListAdapter(this@VideosActivity, binding.myRecyclerView)
         binding.myRecyclerView.layoutManager = LinearLayoutManager(this@VideosActivity,LinearLayoutManager.VERTICAL,false)
         binding.myRecyclerView.adapter = mAdapter
-        mAdapter.setOnItemClickListener { position: Int, _: View? -> getVideoDetails(""+mAdapter.list[position].id.videoId) }
+        mAdapter.setOnItemClickListener { position:Int,_:View? -> getVideoDetails(mAdapter.list[position].id.videoId) }
         binding.btnSubscribe.setOnClickListener { callSubscribe() }
         mAdapter.totPages = 1000
         mAdapter.setOnLoadMoreListener { page: Int -> getVideos(page) }
@@ -93,6 +96,7 @@ class VideosActivity:BaseActivity() {
         binding.toolbars.toolbar.title = getString(R.string.videos)
         supportActionBar?.title =  getString(R.string.videos)
     }
+    @SuppressLint("CheckResult")
     private fun getVideos(page: Int) {
         if (page == 1) binding.llProgress.visibility = View.VISIBLE
         khetiAPIs.getYouTubeVideoList(getString(R.string.youtubeChannelID),getString(R.string.google_api_key), nextPageToken)
@@ -100,16 +104,21 @@ class VideosActivity:BaseActivity() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeWith(object:DisposableSingleObserver<VideoListResp?>() {
                 override fun onSuccess(videoResp:VideoListResp?) {
-                    if (page == 1) binding.llProgress.visibility = View.GONE
-                    if (videoResp != null && videoResp.nextPageToken!=null && !videoResp.nextPageToken.equals(null)) {
+                    if(page == 1) binding.llProgress.visibility = View.GONE
+                    if(videoResp?.items?.size?.rem(10) !=0) {
+                       // binding.llProgress.visibility = View.GONE
+                        //return
+                    }
+                    if(videoResp != null && videoResp.nextPageToken!=null && !videoResp.nextPageToken.equals(null)) {
                         nextPageToken = videoResp.nextPageToken
                     }
-                    if (videoResp != null) {
-                        mAdapter.addItems(videoResp.items, page)
+                    if(videoResp != null) {
+                        println("vbvcbvbcvbv===="+page+"=="+videoResp.items.size+"=="+ videoResp.items[0].id)
+                        mAdapter.addItems(videoResp.items,page)
                     }
                 }
-                override fun onError(e: Throwable) {
-                    Timber.e(e.message, "onFailure: ")
+                override fun onError(e:Throwable) {
+                    Timber.e(e.message,"onFailure: ")
                    binding.llProgress.visibility = View.GONE
                 }
             })
@@ -143,7 +152,8 @@ class VideosActivity:BaseActivity() {
     }
     private fun callVideoPlayer(item:ListItem) {
         val intent = Intent(this@VideosActivity,YouTubePlayerActivity::class.java)
-        intent.putExtra("video",""+item)
+        intent.putExtra("video",item)
+        intent.putExtra("force_fullscreen",true)
         startActivity(intent)
     }
 }

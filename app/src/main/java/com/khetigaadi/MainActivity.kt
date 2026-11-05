@@ -16,11 +16,14 @@ import android.os.Handler
 import android.os.Looper
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ExpandableListView
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
@@ -31,7 +34,11 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.Insets
 import androidx.core.view.GravityCompat
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
@@ -124,6 +131,7 @@ import de.hdodenhof.circleimageview.CircleImageView
 import hotchemi.android.rate.AppRate
 import hotchemi.android.rate.StoreType
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.observers.DisposableSingleObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.Call
@@ -165,30 +173,157 @@ open class MainActivity:BaseActivity() {
     // Variables for in-app update functionality
    // private lateinit var appUpdateManager: AppUpdateManager
     private lateinit var activityResultLauncher:ActivityResultLauncher<IntentSenderRequest>
+    @Inject
+    lateinit var disposable:CompositeDisposable
+    @Inject
+    lateinit var pref:SharedPreferenceUtils
     @SuppressLint("UseKtx")
     override fun onCreate(savedInstanceState:Bundle?)
     {
         super.onCreate(savedInstanceState)
-       // WindowCompat.setDecorFitsSystemWindows(window,false)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
        // listDataChild =  HashMap<ExpandedMenuModel,List<ExpandedSubMenu>>();
-        val view: View = binding.root
+        val view:View = binding.root
         setContentView(view)
-//        ViewCompat.setOnApplyWindowInsetsListener(
-//            view
-//        ) { v: View?, insets: WindowInsetsCompat? ->
-//            val systemBarsInsets: Insets =
-//                insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v!!.setPadding(
-//                systemBarsInsets.left,
-//                systemBarsInsets.top,
-//                systemBarsInsets.right,
-//                systemBarsInsets.bottom
+        //WindowCompat.setDecorFitsSystemWindows(window,true)
+
+        enableEdgeToEdge()
+        getAllBanner()   //  binding.clll
+        ViewCompat.setOnApplyWindowInsetsListener(binding.drawerLayout) { v:View?,insets:WindowInsetsCompat? ->
+            val systemBarsInsets:Insets = insets!!.getInsets(WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout())
+            v!!.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom)
+            insets
+        }
+
+
+       // enableEdgeToEdge()
+       // getAllBanner()
+
+        // Apply responsive window insets to sidebar, app bar, and bottom navigation
+       // binding.drawerLayout.doOnApplyWindowInsets { _, _, _ -> }
+
+//        binding.appBar.doOnApplyWindowInsets { view, insets, initial ->
+//            val systemBars = insets.getInsets(
+//                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
 //            )
+//            view.setPadding(
+//                initial.paddingLeft + systemBars.left,
+//                initial.marginTop + systemBars.top,
+//                initial.right + systemBars.right,
+//                initial.bottom
+//            )
+//        }
+//
+//        binding.bottomNavigationView.doOnApplyWindowInsets { view, insets, initial ->
+//            val systemBars = insets.getInsets(
+//                WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+//            )
+//            view.setPadding(
+//                initial.left + systemBars.left,
+//                initial.top,
+//                initial.right + systemBars.right,
+//                initial.bottom + systemBars.bottom
+//            )
+//        }
+
+        val navView = binding.drawerLayout.findViewById<NavigationView>(R.id.navView)
+
+        //   val navView = binding.drawerLayout.findViewById<NavigationView>(R.id.navView)
+        if(navView != null) {
+            // 1. Sidebar Header View: Add status bar top inset to padding
+            if(navView.headerCount > 0) {
+                val headerView = navView.getHeaderView(0)
+                val initialHeaderState = headerView.getInitialLayoutState()
+                headerView.doOnApplyWindowInsets { view, insets, _ ->
+                    val systemBars = insets.getInsets(
+                        WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+                    )
+                    view.setPadding(
+                        initialHeaderState.paddingLeft + systemBars.left,
+                        initialHeaderState.paddingTop + systemBars.top,
+                        initialHeaderState.paddingRight,
+                        initialHeaderState.paddingBottom
+                    )
+                }
+            }
+
+            // 2. ExpandableListView (navigationMenu): Push top margin down by status bar inset
+            // so it starts cleanly BELOW headerView without overlapping/cutting it off
+            val navigationMenu = navView.findViewById<ExpandableListView>(R.id.navigationMenu)
+            if(navigationMenu != null) {
+                val initialMenuState = navigationMenu.getInitialLayoutState()
+                navigationMenu.doOnApplyWindowInsets { view, insets, _ ->
+                    val systemBars = insets.getInsets(
+                        WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+                    )
+                    val params = view.layoutParams as? ViewGroup.MarginLayoutParams
+                    if (params != null) {
+                        params.topMargin = initialMenuState.marginTop + systemBars.top
+                        view.layoutParams = params
+                    }
+                }
+            }
+
+            // 3. Sidebar Footer View: Push bottom margin up by navigation bar inset
+            val includeFooter = navView.findViewById<View>(R.id.includeFooter)
+            if(includeFooter != null) {
+                val initialFooterState = includeFooter.getInitialLayoutState()
+                includeFooter.doOnApplyWindowInsets { view, insets, _ ->
+                    val systemBars = insets.getInsets(
+                        WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+                    )
+                    val params = view.layoutParams as? ViewGroup.MarginLayoutParams
+                    if (params != null) {
+                        params.bottomMargin = initialFooterState.marginBottom + systemBars.bottom
+                        view.layoutParams = params
+                    }
+                }
+            }
+        }
+
+//        if (navView != null) {
+//            if (navView.headerCount > 0) {
+//                val headerView = navView.getHeaderView(0)
+//                headerView.doOnApplyWindowInsets { view, insets, initial ->
+//                    val systemBars = insets.getInsets(
+//                        WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+//                    )
+//                    view.setPadding(
+//                        initial.left + systemBars.left,
+//                        initial.top + systemBars.top,
+//                        initial.right,
+//                        initial.bottom
+//                    )
+//                }
+//            }
+//
+//            val includeFooter = navView.findViewById<View>(R.id.includeFooter)
+//            if (includeFooter != null) {
+//                includeFooter.doOnApplyWindowInsets { view, insets, initial ->
+//                    val systemBars = insets.getInsets(
+//                        WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+//                    )
+//                    view.setPadding(
+//                        initial.left + systemBars.left,
+//                        initial.top,
+//                        initial.right,
+//                        initial.bottom + systemBars.bottom
+//                    )
+//                }
+//            }
+//        }
+
+
+
+
+//        ViewCompat.setOnApplyWindowInsetsListener(binding.bottomNavigationView) { v,insets ->
+//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.statusBars())
+//            // Add top + bottom padding so content avoids status/nav bars
+//            v.setPadding(v.paddingLeft,systemBars.top,v.paddingRight,systemBars.bottom)
+//            // IMPORTANT: return insets UNCONSUMED so other children (like BNView) still get them
 //            insets
 //        }
-//        enableEdgeToEdge()
+//      enableEdgeToEdge()
         findViewById()
         getBrands()
 //        requestPermissionLauncher = registerForActivityResult<String, Boolean>(
@@ -201,8 +336,8 @@ open class MainActivity:BaseActivity() {
 //            }
 //        }
         requestPermissionLauncher = registerForActivityResult<String,Boolean>(ActivityResultContracts.RequestPermission())
-        { isGranted: Boolean? ->
-            if (!isGranted!!) {
+        { isGranted:Boolean? ->
+            if(!isGranted!!) {
                 showAlertForNotification()
             }
         }
@@ -210,9 +345,10 @@ open class MainActivity:BaseActivity() {
   try {
       @Suppress("DEPRECATION")
       Handler().postDelayed({
-          if (session.userLocation == null) {
+          if(session.userLocation == null) {
               showGetCityDialog()
-          } else {
+          }
+          else {
               notificationPermission(this)
           }
       },3000)
@@ -227,16 +363,16 @@ open class MainActivity:BaseActivity() {
         binding.drawerLayout.findViewById<View>(R.id.includeFooter).findViewById<TextView>(R.id.tvShare).setOnClickListener {
             val intent = Intent(Intent.ACTION_SEND)
             intent.type = "text/plain"
-            intent.putExtra(Intent.EXTRA_TEXT, resources.getString(R.string.share_msg))
+            intent.putExtra(Intent.EXTRA_TEXT,resources.getString(R.string.share_msg))
             try {
-                startActivity(Intent.createChooser(intent, "Select an action"))
+                startActivity(Intent.createChooser(intent,"Select an action"))
             }
-            catch(ex: ActivityNotFoundException) {
+            catch(ex:ActivityNotFoundException) {
                 ex.printStackTrace()
                 // (handle error)
             }
         }
-        binding.drawerLayout.findViewById<View>(R.id.includeFooter).findViewById<TextView>(R.id.tvRate).setOnClickListener {
+        binding.drawerLayout.findViewById<View>(R.id.includeFooter).findViewById<LinearLayout>(R.id.llRate).setOnClickListener {
        // binding.includeFooter.tvRate.setOnClickListener {
             try {
                 val i = Intent(Intent.ACTION_VIEW)
@@ -257,7 +393,7 @@ open class MainActivity:BaseActivity() {
         }
         initToolbar()
         setupDrawerContent(binding.drawerLayout.findViewById(R.id.navView))
-        fragmentTransaction.replace(R.id.containerView, HomeFragment()).commit()
+        fragmentTransaction.replace(R.id.containerView,HomeFragment()).commit()
         initDrawer()
         // callback listener.
         AppRate.with(this)
@@ -285,32 +421,28 @@ open class MainActivity:BaseActivity() {
         }
         handleNotifications()
         aLBReceiver = object:BroadcastReceiver() {
-            override fun onReceive(context: Context, intent: Intent) {
-                if (intent.extras!!.getString("key") == MyUploadedUsedTractorList.TAG) {
+            override fun onReceive(context:Context,intent:Intent) {
+                if(intent.extras!!.getString("key") == MyUploadedUsedTractorList.TAG) {
                     val fragment = MyUploadedUsedTractorList()
                     val bundle = Bundle()
-                    bundle.putString("filter", "all")
+                    bundle.putString("filter","all")
                     fragment.arguments = bundle
                     supportFragmentManager.beginTransaction().setCustomAnimations(
                         R.anim.enter,
                         R.anim.exit,
                         R.anim.pop_enter,
-                        R.anim.pop_exit
-                    ).replace(
-                        R.id.containerView, fragment
-                    ).addToBackStack(TAG).commitAllowingStateLoss()
-                } else if (intent.extras!!.getString("key") == RentTractorListFragment.TAG) {
+                        R.anim.pop_exit).replace(R.id.containerView, fragment).addToBackStack(TAG).commitAllowingStateLoss()
+                }
+                else if(intent.extras!!.getString("key") == RentTractorListFragment.TAG) {
                     val fragment: Fragment = RentTractorListFragment()
                     supportFragmentManager.beginTransaction().setCustomAnimations(
                         R.anim.enter,
                         R.anim.exit,
                         R.anim.pop_enter,
-                        R.anim.pop_exit
-                    ).replace(
-                        R.id.containerView, fragment
-                    ).addToBackStack(TAG).commitAllowingStateLoss()
-                }else if(intent.extras?.getString("key")==TokenAuthenticator.TAG){
-                    val i = Intent(this@MainActivity, LoginActivity::class.java)
+                        R.anim.pop_exit).replace(R.id.containerView,fragment).addToBackStack(TAG).commitAllowingStateLoss()
+                }
+                else if(intent.extras?.getString("key")==TokenAuthenticator.TAG) {
+                    val i = Intent(this@MainActivity,LoginActivity::class.java)
                     startActivity(i)
                     finish()
                 }
@@ -331,12 +463,40 @@ open class MainActivity:BaseActivity() {
         checkUpdate()
         try {
             val videoList = allBanner.banners.homePageVideo
-            if(videoList != null && videoList.size != 0) showAdVideoDialog()
+           // println("cvbcvbcv231===="+videoList.size)
+            if(videoList != null && videoList.size != 0)
+                showAdVideoDialog()
         }
         catch(e:Exception) {
+            println("cvbcvbcv231y===="+e.localizedMessage)
             e.printStackTrace()
         }
         checkForInAppUpdates()
+
+
+    }
+    private fun getAllBanner() {
+        if(pref.getStringValue(Constants.APP_BANNER_KEY,"") != "") {
+            return
+        }
+        disposable.add(khetiAPIs.banner
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ data:AllBannerResp ->
+                println("nvbnvnbvnb22===="+data.isError)
+                if(!data.isError) {
+                    pref.setValue(Constants.APP_BANNER_KEY,Gson().toJson(data))
+                    try {
+                        allBanner = Gson().fromJson(SharedPreferenceUtils.getInstance(this).getStringValue(Constants.APP_BANNER_KEY,"{}"),AllBannerResp::class.java)
+                    }
+                    catch(e:Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            })
+            { error:Throwable ->
+                Timber.e(error.message,"onFailure: ")
+            })
     }
 //    private fun manualUpdate()
 //    {
@@ -373,17 +533,27 @@ open class MainActivity:BaseActivity() {
         val appUpdateInfoTask = appUpdateManager.appUpdateInfo
         appUpdateInfoTask.addOnSuccessListener { appUpdateInfo ->
             // Checks if an update is available and allowed for flexible updates
-            if(appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE &&
-                appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
-                // Requests an in-app update
-                appUpdateManager.startUpdateFlowForResult(appUpdateInfo,activityResultLauncher,AppUpdateOptions.newBuilder(AppUpdateType.FLEXIBLE).build())
-            }
+           try {
+               if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE &&
+                   appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)
+               ) {
+                   // Requests an in-app update
+                   appUpdateManager.startUpdateFlowForResult(
+                       appUpdateInfo,
+                       activityResultLauncher,
+                       AppUpdateOptions.newBuilder(AppUpdateType.FLEXIBLE).build()
+                   )
+               }
+           }
+           catch(e: Exception) {
+               e.printStackTrace()
+           }
         }
     }
     // Listener to track the state of the update installation process
     private val listener = InstallStateUpdatedListener { state ->
         // Checks if the update has been downloaded
-        if (state.installStatus() == InstallStatus.DOWNLOADED) {
+        if(state.installStatus() == InstallStatus.DOWNLOADED) {
             // Shows a Snackbar prompting the user to restart the app to complete the update
             popupSnackbarForCompleteUpdate()
         }
@@ -406,11 +576,12 @@ open class MainActivity:BaseActivity() {
     //end update here
     protected fun notificationPermission(context:Context) {
       try {
-          if (!NotificationManagerCompat.from(context).areNotificationsEnabled()) {
-              if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                  if (requestPermissionLauncher != null)
+          if(!NotificationManagerCompat.from(context).areNotificationsEnabled()) {
+              if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                  if(requestPermissionLauncher != null)
                       requestPermissionLauncher!!.launch(android.Manifest.permission.POST_NOTIFICATIONS)
-              } else {
+              }
+              else {
                   showAlertForNotification()
               }
           }
@@ -440,24 +611,27 @@ open class MainActivity:BaseActivity() {
             }.show()
     }
     private fun showAdVideoDialog() {
+        println("hjnfghfghfhf2133231=====")
         val fm = supportFragmentManager
         val editNameDialogFragment = AdMobVideoFragment.newInstance()
         editNameDialogFragment.isCancelable = false
         editNameDialogFragment.show(fm, AdMobVideoFragment.TAG)
+        println("hjnfghfghfhf=====")
     }
     private fun checkUpdate() {
         appUpdateManager.appUpdateInfo.addOnSuccessListener { appUpdateInfo: AppUpdateInfo ->
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-                && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)
-            ) {
+            if(appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
                 startUpdateFlow(appUpdateInfo)
-            } else if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
+               // startImmediateUpdateFlow(appUpdateInfo)
+            }
+            else if(appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
                 popupSnackBarForCompleteUpdate()
-            } else if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-                && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)
-            ) {
+            }
+            else if(appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
                 startImmediateUpdateFlow(appUpdateInfo)
-            } else if (appUpdateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
+            }
+            else if(appUpdateInfo.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS) {
                 startImmediateUpdateFlow(appUpdateInfo)
             }
         }
@@ -491,23 +665,23 @@ open class MainActivity:BaseActivity() {
     }
     //latest app update
      fun initListener() {
-        binding.drawerLayout.findViewById<com.google.android.material.navigation.NavigationView>(R.id.navView).findViewById<View>(R.id.includeFooter).findViewById<ImageView>(R.id.iv_facebook).setOnClickListener {
+        binding.drawerLayout.findViewById<NavigationView>(R.id.navView).findViewById<View>(R.id.includeFooter).findViewById<ImageView>(R.id.iv_facebook).setOnClickListener {
             navigateToSocialMedia(1)
             binding.drawerLayout.closeDrawers()
         }
-        binding.drawerLayout.findViewById<com.google.android.material.navigation.NavigationView>(R.id.navView).findViewById<View>(R.id.includeFooter).findViewById<ImageView>(R.id.iv_instagram).setOnClickListener {
+        binding.drawerLayout.findViewById<NavigationView>(R.id.navView).findViewById<View>(R.id.includeFooter).findViewById<ImageView>(R.id.iv_instagram).setOnClickListener {
             navigateToSocialMedia(2)
             binding.drawerLayout.closeDrawers()
         }
-        binding.drawerLayout.findViewById<com.google.android.material.navigation.NavigationView>(R.id.navView).findViewById<View>(R.id.includeFooter).findViewById<ImageView>(R.id.iv_linked_in).setOnClickListener {
+        binding.drawerLayout.findViewById<NavigationView>(R.id.navView).findViewById<View>(R.id.includeFooter).findViewById<ImageView>(R.id.iv_linked_in).setOnClickListener {
             navigateToSocialMedia(3)
             binding.drawerLayout.closeDrawers()
         }
-        binding.drawerLayout.findViewById<com.google.android.material.navigation.NavigationView>(R.id.navView).findViewById<View>(R.id.includeFooter).findViewById<ImageView>(R.id.ivWhatsApp).setOnClickListener {
+        binding.drawerLayout.findViewById<NavigationView>(R.id.navView).findViewById<View>(R.id.includeFooter).findViewById<ImageView>(R.id.ivWhatsApp).setOnClickListener {
             onWhatsAppClick(this)
             binding.drawerLayout.closeDrawers()
         }
-        binding.drawerLayout.findViewById<com.google.android.material.navigation.NavigationView>(R.id.navView).findViewById<View>(R.id.includeFooter).findViewById<ImageView>(R.id.iv_youtude).setOnClickListener {
+        binding.drawerLayout.findViewById<NavigationView>(R.id.navView).findViewById<View>(R.id.includeFooter).findViewById<ImageView>(R.id.iv_youtude).setOnClickListener {
             startActivity(Intent(this@MainActivity, VideosActivity::class.java))
             binding.drawerLayout.closeDrawers()
         }
@@ -596,12 +770,46 @@ open class MainActivity:BaseActivity() {
        // item.setIcon(R.drawable.ic_home_bold_24dp)
     }
     private fun navigateToSocialMedia(pageNo:Int) {
-        val intent = Intent(this@MainActivity, SocialMedia::class.java)
-        intent.putExtra("page", pageNo)
-        startActivity(intent)
+        val intent = Intent(this@MainActivity,SocialMedia::class.java)
+        intent.putExtra("page",pageNo)
+       // startActivity(intent)
+
+        val socialMediaUrl = java.util.ArrayList<String?>()
+        socialMediaUrl.add("https://www.facebook.com/khetigaadi.India/")
+        socialMediaUrl.add("https://www.instagram.com/khetigaadi/")
+        socialMediaUrl.add("https://www.linkedin.com/in/khetigaadi")
+
+        when (pageNo) {
+            1 -> {
+
+                // binding.webView.loadUrl(getArguments().getString(url1));
+                val intent = Intent()
+                intent.setAction(Intent.ACTION_VIEW)
+
+                // intent.user
+                intent.setData(Uri.parse(socialMediaUrl[0]))
+                startActivity(intent)
+            }
+            2 -> {
+                val intent = Intent()
+                intent.setAction(Intent.ACTION_VIEW)
+
+                // intent.user
+                intent.setData(Uri.parse(socialMediaUrl[1]))
+                startActivity(intent)
+            }
+            3 -> {
+                val intent = Intent()
+                intent.setAction(Intent.ACTION_VIEW)
+
+                // intent.user
+                intent.setData(Uri.parse(socialMediaUrl[2]))
+                startActivity(intent)
+            }
+        }
     }
     private fun findViewById() {
-        val view: View =  binding.drawerLayout.findViewById<NavigationView>(R.id.navView).getHeaderView(0)
+        val view:View =  binding.drawerLayout.findViewById<NavigationView>(R.id.navView).getHeaderView(0)
         civUserImage = view.findViewById<View>(R.id.civUserImage) as CircleImageView
         tvUserType = view.findViewById<View>(R.id.tvUserType) as TextView
         tvUserName = view.findViewById<View>(R.id.tvUserName) as TextView
@@ -609,21 +817,22 @@ open class MainActivity:BaseActivity() {
         tvUpdateProfile = view.findViewById<View>(R.id.tvUpdateProfile) as TextView
     }
     private fun initProfileDetails() {
-        if (user != null) {
-            if (user.image != null) {
+        if(user != null) {
+            if(user.image != null) {
                 Glide.with(this)
                     .load(session.userOthers.userPath + user.image)
                     .placeholder(R.drawable.ic_user_profile)
                     .error(R.drawable.ic_user_profile)
                     .into(civUserImage!!)
             }
-            if (user.userDetail != null && user.userDetail.type != null) {
+            if(user.userDetail != null && user.userDetail.type != null) {
                 tvUserType!!.text = user.userDetail.type.userLevelName
-            } else {
+            }
+            else {
                 tvUserType!!.visibility = View.GONE
             }
             tvUserName!!.text = String.format("%s %s",user.fname,user.lname)
-            if (user.city != null && user.state != null) {
+            if(user.city != null && user.state != null) {
                 tvAddress!!.text = String.format("%s, %s",user.city.name,user.state.name)
             }
             tvUpdateProfile!!.setOnClickListener {
@@ -632,23 +841,30 @@ open class MainActivity:BaseActivity() {
             }
             tvUserName!!.setOnClickListener {
                 val intent = Intent(this@MainActivity,ProfileActivity::class.java)
-                intent.putExtra("userId", user.id)
+                intent.putExtra("userId",user.id)
+                startActivity(intent)
+                binding.drawerLayout.closeDrawers()
+            }
+            civUserImage!!.setOnClickListener {
+                val intent = Intent(this@MainActivity,ProfileActivity::class.java)
+                intent.putExtra("userId",user.id)
                 startActivity(intent)
                 binding.drawerLayout.closeDrawers()
             }
             tvAddress!!.setOnClickListener {
                 val intent = Intent(this@MainActivity,ProfileActivity::class.java)
-                intent.putExtra("userId", user.id)
+                intent.putExtra("userId",user.id)
                 startActivity(intent)
                 binding.drawerLayout.closeDrawers()
             }
         }
     }
     private fun checkProfileAndForceToUpdate() {
-        if (user != null) if (user.taluka == null || user.state == null || user.state.name.isEmpty() || !validateMobile(user.mobile) || user.fname == null || user.fname == "") {
+        if(user != null)
+            if(user.taluka == null || user.state == null || user.state.name.isEmpty() || !validateMobile(user.mobile) || user.fname == null || user.fname == "") {
             Toast.makeText(this,getString(R.string.pleaseUpdateYourProfile),Toast.LENGTH_LONG).show()
-            val intent = Intent(this@MainActivity, EditProfileActivity::class.java)
-            intent.putExtra(EditProfileActivity.IS_COMPULSORY, true)
+            val intent = Intent(this@MainActivity,EditProfileActivity::class.java)
+            intent.putExtra(EditProfileActivity.IS_COMPULSORY,true)
             startActivity(intent)
             finish()
         }
@@ -727,7 +943,7 @@ open class MainActivity:BaseActivity() {
     fun initDrawer() {
         // preparing list data
         prepareAfterLoginMenuData()
-        val expandableListAdapter = ExpandableListAdapter(this,listDataHeader,listDataChild, binding.drawerLayout.findViewById<View>(R.id.navView).findViewById<ExpandableListView>(R.id.navigationMenu))
+        val expandableListAdapter = ExpandableListAdapter(this,listDataHeader,listDataChild,binding.drawerLayout.findViewById<View>(R.id.navView).findViewById<ExpandableListView>(R.id.navigationMenu))
         binding.drawerLayout.findViewById<View>(R.id.navView).findViewById<ExpandableListView>(R.id.navigationMenu).setAdapter(expandableListAdapter)
         binding.drawerLayout.findViewById<View>(R.id.navView).findViewById<ExpandableListView>(R.id.navigationMenu).setOnChildClickListener(ExpandableListView.OnChildClickListener { parent:ExpandableListView?,v:View?,groupPosition:Int,childPosition:Int,id:Long ->
             val fragmentTransaction = mFragmentManager.beginTransaction()
@@ -735,33 +951,27 @@ open class MainActivity:BaseActivity() {
             binding.drawerLayout.closeDrawers()
             val fm = supportFragmentManager
             val count = fm.backStackEntryCount
-            for (i in 0 until count) {
+            for(i in 0 until count) {
                 fm.popBackStackImmediate()
             }
-            if (DrawerMenu.MY_FAVORITES == listDataHeader[groupPosition].name) {
-                when (listDataChild!![listDataHeader[groupPosition]]!![childPosition].name) {
+            if(DrawerMenu.MY_FAVORITES == listDataHeader[groupPosition].name) {
+                when(listDataChild!![listDataHeader[groupPosition]]!![childPosition].name) {
                     DrawerSubMenu.DASHBOARD -> {
-                        fragmentTransaction.replace(
-                            binding.containerView.id,
-                            UserDashboardFragment()
-                        ).addToBackStack(TAG).commit()
+                        fragmentTransaction.replace(binding.containerView.id,UserDashboardFragment()).addToBackStack(TAG).commit()
                     }
                     DrawerSubMenu.PROFILE -> {
-
-//                        fragmentTransaction.replace(frameLayout.getId(), new Profile()).addToBackStack(TAG).commit();
-                        val intent = Intent(this@MainActivity, ProfileActivity::class.java)
-                        intent.putExtra("userId", user.id)
+//                      fragmentTransaction.replace(frameLayout.getId(), new Profile()).addToBackStack(TAG).commit();
+                        val intent = Intent(this@MainActivity,ProfileActivity::class.java)
+                        intent.putExtra("userId",user.id)
                         startActivity(intent)
                     }
                     DrawerSubMenu.MY_OLD_TRACTORS -> {
-
                         //fragmentTransaction.replace(frameLayout.getId(), new MyUploadedUsedTractorList()).addToBackStack(TAG).commit();
                         val fragment = MyUploadedUsedTractorList()
                         val bundle = Bundle()
                         bundle.putString("filter", "all")
                         fragment.arguments = bundle
-                        fragmentTransaction.replace(R.id.containerView, fragment)
-                            .addToBackStack(TAG).commit()
+                        fragmentTransaction.replace(R.id.containerView,fragment).addToBackStack(TAG).commit()
                     }
                     DrawerSubMenu.MY_RENT_TRACTORS -> {
                         fragmentTransaction.replace(
@@ -779,14 +989,15 @@ open class MainActivity:BaseActivity() {
                     }
                     DrawerSubMenu.ADD_OWNER_TRACTOR -> {
 
-                        //                    fragmentTransaction.replace(frameLayout.getId(), new MyFavoritesTabs()).addToBackStack(TAG).commit();
+                        //  fragmentTransaction.replace(frameLayout.getId(), new MyFavoritesTabs()).addToBackStack(TAG).commit();
                         val intent = Intent(this@MainActivity, IsOwnerTractorBrand::class.java)
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         startActivity(intent)
                     }
                 }
-            } else if (DrawerMenu.ABOUT_KHETIGAADI == listDataHeader[groupPosition].name) {
-                when (listDataChild!![listDataHeader[groupPosition]]!![childPosition].name) {
+            }
+            else if(DrawerMenu.ABOUT_KHETIGAADI == listDataHeader[groupPosition].name) {
+                when(listDataChild!![listDataHeader[groupPosition]]!![childPosition].name) {
                     DrawerSubMenu.ABOUT_US -> {
                         fragmentTransaction.replace(binding.containerView.id, AboutUs())
                             .addToBackStack(TAG).commit()
@@ -820,10 +1031,9 @@ open class MainActivity:BaseActivity() {
                 R.anim.enter,
                 R.anim.exit,
                 R.anim.pop_enter,
-                R.anim.pop_exit
-            )
+                R.anim.pop_exit)
             removeBackStackFragmentsEntries()
-            when (listDataHeader[groupPosition].name) {
+            when(listDataHeader[groupPosition].name) {
                 DrawerMenu.Home -> {
                     navigateToHomeFragment(fragmentTransaction)
                     binding.drawerLayout.closeDrawers()
@@ -841,7 +1051,6 @@ open class MainActivity:BaseActivity() {
                     binding.drawerLayout.closeDrawers()
                 }
                 DrawerMenu.SELL_OLD_TRACTOR -> {
-
                     //fragmentTransaction.replace(frameLayout.getId(), new SellTractor1()).addToBackStack(TAG).commit();
                     binding.drawerLayout.closeDrawers()
                     navigateToSellTractor()
@@ -899,16 +1108,44 @@ open class MainActivity:BaseActivity() {
                     if (Constants.isConnectionAvailable(this)) {
                         startActivity(Intent(this@MainActivity, WeatherNewActivity::class.java))
                         binding.drawerLayout.closeDrawers()
-                    } else {
+                    }
+                    else {
                         noInternetConnection(binding.containerView)
                     }
                 }
                 DrawerMenu.SAFETY_TIPS -> {
-                    startActivity(Intent(this@MainActivity, SafetyTipsActivity::class.java))
+                    startActivity(Intent(this@MainActivity,SafetyTipsActivity::class.java))
+                    binding.drawerLayout.closeDrawers()
+                }
+                DrawerMenu.SHARE -> {
+                    val intent = Intent(Intent.ACTION_SEND)
+                    intent.type = "text/plain"
+                    intent.putExtra(Intent.EXTRA_TEXT,resources.getString(R.string.share_msg))
+                    try {
+                        startActivity(Intent.createChooser(intent,"Select an action"))
+                    }
+                    catch(ex:ActivityNotFoundException) {
+                        ex.printStackTrace()
+                        // (handle error)
+                    }
+                    binding.drawerLayout.closeDrawers()
+                }
+                DrawerMenu.FEEDBACK -> {
+                    startActivity(Intent(this, FeedBackActivity::class.java))
                     binding.drawerLayout.closeDrawers()
                 }
                 DrawerMenu.LOGOUT -> {
-                    logout()
+                   // logout()
+                    try {
+                        val i = Intent(Intent.ACTION_VIEW)
+                        i.data = Uri.parse("market://details?id=$packageName")
+                        startActivity(i)
+                    }
+                    catch(e:ActivityNotFoundException) {
+                        e.printStackTrace()
+                        startActivity(Intent(Intent.ACTION_VIEW,Uri.parse(GOOGLE_PLAY_URL + packageName)))
+                    }
+
                     binding.drawerLayout.closeDrawers()
                 }
             }
@@ -918,15 +1155,15 @@ open class MainActivity:BaseActivity() {
         //        Here width means device width.
         // Code here will be triggered once the drawer closes as we don't want anything to happen so we leave this blank
         // Code here will be triggered once the drawer open as we don't want anything to happen so we leave this blank
-        val actionBarDrawerToggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(this,binding.drawerLayout,binding.toolbars.toolbar,R.string.app_name,R.string.app_name)
+        val actionBarDrawerToggle:ActionBarDrawerToggle = object:ActionBarDrawerToggle(this,binding.drawerLayout,binding.toolbars.toolbar,R.string.app_name,R.string.app_name)
         {
-            override fun onDrawerOpened(drawerView: View) {
+            override fun onDrawerOpened(drawerView:View) {
                 // Code here will be triggered once the drawer open as we don't want anything to happen so we leave this blank
                 super.onDrawerOpened(drawerView)
                 hideSoftKeyboard()
             }
         }
-        actionBarDrawerToggle.drawerArrowDrawable.color = ContextCompat.getColor(this, R.color.black)
+        actionBarDrawerToggle.drawerArrowDrawable.color = ContextCompat.getColor(this,R.color.black)
         //Setting the actionbarToggle to drawer layout
         binding.drawerLayout.addDrawerListener(actionBarDrawerToggle)
         //calling sync state is necessary or else your hamburger icon wont show up
@@ -939,12 +1176,12 @@ open class MainActivity:BaseActivity() {
     }
     fun navigateToOldTractorsFragments() {
         removeBackStackFragmentsEntries()
-        fragmentTransaction.replace(binding.containerView.id, SearchUsedTractorFilter()).addToBackStack(TAG).commit()
+        fragmentTransaction.replace(binding.containerView.id,SearchUsedTractorFilter()).addToBackStack(TAG).commit()
     }
     private fun navigateToNewFragment() {
         removeBackStackFragmentsEntries()
         fragmentTransaction
-        mFragmentTransaction.replace(binding.containerView.id, SearchNewTractorFilter()).addToBackStack(TAG).commit()
+        mFragmentTransaction.replace(binding.containerView.id,SearchNewTractorFilter()).addToBackStack(TAG).commit()
     }
     private fun navigateToHomeFragment(fragmentTransaction:FragmentTransaction) {
         removeBackStackFragmentsEntries()
@@ -954,7 +1191,7 @@ open class MainActivity:BaseActivity() {
         val fm = supportFragmentManager
         try {
             val count = fm.backStackEntryCount
-            for (i in 0 until count) {
+            for(i in 0 until count) {
                 fm.popBackStackImmediate()
             }
         }
@@ -972,152 +1209,103 @@ open class MainActivity:BaseActivity() {
         listDataHeader = ArrayList()
         listDataChild = HashMap()
         // Adding data header
-        (listDataHeader as ArrayList<ExpandedMenuModel>).add(
-            ExpandedMenuModel(DrawerMenu.Home,resources.getString(R.string.home),R.drawable.ic_home_24dp))
+       // (listDataHeader as ArrayList<ExpandedMenuModel>).add(ExpandedMenuModel(DrawerMenu.Home,resources.getString(R.string.home),R.drawable.ic_home_black_24dp))
+
         (listDataHeader as ArrayList<ExpandedMenuModel>).add(
             ExpandedMenuModel(DrawerMenu.TRACTORS,getString(R.string.tractors),R.drawable.ic_new_tractor_home))
         (listDataHeader as ArrayList<ExpandedMenuModel>).add(
-            ExpandedMenuModel(DrawerMenu.IMPLEMENTS,getString(R.string.implements_lbl),R.drawable.ic_implement_24dp))
+            ExpandedMenuModel(DrawerMenu.IMPLEMENTS,getString(R.string.implements_lbl),R.drawable.resource_implements2))  //R.drawable.ic_implement_24dp
         (listDataHeader as ArrayList<ExpandedMenuModel>).add(
-            ExpandedMenuModel(DrawerMenu.HARVESTER,getString(R.string.harvester),R.drawable.ic_harvester_24dp))
+            ExpandedMenuModel(DrawerMenu.HARVESTER,getString(R.string.harvester),R.drawable.harvesterr))
         (listDataHeader as ArrayList<ExpandedMenuModel>).add(
-            ExpandedMenuModel(DrawerMenu.BUY_OLD_TRACTOR,getString(R.string.buy_old_tractor),R.drawable.ic_old_tractor_24dp))
+            ExpandedMenuModel(DrawerMenu.BUY_OLD_TRACTOR,getString(R.string.buy_old_tractor),R.drawable.buy_old_tractorsvg))
         (listDataHeader as ArrayList<ExpandedMenuModel>).add(
             ExpandedMenuModel(DrawerMenu.SELL_OLD_TRACTOR,getString(R.string.sell_old_tractor),R.drawable.ic_sell_24dp))
         (listDataHeader as ArrayList<ExpandedMenuModel>).add(
-            ExpandedMenuModel(DrawerMenu.RENT,getString(R.string.rent),R.drawable.ic_rent_tractor_24dp))
+            ExpandedMenuModel(DrawerMenu.RENT,getString(R.string.rent),R.drawable.rent_svg))
         (listDataHeader as ArrayList<ExpandedMenuModel>).add(
-            ExpandedMenuModel(DrawerMenu.COMPARE,getString(R.string.compare),R.drawable.ic_compare_tr_24dp))
+            ExpandedMenuModel(DrawerMenu.COMPARE,getString(R.string.compare),R.drawable.ic_compare_trr_24dp)) //ic_compare_tr_24dp
         (listDataHeader as ArrayList<ExpandedMenuModel>).add(
             ExpandedMenuModel(DrawerMenu.SHOP,getString(R.string.shop),R.drawable.ic_shop_24dp))
-        //        listDataHeader.add(new ExpandedMenuModel(DrawerMenu.MANDI_PRICE, getString(R.string.mandi_price), R.drawable.ic_shop_24dp));
+        // listDataHeader.add(new ExpandedMenuModel(DrawerMenu.MANDI_PRICE, getString(R.string.mandi_price), R.drawable.ic_shop_24dp));
         // listDataHeader.add(new ExpandedMenuModel("Khetiguru", getString(R.string.khetiguru), R.drawable.ic_choose_crops_48));
         (listDataHeader as ArrayList<ExpandedMenuModel>).add(
-            ExpandedMenuModel(DrawerMenu.MY_FAVORITES,getString(R.string.my_favorites),R.drawable.ic_my_favorites_24dp))
-        (listDataHeader as ArrayList<ExpandedMenuModel>).add(
-            ExpandedMenuModel(DrawerMenu.LANGUAGE,getString(R.string.language),R.drawable.ic_languages_24dp))
+            ExpandedMenuModel(DrawerMenu.MY_FAVORITES,getString(R.string.my_favorites),R.drawable.my_fevorites_svg))  // myfavv1 my_fevorites_svg ic_my_favorites_24dp
+
+//        (listDataHeader as ArrayList<ExpandedMenuModel>).add(
+//            ExpandedMenuModel(DrawerMenu.LANGUAGE,getString(R.string.language),R.drawable.ic_languages_24dp))
+//
         (listDataHeader as ArrayList<ExpandedMenuModel>).add(ExpandedMenuModel(DrawerMenu.NEWS,getString(R.string.news),R.drawable.ic_news_24dp))
         (listDataHeader as ArrayList<ExpandedMenuModel>).add(
             ExpandedMenuModel(DrawerMenu.DEALERS,getString(R.string.dealers),R.drawable.ic_dealers_24dp))
         (listDataHeader as ArrayList<ExpandedMenuModel>).add(
             ExpandedMenuModel(DrawerMenu.SERVICE_CENTER,getString(R.string.service_centers),R.drawable.ic_service_centers_24dp))
         (listDataHeader as ArrayList<ExpandedMenuModel>).add(
-            ExpandedMenuModel(
-                DrawerMenu.WEATHER,
-                getString(R.string.weather),
-                R.drawable.ic_weather_24dp
-            )
-        )
+            ExpandedMenuModel(DrawerMenu.WEATHER,getString(R.string.weather),R.drawable.ic_weather_24dp))
         (listDataHeader as ArrayList<ExpandedMenuModel>).add(
-            ExpandedMenuModel(
-                DrawerMenu.SAFETY_TIPS,
-                getString(R.string.safety_tips),
-                R.drawable.safety_tips_24dp
-            )
-        )
+            ExpandedMenuModel(DrawerMenu.SAFETY_TIPS,getString(R.string.safety_tips),R.drawable.safety_tips_24dp))
         (listDataHeader as ArrayList<ExpandedMenuModel>).add(
-            ExpandedMenuModel(
-                DrawerMenu.ABOUT_KHETIGAADI,
-                getString(R.string.about_khetigaadi),
-                R.drawable.ic_about_24
-            )
-        )
+            ExpandedMenuModel(DrawerMenu.SHARE,getString(R.string.share),R.drawable.ic_share_khetiguru_app))
         (listDataHeader as ArrayList<ExpandedMenuModel>).add(
-            ExpandedMenuModel(
-                DrawerMenu.LOGOUT,
-                getString(R.string.logout),
-                R.drawable.ic_logout_24dp
-            )
-        )
+            ExpandedMenuModel(DrawerMenu.FEEDBACK,getString(R.string.feedback),R.drawable.ic_rate_and_feedback)) //ic_feedback_24dp
+
+       // (listDataHeader as ArrayList<ExpandedMenuModel>).add(
+         //   ExpandedMenuModel(DrawerMenu.FEEDBACK,getString(R.string.feedback),R.drawable.ic_rate_and_feedback)) //ic_feedback_24dp
+
+
+        (listDataHeader as ArrayList<ExpandedMenuModel>).add(
+            ExpandedMenuModel(DrawerMenu.ABOUT_KHETIGAADI,getString(R.string.about_khetigaadi),R.drawable.ic_about_24))
+
+        (listDataHeader as ArrayList<ExpandedMenuModel>).add(
+            ExpandedMenuModel(DrawerMenu.LOGOUT,getString(R.string.rate_dialog_title),R.drawable.ic_rating_24dp)) //R.drawable.ic_logout_24dp
+        // ExpandedMenuModel(DrawerMenu.LOGOUT,getString(R.string.logout),R.drawable.ic_logout_24dp))
         // Adding child data
         // Header, Child data
-        for (i in listDataHeader.indices) {
+        for(i in listDataHeader.indices) {
             val heading: MutableList<ExpandedSubMenu> = ArrayList()
-            when (listDataHeader.get(i).name) {
+            when(listDataHeader[i].name) {
                 DrawerMenu.MY_FAVORITES -> {
-                    heading.add(
-                        ExpandedSubMenu(
-                            DrawerSubMenu.DASHBOARD,
-                            getString(R.string.dashboard)
-                        )
-                    )
+                    heading.add(ExpandedSubMenu(DrawerSubMenu.DASHBOARD,getString(R.string.dashboard)))
                     heading.add(ExpandedSubMenu(DrawerSubMenu.PROFILE, getString(R.string.profile)))
-                    heading.add(
-                        ExpandedSubMenu(
-                            DrawerSubMenu.MY_OLD_TRACTORS,
-                            getString(R.string.my_old_tractors)
-                        )
-                    )
-                    heading.add(
-                        ExpandedSubMenu(
-                            DrawerSubMenu.MY_RENT_TRACTORS,
-                            getString(R.string.my_rent_tractors)
-                        )
-                    )
-                    heading.add(
-                        ExpandedSubMenu(
-                            DrawerSubMenu.BUY_ENQUIRY,
-                            getString(R.string.buy_enquiry)
-                        )
-                    )
-                    heading.add(
-                        ExpandedSubMenu(
-                            DrawerSubMenu.MY_FAVORITES_SUB,
-                            getString(R.string.my_favorites)
-                        )
-                    )
-                    heading.add(
-                        ExpandedSubMenu(
-                            DrawerSubMenu.ADD_OWNER_TRACTOR,
-                            getString(R.string.add_owner_tractor)
-                        )
-                    )
+                    heading.add(ExpandedSubMenu(DrawerSubMenu.MY_OLD_TRACTORS,getString(R.string.my_old_tractors)))
+                    heading.add(ExpandedSubMenu(DrawerSubMenu.MY_RENT_TRACTORS,getString(R.string.my_rent_tractors)))
+                    heading.add(ExpandedSubMenu(DrawerSubMenu.BUY_ENQUIRY,getString(R.string.buy_enquiry)))
+                    heading.add(ExpandedSubMenu(DrawerSubMenu.MY_FAVORITES_SUB,getString(R.string.my_favorites)))
+                    heading.add(ExpandedSubMenu(DrawerSubMenu.ADD_OWNER_TRACTOR,getString(R.string.add_owner_tractor)))
                 }
                 DrawerMenu.ABOUT_KHETIGAADI -> {
-                    heading.add(
-                        ExpandedSubMenu(
-                            DrawerSubMenu.ABOUT_US,
-                            getString(R.string.about_us)
-                        )
-                    )
-                    heading.add(
-                        ExpandedSubMenu(
-                            DrawerSubMenu.TERMS_AND_CONDITIONS,
-                            getString(R.string.terms_and_conditions)
-                        )
-                    )
-                    heading.add(
-                        ExpandedSubMenu(
-                            DrawerSubMenu.PRIVACY_POLICY,
-                            getString(R.string.privacy_policy)
-                        )
-                    )
+                    heading.add(ExpandedSubMenu(DrawerSubMenu.ABOUT_US,getString(R.string.about_us)))
+                    heading.add(ExpandedSubMenu(DrawerSubMenu.TERMS_AND_CONDITIONS,getString(R.string.terms_and_conditions)))
+                    heading.add(ExpandedSubMenu(DrawerSubMenu.PRIVACY_POLICY,getString(R.string.privacy_policy)))
                 }
             }
-            listDataChild!![listDataHeader.get(i)] = heading
+            listDataChild!![listDataHeader[i]] = heading
         }
     }
     private fun setupDrawerContent(navigationView:NavigationView) {
-        navigationView.setNavigationItemSelectedListener { menuItem: MenuItem ->
+        navigationView.setNavigationItemSelectedListener { menuItem:MenuItem ->
             menuItem.isChecked = true
             binding.drawerLayout.closeDrawers()
             true
         }
     }
+    @Deprecated("This method has been deprecated in favor of using the\n      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.\n      The OnBackPressedDispatcher controls how back button events are dispatched\n      to one or more {@link OnBackPressedCallback} objects.")
+    @SuppressLint("GestureBackNavigation")
     override fun onBackPressed() {
         //Checking for fragment count on backstack
-        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+        if(binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             binding.drawerLayout.closeDrawers()
-        } else if (supportFragmentManager.backStackEntryCount > 0) {
+        }
+        else if(supportFragmentManager.backStackEntryCount > 0) {
             val fm = supportFragmentManager
             val fragment = supportFragmentManager.findFragmentById(R.id.containerView)
-            for (entry in 0 until fm.backStackEntryCount) {
+            for(entry in 0 until fm.backStackEntryCount) {
                 Timber.i("Found fragment: %s", fm.getBackStackEntryAt(entry).name)
                 //                if (fragment instanceof UserDashboard) {//the fragment on which you want to handle your back press
 //                    Log.i("BACK PRESSED", "BACK PRESSED");
 //                    fm.popBackStack("Login", FragmentManager.POP_BACK_STACK_INCLUSIVE);
 //                } else
-                when (fragment) {
+                when(fragment) {
                     is NewTractorsListFragment -> {
                         fm.popBackStack(
                             "NewTractorListFilter",
@@ -1176,56 +1364,46 @@ open class MainActivity:BaseActivity() {
                 }
             }
             supportFragmentManager.popBackStack()
-        } else if (!doubleBackToExitPressedOnce) {
+        }
+        else if(!doubleBackToExitPressedOnce) {
             doubleBackToExitPressedOnce = true
-            Toast.makeText(
-                this,
-                resources.getString(R.string.click_back_again_to_exit),
-                Toast.LENGTH_SHORT
-            ).show()
-            Handler(Looper.getMainLooper()).postDelayed(
-                { doubleBackToExitPressedOnce = false },
-                2000
-            )
-        } else {
+            Toast.makeText(this,resources.getString(R.string.click_back_again_to_exit),Toast.LENGTH_SHORT).show()
+            Handler(Looper.getMainLooper()).postDelayed({ doubleBackToExitPressedOnce = false },2000)
+        }
+        else {
             super.onBackPressed()
         }
     }
     fun hideSoftKeyboard() {
         val view = this.currentFocus
-        if (view != null) {
+        if(view != null) {
             val inputMethodManager = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-            inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
+            inputMethodManager.hideSoftInputFromWindow(view.windowToken,0)
         }
     }
     override fun showSoftKeyboard() {
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         val v = currentFocus
-        if (v != null) imm.showSoftInput(v, 0)
+        if(v != null) imm.showSoftInput(v,0)
     }
     private fun handleNotifications() {
-        if (intent != null && intent.extras != null) {
-            if (intent.hasExtra("filterValue")) {
+        if(intent != null && intent.extras != null) {
+            if(intent.hasExtra("filterValue")) {
                 val filterValue = intent.extras!!.getString("filterValue")
                 intent.replaceExtras(Bundle())
-                if (filterValue != null) {
+                if(filterValue != null) {
                     fragmentTransaction
                     mFragmentTransaction.replace(
                         binding.containerView.id,
                         NewTractorsListFragment.getInstance(
-                            Gson().fromJson(
-                                filterValue,
-                                Filter::class.java
-                            )
-                        )
-                    ).addToBackStack(TAG).commit()
+                            Gson().fromJson(filterValue,Filter::class.java))).addToBackStack(TAG).commit()
                 }
-            } else if (intent.hasExtra(Constants.NOTIFICATION_INTENT_KEY)) {
-                val notification =
-                    intent.getParcelableExtra<Notification>(Constants.NOTIFICATION_INTENT_KEY)
-                val intent: Intent
-                if (notification!!.type != null) {
-                    when (notification.type) {
+            }
+            else if(intent.hasExtra(Constants.NOTIFICATION_INTENT_KEY)) {
+                val notification = intent.getParcelableExtra<Notification>(Constants.NOTIFICATION_INTENT_KEY)
+                val intent:Intent
+                if(notification!!.type != null) {
+                    when(notification.type) {
                         NotificationType.NEW_TRACTOR_NOTIFICATION -> {
                             intent = Intent(this, NewTractorDetails::class.java)
                             intent.putExtra(NewTractorDetails.newTractorId, notification.id)
@@ -1241,45 +1419,52 @@ open class MainActivity:BaseActivity() {
                             intent.putExtra("news_id", notification.id)
                         }
                         else -> {
-                            intent = Intent(this, NotificationResult::class.java)
+                            intent = Intent(this,NotificationResult::class.java)
                             intent.putExtras(getIntent())
                         }
                     }
                     startActivity(intent)
                 }
-            } else if (intent.data != null && intent.data.toString().contains("newTractor")) {
+            }
+            else if(intent.data != null && intent.data.toString().contains("newTractor")) {
                 val list = intent.data.toString().split("/")
                 val j = Intent(this, NewTractorDetails::class.java)
                 j.putExtra(NewTractorDetails.newTractorId, list[list.size - 1])
                 startActivity(j)
-            } else if (intent.data != null && intent.data.toString().contains("oldTractor")) {
+            }
+            else if (intent.data != null && intent.data.toString().contains("oldTractor")) {
                 val list = intent.data.toString().split("/")
                 val j = Intent(this, UsedTractorDetailActivity::class.java)
                 j.putExtra("tractorId", list[list.size - 1])
                 startActivity(j)
-            } else if (intent.data != null && intent.data.toString().contains("rentTractor")) {
+            }
+            else if (intent.data != null && intent.data.toString().contains("rentTractor")) {
                 val list = intent.data.toString().split("/")
                 val j = Intent(this, RentTractorDetails::class.java)
                 j.putExtra("tractorId", list[list.size - 1])
                 startActivity(j)
-            } else if (intent.data != null && intent.data.toString().contains("imp")) {
+            }
+            else if (intent.data != null && intent.data.toString().contains("imp")) {
                 val list = intent.data.toString().split("/")
                 val j = Intent(this, NewImpOverviewDetails::class.java)
                 j.putExtra("brandId", list[list.size - 3].toInt())
                 j.putExtra("typeId", list[list.size - 2].toInt())
                 j.putExtra("modelId", list[list.size - 1].toInt())
                 startActivity(j)
-            } else if (intent.data != null && intent.data.toString().contains("harvester")) {
+            }
+            else if (intent.data != null && intent.data.toString().contains("harvester")) {
                 val list = intent.data.toString().split("/")
                 val j = Intent(this, HarvesterDetailsActivity::class.java)
                 j.putExtra("harvesterId", list[list.size - 1].toInt())
                 startActivity(j)
-            } else if (intent.data != null && intent.data.toString().contains("product")) {
+            }
+            else if (intent.data != null && intent.data.toString().contains("product")) {
                 val list = intent.data.toString().split("/")
                 val j = Intent(this, ProductDetailsActivity::class.java)
                 j.putExtra("productId", list[list.size - 1].toInt())
                 startActivity(j)
-            } else if (intent.data != null && intent.data.toString().contains("profile")) {
+            }
+            else if (intent.data != null && intent.data.toString().contains("profile")) {
                 try {
                     val intent = Intent(this, ProfileActivity::class.java)
                     intent.putExtras(getIntent())
@@ -1289,12 +1474,14 @@ open class MainActivity:BaseActivity() {
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
-            } else if (intent.data != null && intent.data.toString().contains("news")) {
+            }
+            else if (intent.data != null && intent.data.toString().contains("news")) {
                 val list = intent.data.toString().split("/")
                 val intent = Intent(this, NewsDetailsActivity::class.java)
                 intent.putExtra("news_id", list[list.size - 1])
                 startActivity(intent)
-            } else if (intent.data != null && intent.data.toString().contains("video")) {
+            }
+            else if (intent.data != null && intent.data.toString().contains("video")) {
                 val list = intent.data.toString().split("/")
                 val intent = Intent(this, VideosActivity::class.java)
                 intent.putExtra("videoId", list[list.size - 1])
@@ -1338,7 +1525,7 @@ open class MainActivity:BaseActivity() {
         binding.toolbars.toolbar.title = title
     }
     override fun onDestroy() {
-        if (aLBReceiver != null) LocalBroadcastManager.getInstance(this).unregisterReceiver(aLBReceiver!!)
+        if(aLBReceiver != null) LocalBroadcastManager.getInstance(this).unregisterReceiver(aLBReceiver!!)
         super.onDestroy()
     }
     fun navigateToCompareFragment(@CallFrom callFrom:Int) {
@@ -1363,76 +1550,65 @@ open class MainActivity:BaseActivity() {
     }
     fun navigateToNewsFragment() {
         removeBackStackFragmentsEntries()
-        fragmentTransaction.replace(binding.containerView.id, NewsListFragment())
+        fragmentTransaction.replace(binding.containerView.id,NewsListFragment())
             .addToBackStack(TAG).commit()
     }
     fun navigateToImplementFragment() {
-        removeBackStackFragmentsEntries()
-        fragmentTransaction.replace(binding.containerView.id,SearchNewImplementsFilter())
-            .addToBackStack(TAG).commit()
+       try {
+           removeBackStackFragmentsEntries()
+           fragmentTransaction.replace(binding.containerView.id,SearchNewImplementsFilter())
+               .addToBackStack(TAG).commit()
+       }
+       catch(e:Exception) {
+           e.printStackTrace()
+
+       }
     }
+    @SuppressLint("CheckResult")
     fun getBrands() {
-        val cnfg = brandRepository!!.getCountt()
-        if (cnfg>0)
-            return
-            //brandRepository!!.deleteAll()
-       khetiAPIs.brands
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribeWith(object : DisposableSingleObserver<BrandResp?>() {
-//                override fun onSuccess(myResponse: BrandResp) {
-//                    try {
-//                     val vcxbcx = myResponse.brand.size;
-//                     println("vcbcvbcvbcvb=="+vcxbcx);
-//                        if (cnfg>0)
-//                            brandRepository!!.deleteAll()
-//                        brandRepository!!.insertAll(myResponse.brand)
-//                        val lpath: String = myResponse.getOthers()
-//                            .getBrandLogoPath() // "https://khetigaadi.com/images/brandlogos/";
-//
-//                        val sharedPreferenceUtils = SharedPreferenceUtils.getInstance(this@MainActivity)
-//                        sharedPreferenceUtils.setValue(Constants.BRAND_BASE_URL, lpath)
-//                    }
-//                    catch(e:Exception) {
-//                        e.printStackTrace()
-//                    }
-//                }
-//                override fun onError(e:Throwable) {
-//                    Timber.e(e, "onError: ")
-//                }
-//            })
+     try {
+         val cnfg = brandRepository!!.getCountt()
+         if (cnfg > 0)
+             return
+         //brandRepository!!.deleteAll()
+         khetiAPIs.brands
+             .subscribeOn(Schedulers.io())
+             .observeOn(AndroidSchedulers.mainThread())
+             .subscribeWith(object : DisposableSingleObserver<BrandResp>() {
+                 override fun onSuccess(myResponse: BrandResp) {
+                     try {
+                         val vcxbcx = myResponse.brand.size;
+                         println("vcbcvbcvbcvb==$vcxbcx");
+                         if (cnfg > 0)
+                             brandRepository!!.deleteAll()
+                         brandRepository!!.insertAll(myResponse.brand)
+                         val lpath: String = myResponse.others
+                             .brandLogoPath // "https://khetigaadi.com/images/brandlogos/";
 
-           .subscribeWith(object : DisposableSingleObserver<BrandResp>() {
-               override fun onSuccess(myResponse: BrandResp) {
-                   try {
-                       val vcxbcx = myResponse.brand.size;
-                       println("vcbcvbcvbcvb=="+vcxbcx);
-                       if (cnfg>0)
-                           brandRepository!!.deleteAll()
-                       brandRepository!!.insertAll(myResponse.brand)
-                       val lpath: String = myResponse.getOthers()
-                           .getBrandLogoPath() // "https://khetigaadi.com/images/brandlogos/";
+                         val sharedPreferenceUtils =
+                             SharedPreferenceUtils.getInstance(this@MainActivity)
+                         sharedPreferenceUtils.setValue(Constants.BRAND_BASE_URL, lpath)
+                     } catch (e: Exception) {
+                         e.printStackTrace()
+                     }
+                 }
 
-                       val sharedPreferenceUtils = SharedPreferenceUtils.getInstance(this@MainActivity)
-                       sharedPreferenceUtils.setValue(Constants.BRAND_BASE_URL, lpath)
-                   }
-                   catch(e:Exception) {
-                       e.printStackTrace()
-                   }
-               }
+                 override fun onError(e: Throwable) {
 
-               override fun onError(e: Throwable) {
-
-               }
-               // Missing the onError implementation
-           })
+                 }
+                 // Missing the onError implementation
+             })
+     }
+     catch (e: Exception) {
+          e.printStackTrace()
+     }
     }
     companion object {
         private const val FLEXIBLE_APP_UPDATE_REQ_CODE = 67
         private const val IMMEDIATE_APP_UPDATE_REQ_CODE = 763
         private const val GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id="
         @JvmStatic
-        fun hideKeyboard(ctx: Context) {
+        fun hideKeyboard(ctx:Context) {
             val inputManager = ctx.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
             // check if no view has focus:
             val v = (ctx as Activity).currentFocus ?:return
@@ -1444,7 +1620,7 @@ open class MainActivity:BaseActivity() {
             try {
                 val packageManager = contextCompat.packageManager
                 val i = Intent(Intent.ACTION_VIEW)
-                val url = "https://api.whatsapp.com/send?phone=" + contextCompat.getString(R.string.whatsAppNo) + "&text=" + URLEncoder.encode("Hello KhetiGaadi","UTF-8")
+                val url = "https://api.whatsapp.com/send?phone="+contextCompat.getString(R.string.whatsAppNo)+"&text="+URLEncoder.encode("Hello KhetiGaadi","UTF-8")
                 //            i.setPackage("com.whatsapp");
                 i.data = Uri.parse(url)
                 if(i.resolveActivity(packageManager) != null) {
@@ -1454,6 +1630,67 @@ open class MainActivity:BaseActivity() {
             catch(e:Exception) {
                 e.printStackTrace()
             }
+        }
+    }
+
+    data class InitialPadding(val left: Int, val top: Int, val right: Int, val bottom: Int)
+
+//    fun View.doOnApplyWindowInsets(f: (view: View, insets: WindowInsetsCompat, initial: InitialPadding) -> Unit) {
+//        val initialPadding = InitialPadding(paddingLeft, paddingTop, paddingRight, paddingBottom)
+//        ViewCompat.setOnApplyWindowInsetsListener(this) { v, insets ->
+//            f(v, insets, initialPadding)
+//            insets
+//        }
+//        if (isAttachedToWindow) {
+//            requestApplyInsets()
+//        } else {
+//            addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+//                override fun onViewAttachedToWindow(v: View) {
+//                    v.removeOnAttachStateChangeListener(this)
+//                    v.requestApplyInsets()
+//                }
+//                override fun onViewDetachedFromWindow(v: View) {}
+//            })
+//        }
+//    }
+
+    data class InitialLayoutState(
+        val paddingLeft: Int,
+        val paddingTop: Int,
+        val paddingRight: Int,
+        val paddingBottom: Int,
+        val marginTop: Int,
+        val marginBottom: Int
+    )
+
+    fun View.getInitialLayoutState(): InitialLayoutState {
+        val marginParams = layoutParams as? ViewGroup.MarginLayoutParams
+        return InitialLayoutState(
+            paddingLeft = paddingLeft,
+            paddingTop = paddingTop,
+            paddingRight = paddingRight,
+            paddingBottom = paddingBottom,
+            marginTop = marginParams?.topMargin ?: 0,
+            marginBottom = marginParams?.bottomMargin ?: 0
+        )
+    }
+
+    fun View.doOnApplyWindowInsets(f: (view: View, insets: WindowInsetsCompat, initial: InitialLayoutState) -> Unit) {
+        val initialState = getInitialLayoutState()
+        ViewCompat.setOnApplyWindowInsetsListener(this) { v, insets ->
+            f(v, insets, initialState)
+            insets
+        }
+        if (isAttachedToWindow) {
+            requestApplyInsets()
+        } else {
+            addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+                override fun onViewAttachedToWindow(v: View) {
+                    v.removeOnAttachStateChangeListener(this)
+                    v.requestApplyInsets()
+                }
+                override fun onViewDetachedFromWindow(v: View) {}
+            })
         }
     }
 }

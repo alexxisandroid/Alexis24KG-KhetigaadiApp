@@ -11,6 +11,8 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dimen_20dp"
+        android:layout_marginBottom="@dimen/margin_10dp"
         android:theme="@style/AppTheme.AppBarOverlay">
         <include
             android:id="@+id/toolbars"
@@ -19,7 +21,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/margin_50dp"
+        android:layout_marginBottom="@dimen/payu_dimen_100dp"
         android:visibility="visible"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
         <LinearLayout
@@ -73,6 +75,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
                     android:layout_marginTop="@dimen/margin_10dp"
+                    android:background="@drawable/fav_bg"
+                    android:padding="@dimen/dimen_4dp"
                     android:layout_marginEnd="15dp"
                     android:src="@drawable/ic_favorites_border"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -87,11 +91,12 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/detailsBackground"
+                    android:background="@color/white"
                     android:paddingBottom="5dp">
+                    <!--   style="@style/MainTitle"   -->
                     <TextView
                         android:id="@+id/tvTractorName"
-                        style="@style/MainTitle"
+                        style="@style/TractorListItemTitle"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -100,6 +105,8 @@
                         android:paddingTop="@dimen/margin_5dp"
                         android:paddingEnd="@dimen/margin_5dp"
                         android:textStyle="bold"
+                        android:includeFontPadding="false"
+                        android:textSize="@dimen/dimen_14sp"
                         android:fontFamily="@font/poppins_bold"
                         android:paddingStart="@dimen/dimen_15dp"
                         app:layout_constraintBottom_toTopOf="@id/tvPrice"
@@ -113,7 +120,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_marginEnd="15dp"
-                        android:src="@drawable/share_normal"
+                        android:src="@drawable/ic_share_black_24dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/tvTractorName"
                         android:contentDescription="@string/share"/>
@@ -135,10 +142,12 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:includeFontPadding="false"
                         android:fontFamily="@font/poppins_semi_bold"
                         android:paddingStart="@dimen/margin_15dp"
                         android:paddingEnd="@dimen/dimen_4dp"
                         android:textStyle="bold"
+                        android:paddingBottom="@dimen/dimen_5dp"
                         android:textColor="@color/black"
                         android:textSize="@dimen/dimen_16sp"
                         app:layout_constraintEnd_toStartOf="@id/tvReportAds"
@@ -250,7 +259,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/detailsBackground">
+                    android:background="@color/white">
                     <TextView
                         android:id="@+id/tvOtherDetails"
                         style="@style/MainTitle"
@@ -330,6 +339,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:readMoreMaxLine="3"
+                android:justificationMode="inter_word"
                 app:readMoreText="…Read More"
                 app:readMoreColor="@color/red"
                 android:layout_marginTop="@dimen/margin_15dp"
@@ -343,6 +353,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
+        android:layout_marginBottom="@dimen/dimen_10dp"
         android:layout_marginTop="5sp"
         android:background="@color/white"
         android:orientation="horizontal"
@@ -352,7 +363,7 @@
             android:layout_width="0dp"
             android:layout_height="@dimen/margin_40dp"
 
-            android:fontFamily="@font/poppins_medium"
+            android:fontFamily="@font/manrope_medium"
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_marginTop="@dimen/dimen_5dp"
@@ -378,7 +389,7 @@
         <TextView
             android:id="@+id/btn_safety_tips"
             android:layout_width="0dp"
-            android:fontFamily="@font/poppins_medium"
+            android:fontFamily="@font/manrope_medium"
             android:layout_height="@dimen/dimen_40dp"
             android:layout_gravity="center"
             android:gravity="center"
@@ -391,7 +402,6 @@
             android:outlineAmbientShadowColor="@color/red"
             android:background="@drawable/btn_rectangle_outline_bg_red"
             android:layout_marginBottom="@dimen/dimen_10dp"
-
 
             android:layout_margin="@dimen/margin_5dp"
             android:autoLink="web"

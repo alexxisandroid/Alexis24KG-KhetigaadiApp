@@ -8,7 +8,7 @@ import okhttp3.Request
 import okhttp3.Response
 import okhttp3.Route
 import javax.inject.Inject
-class TokenAuthenticator @Inject constructor(private val appContext:Context,) : Authenticator {
+class TokenAuthenticator @Inject constructor(private val appContext:Context,):Authenticator {
     override fun authenticate(route:Route?,response:Response):Request? {
         return runBlocking {
             var intent = Intent("anEvent")

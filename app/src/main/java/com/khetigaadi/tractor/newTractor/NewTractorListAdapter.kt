@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.khetigaadi.AppConfig
 import com.khetigaadi.R
 import com.khetigaadi.base.util.BaseRecyclerViewAdapter
 import com.khetigaadi.commons.utils.EmptyViewHolder
@@ -25,16 +24,16 @@ class NewTractorListAdapter internal constructor(private val mContext:Context,re
         this.listener = myClickListener
     }
     override fun getItemViewType(position:Int):Int {
-        if (items.size == 0) {
+        if(items.size == 0) {
             return EMPTY_VIEW
         }
-        return if (items[position] != null) VIEW_ITEM else VIEW_PROG
+        return if(items[position] != null) VIEW_ITEM else VIEW_PROG
     }
     override fun onCreateViewHolder(parent:ViewGroup,viewType:Int):RecyclerView.ViewHolder {
         return when (viewType) {
             EMPTY_VIEW -> EmptyViewHolder(EmptyViewBinding.inflate(LayoutInflater.from(parent.context),parent,false))
             VIEW_ITEM -> ViewHolder(NewTractorListItemBinding.inflate(LayoutInflater.from(parent.context),parent,false))
-            else -> ProgressViewHolder(mContext,LayoutInflater.from(parent.context).inflate(R.layout.progressbar_item, parent,false))
+            else -> ProgressViewHolder(mContext,LayoutInflater.from(parent.context).inflate(R.layout.progressbar_item,parent,false))
         }
     }
     override fun onBindViewHolder(holder:RecyclerView.ViewHolder,position:Int) {
@@ -53,7 +52,9 @@ class NewTractorListAdapter internal constructor(private val mContext:Context,re
                 holder.binding.tvSponsor.visibility = View.VISIBLE
             }
             else {
-                holder.binding.container.setBackgroundColor(mContext.resources.getColor(R.color.detailsBackground))
+               // holder.binding.container.setBackgroundColor(mContext.resources.getColor(R.color.detailsBackground))
+                holder.binding.container.setBackgroundColor(mContext.resources.getColor(R.color.white))
+
                 holder.binding.tvSponsor.visibility = View.GONE
             }
             for(shortSpec in currentTractor.getShortSpecData) {
@@ -126,10 +127,10 @@ class NewTractorListAdapter internal constructor(private val mContext:Context,re
     }
     private inner class ViewHolder(val binding:NewTractorListItemBinding):RecyclerView.ViewHolder(binding.root) {
         init {
-            binding.root.setOnClickListener { v: View -> listener.onClick(absoluteAdapterPosition, v) }
-            binding.ivFavorites.setOnClickListener { v: View -> listener.onFavoriteClick(absoluteAdapterPosition, v) }
-            binding.btnOnRoadPrice.setOnClickListener { v: View -> listener.onGetRoadPriceClick(absoluteAdapterPosition, v) }
-            binding.btnRequestForDemo.setOnClickListener { v: View -> listener.onGetDemoClick(absoluteAdapterPosition, v) }
+            binding.root.setOnClickListener { v:View -> listener.onClick(absoluteAdapterPosition,v) }
+            binding.ivFavorites.setOnClickListener { v:View -> listener.onFavoriteClick(absoluteAdapterPosition,v) }
+            binding.btnOnRoadPrice.setOnClickListener { v:View -> listener.onGetRoadPriceClick(absoluteAdapterPosition,v) }
+            binding.btnRequestForDemo.setOnClickListener { v:View -> listener.onGetDemoClick(absoluteAdapterPosition,v) }
         }
     }
     interface Listener {

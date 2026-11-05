@@ -1,4 +1,7 @@
 package com.khetigaadi.tractor.rent.model;
+import android.os.Parcel;
+import android.os.Parcelable;
+import androidx.annotation.NonNull;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.khetigaadi.base.model.Brand;
@@ -7,9 +10,9 @@ import com.khetigaadi.commons.model.Hp;
 import com.khetigaadi.commons.utils.Drive;
 import com.khetigaadi.tractor.rent.rentTractorNewUi.model.RentTractorImplement;
 import com.khetigaadi.user.model.User;
-
+import java.io.Serializable;
 import java.util.List;
-public class RentTractor {
+public class RentTractor implements Parcelable {
     @SerializedName("rent_tractor_id")
     @Expose
     private String rentTractorId;
@@ -58,6 +61,36 @@ public class RentTractor {
     @SerializedName("hp")
     @Expose
     private Hp hp;
+    protected RentTractor(Parcel in) {
+        rentTractorId = in.readString();
+        tractorModelId = in.readInt();
+        exactHp = in.readString();
+        userViews = in.readInt();
+        tractorMonth = in.readString();
+        tractorYear = in.readInt();
+        createdAt = in.readString();
+        isBookmark = in.readByte() != 0;
+        user = in.readParcelable(User.class.getClassLoader());
+        rentTractorImplement = in.readParcelable(RentTractorImplement.class.getClassLoader());
+        rentTractorImplements = in.createTypedArrayList(RentTractorImplement.CREATOR);
+        drive = in.readParcelable(Drive.class.getClassLoader());
+        rentTractorBrand = in.readParcelable(Brand.class.getClassLoader());
+        tractorModel = in.readParcelable(Model.class.getClassLoader());
+        hp = in.readParcelable(Hp.class.getClassLoader());
+    }
+    public static final Creator<RentTractor> CREATOR = new Creator<RentTractor>() {
+        @Override
+        public RentTractor createFromParcel(Parcel in) {
+            return new RentTractor(in);
+        }
+
+        @Override
+        public RentTractor[] newArray(int size) {
+            return new RentTractor[size];
+        }
+    };
+    public RentTractor() {
+    }
     public String getRentTractorId() {
         return rentTractorId;
     }
@@ -153,5 +186,27 @@ public class RentTractor {
     }
     public void setRentTractorTable(RentTractorTable rentTractorTable) {
         this.rentTractorTable = rentTractorTable;
+    }
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+    @Override
+    public void writeToParcel(@NonNull Parcel dest,int flags) {
+        dest.writeString(rentTractorId);
+        dest.writeInt(tractorModelId);
+        dest.writeString(exactHp);
+        dest.writeInt(userViews);
+        dest.writeString(tractorMonth);
+        dest.writeInt(tractorYear);
+        dest.writeString(createdAt);
+        dest.writeByte((byte) (isBookmark ? 1 : 0));
+        dest.writeParcelable(user, flags);
+        dest.writeParcelable(rentTractorImplement, flags);
+        dest.writeTypedList(rentTractorImplements);
+        dest.writeParcelable(drive, flags);
+        dest.writeParcelable(rentTractorBrand, flags);
+        dest.writeParcelable(tractorModel, flags);
+        dest.writeParcelable(hp, flags);
     }
 }

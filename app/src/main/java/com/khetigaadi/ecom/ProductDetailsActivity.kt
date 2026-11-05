@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.View
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.core.content.ContextCompat
@@ -31,7 +30,6 @@ import com.khetigaadi.ecom.adapter.AgricultureToolsAdapter
 import com.khetigaadi.ecom.adapter.ProductImageSlideAdapter
 import com.khetigaadi.ecom.cart.CartActivity
 import com.khetigaadi.room.repository.CartRepository
-//import com.khetigaadi.shop.databinding.ActivityProductDetailsBinding
 import com.khetigaadi.shop.model.OrderProduct
 import com.khetigaadi.shop.model.Product
 import com.khetigaadi.shop.model.ProductImage
@@ -57,33 +55,35 @@ class ProductDetailsActivity:CartBaseActivity() {
     private var quantity = 0
     override fun onCreate(savedInstanceState:Bundle?) {
         super.onCreate(savedInstanceState)
-       // WindowCompat.setDecorFitsSystemWindows(getWindow(), false)
         binding = ActivityProductDetailsBinding.inflate(layoutInflater)
         val view: View = binding.root
         setContentView(view)
-//        ViewCompat.setOnApplyWindowInsetsListener(
-//            binding.getRoot(),
-//            OnApplyWindowInsetsListener { v: View?, insets: WindowInsetsCompat? ->
-//                val systemBarsInsets = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
-//                v!!.setPadding(
-//                    systemBarsInsets.left,
-//                    systemBarsInsets.top,
-//                    systemBarsInsets.right,
-//                    systemBarsInsets.bottom)
-//                insets
-//            })
+        //WindowCompat.setDecorFitsSystemWindows(window,false)
+        enableEdgeToEdge()
+        ViewCompat.setOnApplyWindowInsetsListener(
+            binding.getRoot(),
+            OnApplyWindowInsetsListener { v:View?,insets:WindowInsetsCompat? ->
+                val systemBarsInsets = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
+                v!!.setPadding(
+                    systemBarsInsets.left,
+                    systemBarsInsets.top,
+                    systemBarsInsets.right,
+                    systemBarsInsets.bottom)
+                insets
+            })
 //        this.enableEdgeToEdge()
         viewModel = ViewModelProvider(this)[ProductDetailsViewModel::class.java]
         handler = Handler(Looper.getMainLooper())
         toolbarInit()
         setData()
         initAdapter()
-        viewModel.quantity.observe(this) { integer: Int ->
-            if (integer != 0) {
+        viewModel.quantity.observe(this) { integer:Int ->
+            if(integer != 0) {
                 quantity = integer
-                binding.tvQuantity.text = String.format(Locale.US, "%d", integer)
+                binding.tvQuantity.text = String.format(Locale.US,"%d",integer)
                 showBuyNow(false)
-            } else {
+            }
+            else {
                 showBuyNow(true)
             }
         }
@@ -118,10 +118,11 @@ class ProductDetailsActivity:CartBaseActivity() {
         })
     }
     private fun showBuyNow(visibility:Boolean) {
-        if (visibility) {
+        if(visibility) {
             binding.btnBuyNow.visibility = View.VISIBLE
             binding.quantityGroup.visibility = View.GONE
-        } else {
+        }
+        else {
             binding.btnBuyNow.visibility = View.GONE
             binding.quantityGroup.visibility = View.VISIBLE
         }
@@ -215,13 +216,14 @@ class ProductDetailsActivity:CartBaseActivity() {
                 StateData.Status.SUCCESS -> {
                     if (productListRespStateData.data != null) {
                         binding.include.rvProductList.visibility = View.VISIBLE
-                        binding.tvSimilarProduct.visibility = View.VISIBLE
+                       // binding.tvSimilarProduct.visibility = View.VISIBLE
                         similarProductListAdapter.addItems(productListRespStateData.data!!.data.data, 1, productListRespStateData.data!!.others)
                     }
                 }
                 else -> {}
             }
         }
+
     }
     private fun toolbarInit() {
         setSupportActionBar(binding.toolbars.toolbar)
@@ -273,22 +275,23 @@ class ProductDetailsActivity:CartBaseActivity() {
         binding.tvPrice.paintFlags = binding.tvPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         binding.tvPrice.text = String.format("%s %s", getString(R.string.rs), Utils.priceConvert(product!!.price.toString() + ""))
         binding.tvDiscPrice.text = String.format("%s %s", getString(R.string.rs), Utils.priceConvert(product.finalPrice.toString() + ""))
-        if (!TextUtil.isEmptyOrZero(product.discountPer)) {
+        if(!TextUtil.isEmptyOrZero(product.discountPer)) {
             binding.priceGroup.visibility = View.VISIBLE
-            binding.tvDiscPer.text = String.format("%s%% %s", product.discountPer, getString(R.string.off))
-            binding.tvDiscount.text = String.format("%s%%", product.discountPer)
-        } else {
+            binding.tvDiscPer.text =   String.format("%s%% %s",product.discountPer,getString(R.string.off))
+            binding.tvDiscount.text =  String.format("%s%%",product.discountPer)
+        }
+        else {
             binding.priceGroup.visibility = View.INVISIBLE
         }
     }
     private fun setImages(images:MutableList<ProductImage>,imagePath:String) {
-        if (images != null && images.isNotEmpty()) {
+        if(images != null && images.isNotEmpty()) {
             binding.viewPager.adapter = ProductImageSlideAdapter(this@ProductDetailsActivity,images,imagePath) { baseUrl:String,productImages:List<ProductImage> ->
                 val urls = ArrayList<String>()
                 var baseUrlv = baseUrl
                 if(baseUrl==null || baseUrl.equals(null) || baseUrl.equals("null") || baseUrl.isEmpty())
                     baseUrlv = "https://khetigaadi.com/images/shop_product/";
-                for (image in productImages) {
+                for(image in productImages) {
                     urls.add(baseUrlv + image.image)
                 }
                 val intent = Intent(this@ProductDetailsActivity,ImageViewActivity::class.java)
@@ -306,10 +309,11 @@ class ProductDetailsActivity:CartBaseActivity() {
     }
     fun runnable(size:Int) {
         animateViewPager = Runnable {
-            if (!stopSliding) {
-                if (binding.viewPager.currentItem == size - 1) {
+            if(!stopSliding) {
+                if(binding.viewPager.currentItem == size - 1) {
                     binding.viewPager.currentItem = 0
-                } else {
+                }
+                else {
                     binding.viewPager.setCurrentItem(binding.viewPager.currentItem+1,true)
                 }
                 handler.postDelayed(animateViewPager,Constants.ANIM_VIEWPAGER_DELAY)

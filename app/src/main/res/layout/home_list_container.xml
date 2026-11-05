@@ -5,6 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:backgroundTint="@color/white"
     tools:showIn="@layout/home">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
@@ -47,8 +49,8 @@
                 style="@style/homePageLabel"
                 android:layout_alignParentEnd="true"
                 android:textStyle="bold"
-                android:fontFamily="@font/poppins_bold"
-                android:textSize="18sp"
+                android:fontFamily="@font/manrope_bold"
+                android:textSize="@dimen/dimen_16sp"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:text="Label"/>
         </com.andexert.library.RippleView>

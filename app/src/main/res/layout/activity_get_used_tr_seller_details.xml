@@ -72,9 +72,11 @@
     <com.andexert.library.RippleView
         android:id="@+id/riSubmit"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="@dimen/payu_dimen_54dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/dimen_20dp"
+        android:layout_marginStart="@dimen/dimen_10dp"
+        android:layout_marginEnd="@dimen/dimen_10dp"
+        android:layout_marginBottom="@dimen/payu_dimen_54dp"
         android:layout_gravity="center">
         <TextView
             android:id="@+id/btnSubmit"
@@ -82,7 +84,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:textAlignment="center"
-            android:minHeight="@dimen/dimen_40dp"
+            android:minHeight="@dimen/payu_dimen_54dp"
             android:text="@string/btn_request"
             android:textColor="@color/red"
             android:layout_margin="@dimen/margin_5dp"
@@ -95,8 +97,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             android:background="@drawable/btn_rectangle_outline_bg_red"
-
-
             android:textAllCaps="false"/>
     </com.andexert.library.RippleView>
 </RelativeLayout>

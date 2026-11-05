@@ -33,6 +33,8 @@ import com.payu.ui.model.listeners.PayUHashGenerationListener;
 import org.jetbrains.annotations.Nullable;
 import java.security.MessageDigest;
 import java.util.HashMap;
+import java.util.Objects;
+
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 import timber.log.Timber;
@@ -106,6 +108,8 @@ public class PaymentActivity extends AppCompatActivity {
         binding.toolbars.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
         binding.toolbars.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         binding.toolbars.toolbar.setTitle(getString(R.string.payment));
+
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getResources().getString(R.string.payment));
     }
     private void launchPayUMoneyFlow(String totalBill) {
         PayUPaymentParams.Builder builder = new PayUPaymentParams.Builder();

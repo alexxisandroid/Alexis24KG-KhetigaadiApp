@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:layout_margin="4dp"
+    android:layout_marginStart="@dimen/dimen_10dp"
+    android:layout_marginEnd="@dimen/dimen_10dp"
+    android:backgroundTint="@color/white"
+    android:background="@color/white"
+    android:layout_marginTop="@dimen/dimen_1dp"
+    android:layout_marginBottom="@dimen/dimen_10dp"
+    app:cardCornerRadius="@dimen/dimen_10dp"
     android:layout_weight="1"
     android:orientation="vertical">
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center">
-
-
         <ImageView
             android:id="@+id/ivImage"
             android:layout_width="100dp"
@@ -27,29 +31,25 @@
             android:src="@mipmap/ic_launcher"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintEnd_toStartOf="@id/ivTrash"
-            app:layout_constraintTop_toTopOf="parent" />
-
-
+            app:layout_constraintTop_toTopOf="parent"/>
         <TextView
             android:id="@+id/tvName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
             android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
             android:fontFamily="@font/poppins_medium"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/black"
             app:layout_constraintEnd_toStartOf="@+id/ivImage"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Samsung 192 ltr 2 star dddd RR19M27RJ" />
-
+            tools:text="Samsung 192 ltr 2 star dddd RR19M27RJ"/>
         <ImageView
             android:id="@+id/ivTrash"
-            android:layout_width="15dp"
-            android:layout_height="15dp"
+            android:layout_width="@dimen/dimen_20dp"
+            android:layout_height="@dimen/dimen_20dp"
             android:layout_marginStart="@dimen/margin_8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
@@ -58,8 +58,7 @@
             android:focusable="true"
             android:src="@drawable/ic_close_black_24dp"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toTopOf="parent"/>
         <TextView
             android:id="@+id/tvRs"
             android:layout_width="wrap_content"
@@ -74,25 +73,23 @@
             app:layout_constraintEnd_toStartOf="@+id/tvAmount"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvName"
-            app:layout_constraintTop_toTopOf="@+id/tvAmount" />
-
+            app:layout_constraintTop_toTopOf="@+id/tvAmount"/>
         <TextView
             android:id="@+id/tvAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_5dp"
+            android:layout_marginStart="@dimen/dimen_10dp"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/poppins_bold"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="@dimen/dimen_4dp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tvRs"
             app:layout_constraintVertical_bias="1.0"
-            tools:text="10100" />
-
+            tools:text="10100"/>
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="30dp"
@@ -101,13 +98,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@id/ivImage"
             app:layout_constraintTop_toBottomOf="@id/ivImage">
-
             <TextView
                 android:id="@+id/tvQuantityLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:fontFamily="@font/poppins_semibold"
+                android:fontFamily="@font/poppins_bold"
                 android:text="@string/qty"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
                 android:textColor="@color/black"
@@ -116,8 +112,7 @@
                 app:layout_constraintRight_toLeftOf="@+id/tvMinus"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="parent"
-                app:layout_constraintTop_toTopOf="@id/tvPlus" />
-
+                app:layout_constraintTop_toTopOf="@id/tvPlus"/>
             <TextView
                 android:id="@+id/tvMinus"
                 android:layout_width="wrap_content"
@@ -134,19 +129,18 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/tvQuantity"
                 app:layout_constraintStart_toEndOf="@id/tvQuantityLabel"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                app:layout_constraintTop_toTopOf="parent"/>
             <TextView
                 android:id="@+id/tvQuantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/_1"
                 android:textSize="16sp"
+                android:paddingTop="@dimen/dimen_2dp"
                 android:fontFamily="@font/poppins_medium"
                 app:layout_constraintBottom_toBottomOf="@id/tvPlus"
                 app:layout_constraintRight_toLeftOf="@+id/tvPlus"
-                app:layout_constraintTop_toTopOf="@id/tvPlus" />
-
+                app:layout_constraintTop_toTopOf="@id/tvPlus"/>
             <TextView
                 android:id="@+id/tvPlus"
                 android:layout_width="wrap_content"
@@ -154,6 +148,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:paddingStart="10dp"
+                android:paddingTop="@dimen/dimen_2dp"
                 android:paddingEnd="@dimen/margin_10dp"
                 android:text="@string/plus"
                 android:textColor="@color/black"
@@ -162,7 +157,7 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                app:layout_constraintTop_toTopOf="parent"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

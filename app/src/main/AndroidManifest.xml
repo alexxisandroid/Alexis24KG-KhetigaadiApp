@@ -2,6 +2,7 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
@@ -22,8 +23,10 @@
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"
-                     tools:ignore="ForegroundServicesPolicy"/>
+    <uses-permission
+        android:name="android.permission.FOREGROUND_SERVICE"
+        tools:ignore="ForegroundServicesPolicy"/>
+
     <uses-feature
         android:name="android.hardware.telephony"
         android:required="false"/>
@@ -40,6 +43,7 @@
             <action android:name="com.google.android.youtube.api.service.START"/>
         </intent>
     </queries>
+
     <application
         android:name=".AppController"
         android:allowBackup="true"
@@ -52,17 +56,52 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppThemee"
+        android:resizeableActivity="true"
         tools:replace="android:theme,android:allowBackup,android:label"
         tools:targetApi="n">
         <activity
-            android:name=".ecom.adapter.ProductActivity"
+            android:name=".user.profile.AmbWebViewActivity"
+            android:screenOrientation="fullSensor"
+            android:exported="false"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".user.profile.SocialMedia"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"
             android:exported="false"/>
+        <activity
+            android:name=".user.profile.ProfilrSettingActivity"
+            android:screenOrientation="fullSensor"
+            android:exported="false"
+            tools:ignore="DiscouragedApi"/>
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/ADMOB_APP_ID"/>
+        <activity
+            android:name=".user.profile.ProfileOtherActivity"
+            android:screenOrientation="fullSensor"
+            android:exported="false"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".user.profile.ProfileSettingsActivity"
+            android:screenOrientation="fullSensor"
+            android:exported="false"
+            tools:ignore="DiscouragedApi"/>
+        <activity
+            android:name=".ecom.adapter.ProductActivity"
+            android:screenOrientation="fullSensor"
+            android:exported="false"
+            tools:ignore="DiscouragedApi"/>
         <activity
             android:name=".tractor.usedTractor.GetLoanActivity"
-            android:exported="false"/>
+            android:screenOrientation="fullSensor"
+            android:exported="false"
+            tools:ignore="DiscouragedApi"/>
         <activity
             android:name=".commons.activities.TalukaSelectionActivity"
-            android:exported="false"/>
+            android:screenOrientation="fullSensor"
+            android:exported="false"
+            tools:ignore="DiscouragedApi"/>
         <activity
             android:name=".mandi.MandiFilterActivity"
             android:screenOrientation="fullSensor"
@@ -70,7 +109,7 @@
         <activity
             android:name=".harvester.HarvesterDetailsActivity"
             android:screenOrientation="fullSensor"
-            tools:ignore="DiscouragedApi" />
+            tools:ignore="DiscouragedApi"/>
         <activity
             android:name=".tractor.review.ReviewActivity"
             android:screenOrientation="fullSensor"
@@ -90,8 +129,7 @@
         <activity
             android:name=".ecom.order.MyOrderListActivity"
             android:screenOrientation="fullSensor"
-            tools:ignore="DiscouragedApi"/>
-        <!-- portrait  -->
+            tools:ignore="DiscouragedApi"/> <!-- portrait -->
         <activity
             android:name=".ecom.list.ProductListFilterActivity"
             android:screenOrientation="fullSensor"
@@ -127,8 +165,8 @@
         <activity
             android:name=".tractor.sellTractorNewUi.SellTractorActivity"
             android:screenOrientation="fullSensor"
-            tools:ignore="DiscouragedApi"
-            android:windowSoftInputMode="stateHidden|adjustResize"/>
+            android:windowSoftInputMode="stateHidden|adjustResize"
+            tools:ignore="DiscouragedApi"/>
         <activity
             android:name=".tractor.compare.CompareTractorActivity"
             android:screenOrientation="fullSensor"
@@ -160,8 +198,8 @@
         <activity
             android:name=".tractor.rent.rentTractorNewUi.RentTractorModel"
             android:screenOrientation="fullSensor"
-            tools:ignore="DiscouragedApi"
-            android:windowSoftInputMode="stateUnchanged|adjustResize"/>
+            android:windowSoftInputMode="stateUnchanged|adjustResize"
+            tools:ignore="DiscouragedApi"/>
         <activity
             android:name=".tractor.rent.rentTractorNewUi.RentTractorYear"
             android:screenOrientation="fullSensor"
@@ -178,7 +216,10 @@
             android:name=".tractor.rent.rentTractorNewUi.RentTractorOther"
             android:screenOrientation="fullSensor"
             tools:ignore="DiscouragedApi"/>
-        <activity android:name=".SafetyTipsActivity"/>
+        <activity
+            android:name=".SafetyTipsActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"/>
         <activity
             android:name=".commons.activities.TypeSelectionActivity"
             android:screenOrientation="fullSensor"
@@ -210,8 +251,7 @@
         <activity
             android:name=".commons.activities.SearchActivity"
             android:screenOrientation="fullSensor"
-            tools:ignore="DiscouragedApi"/>
-        <!-- portrait   -->
+            tools:ignore="DiscouragedApi"/> <!-- portrait -->
         <meta-data
             android:name="firebase_crashlytics_collection_enabled"
             android:value="${crashlyticsCollectionEnabled}"/>
@@ -223,8 +263,7 @@
             android:value="@integer/google_play_services_version"/>
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key"/>
-        <!-- <meta-data -->
+            android:value="@string/google_maps_key"/> <!-- <meta-data -->
         <!-- android:name="com.facebook.sdk.ApplicationId" -->
         <!-- android:value="@string/facebook_app_id" -->
         <!-- tools:replace="android:value"/> -->
@@ -258,8 +297,8 @@
         <service
             android:name=".notification.MyFirebaseMessagingService"
             android:exported="true"
-            tools:node="merge"
-            tools:ignore="ExportedService">
+            tools:ignore="ExportedService"
+            tools:node="merge">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
@@ -286,9 +325,13 @@
         </provider>
         <activity
             android:name="com.facebook.FacebookActivity"
-            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"/>
+            android:screenOrientation="fullSensor"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            tools:ignore="DiscouragedApi"/>
         <activity
             android:name="com.facebook.CustomTabActivity"
+            android:screenOrientation="fullSensor"
+            tools:ignore="DiscouragedApi"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
@@ -303,7 +346,7 @@
             android:name=".MainActivity"
             android:configChanges="locale|layoutDirection"
             android:launchMode="singleTask"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:theme="@style/AppThemee"
             android:windowSoftInputMode="stateAlwaysHidden|adjustResize"
             tools:ignore="DiscouragedApi"/>
@@ -322,8 +365,8 @@
             android:name=".SplashActivity"
             android:exported="true"
             android:screenOrientation="fullSensor"
-            tools:node="merge"
-            tools:ignore="DiscouragedApi">
+            tools:ignore="DiscouragedApi"
+            tools:node="merge">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -336,11 +379,11 @@
                 <data
                     android:host="khetigaadi.com"
                     android:scheme="https"/>
-            </intent-filter>   -->
+            </intent-filter>
+            -->
         </activity>
         <activity
             android:name=".notification.NotificationResult"
-            android:label="@string/app_name"
             android:screenOrientation="fullSensor"
             tools:ignore="DiscouragedApi"/>
         <activity
@@ -352,28 +395,27 @@
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="fullSensor"
-            tools:node="merge"
-            tools:ignore="DiscouragedApi"/>
+            tools:ignore="DiscouragedApi"
+            tools:node="merge"/>
         <activity
             android:name=".tractor.usedTractor.UsedTractorDetailActivity"
             android:exported="true"
             android:screenOrientation="fullSensor"
-            tools:node="merge"
-            tools:ignore="DiscouragedApi"/>
+            tools:ignore="DiscouragedApi"
+            tools:node="merge"/>
         <activity
             android:name=".implement.newImplement.NewImpOverviewDetails"
             android:exported="true"
             android:screenOrientation="fullSensor"
-            tools:node="merge"
-            tools:ignore="DiscouragedApi"/>
-<!--  android:theme="@style/AppTheme.AppBarOverlay"  -->
+            tools:ignore="DiscouragedApi"
+            tools:node="merge"/> <!-- android:theme="@style/AppTheme.AppBarOverlay" -->
         <activity
             android:name=".user.LoginActivity"
             android:exported="true"
             android:screenOrientation="fullSensor"
             android:windowSoftInputMode="stateHidden|adjustResize"
-            tools:node="merge"
-            tools:ignore="DiscouragedApi"/>
+            tools:ignore="DiscouragedApi"
+            tools:node="merge"/>
         <activity
             android:name=".user.registration.ConfirmRegistrationActivity"
             android:screenOrientation="fullSensor"
@@ -382,8 +424,8 @@
             android:name=".tractor.rent.RentTractorDetails"
             android:exported="true"
             android:screenOrientation="fullSensor"
-            tools:node="merge"
-            tools:ignore="DiscouragedApi"/>
+            tools:ignore="DiscouragedApi"
+            tools:node="merge"/>
         <activity
             android:name=".tractor.rent.RentTractorSendEnquiry"
             android:screenOrientation="fullSensor"
@@ -422,11 +464,14 @@
         <activity
             android:name=".commons.activities.VideosActivity"
             android:screenOrientation="fullSensor"
-            android:theme="@style/AppTheme.AppBarOverlay"
+            android:theme="@style/AppThemee"
             tools:ignore="DiscouragedApi"/>
         <activity
             android:name=".commons.activities.YouTubePlayerActivity"
-            android:configChanges="orientation|keyboardHidden"/>
+            android:screenOrientation="fullSensor"
+            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+            tools:ignore="DiscouragedApi"/>
+        <!-- //"orientation|keyboardHidden" /> -->
         <activity
             android:name=".user.profile.ProfileActivity"
             android:launchMode="singleTop"
@@ -519,5 +564,10 @@
                 <action android:name="com.wave.ACTION_CLEAR"/>
             </intent-filter>
         </receiver>
+        <receiver
+            android:name=".user.registration.IncomingSms"
+            android:exported="true"
+            android:permission="TODO"
+            tools:node="merge"/>
     </application>
 </manifest>

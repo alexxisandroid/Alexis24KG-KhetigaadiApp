@@ -30,6 +30,9 @@ public class OtpResp extends MyResponse {
         @SerializedName("follower_status")
         @Expose
         private String follower_status;
+        @SerializedName("is_register")
+        @Expose
+        private boolean is_register=true;
         public String getMobile() {
             return mobile;
         }
@@ -47,6 +50,12 @@ public class OtpResp extends MyResponse {
         }
         public void setFollower_status(String follower_status) {
             this.follower_status = follower_status;
+        }
+        public boolean isIs_register() {
+            return is_register;
+        }
+        public void setIs_register(boolean is_register) {
+            this.is_register = is_register;
         }
     }
 }

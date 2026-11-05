@@ -4,16 +4,11 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.Filter;
 import android.widget.Filterable;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-//import com.khetigaadi.base.databinding.FilterListSubItemNewBinding;
 import com.khetigaadi.databinding.FilterListSubItemBinding;
 import com.khetigaadi.implement.newImplement.util.Type;
-
 import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,7 +26,9 @@ public class TypeFilterAdapter extends RecyclerView.Adapter<TypeFilterAdapter.Da
     }
     @Override
     public void onBindViewHolder(DataObjectHolder holder, int position) {
-        holder.binding.cbSelect.setText(filteredData.get(holder.getAbsoluteAdapterPosition()).getName());
+        //holder.binding.cbSelect.setText(filteredData.get(holder.getAbsoluteAdapterPosition()).getName());
+        holder.binding.filterName.setText(filteredData.get(holder.getAbsoluteAdapterPosition()).getName());
+
         holder.binding.cbSelect.setChecked(filteredData.get(holder.getAbsoluteAdapterPosition()).getSelected());
         holder.binding.cbSelect.setOnClickListener(v -> filteredData.get(holder.getAbsoluteAdapterPosition()).setSelected(((CheckBox) v).isChecked()));
     }
@@ -95,7 +92,6 @@ public class TypeFilterAdapter extends RecyclerView.Adapter<TypeFilterAdapter.Da
             notifyDataSetChanged();
         }
     }
-
     public List<Type> getHPList() {
         return filteredData;
     }

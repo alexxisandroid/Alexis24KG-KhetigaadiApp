@@ -9,7 +9,8 @@
         android:id="@+id/inFollows"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:layout_margin="@dimen/margin_5dp"
+        app:layout_constraintEnd_toStartOf="@+id/inFollowing"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <ImageView
@@ -19,18 +20,19 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
-            android:src="@drawable/ic_followers"
-            android:contentDescription="@string/followers"/>
+            android:src="@drawable/ic_followers"/>
         <TextView
             android:id="@+id/tvFollowers"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
+            android:layout_marginBottom="-4dp"
             android:layout_toEndOf="@id/ivFollowers"
+            android:fontFamily="@font/poppins_semibold"
             android:paddingStart="@dimen/margin_5dp"
             android:paddingTop="@dimen/margin_5dp"
-            android:text="@string/_0"
+            android:text="0"
             android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textStyle="bold"/>
@@ -40,7 +42,8 @@
             android:layout_below="@+id/tvFollowers"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_toEndOf="@id/ivFollowers"
+            android:layout_toRightOf="@id/ivFollowers"
+            android:fontFamily="@font/manrope_regular"
             android:paddingStart="@dimen/margin_5dp"
             android:text="@string/followers"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -51,8 +54,9 @@
         android:id="@+id/inFollowing"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/inLike"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/inFollows"
         app:layout_constraintTop_toTopOf="parent">
         <ImageView
             android:id="@+id/ivFollowing"
@@ -61,18 +65,19 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
-            android:src="@drawable/ic_following"
-            android:contentDescription="@string/following"/>
+            android:src="@drawable/ic_following"/>
         <TextView
             android:id="@+id/tvFollowing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="-4dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_toEndOf="@id/ivFollowing"
+            android:fontFamily="@font/poppins_semibold"
             android:paddingStart="@dimen/margin_5dp"
             android:paddingTop="@dimen/margin_5dp"
-            android:text="@string/_0"
+            android:text="0"
             android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textStyle="bold"/>
@@ -83,6 +88,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_toEndOf="@id/ivFollowing"
+            android:fontFamily="@font/manrope_regular"
             android:paddingStart="@dimen/margin_5dp"
             android:text="@string/following"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -93,7 +99,10 @@
         android:id="@+id/inLike"
         android:layout_width="100dp"
         android:layout_height="50dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/inFollowing"
         app:layout_constraintTop_toTopOf="parent">
         <ImageView
             android:id="@+id/ivLike"
@@ -102,18 +111,19 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
-            android:src="@drawable/ic_like"
-            android:contentDescription="@string/like"/>
+            android:src="@drawable/ic_like"/>
         <TextView
             android:id="@+id/tvLikes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
+            android:layout_marginBottom="-4dp"
             android:layout_alignParentEnd="true"
             android:layout_toEndOf="@id/ivLike"
+            android:fontFamily="@font/poppins_semibold"
             android:paddingStart="@dimen/margin_5dp"
             android:paddingTop="@dimen/margin_5dp"
-            android:text="@string/_0"
+            android:text="0"
             android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textStyle="bold"/>
@@ -123,7 +133,8 @@
             android:layout_below="@+id/tvLikes"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_toEndOf="@id/ivLike"
+            android:layout_toRightOf="@id/ivLike"
+            android:fontFamily="@font/manrope_regular"
             android:paddingStart="@dimen/margin_5dp"
             android:text="@string/likes"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -134,7 +145,8 @@
         android:id="@+id/inPosts"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        android:layout_margin="@dimen/margin_5dp"
+        app:layout_constraintEnd_toStartOf="@+id/inComments"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/inFollows">
         <ImageView
@@ -144,18 +156,19 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
-            android:src="@drawable/ic_post"
-            android:contentDescription="@string/posts"/>
+            android:src="@drawable/ic_post"/>
         <TextView
             android:id="@+id/tvPosts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
+            android:layout_marginBottom="-4dp"
             android:layout_toEndOf="@id/ivPosts"
+            android:fontFamily="@font/poppins_semibold"
             android:paddingStart="@dimen/margin_5dp"
             android:paddingTop="@dimen/margin_5dp"
-            android:text="@string/_0"
+            android:text="0"
             android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textStyle="bold"/>
@@ -166,6 +179,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_toEndOf="@id/ivPosts"
+            android:fontFamily="@font/manrope_regular"
             android:paddingStart="@dimen/margin_5dp"
             android:text="@string/posts"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -176,8 +190,10 @@
         android:id="@+id/inComments"
         android:layout_width="100dp"
         android:layout_height="50dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
+        app:layout_constraintEnd_toStartOf="@+id/inShare"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/inPosts"
         app:layout_constraintTop_toBottomOf="@id/inFollowing">
         <ImageView
             android:id="@+id/ivComments"
@@ -186,8 +202,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
-            android:src="@drawable/ic_comment"
-            android:contentDescription="@string/comments"/>
+            android:src="@drawable/ic_comment"/>
         <TextView
             android:id="@+id/tvComments"
             android:layout_width="match_parent"
@@ -195,9 +210,11 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_toEndOf="@id/ivComments"
+            android:layout_marginBottom="-4dp"
+            android:fontFamily="@font/poppins_semibold"
             android:paddingStart="@dimen/margin_5dp"
             android:paddingTop="@dimen/margin_5dp"
-            android:text="@string/_0"
+            android:text="0"
             android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textStyle="bold"/>
@@ -208,6 +225,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_toEndOf="@id/ivComments"
+            android:fontFamily="@font/manrope_regular"
             android:paddingStart="@dimen/margin_5dp"
             android:text="@string/comments"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -217,9 +235,12 @@
     <RelativeLayout
         android:id="@+id/inShare"
         android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/dimen_50dp"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/inLike">
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/inComments"
+        app:layout_constraintTop_toBottomOf="@+id/inLike">
         <ImageView
             android:id="@+id/ivShare"
             android:layout_width="wrap_content"
@@ -227,8 +248,7 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_alignParentBottom="true"
-            android:src="@drawable/ic_share"
-            android:contentDescription="@string/share"/>
+            android:src="@drawable/ic_share"/>
         <TextView
             android:id="@+id/tvShares"
             android:layout_width="match_parent"
@@ -236,9 +256,11 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_toEndOf="@id/ivShare"
+            android:layout_marginBottom="-4dp"
+            android:fontFamily="@font/poppins_semibold"
             android:paddingStart="@dimen/margin_5dp"
             android:paddingTop="@dimen/margin_5dp"
-            android:text="@string/_0"
+            android:text="0"
             android:textAlignment="textStart"
             android:textColor="@color/black"
             android:textStyle="bold"/>
@@ -249,6 +271,8 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
             android:layout_toEndOf="@id/ivShare"
+            android:fontFamily="@font/manrope_regular"
+            android:includeFontPadding="false"
             android:paddingStart="@dimen/margin_5dp"
             android:text="@string/share"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
@@ -256,3 +280,262 @@
             android:textSize="12sp"/>
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+<!--<androidx.constraintlayout.widget.ConstraintLayout-->
+<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content"-->
+<!--    android:padding="@dimen/margin_15dp">-->
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/inFollows"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_margin="@dimen/margin_5dp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+<!--        <ImageView-->
+<!--            android:id="@+id/ivFollowers"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentStart="true"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:src="@drawable/ic_followers"-->
+<!--            android:contentDescription="@string/followers"/>-->
+<!--        <TextView-->
+<!--            android:id="@+id/tvFollowers"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_toEndOf="@id/ivFollowers"-->
+<!--            android:paddingStart="@dimen/margin_5dp"-->
+<!--            android:paddingTop="@dimen/margin_5dp"-->
+<!--            android:text="@string/_0"-->
+<!--            android:textAlignment="textStart"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textStyle="bold"/>-->
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/tvFollowers"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:layout_toEndOf="@id/ivFollowers"-->
+<!--            android:paddingStart="@dimen/margin_5dp"-->
+<!--            android:text="@string/followers"-->
+<!--            android:textAppearance="@style/TextAppearance.AppCompat.Small"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="12sp"/>-->
+<!--    </RelativeLayout>-->
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/inFollowing"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+<!--        <ImageView-->
+<!--            android:id="@+id/ivFollowing"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentStart="true"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:src="@drawable/ic_following"-->
+<!--            android:contentDescription="@string/following"/>-->
+<!--        <TextView-->
+<!--            android:id="@+id/tvFollowing"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_toEndOf="@id/ivFollowing"-->
+<!--            android:paddingStart="@dimen/margin_5dp"-->
+<!--            android:paddingTop="@dimen/margin_5dp"-->
+<!--            android:text="@string/_0"-->
+<!--            android:textAlignment="textStart"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textStyle="bold"/>-->
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/tvFollowing"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:layout_toEndOf="@id/ivFollowing"-->
+<!--            android:paddingStart="@dimen/margin_5dp"-->
+<!--            android:text="@string/following"-->
+<!--            android:textAppearance="@style/TextAppearance.AppCompat.Small"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="12sp"/>-->
+<!--    </RelativeLayout>-->
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/inLike"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+<!--        <ImageView-->
+<!--            android:id="@+id/ivLike"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentStart="true"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:src="@drawable/ic_like"-->
+<!--            android:contentDescription="@string/like"/>-->
+<!--        <TextView-->
+<!--            android:id="@+id/tvLikes"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_toEndOf="@id/ivLike"-->
+<!--            android:paddingStart="@dimen/margin_5dp"-->
+<!--            android:paddingTop="@dimen/margin_5dp"-->
+<!--            android:text="@string/_0"-->
+<!--            android:textAlignment="textStart"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textStyle="bold"/>-->
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/tvLikes"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:layout_toEndOf="@id/ivLike"-->
+<!--            android:paddingStart="@dimen/margin_5dp"-->
+<!--            android:text="@string/likes"-->
+<!--            android:textAppearance="@style/TextAppearance.AppCompat.Small"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="12sp"/>-->
+<!--    </RelativeLayout>-->
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/inPosts"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_margin="@dimen/margin_5dp"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/inFollows">-->
+<!--        <ImageView-->
+<!--            android:id="@+id/ivPosts"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentStart="true"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:src="@drawable/ic_post"-->
+<!--            android:contentDescription="@string/posts"/>-->
+<!--        <TextView-->
+<!--            android:id="@+id/tvPosts"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_toEndOf="@id/ivPosts"-->
+<!--            android:paddingStart="@dimen/margin_5dp"-->
+<!--            android:paddingTop="@dimen/margin_5dp"-->
+<!--            android:text="@string/_0"-->
+<!--            android:textAlignment="textStart"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textStyle="bold"/>-->
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/tvPosts"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:layout_toEndOf="@id/ivPosts"-->
+<!--            android:paddingStart="@dimen/margin_5dp"-->
+<!--            android:text="@string/posts"-->
+<!--            android:textAppearance="@style/TextAppearance.AppCompat.Small"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="12sp"/>-->
+<!--    </RelativeLayout>-->
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/inComments"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/inFollowing">-->
+<!--        <ImageView-->
+<!--            android:id="@+id/ivComments"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentStart="true"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:src="@drawable/ic_comment"-->
+<!--            android:contentDescription="@string/comments"/>-->
+<!--        <TextView-->
+<!--            android:id="@+id/tvComments"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_toEndOf="@id/ivComments"-->
+<!--            android:paddingStart="@dimen/margin_5dp"-->
+<!--            android:paddingTop="@dimen/margin_5dp"-->
+<!--            android:text="@string/_0"-->
+<!--            android:textAlignment="textStart"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textStyle="bold"/>-->
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/tvComments"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:layout_toEndOf="@id/ivComments"-->
+<!--            android:paddingStart="@dimen/margin_5dp"-->
+<!--            android:text="@string/comments"-->
+<!--            android:textAppearance="@style/TextAppearance.AppCompat.Small"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="12sp"/>-->
+<!--    </RelativeLayout>-->
+<!--    <RelativeLayout-->
+<!--        android:id="@+id/inShare"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/inLike">-->
+<!--        <ImageView-->
+<!--            android:id="@+id/ivShare"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentStart="true"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:src="@drawable/ic_share"-->
+<!--            android:contentDescription="@string/share"/>-->
+<!--        <TextView-->
+<!--            android:id="@+id/tvShares"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentTop="true"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_toEndOf="@id/ivShare"-->
+<!--            android:paddingStart="@dimen/margin_5dp"-->
+<!--            android:paddingTop="@dimen/margin_5dp"-->
+<!--            android:text="@string/_0"-->
+<!--            android:textAlignment="textStart"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textStyle="bold"/>-->
+<!--        <TextView-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/tvShares"-->
+<!--            android:layout_alignParentEnd="true"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:layout_toEndOf="@id/ivShare"-->
+<!--            android:paddingStart="@dimen/margin_5dp"-->
+<!--            android:text="@string/share"-->
+<!--            android:textAppearance="@style/TextAppearance.AppCompat.Small"-->
+<!--            android:textColor="@color/black"-->
+<!--            android:textSize="12sp"/>-->
+<!--    </RelativeLayout>-->
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->

@@ -24,7 +24,6 @@ import com.google.firebase.dynamiclinks.ktx.shortLinkAsync
 import com.google.firebase.ktx.Firebase
 import com.khetigaadi.R
 import com.khetigaadi.base.util.StateData
-//import com.khetigaadi.commons.activities.BaseActivity
 import com.khetigaadi.commons.utils.Constants
 import com.khetigaadi.databinding.ActivityHarvesterDetailsBinding
 import com.khetigaadi.def.PriceType
@@ -54,21 +53,22 @@ class HarvesterDetailsActivity : AppCompatActivity() {
     private lateinit var others: Others
     override fun onCreate(savedInstanceState:Bundle?) {
         super.onCreate(savedInstanceState)
-       // WindowCompat.setDecorFitsSystemWindows(getWindow(),false)
         binding = ActivityHarvesterDetailsBinding.inflate(layoutInflater)
         val view: View = binding.root
         setContentView(view)
-//        ViewCompat.setOnApplyWindowInsetsListener(
-//            binding.getRoot(),
-//            OnApplyWindowInsetsListener { v: View?, insets: WindowInsetsCompat? ->
-//                val systemBarsInsets = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
-//                v!!.setPadding(
-//                    systemBarsInsets.left,
-//                    systemBarsInsets.top,
-//                    systemBarsInsets.right,
-//                    systemBarsInsets.bottom)
-//                insets
-//            })
+        // WindowCompat.setDecorFitsSystemWindows(window,false)
+        enableEdgeToEdge()
+        ViewCompat.setOnApplyWindowInsetsListener(
+            binding.getRoot(),
+            OnApplyWindowInsetsListener { v:View?,insets:WindowInsetsCompat? ->
+                val systemBarsInsets = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
+                v!!.setPadding(
+                    systemBarsInsets.left,
+                    systemBarsInsets.top,
+                    systemBarsInsets.right,
+                    systemBarsInsets.bottom)
+                insets
+            })
 //        this.enableEdgeToEdge()
         viewModel = ViewModelProvider(this)[HarvesterDetailsViewModel::class.java]
         readData(intent.extras)
@@ -95,7 +95,7 @@ class HarvesterDetailsActivity : AppCompatActivity() {
             startActivity(intent)
         }
         if(Constants.isConnectionAvailable(this@HarvesterDetailsActivity)) {
-            if (harvesterId?.isNotEmpty() == true) details
+            if(harvesterId?.isNotEmpty() == true) details
         }
         else {
             noInternetConnection(binding.parent)
@@ -103,7 +103,6 @@ class HarvesterDetailsActivity : AppCompatActivity() {
         initSimilar()
     }
     private fun noInternetConnection(parent:CoordinatorLayout) {
-
     }
     private fun initSimilar() {
         binding.includeSimilar.tvLabel.text = getString(R.string.similar_implements)

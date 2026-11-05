@@ -21,14 +21,14 @@ class ComparePopularTractorAdapter(private val mContext:Context,recyclerView:Rec
     fun setOnItemClickListener(myClickListener:Listener) {
         this.myClickListener = myClickListener
     }
-    override fun getItemViewType(position: Int):Int {
-        if (list.isEmpty()) {
+    override fun getItemViewType(position:Int):Int {
+        if(list.isEmpty()) {
             return EMPTY_VIEW
         }
-        return if (list[position] != null) VIEW_ITEM else VIEW_PROG
+        return if(list[position] != null) VIEW_ITEM else VIEW_PROG
     }
     override fun onCreateViewHolder(parent:ViewGroup,viewType:Int):RecyclerView.ViewHolder {
-        return if (viewType == EMPTY_VIEW) {
+        return if(viewType == EMPTY_VIEW) {
             return EmptyViewHolder(EmptyViewBinding.inflate(LayoutInflater.from(parent.context),parent,false))
         }
         else if(viewType == VIEW_ITEM) {
@@ -40,17 +40,17 @@ class ComparePopularTractorAdapter(private val mContext:Context,recyclerView:Rec
         }
     }
     override fun onBindViewHolder(holder:RecyclerView.ViewHolder,position:Int) {
-        if (holder is ViewHolder) {
+        if(holder is ViewHolder) {
             println("bcvbcbcvbcvbbcvb====="+position)
             val currentTractor = list[position]
-            if (currentTractor != null) {
+            if(currentTractor != null) {
                 holder.binding.tvHP.text =  String.format("%s %s",currentTractor.firstTractor.exactHp,mContext.getString(R.string.hp))
                 holder.binding.tvHP1.text = String.format("%s %s",currentTractor.secondTractor.exactHp,mContext.getString(R.string.hp))
                 try {
                     holder.binding.tvTractorName.text = currentTractor.firstTractor.name
                     holder.binding.tvTractorName1.text = currentTractor.secondTractor.name
                 }
-                catch (e: Exception) {
+                catch(e:Exception) {
                     e.printStackTrace()
                 }
                 Glide.with(mContext)
@@ -66,13 +66,13 @@ class ComparePopularTractorAdapter(private val mContext:Context,recyclerView:Rec
             }
         }
     }
-    override fun getItemCount(): Int {
+    override fun getItemCount():Int {
         return if (list.isNotEmpty()) list.size else 1
     }
-    inner class ViewHolder(val binding: CompareTrListItemBinding) :
+    inner class ViewHolder(val binding:CompareTrListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         init {
-            itemView.setOnClickListener { view: View? ->
+            itemView.setOnClickListener { view:View? ->
                 myClickListener?.onItemClick(absoluteAdapterPosition,view,list[absoluteAdapterPosition])
             }
         }

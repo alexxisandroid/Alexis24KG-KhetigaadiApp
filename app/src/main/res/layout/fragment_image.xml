@@ -5,6 +5,6 @@
     android:id="@+id/ivImage"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/detailsBackground"
     android:contentDescription="@string/txt_image_slider"
     tools:context=".commons.fragments.ImageFragment"/>

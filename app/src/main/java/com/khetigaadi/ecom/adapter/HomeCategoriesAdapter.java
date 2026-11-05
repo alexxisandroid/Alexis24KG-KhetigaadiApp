@@ -1,6 +1,7 @@
 package com.khetigaadi.ecom.adapter;
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,40 +31,93 @@ public class HomeCategoriesAdapter extends BaseRecyclerViewAdapter<Category,Othe
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent,int viewType) {
         RecyclerView.ViewHolder vh;
-        if (viewType == EMPTY_VIEW) {
-            return new EmptyViewHolder(EmptyViewBinding.inflate(
-                    LayoutInflater.from(parent.getContext()),
-                    parent,
-                    false
-            ));
+        if(viewType == EMPTY_VIEW) {
+            return new EmptyViewHolder(EmptyViewBinding.inflate(LayoutInflater.from(parent.getContext()),parent,false));
         }
-        else if (viewType == VIEW_ITEM) {
+        else if(viewType == VIEW_ITEM) {
             vh = new ViewHolder(CategoriesHomeListItemBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false));
         }
         else {
-            View v = LayoutInflater.from(parent.getContext()).inflate(
-                    R.layout.progressbar_for_horizontal_item, parent, false);
-            vh = new ProgressViewHolder(context, v);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.progressbar_for_horizontal_item,parent,false);
+            vh = new ProgressViewHolder(context,v);
         }
         return vh;
     }
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof ViewHolder) {
+//    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+//        if(holder instanceof ViewHolder) {
+//            Category item = items.get(position);
+//            if(item != null) {
+//                String othShopImg = others.getShopCategoryImagePath();
+//                if(othShopImg==null || othShopImg.equals(null) || othShopImg.equals("null") || othShopImg.isEmpty() || othShopImg.equals(""))
+//                    othShopImg = BuildConfig.BASE_URL+"images/shop-category/";
+//              if(item.getName().equals("All")) {
+//                  Glide.with(context)
+//                          // .load(others != null && others.getShopCategoryImagePath() != null && item.getImage() != null ? others.getShopCategoryImagePath() + item.getImage() : "")
+//                          .load(context.getResources().getDrawable(R.drawable.lady_bug1))
+//                          .error(R.mipmap.no_image)
+//                          .placeholder(R.mipmap.no_image)
+//                          .into(((ViewHolder)holder).binding.image);
+//              }
+//              else
+//                Glide.with(context)
+//                           // .load(others != null && others.getShopCategoryImagePath() != null && item.getImage() != null ? others.getShopCategoryImagePath() + item.getImage() : "")
+//                        .load(othShopImg+item.getImage())
+//                        .error(R.mipmap.no_image)
+//                        .placeholder(R.mipmap.no_image)
+//                        .into(((ViewHolder) holder).binding.image);
+//                //              else if(item.getName().equals("Agriculture Drone")) {
+////                  Glide.with(context)
+////                          .load(context.getResources().getDrawable(R.drawable.drone))
+////                          .error(R.mipmap.no_image)
+////                          .placeholder(R.mipmap.no_image)
+////                          .into(((ViewHolder)holder).binding.image);
+////              }
+//                Log.d("vxcvvxvxcvcxv====",""+item.getColorCode());
+//               // if(item.getColorCode() != null)
+//                   // ((ViewHolder) holder).binding.image.setBackgroundColor(Color.parseColor(item.getColorCode()));
+//                ((ViewHolder) holder).binding.title.setText(item.getName());
+//            }
+//            ((ViewHolder)holder).binding.getRoot().setOnClickListener(v -> {
+//                if(listener != null)
+//                    listener.onItemClick(v,position,item);
+//            });
+//        }
+//    }
+
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder,int position) {
+        if(holder instanceof ViewHolder) {
             Category item = items.get(position);
-            if (item != null) {
+            if(item != null) {
                 String othShopImg = others.getShopCategoryImagePath();
                 if(othShopImg==null || othShopImg.equals(null) || othShopImg.equals("null") || othShopImg.isEmpty() || othShopImg.equals(""))
                     othShopImg = BuildConfig.BASE_URL+"images/shop-category/";
-                Glide.with(context)
-                           // .load(others != null && others.getShopCategoryImagePath() != null && item.getImage() != null ? others.getShopCategoryImagePath() + item.getImage() : "")
-                        .load(othShopImg+item.getImage())
-                        .error(R.mipmap.no_image)
-                        .placeholder(R.mipmap.no_image)
-                        .into(((ViewHolder) holder).binding.image);
-                if (item.getColorCode() != null)
-                    ((ViewHolder) holder).binding.image.setBackgroundColor(Color.parseColor(item.getColorCode()));
-                ((ViewHolder) holder).binding.title.setText(item.getName());
+                if(item.getName().equals("All") || item.getName().contains("All Category") || item.getName().contains("All \nCategory")) {
+                    Glide.with(context)
+                            // .load(others != null && others.getShopCategoryImagePath() != null && item.getImage() != null ? others.getShopCategoryImagePath() + item.getImage() : "")
+                            .load(context.getResources().getDrawable(R.drawable.lady_bug1))
+                            .error(R.mipmap.no_image)
+                            .placeholder(R.mipmap.no_image)
+                            .into(((ViewHolder)holder).binding.image);
+                }
+                else
+                    Glide.with(context)
+                            //.load(others != null && others.getShopCategoryImagePath() != null && item.getImage() != null ? others.getShopCategoryImagePath() + item.getImage() : "")
+                            .load(othShopImg+item.getImage())
+                            .error(R.mipmap.no_image)
+                            .placeholder(R.mipmap.no_image)
+                            .into(((ViewHolder) holder).binding.image);
+                Log.d("vxcvvxvxcvcxv====",""+item.getColorCode()+"=="+othShopImg+item.getImage());
+                //  if(item.getColorCode() != null)
+                // ((ViewHolder) holder).binding.image.setBackgroundColor(Color.parseColor(item.getColorCode()));
+
+                if(!item.getName().contains("Special Kit"))
+                    ((ViewHolder) holder).binding.title.setText(item.getName().replace(" ","\n"));
+                else
+                    ((ViewHolder) holder).binding.title.setText(item.getName());
+                if(item.getName().equals("All"))
+                    ((ViewHolder) holder).binding.title.setText(item.getName().replace("All","All \nCategory"));
+
             }
             ((ViewHolder)holder).binding.getRoot().setOnClickListener(v -> {
                 if(listener != null)
@@ -71,9 +125,10 @@ public class HomeCategoriesAdapter extends BaseRecyclerViewAdapter<Category,Othe
             });
         }
     }
-    @Override
+
+    //    @Override
     public int getItemViewType(int position) {
-        if (items.size() == 0) {
+        if(items.size() == 0) {
             return EMPTY_VIEW;
         }
         return items.get(position) != null ? VIEW_ITEM : VIEW_PROG;
@@ -93,6 +148,6 @@ public class HomeCategoriesAdapter extends BaseRecyclerViewAdapter<Category,Othe
         }
     }
     public interface Listener {
-        void onItemClick(View v, int position);
+        void onItemClick(View v,int position);
     }
 }

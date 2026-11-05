@@ -87,9 +87,10 @@ public class CompareTractorSelection extends Fragment {
             //image = bu
         }
         try {
-            if (value == null) {
+            if(value == null) {
                 json = new JSONObject();
-            } else {
+            }
+            else {
                 json = new JSONObject(value);
             }
         }
@@ -105,9 +106,9 @@ public class CompareTractorSelection extends Fragment {
         Timber.i("Setting screen name: %s", TAG);
         mTracker.setScreenName(TAG);
         mTracker.send(new HitBuilders.ScreenViewBuilder().build());
-        if (getArguments() != null) {
-            if (getArguments().getBoolean("isCallFirstTr")) {
-                getArguments().putBoolean("isCallFirstTr", false);
+        if(getArguments() != null) {
+            if(getArguments().getBoolean("isCallFirstTr")) {
+                getArguments().putBoolean("isCallFirstTr",false);
                 binding.cvTractor1.callOnClick();
             }
         }
@@ -122,7 +123,7 @@ public class CompareTractorSelection extends Fragment {
         binding.rvPopularTractors.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManagerWrapper(activity,LinearLayoutManager.VERTICAL,false);
         binding.rvPopularTractors.setLayoutManager(mLayoutManager);
-        if (value == null) {
+        if(value == null) {
             binding.llTractor1.setVisibility(View.GONE);
             binding.llTractor2.setVisibility(View.GONE);
             binding.llTractor1Empty.setVisibility(View.VISIBLE);
@@ -131,13 +132,11 @@ public class CompareTractorSelection extends Fragment {
         else {
             try {
                 String imgPath = BuildConfig.BASE_URL+"images/brandlogos/";
-
                 imgPath = AppConfig.BASE_ASSET_URL+"new-tractor/";
-
                 if(json.has("tractor1")) {
                     JSONObject tractor1Json = json.getJSONObject("tractor1");
                     Log.d("vcbcvbcvbcb===",""+tractor1Json);
-                    if (tractor1Json.has("brandId") && !tractor1Json.isNull("brandId")) {
+                    if(tractor1Json.has("brandId") && !tractor1Json.isNull("brandId")) {
 
                         Runnable runnable = new Runnable() {
                             public void run() {
@@ -175,7 +174,7 @@ public class CompareTractorSelection extends Fragment {
                     binding.llTractor1.setVisibility(View.GONE);
                     binding.llTractor1Empty.setVisibility(View.VISIBLE);
                 }
-                if (json.has("tractor2")) {
+                if(json.has("tractor2")) {
                     JSONObject tractor1Json = json.getJSONObject("tractor2");
                     Log.d("vcbcvbcvbcb22===",""+tractor1Json);
                     if (tractor1Json.has("brandId") && !tractor1Json.isNull("brandId")) {
@@ -217,7 +216,8 @@ public class CompareTractorSelection extends Fragment {
                     binding.llTractor2.setVisibility(View.GONE);
                     binding.llTractor2Empty.setVisibility(View.VISIBLE);
                 }
-            } catch (JSONException e) {
+            }
+            catch(JSONException e) {
                 e.printStackTrace();
             }
         }
@@ -229,9 +229,9 @@ public class CompareTractorSelection extends Fragment {
                 CompareTractorParam tractorParam = new CompareTractorParam();
                 List<Tractor> list = new ArrayList<>();
                 Tractor tractor = new Tractor();
-                tractor.setId(""+popularTractorAdapter.getItem(position).getFirstTractor().getId());
+                tractor.setId(popularTractorAdapter.getItem(position).getFirstTractor().getId());
                 Tractor tractor1 = new Tractor();
-                tractor1.setId(""+popularTractorAdapter.getItem(position).getSecondTractor().getId());
+                tractor1.setId(popularTractorAdapter.getItem(position).getSecondTractor().getId());
                 list.add(tractor);
                 list.add(tractor1);
                 tractorParam.setTractors(list);
@@ -259,7 +259,6 @@ public class CompareTractorSelection extends Fragment {
             fragmentTransaction.setCustomAnimations(R.anim.enter, R.anim.enter);
             FrameLayout contentView = (FrameLayout) activity.findViewById(R.id.containerView);
             mFragmentManager.popBackStack("GetModelName",FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
             fragmentTransaction.replace(contentView.getId(),fragment).addToBackStack(TAG).commit();
         });
         binding.cvTractor2.setOnClickListener(v -> {
@@ -282,7 +281,7 @@ public class CompareTractorSelection extends Fragment {
             fragmentTransaction.replace(contentView.getId(), fragment).addToBackStack(TAG).commit();
         });
         binding.btnCompare.setOnRippleCompleteListener(rippleView -> {
-            if (tractor1 != null && tractor2 != null) {
+            if(tractor1 != null && tractor2 != null) {
                 Log.d("vcbvcbcbvcbvcb===",""+tractor1.getId()+"=="+tractor2.getId());
                 Tractor tempTractor1 = new Tractor();
                 tempTractor1.setId(tractor1.getId());
@@ -296,6 +295,9 @@ public class CompareTractorSelection extends Fragment {
                 startCompareActivity(tractorParam);
             }
             else {
+                if(tractor1!=null && tractor2!=null)
+                    Log.d("vcbvcbcbvcbvcb===",""+tractor1.getId()+"=="+tractor2.getId());
+
                 Toast.makeText(activity,getResources().getString(R.string.please_select_tractors_for_compare),Toast.LENGTH_LONG).show();
             }
         });
@@ -438,7 +440,7 @@ public class CompareTractorSelection extends Fragment {
             if(response.isSuccessful()) {
                 String path =AppConfig.BASE_ASSET_URL+"new-tractor/";
                 String vbnbvnv = response.body().string();
-                Log.d("cxvcvcxvxcvx===",""+vbnbvnv);
+                Log.d("cxvcvcxvxcvx===",""+vbnbvnv+"=="+response.code());
                 JSONObject jsonObject= new JSONObject(vbnbvnv);
                 JSONObject jsonObject1 = jsonObject.getJSONObject("data");
                 JSONArray jsonArray = jsonObject1.getJSONArray("data");

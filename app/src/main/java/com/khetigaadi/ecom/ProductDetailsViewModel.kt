@@ -41,12 +41,12 @@ class ProductDetailsViewModel @Inject constructor(private val shopAPIs:ShopAPIs,
         }
     }
     //        disposable.add(shopAPIs.getProduct())
-    val productDetails: StateMutableLiveData<OrderProduct>
+    val productDetails:StateMutableLiveData<OrderProduct>
         get() {
-            var orderProduct = OrderProduct()
+            val orderProduct = OrderProduct()
             orderProduct.product = product
             val value = quantity.value
-            if (value != null) {
+            if(value != null) {
                 orderProduct.quantity = value
             }
             val gardenTools = StateMutableLiveData<OrderProduct>()
@@ -54,16 +54,17 @@ class ProductDetailsViewModel @Inject constructor(private val shopAPIs:ShopAPIs,
             disposable.add(shopAPIs.getProduct(product!!.productId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(object : DisposableSingleObserver<ProductResp>() {
+                .subscribeWith(object:DisposableSingleObserver<ProductResp>() {
                     override fun onSuccess(productListResp: ProductResp) {
-                        if (productListResp.isError) gardenTools.postError(""+productListResp.msg[0]) else {
+                        if(productListResp.isError) gardenTools.postError(""+productListResp.msg[0])
+                        else {
                             orderProduct.product = productListResp.data
                             imagePath = productListResp.others.shopProductImagePath
                             gardenTools.postSuccess(orderProduct)
                         }
                     }
-                    override fun onError(e: Throwable) {
-                        Timber.e(e, "onError: ")
+                    override fun onError(e:Throwable) {
+                        Timber.e(e,"onError: ")
                         gardenTools.postError(e.message)
                     }
                 }))
@@ -116,10 +117,10 @@ class ProductDetailsViewModel @Inject constructor(private val shopAPIs:ShopAPIs,
         return gardenTools
     }
     init {
-        product = savedStateHandle.get("product")
-        imagePath = savedStateHandle.get("imagePath")
+        product = savedStateHandle["product"]
+        imagePath = savedStateHandle["imagePath"]
         val productId = savedStateHandle.get<Int>("productId")
-        if (productId != null) {
+        if(productId != null) {
             product = Product()
             product!!.productId = productId
         }

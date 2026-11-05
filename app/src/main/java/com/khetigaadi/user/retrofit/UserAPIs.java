@@ -34,7 +34,8 @@ public interface UserAPIs {
  Call<MyResponse> deregisterPushToken();
  @PUT("mobile/api/v3/user/profile")
  Single<UserResponse> updateUser(@Body User user);
- @POST("mobile/api/v1/user/otp")
+ //@POST("mobile/api/v1/user/otp")
+ @POST("mobile/api/v5/user-app/otp")
  Call<OtpResp> getOTP(@Body User user);
  @POST("mobile/api/v2/user/login")
  Call<UserResponse> loginWithOTP(@Body User user);
@@ -51,7 +52,8 @@ public interface UserAPIs {
  @NonNull
  Single<StateResp> getStates();
  @GET("commonApi/city")
- LiveData<ApiResponse<CityResp>> getCities();
+ Single<CityResp> getCities();
+ //LiveData<ApiResponse<CityResp>> getCities();
  @GET("commonApi/state/city/{id}")
  Single<CityResp> getCitiesByState(@Path("id") int stateId);
  @POST("mobile/api/v1/user/share")
@@ -64,8 +66,6 @@ public interface UserAPIs {
  @GET("mobile/api/v1/userLevel")
  Single<UserTypes> getUserType();
 }
-
-
 //public interface UserAPIs {
 //      // @GET("/mobile/api/v1/banner")
 //      // Single<List<State>> states();

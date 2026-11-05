@@ -46,7 +46,7 @@ public class GetBrandName extends Fragment {
         super.onAttach(context);
         activity = getActivity();
         Bundle bundle = getArguments();
-        if (bundle != null) {
+        if(bundle != null) {
             value = bundle.getString("value");
         }
     }

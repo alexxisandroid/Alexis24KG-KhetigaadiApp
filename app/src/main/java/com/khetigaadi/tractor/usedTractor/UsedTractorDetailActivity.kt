@@ -30,6 +30,7 @@ import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.google.android.gms.analytics.HitBuilders.ScreenViewBuilder
 import com.google.android.gms.analytics.Tracker
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.dynamiclinks.ktx.androidParameters
 import com.google.firebase.dynamiclinks.ktx.component1
 import com.google.firebase.dynamiclinks.ktx.component2
@@ -88,10 +89,9 @@ class UsedTractorDetailActivity:BaseActivity() {
     private lateinit var usedTractorListAdapter:UsedTractorListAdapter
     var urls: MutableList<String> = ArrayList()
    // @RequiresApi(Build.VERSION_CODES.O)
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState:Bundle?) {
         super.onCreate(savedInstanceState)
        // WindowCompat.setDecorFitsSystemWindows(window,false)
-
         binding = UsedTractorDetailsBinding.inflate(layoutInflater)
         val view: View = binding.root
         setContentView(view)
@@ -111,13 +111,17 @@ class UsedTractorDetailActivity:BaseActivity() {
         viewModel = ViewModelProvider(this)[UsedTractorDetailsViewModel::class.java]
         findViewById()
         initToolbar()
+       if(!Utils.isConnectionAvailable(this)){
+           Snackbar.make(binding.btnSafetyTips,resources.getString(R.string.no_internet_connection),
+               Snackbar.LENGTH_LONG).show()
+       }
         readData(intent.extras)
         readDeepLinkData()
         urls.add("")
         initImagesAdapter(urls)
         binding.btnSellerDetails.setOnClickListener {
             val intent = Intent(this@UsedTractorDetailActivity,GetUsedTrSellerDetails::class.java)
-            intent.putExtra("tractorId", tractorId)
+            intent.putExtra("tractorId",tractorId)
             startActivity(intent)
         }
         binding.ivFavorites.setOnClickListener { v: View ->
@@ -134,7 +138,7 @@ class UsedTractorDetailActivity:BaseActivity() {
             noInternetConnection(binding.parent)
         }
         try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 binding.tvDisclaimer.setJustificationMode(LineBreaker.JUSTIFICATION_MODE_INTER_WORD)
             }
             val allBanner = Gson().fromJson(SharedPreferenceUtils.getInstance(this).getStringValue(Constants.APP_BANNER_KEY,"{}"),AllBannerResp::class.java)
@@ -159,9 +163,8 @@ class UsedTractorDetailActivity:BaseActivity() {
 
                 wordToSpan.setSpan(StyleSpan(Typeface.BOLD),0,12,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
-                val typeface = ResourcesCompat.getFont(this, R.font.poppins_bold)
+                val typeface = ResourcesCompat.getFont(this,R.font.poppins_bold)
                 wordToSpan.setSpan(CustomTypefaceSpan(typeface!!),0,12,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-
 
                 binding.tvDisclaimer.text = wordToSpan
                 //Html.fromHtml(
@@ -211,40 +214,40 @@ class UsedTractorDetailActivity:BaseActivity() {
         binding.toolbars.toolbar.title = getString(R.string.old_tractor)
         supportActionBar?.title = getString(R.string.old_tractor)
     }
-    private fun getSimilarTractors(tractor: UsedTractor?) {
+    private fun getSimilarTractors(tractor:UsedTractor?) {
         val similarParams = SimilarParams()
         similarParams.hp = tractor!!.hp
         similarParams.drive = tractor.drive
         similarParams.city = session.user?.city
         viewModel.getSimilarTractors(similarParams)
-            .observe(this) { newTractorRespStateData: StateData<SimilarUsedTractorsResp?> ->
-                when (newTractorRespStateData.status) {
+            .observe(this) { newTractorRespStateData:StateData<SimilarUsedTractorsResp?> ->
+                when(newTractorRespStateData.status) {
                     StateData.Status.LOADING -> binding.includeSimilar.root.visibility = View.GONE
                     StateData.Status.SUCCESS -> if (newTractorRespStateData.data != null) {
                         usedTractorListAdapter.others = newTractorRespStateData.data!!.others
                         usedTractorListAdapter.updateItems(newTractorRespStateData.data!!.data)
-                        if (newTractorRespStateData.data!!.data.size != 0) binding.includeSimilar.root.visibility =
+                        if(newTractorRespStateData.data!!.data.size != 0) binding.includeSimilar.root.visibility =
                             View.VISIBLE
                     }
-
                     else -> {}
                 }
             }
     }
-    private fun readData(bundle: Bundle?) {
-        if (bundle != null) {
+    private fun readData(bundle:Bundle?) {
+        if(bundle != null) {
             tractorId = bundle.getString("tractorId")
-            position = bundle.getInt("position", -1)
+            position = bundle.getInt("position",-1)
         }
     }
     private fun readDeepLinkData() {
-        if (intent.action != null && intent.action == Intent.ACTION_VIEW) {
+        if(intent.action != null && intent.action == Intent.ACTION_VIEW) {
             try {
                 val uri = intent.data
                 val segments = uri!!.path!!.split("/").toTypedArray()
-                val data = Base64.decode(segments[segments.size - 2], Base64.DEFAULT)
-                tractorId = String(data, StandardCharsets.UTF_8)
-            } catch (e: Exception) {
+                val data = Base64.decode(segments[segments.size - 2],Base64.DEFAULT)
+                tractorId = String(data,StandardCharsets.UTF_8)
+            }
+            catch(e:Exception) {
                 e.printStackTrace()
             }
         }
@@ -256,20 +259,21 @@ class UsedTractorDetailActivity:BaseActivity() {
             override fun onResponse(
                 call:Call<UsedTractorResp>,
                 response:Response<UsedTractorResp>) {
-                if (response.isSuccessful) {
-                    if (response.body() != null) {
-                        if (!response.body()!!.isError) {
+                if(response.isSuccessful) {
+                    if(response.body() != null) {
+                        if(!response.body()!!.isError) {
                             tractor = response.body()!!.data
-                            if (tractor == null)
+                            if(tractor == null)
                                 return
                             getSimilarTractors(tractor)
-                            if (tractor?.brand != null && tractor?.model != null) {
+                            if(tractor?.brand != null && tractor?.model != null) {
                                 binding.toolbars.toolbar.title = String.format("%s %s",tractor?.brand?.name,tractor?.model?.getName())
                                 binding.tvTractorName.text = binding.toolbars.toolbar.title
                                 binding.ivShare.setOnClickListener {
                                     showProgressDialog(getString(R.string.please_wait));
                                     try {
-                                        if (urls.size != 0)
+                                       // println("vcbvcbcv_bcbc324==="+urls.size+urls[0])
+                                        if(urls.isNotEmpty())
                                             Glide.with(this@UsedTractorDetailActivity)
                                             .asBitmap()
                                             .load(urls[0])
@@ -309,29 +313,34 @@ class UsedTractorDetailActivity:BaseActivity() {
                             if(tractor?.hoursDriven != null && !TextUtils.isEmpty(tractor?.hoursDriven)) {
                                 binding.tvDriven.text = tractor?.hoursDriven
                             } else binding.tvDriven.visibility = View.GONE
-                            if (tractor?.registrationNo != null) {
+                            if(tractor?.registrationNo != null) {
                                 binding.tvRTONo.text = tractor?.registrationNo
-                            } else {
+                            }
+                            else {
                                 binding.tvRTONo.visibility = View.GONE
                             }
                             if(tractor?.multipleUsedTractorImage != null && tractor?.multipleUsedTractorImage?.size != 0) {
                                 urls = tractor?.multipleUsedTractorImage!!.stream()
-                                    .map { n: UsedTractorImage ->
+                                    .map { n:UsedTractorImage ->
                                         response.body()!!.others.tractorImagePath + n.usedTractorImage
                                     }
                                     .collect(Collectors.toList())
                                 initImagesAdapter(urls)
-                                if (urls.size != 1) binding.indicator.setViewPager(binding.viewpager2)
+                                if(urls.size != 1) binding.indicator.setViewPager(binding.viewpager2)
                             }
                             try {
-                                if (tractor?.user != null && user.id == tractor?.user?.id) {
+                                if(tractor?.user != null && user.id == tractor?.user?.id) {
                                     binding.btnSellerDetails.visibility = View.GONE
-                                } else if (tractor?.soldUnsoldStatus != null && tractor?.soldUnsoldStatus != "0") {
+                                }
+                                else if(tractor?.soldUnsoldStatus != null && tractor?.soldUnsoldStatus != "0") {
                                     binding.ivSold.visibility = View.VISIBLE
                                     binding.btnSellerDetails.visibility = View.GONE
-                                } else {
+                                    binding.tvViews.visibility = View.GONE
+                                }
+                                else {
                                     binding.btnSellerDetails.visibility = View.VISIBLE
                                     binding.ivSold.visibility = View.GONE
+                                    binding.tvViews.visibility = View.VISIBLE
                                 }
                             }
                             catch(e:Exception) {
@@ -359,13 +368,11 @@ class UsedTractorDetailActivity:BaseActivity() {
                             }
                             else binding.includeNOC.container.visibility = View.GONE
                             if(tractor?.rc != null && !TextUtils.isEmpty(tractor?.rc)) {
-                                binding.includeRCDoc.tvLabel.text =
-                                    getString(R.string.rc_document)
+                                binding.includeRCDoc.tvLabel.text = getString(R.string.rc_document)
                                 binding.includeRCDoc.tvValue.text = tractor?.rc
                             } else binding.includeRCDoc.container.visibility = View.GONE
                             if(tractor?.owner != null && !TextUtils.isEmpty(tractor?.owner)) {
-                                binding.includeNoOfOwner.tvLabel.text =
-                                    getString(R.string.rc_document)
+                                binding.includeNoOfOwner.tvLabel.text = getString(R.string.rc_document)
                                 binding.includeNoOfOwner.tvValue.text = tractor?.owner
                             } else binding.includeNoOfOwner.container.visibility = View.GONE
                             if(tractor?.engineCondition != null && !TextUtils.isEmpty(tractor?.engineCondition)) {
@@ -373,25 +380,26 @@ class UsedTractorDetailActivity:BaseActivity() {
                                 binding.includeEngineCondition.tvValue.text = tractor?.engineCondition
                             }
                             else binding.includeEngineCondition.container.visibility = View.GONE
-                            if (tractor?.tyreCondition != null && !TextUtils.isEmpty(tractor?.tyreCondition)) {
+                            if(tractor?.tyreCondition != null && !TextUtils.isEmpty(tractor?.tyreCondition)) {
                                 binding.includeTyreCondition.tvLabel.text = getString(R.string.tyre_condition)
                                 binding.includeTyreCondition.tvValue.text = tractor?.tyreCondition
                             } else binding.includeTyreCondition.container.visibility = View.GONE
-                            if (tractor?.modelYear != null && !TextUtils.isEmpty(tractor?.modelYear)) {
+                            if(tractor?.modelYear != null && !TextUtils.isEmpty(tractor?.modelYear)) {
                                 binding.includeMonthYear.tvLabel.text = getString(R.string.month_year)
                                 binding.includeMonthYear.tvValue.text = tractor?.modelYear
                             } else binding.includeMonthYear.container.visibility = View.GONE
-                            if (tractor?.registrationNo != null && !TextUtils.isEmpty(tractor?.registrationNo)) {
+                            if(tractor?.registrationNo != null && !TextUtils.isEmpty(tractor?.registrationNo)) {
                                 binding.includeRTONo.tvLabel.text = getString(R.string.rto_no)
                                 binding.includeRTONo.tvValue.text = tractor?.registrationNo
-                            } else binding.includeRTONo.container.visibility = View.GONE
-                            if (tractor?.about != null && !TextUtils.isEmpty(tractor?.about)) {
+                            }
+                            else binding.includeRTONo.container.visibility = View.GONE
+                            if(tractor?.about != null && !TextUtils.isEmpty(tractor?.about)) {
                                 binding.includeAboutUs.tvLabel.text = getString(R.string.about_us)
                                 binding.includeAboutUs.tvValue.text = tractor?.about
-                            } else binding.includeAboutUs.container.visibility = View.GONE
+                            }
+                            else binding.includeAboutUs.container.visibility = View.GONE
                             binding.llProgress.llProgress.visibility = View.GONE
-                            recentRepo!!.insert(
-                                tractor?.id?.toInt()?.let {
+                            recentRepo!!.insert(tractor?.id?.toInt()?.let {
                                     Recent(
                                         it,
                                         binding.toolbars.toolbar.title.toString(),
@@ -415,7 +423,7 @@ class UsedTractorDetailActivity:BaseActivity() {
             }
         })
     }
-    private fun share(fileUri: Uri) {
+    private fun share(fileUri:Uri) {
         Firebase.dynamicLinks.shortLinkAsync {
             link = Uri.parse("https://www.khetigaadi.com/oldTractor/$tractorId")
             domainUriPrefix = getString(R.string.domain_uri_prefix)
@@ -423,49 +431,40 @@ class UsedTractorDetailActivity:BaseActivity() {
         }.addOnSuccessListener { (shortLink, _) ->
             val intent = Intent(Intent.ACTION_SEND)
             intent.type = "text/plain"
-            intent.putExtra(Intent.EXTRA_STREAM, fileUri)
-            intent.putExtra(Intent.EXTRA_SUBJECT, binding.toolbars.toolbar.title.toString())
-            intent.putExtra(
-                Intent.EXTRA_TEXT,
-                resources.getString(R.string.i_was_viewing) + " " + resources.getString(
+            intent.putExtra(Intent.EXTRA_STREAM,fileUri)
+            intent.putExtra(Intent.EXTRA_SUBJECT,binding.toolbars.toolbar.title.toString())
+            intent.putExtra(Intent.EXTRA_TEXT,resources.getString(R.string.i_was_viewing) + " " + resources.getString(
                     R.string.old
-                ) + " \"" + binding.toolbars.toolbar.title.toString() + "\" " + shortLink
-            )
-            startActivity(Intent.createChooser(intent, "Select an action"))
+                ) + " \"" + binding.toolbars.toolbar.title.toString() + "\" " + shortLink)
+            startActivity(Intent.createChooser(intent,"Select an action"))
             dismissProgressDialog()
         }.addOnFailureListener {
             Timber.e(it)
         }
-
     }
-    private fun initImagesAdapter(urls: List<String>?) {
-        val imagesAdapter = UsedTractorImagesAdapter(this@UsedTractorDetailActivity, urls) {
-            val intent = Intent(this@UsedTractorDetailActivity, ImageViewActivity::class.java)
-            intent.putStringArrayListExtra("urls", this.urls as ArrayList<String>?)
+    private fun initImagesAdapter(urls:List<String>?) {
+        val imagesAdapter = UsedTractorImagesAdapter(this@UsedTractorDetailActivity,urls) {
+            val intent = Intent(this@UsedTractorDetailActivity,ImageViewActivity::class.java)
+            intent.putStringArrayListExtra("urls",this.urls as ArrayList<String>?)
             startActivity(intent)
         }
         binding.viewpager2.adapter = imagesAdapter
     }
     private fun setFavorites() {
         viewModel.setUsedTractorFavorites(tractor)
-            .observe(this) { response: StateData<MyResponse?> ->
-                when (response.status) {
+            .observe(this) { response:StateData<MyResponse?> ->
+                when(response.status) {
                     StateData.Status.LOADING -> {}
                     StateData.Status.SUCCESS -> {
                         tractor?.favoritesStatus = !tractor?.favoritesStatus!!
-                        if (tractor?.favoritesStatus == true) {
+                        if(tractor?.favoritesStatus == true) {
                             binding.ivFavorites.setImageResource(R.drawable.ic_favorites)
-                        } else {
+                        }
+                        else {
                             binding.ivFavorites.setImageResource(R.drawable.ic_favorites_border)
                         }
                     }
-
-                    StateData.Status.ERROR -> Toast.makeText(
-                        this,
-                        response.error,
-                        Toast.LENGTH_SHORT
-                    ).show()
-
+                    StateData.Status.ERROR -> Toast.makeText(this,response.error,Toast.LENGTH_SHORT).show()
                     else -> {}
                 }
             }
@@ -477,26 +476,22 @@ class UsedTractorDetailActivity:BaseActivity() {
     }
     override fun onBackPressed() {
         val returnIntent = Intent()
-        if (tractor != null)
-            returnIntent.putExtra(isFavourite, tractor?.favoritesStatus)
-        returnIntent.putExtra("position", position)
-        setResult(RESULT_OK, returnIntent)
+        if(tractor != null)
+            returnIntent.putExtra(isFavourite,tractor?.favoritesStatus)
+        returnIntent.putExtra("position",position)
+        setResult(RESULT_OK,returnIntent)
         super.onBackPressed()
     }
     companion object {
         private val TAG = UsedTractorDetailActivity::class.java.simpleName
         const val isFavourite = "isFavorites"
     }
-
-
-    class CustomTypefaceSpan(private val typeface: Typeface) : MetricAffectingSpan() {
-        override fun updateDrawState(tp: TextPaint) {
+    class CustomTypefaceSpan(private val typeface:Typeface):MetricAffectingSpan() {
+        override fun updateDrawState(tp:TextPaint) {
             tp.typeface = typeface
         }
-
-        override fun updateMeasureState(tp: TextPaint) {
+        override fun updateMeasureState(tp:TextPaint) {
             tp.typeface = typeface
         }
     }
-
 }

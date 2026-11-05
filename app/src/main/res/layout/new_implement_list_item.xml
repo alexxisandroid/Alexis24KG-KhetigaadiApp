@@ -5,20 +5,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/CardViewListItem"
     android:layout_width="fill_parent"
+    app:cardCornerRadius="@dimen/payu_dimen_12dp"
+    android:layout_marginStart="@dimen/payu_dimen_12dp"
+    android:layout_marginEnd="@dimen/payu_dimen_12dp"
     android:layout_height="320dp"
     android:orientation="vertical">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/detailsBackground"
+        android:background="@color/white"
         android:orientation="vertical">
         <ImageView
             android:id="@+id/ivImage"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="center_vertical"
-            android:background="@color/white"
+            android:background="@color/detailsBackground"
+            android:adjustViewBounds="true"
             android:src="@mipmap/ic_launcher"
+            android:scaleType="centerCrop"
             app:layout_constraintBottom_toTopOf="@id/tvNewTractorName"
             app:layout_constraintTop_toTopOf="parent" />
         <TextView
@@ -95,7 +100,7 @@
             android:textAlignment="center"
             android:outlineAmbientShadowColor="@color/red"
             android:background="@drawable/btn_rectangle_outline_bg_red"
-            android:layout_marginBottom="@dimen/dimen_10dp"
+            android:layout_marginBottom="@dimen/payu_dimen_12dp"
             android:textSize="@dimen/dimen_14sp"
             android:text="@string/getPrice"
             app:layout_constraintBottom_toBottomOf="parent"

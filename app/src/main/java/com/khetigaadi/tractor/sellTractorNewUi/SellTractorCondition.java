@@ -4,19 +4,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.khetigaadi.commons.fragments.BaseFragment;
 import com.khetigaadi.databinding.FragmentSellTractorConditionBinding;
 import com.khetigaadi.retrofit.KhetiAPIs;
-
 import org.jetbrains.annotations.NotNull;
-
 import javax.inject.Inject;
-
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class SellTractorCondition extends BaseFragment {
@@ -36,8 +31,8 @@ public class SellTractorCondition extends BaseFragment {
         activity = getActivity();
     }
     @Override
-    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentSellTractorConditionBinding.inflate(inflater, container, false);
+    public View onCreateView(@NotNull LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
+        binding = FragmentSellTractorConditionBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
         viewModel = new ViewModelProvider((SellTractorActivity) activity).get(SellViewModel.class);
         binding.btnPoorEngine.setOnClickListener(View -> {

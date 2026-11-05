@@ -1,4 +1,5 @@
 package com.khetigaadi.tractor.compare;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
@@ -60,6 +61,7 @@ public class GetModelName extends Fragment {
     @Inject
     KhetiAPIs khetiAPIs;
     String image;
+    List<Model> cvxxccxVal= new ArrayList<>();
     @Override
     public void onAttach(@NotNull Context context) {
         super.onAttach(context);
@@ -175,15 +177,17 @@ public class GetModelName extends Fragment {
 
         });
     }
+    @SuppressLint("FragmentLiveDataObserve")
     @Override
-    public void onStart() {
-        super.onStart();
+    public void onViewCreated(@androidx.annotation.NonNull View view,@Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view,savedInstanceState);
+       // cvxxccxVal.clear();
         binding.llProgress.llProgress.setVisibility(View.VISIBLE);
-        modelRepository.getNewTractorModels(Integer.parseInt(brandId)).observe(this, listResource -> {
-            Log.d("vcbcvbcvbcvb====",""+brandId+"=="+listResource.size());
-            if (listResource.size()>0) {
+        modelRepository.getNewTractorModels(Integer.parseInt(brandId)).observe(getViewLifecycleOwner(),listResource -> {
+            Log.d("vcbcvbcvbcvb4142342====",""+brandId+"=="+listResource.size()+"=="+adapter.getItemCount()+"=="+listResource.size());
+            if(listResource.size()>0) {
                 List<Model> models = listResource;
-                if (models != null && selectedModelId != null) {
+                if(models != null && selectedModelId != null) {
                     models = models.stream().filter(c -> c.getId() != selectedModelId).collect(Collectors.toList());
                 }
                 adapter.setData(models);
@@ -191,7 +195,13 @@ public class GetModelName extends Fragment {
             else getModelss(brandId);
         });
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
     void getModelss(String brand_idV) {
+        if (cvxxccxVal.size()>0)
+            return;
         binding.llProgress.llProgress.setVisibility(View.VISIBLE);
         khetiAPIs.getNewTractorModels(Integer.parseInt(brand_idV))
                 .subscribeOn(Schedulers.io())
@@ -204,6 +214,7 @@ public class GetModelName extends Fragment {
                         Log.d("vbcbcv===",""+cvxxccx.size());
                        if(cvxxccx.size()>0){
                            List<Model> models = cvxxccx;
+                           cvxxccxVal.addAll(cvxxccx);
                            if (models != null && selectedModelId != null) {
                                models = models.stream().filter(c -> c.getId() != selectedModelId).collect(Collectors.toList());
                            }

@@ -1,24 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/CardViewHorizontalListItem"
     android:layout_width="match_parent"
+    app:cardUseCompatPadding="true"
+    app:strokeColor="@color/brightGray"
+    android:elevation="@dimen/margin_2dp"
+    app:cardElevation="@dimen/margin_2dp"
+    app:strokeWidth="@dimen/dimen_1dp"
+    android:background="@drawable/spinner_border"
+    android:backgroundTint="@color/black"
+    app:cardCornerRadius="@dimen/margin_10dp"
     android:layout_height="@dimen/payu_dimen_250dp">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/munsell"
+        android:background="@color/white"
         android:orientation="vertical">
         <ImageView
             android:id="@+id/ivImage"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginBottom="@dimen/margin_5dp"
-            android:background="@color/white"
-            android:paddingBottom="@dimen/margin_5dp"
+            android:layout_marginBottom="@dimen/payu_dimen_6dp"
+            android:background="@color/detailsBackground"
+            android:scaleType="centerCrop"
+            android:adjustViewBounds="true"
+            android:paddingBottom="@dimen/margin_2dp"
             app:layout_constraintBottom_toTopOf="@id/tvTractorName"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@mipmap/ic_launcher" />
@@ -49,14 +58,14 @@
         <TextView
             android:id="@+id/tvTractorName"
             android:layout_width="match_parent"
-            style="@style/MainTitle"
+            style="@style/TractorListItemTitle"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/manrope_bold"
             android:textStyle="bold"
             android:paddingStart="@dimen/dimen_10dp"
             android:maxLines="1"
             android:paddingEnd="@dimen/dimen_10dp"
-            android:textSize="@dimen/dimen_16sp"
+            android:textSize="@dimen/dimen_14sp"
             app:layout_constraintBottom_toTopOf="@id/tvPrice"
             tools:text=""/>
         <!--  style="@style/TractorPrice"  -->
@@ -70,7 +79,7 @@
             android:paddingEnd="@dimen/dimen_10dp"
             android:textStyle="bold"
             android:layout_marginBottom="@dimen/dimen_4dp"
-            android:fontFamily="@font/poppins_bold"
+            android:fontFamily="@font/manrope_bold"
             android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@id/tvYear"
             tools:text="200000" />
@@ -80,34 +89,46 @@
             android:layout_width="wrap_content"
             style="@style/SubFieldWithDrawable"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/dimen_4dp"
-            android:textSize="11sp"
+            android:paddingStart="@dimen/dimen_10dp"
+            android:paddingEnd="@dimen/dimen_0dp"
+            android:textSize="@dimen/dimen_10sp"
+            android:textAlignment="center"
+            android:paddingTop="@dimen/dimen_0dp"
+            android:gravity="center|start"
+            android:fontFamily="@font/manrope_medium"
+
             android:layout_marginBottom="@dimen/margin_10dp"
             android:drawablePadding="@dimen/dimen_3dp"
             app:drawableStartCompat="@drawable/ic_date_range_black_18dp"
             app:layout_constraintBottom_toTopOf="@id/btnSellerDetails"
-            app:layout_constraintEnd_toStartOf="@+id/tvHrsDriven"
-            app:layout_constraintHorizontal_bias="0.5"
+
+            app:layout_constraintHorizontal_bias="0.3"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text="2011" />
+            tools:text="2011"/>
         <!--    style="@style/SubFieldWithDrawable"   -->
         <TextView
             android:id="@+id/tvHrsDriven"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/SubFieldWithDrawable"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="@dimen/dimen_4dp"
+            android:paddingTop="@dimen/payu_dimen_6dp"
+            android:textAlignment="center"
+            android:gravity="center|start"
+            android:fontFamily="@font/manrope_medium"
             android:layout_marginBottom="@dimen/margin_10dp"
             android:maxLines="1"
-            android:textSize="11sp"
+            android:ellipsize="end"
+            android:textSize="@dimen/dimen_10sp"
+            android:maxLength="16"
             android:drawablePadding="@dimen/dimen_3dp"
             android:layout_marginEnd="@dimen/dimen_2dp"
             app:drawableStartCompat="@drawable/ic_watch_later_black_18dp"
             app:layout_constraintBottom_toTopOf="@id/btnSellerDetails"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.7"
             app:layout_constraintStart_toEndOf="@+id/tvYear"
-            tools:text="1300" />
+            tools:text="1300"/>
         <!--  style="@style/OutLineButtonStyleSmall"  -->
         <TextView
             android:id="@+id/btnSellerDetails"
@@ -126,8 +147,10 @@
             android:background="@drawable/btn_rectangle_outline_bg_red"
             android:layout_marginBottom="@dimen/dimen_10dp"
             android:text="@string/contact_seller"
-            android:textSize="@dimen/dimen_14sp"
+            android:textSize="@dimen/dimen_12sp"
             app:layout_constraintBottom_toBottomOf="parent"/>
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
 

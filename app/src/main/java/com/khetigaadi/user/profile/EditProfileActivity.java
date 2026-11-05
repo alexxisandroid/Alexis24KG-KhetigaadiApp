@@ -2,6 +2,7 @@ package com.khetigaadi.user.profile;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,10 +13,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
-import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
@@ -55,7 +56,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
@@ -79,7 +79,7 @@ public class EditProfileActivity extends BaseActivity {
     UserAPIs userAPIs;
     ActivityResultLauncher<Intent> galleryActivityResultLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             result -> {
-                if (result.getResultCode() == Activity.RESULT_OK) {
+                if(result.getResultCode() == Activity.RESULT_OK) {
                     Intent data = result.getData();
                     handleCropResult(data != null ? data.getData() : null);
                 }
@@ -94,7 +94,7 @@ public class EditProfileActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        // WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
-
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding = ActivityEditProfileBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
 //        ViewCompat.setOnApplyWindowInsetsListener(view, (v,insets) -> {
@@ -206,6 +206,7 @@ public class EditProfileActivity extends BaseActivity {
             i.putExtra(WebViewActivity.TITLE,getString(R.string.terms_and_conditions));
           //  startActivity(i);
         });
+        binding.cardView.setBackgroundColor(Color.WHITE);
     }
     private String getGender(String gender) {
         if (gender.equalsIgnoreCase("male"))
@@ -377,18 +378,18 @@ public class EditProfileActivity extends BaseActivity {
         binding.rgMobile.setVisibility(View.GONE);
     }
     private void initViewWithUserData() {
-        viewModel.getUser().observe(this, user1 -> {
-            if (user1 != null) {
-                if (user1.getImage() != null)
+        viewModel.getUser().observe(this,user1 -> {
+            if(user1 != null) {
+                if(user1.getImage() != null)
                     Glide.with(EditProfileActivity.this)
-                            .load(Constants.decodeURL(session.getUserOthers().getUserPath() + user1.getImage()))
+                            .load(Constants.decodeURL(session.getUserOthers().getUserPath()+user1.getImage()))
                             .error(R.drawable.camera)
                             .placeholder(R.drawable.camera)
                             .into(binding.ivImage);
                 binding.etFname.setText(user1.getFname());
                 binding.etLastName.setText(user1.getLname());
 
-                if (user.getUserDetail().getDob() != null && !user.getUserDetail().getDob().isEmpty()) {
+                if(user.getUserDetail().getDob() != null && !user.getUserDetail().getDob().isEmpty()) {
                     selectedDOB = 00000L; // DateUtils.getTimestamp(user.getUserDetail().getDob(),DateUtils.DateFormat.yyyy_MM_dd);
                     //binding.etDOB.setText(DateUtils.convertDateToDate(user.getUserDetail().getDob(),DateUtils.DateFormat.yyyy_MM_dd,DateUtils.DateFormat.dd_mm_yyyy));
                     SimpleDateFormat formatter = new SimpleDateFormat("yyyy MMM dd HH:mm:ss");
@@ -410,63 +411,67 @@ public class EditProfileActivity extends BaseActivity {
                         e.printStackTrace();
                     }
                 }
-                if (user.getUserDetail().getGender() != null && !user.getUserDetail().getGender().isEmpty()) {
+                if(user.getUserDetail().getGender() != null && !user.getUserDetail().getGender().isEmpty()) {
                     selectedGender = user.getUserDetail().getGender();
                     Log.d("fgdsgdsgfgfg===",""+selectedGender);
-                    if (user.getUserDetail().getGender().equalsIgnoreCase("m")) {
+                    if(user.getUserDetail().getGender().equalsIgnoreCase("m")) {
                       //  binding.actGender.setText(binding.actGender.getAdapter().getItem(0).toString(),false);
                         binding.actGender.setSelection(1);
-                    } else if (user.getUserDetail().getGender().equalsIgnoreCase("f"))
+                    } else if(user.getUserDetail().getGender().equalsIgnoreCase("f"))
                        //  binding.actGender.setText(binding.actGender.getAdapter().getItem(1).toString(),false);
                         binding.actGender.setSelection(2);
                     else
                         binding.actGender.setSelection(3);
                         //binding.actGender.setText(binding.actGender.getAdapter().getItem(2).toString(),false);
                 }
-                if (user1.getUserDetail().getCrops() != null) {
+                if(user1.getUserDetail().getCrops() != null) {
                     binding.etCrops.setText(getSelectedCropsString(user1.getUserDetail().getCrops()));
                     selectedCrops = (ArrayList<Crop>) user1.getUserDetail().getCrops();
                 }
-                if (user1.getUserDetail() != null) {
-                    if (user1.getUserDetail().getType() != null) {
+                if(user1.getUserDetail() != null) {
+                    if(user1.getUserDetail().getType() != null) {
                         binding.etUserType.setText(user1.getUserDetail().getType().getUserLevelName());
                     }
                     binding.etLand.setText(user1.getUserDetail().getLand());
                     binding.etBiography.setText(user1.getUserDetail().getBiography());
                     binding.etAwards.setText(user1.getUserDetail().getAwards());
-                    if (user1.getUserDetail().getIs_Owner() != null)
-                        if (user1.getUserDetail().getIs_Owner().equalsIgnoreCase("0")) {
+
+                    if(user1.getUserDetail().getIs_Owner() != null)
+                        if(user1.getUserDetail().getIs_Owner().equalsIgnoreCase("0")) {
                             binding.rbNo.setChecked(true);
                             binding.tvOwnedBrand.setVisibility(View.GONE);
                             binding.etBrand.setVisibility(View.GONE);
-                        } else {
+                        }
+                    else {
                             binding.rbYes.setChecked(true);
                             binding.tvOwnedBrand.setVisibility(View.VISIBLE);
                             binding.etBrand.setVisibility(View.VISIBLE);
-                            if (user1.getUserDetail().getBrand() != null) {
+                            if(user1.getUserDetail().getBrand() != null) {
                                 binding.etBrand.setText(user1.getUserDetail().getBrand().getName());
                             }
                         }
-                    if (user1.getUserDetail().getIs_smartphone().equalsIgnoreCase("0")) {
+                    if(user1.getUserDetail().getIs_smartphone().equalsIgnoreCase("0")) {
                         binding.rbSmartPhoneNo.setChecked(true);
-                    } else {
+                    }
+                    else {
                         binding.rbSmartPhoneYes.setChecked(true);
                     }
                 }
-                if (user1.getState() != null) {
+                if(user1.getState() != null) {
                     binding.etState.setText(user1.getState().getName());
-                    selectedState = new State(user1.getState().getId(), user1.getState().getName());
+                    selectedState = new State(user1.getState().getId(),user1.getState().getName());
                 }
-                if (user1.getCity() != null) {
+                if(user1.getCity() != null) {
                     binding.etCity.setText(user1.getCity().getName());
-                    selectedCity = new City(user1.getCity().getId(), user1.getCity().getName());
+                    selectedCity = new City(user1.getCity().getId(),user1.getCity().getName());
                 }
-                if (user.getTaluka() != null) {
-                    binding.etTaluka.setText(user.getTaluka().getName());
-                    selectedTaluka = user.getTaluka();
+                if(user1.getTaluka() != null) {
+                    binding.etTaluka.setText(user1.getTaluka().getName());
+                    selectedTaluka = user1.getTaluka();
                 }
                 binding.inputMobile.setText(user1.getMobile());
                 binding.inputEmail.setText(user1.getEmail());
+                Log.d("xcvvxvcxvcxvx1234====",""+selectedTaluka+"=="+user1+"=="+user);
             }
         });
     }
@@ -526,7 +531,7 @@ public class EditProfileActivity extends BaseActivity {
         user.setCity(selectedCity);
         user.setTaluka(selectedTaluka);
 
-        Log.d("vbbcbcbc==",""+user.getUserDetail().getDob());
+        Log.d("vbbcbcbc==",""+user.getUserDetail().getDob()+"=="+selectedTaluka);
 
         viewModel.updateUser(user).observe(this,userUpdate -> {
             Log.d("vbbcbcbc465746==",""+userUpdate.getStatus());
@@ -557,22 +562,22 @@ public class EditProfileActivity extends BaseActivity {
         });
     }
     private boolean validate() {
-        if (!validateFName()) {
+        if(!validateFName()) {
             Toast.makeText(this,getString(R.string.invalidName),Toast.LENGTH_SHORT).show();
             binding.tilFirstName.setError(getString(R.string.invalidName));
-        } else if (!validateLName()) {
+        } else if(!validateLName()) {
             binding.tilLastName.setError(getString(R.string.invalidName));
-        } else if (selectedDOB == 0) {
+        } else if(selectedDOB == 0) {
             binding.tilDOB.setError(getString(R.string.please_select_date_of_birth));
-        } else if (selectedGender == null ) {
+        } else if(selectedGender == null ) {
             binding.tilGender.setError(getString(R.string.please_select_gender));
-        } else if (selectedState == null || selectedState.getName().equals("")) {
+        } else if(selectedState == null || selectedState.getName().equals("")) {
             Toast.makeText(this, getString(R.string.please_select_state), Toast.LENGTH_SHORT).show();
-        } else if (selectedCity == null || selectedCity.getName().equals("")) {
+        } else if(selectedCity == null || selectedCity.getName().equals("")) {
             Toast.makeText(this, getString(R.string.please_select_city),Toast.LENGTH_SHORT).show();
-        } else if (selectedTaluka == null || TextUtils.isEmpty(selectedTaluka.getName())) {
+        } else if(selectedTaluka == null || TextUtils.isEmpty(selectedTaluka.getName()) || binding.etTaluka.getText().toString().isEmpty()) {
             Toast.makeText(this,getString(R.string.please_select_taluka),Toast.LENGTH_SHORT).show();
-        } else if (!binding.cbTerms.isChecked()) {
+        } else if(!binding.cbTerms.isChecked()) {
             Toast.makeText(this,getString(R.string.please_check_agree_button),Toast.LENGTH_SHORT).show();
         } else {
            // binding.tilFirstName.setErrorEnabled(false);
@@ -615,30 +620,34 @@ public class EditProfileActivity extends BaseActivity {
     }
     private boolean validateLName() {
         String name = binding.etLastName.getText().toString().trim();
-        if (name.isEmpty()) {
+        if(name.isEmpty()) {
             binding.tilLastName.setError(getString(R.string.err_msg_f_name));
             requestFocus(binding.etLastName);
             return false;
-        } else {
+        }
+        else {
            binding.tilLastName.setErrorEnabled(false);
         }
         return true;
     }
     private void initToolbar() {
-        binding.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
-        binding.toolbar.setNavigationOnClickListener(v -> onBackPressed());
+        // setSupportActionBar(binding.toolbar);
+       // binding.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
+       // binding.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         binding.toolbar.setTitle(getString(R.string.edit_profile));
       //  Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.edit_profile));
+      //  getSupportActionBar().setTitle(getString(R.string.edit_profile));
     }
     private void handleCropResult(Uri resultUri) {
-        if (resultUri != null) {
+        if(resultUri != null) {
             isProfileImageChange = true;
             profileImage = resultUri;
             Glide.with(this)
                     .load(resultUri)
                     .error(R.drawable.camera)
                     .into(binding.ivImage);
-        } else {
+        }
+        else {
             Toast.makeText(EditProfileActivity.this,R.string.toast_cannot_retrieve_cropped_image,Toast.LENGTH_SHORT).show();
         }
     }
@@ -646,14 +655,15 @@ public class EditProfileActivity extends BaseActivity {
     private String getSelectedCropsString(List<Crop> selectedCrops) {
         try {
             StringBuilder cropName = new StringBuilder();
-            for (int i = 0; i < selectedCrops.size(); i++) {
+            for(int i = 0; i < selectedCrops.size(); i++) {
                 cropName.append(selectedCrops.get(i).getName());
-                if (i != selectedCrops.size() - 1) {
+                if(i != selectedCrops.size() - 1) {
                     cropName.append(", ");
                 }
             }
             return cropName.toString();
-        } catch (Exception e) {
+        }
+        catch(Exception e) {
             e.printStackTrace();
         }
         return "";
@@ -687,7 +697,7 @@ public class EditProfileActivity extends BaseActivity {
            e.printStackTrace();
        }
     }
-    /** @noinspection deprecation*/
+    /** @noinspection deprecation  */
     @Override
     public void onBackPressed() {
         //Here Pranav change the code !isCompalsory to isCompalsory

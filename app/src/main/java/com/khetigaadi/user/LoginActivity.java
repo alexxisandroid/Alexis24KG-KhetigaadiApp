@@ -14,12 +14,15 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
+
 import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
+
 import com.google.android.gms.analytics.HitBuilders;
 import com.google.android.gms.analytics.Tracker;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -30,6 +33,9 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 //import com.google.android.gms.tasks.*;
+import com.google.android.recaptcha.Recaptcha;
+import com.google.android.recaptcha.RecaptchaAction;
+import com.google.android.recaptcha.RecaptchaClient;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -52,7 +58,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
-
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
@@ -61,6 +66,11 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import timber.log.Timber;
+
+
+import com.google.android.recaptcha.Recaptcha;
+import com.google.android.recaptcha.RecaptchaAction;
+import com.google.android.recaptcha.RecaptchaClient;
 /** @noinspection unchecked*/
 @AndroidEntryPoint
 public class LoginActivity extends BaseActivity {
@@ -83,15 +93,31 @@ public class LoginActivity extends BaseActivity {
     CompositeDisposable disposable;
     @Inject
     KhetiAPIs khetiAPIs;
+    String WEB_KEY = "6LexOREuAAAAAGnn06GUB0hr3ftOM5eIDhgmMBRG";
+
+    private   RecaptchaClient recaptchaClient = null;
+
+    private String siteKey = WEB_KEY;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
          try {
              //WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
              binding = LoginBinding.inflate(getLayoutInflater());
              View view = binding.getRoot();
              setContentView(view);
-
+             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                 Window wnd = getWindow();
+                 if(wnd != null && wnd.equals(null)) {
+                     // getWindow().setBackgroundBlurRadius(80); // Frosted glass effect
+                     wnd.addFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
+                     wnd.getAttributes().setBlurBehindRadius(20); // Depth of field
+                     wnd.setAttributes(getWindow().getAttributes());
+                 }
+             }
 //             ViewCompat.setOnApplyWindowInsetsListener(view, (v,insets) -> {
 //                 Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
 //                 v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
@@ -101,35 +127,90 @@ public class LoginActivity extends BaseActivity {
              initToolbar();
              binding.etMobile.addTextChangedListener(new MyTextWatcher(binding.etMobile));
              binding.btnLogin.setOnRippleCompleteListener(rippleView -> {
-                 if (validateMobile()) {
-                     if (Constants.isConnectionAvailable(LoginActivity.this)) {
-                         Intent intent = new Intent(LoginActivity.this, ConfirmRegistrationActivity.class);
+                 if(validateMobile()) {
+                     if(Constants.isConnectionAvailable(LoginActivity.this)) {
+                         Intent intent = new Intent(LoginActivity.this,ConfirmRegistrationActivity.class);
                          User user = new User();
                          user.setMobile(binding.etMobile.getText().toString());
                          intent.putExtra("user",user);
                          startActivity(intent);
-                     } else {
+                     }
+                     else {
                          noInternetConnection(binding.parent);
                      }
                  }
              });
              //Setting onclick listener to signing button
              binding.signInWithGoogle.setOnClickListener(v -> {
-                 if (Constants.isConnectionAvailable(LoginActivity.this)) {
+                 if(Constants.isConnectionAvailable(LoginActivity.this)) {
                      showProgressDialog(getString(R.string.loading),this);
                      startActivityForResult(mGoogleApiClient.getSignInIntent(),RC_SIGN_IN);
-                 } else {
+                 }
+                 else {
                      noInternetConnection(binding.parent);
                  }
              });
              loginActivity = this;
              configureGoogleClient();
          }
-         catch (Exception b){
+         catch(Exception b) {
              Log.d("xcvcvxvxvxvcxvx2211aa====",""+b.getLocalizedMessage());
         }
         Log.d("xcvcvxvxvxvcxvx2211=====","");
     }
+
+//    private void initializeRecaptcha() {
+//        Recaptcha.getClient(getApplication(), siteKey)
+//                .addOnSuccessListener(this, client -> recaptchaClient = client)
+//                .addOnFailureListener(this, e -> {
+//                    Toast.makeText(LoginActivity.this,"Failed to initialize CAPTCHA",Toast.LENGTH_LONG).show();
+//                    e.printStackTrace();
+//                });
+//    }
+//
+//    private void verifyCaptchaAndLogin() {
+//        binding.progressBar.setVisibility(View.VISIBLE);
+//
+//        if (recaptchaClient == null) {
+//            // Mirrors the Kotlin behavior where recaptchaClient?.execute(...) yields null
+//            binding.progressBar.setVisibility(View.GONE);
+//            Toast.makeText(this, "Verification failed", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//        try {
+//            recaptchaClient.execute(RecaptchaAction.LOGIN)
+//                    .addOnSuccessListener(this, token -> {
+//                        if (token != null && !token.isEmpty()) {
+//                            //sendTokenToServer(token);
+//                        } else {
+//                            binding.progressBar.setVisibility(View.GONE);
+//                            Toast.makeText(
+//                                    LoginActivity.this,
+//                                    "Verification failed",
+//                                    Toast.LENGTH_SHORT).show();
+//                        }
+//                    })
+//                    .addOnFailureListener(this, e -> {
+//                        binding.progressBar.setVisibility(View.GONE);
+//                        Toast.makeText(
+//                                LoginActivity.this,
+//                                "Captcha Error: " + e.getMessage(),
+//                                Toast.LENGTH_LONG).show();
+//                        e.printStackTrace();
+//                    });
+//        } catch (Exception e) {
+//            // Handles synchronous exceptions thrown when starting the execution
+//            binding.progressBar.setVisibility(View.GONE);
+//            Toast.makeText(
+//                    this,
+//                    "Captcha Error: " + e.getMessage(),
+//                    Toast.LENGTH_LONG).show();
+//            e.printStackTrace();
+//        }
+//    }
+
+
     private void configureGoogleClient() {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
@@ -175,21 +256,21 @@ public class LoginActivity extends BaseActivity {
     }
     //After the signing we are calling this function
     private void handleSignInResult(GoogleSignInAccount account) {
-        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(),null);
         firebaseAuth.signInWithCredential(credential)
-                .addOnCompleteListener(this, task -> {
-                    if (task.isSuccessful()) {
+                .addOnCompleteListener(this,task -> {
+                    if(task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         FirebaseUser user = firebaseAuth.getCurrentUser();
-                        if (user != null) {
-                            Timber.d("signInWithCredential:success: currentUser: %s", user.getEmail());
-                            loginOrRegisterWithSocialMedia(user.getDisplayName(), user.getEmail(), null);
+                        if(user != null) {
+                            Timber.d("signInWithCredential:success: currentUser: %s",user.getEmail());
+                            loginOrRegisterWithSocialMedia(user.getDisplayName(),user.getEmail(),null);
                         }
-
-                    } else {
+                    }
+                    else {
                         // If sign in fails, display a message to the user.
                         Timber.tag(TAG).w(task.getException(), "signInWithCredential:failure");
-                        Toast.makeText(LoginActivity.this, "Login Failed ", Toast.LENGTH_LONG).show();
+                        Toast.makeText(LoginActivity.this, "Login Failed ",Toast.LENGTH_LONG).show();
                     }
                 });
     }
@@ -203,13 +284,14 @@ public class LoginActivity extends BaseActivity {
         d.show();
         dialogBinding.tvMobile.setText(getMyPhoneNumber());
         dialogBinding.btnSubmit.setOnClickListener(v -> {
-            if (Utils.isValidPhone(dialogBinding.tvMobile.getText().toString())) {
+            if(Utils.isValidPhone(dialogBinding.tvMobile.getText().toString())) {
                 user.setMobile(dialogBinding.tvMobile.getText().toString());
-                SharedPreferenceUtils.getInstance(LoginActivity.this).setValue(Constants.TOKEN_ID, user.getToken());
+                SharedPreferenceUtils.getInstance(LoginActivity.this).setValue(Constants.TOKEN_ID,user.getToken());
                 callUpdateProfile(user);
                 d.dismiss();
-            } else {
-                Toast.makeText(LoginActivity.this, getString(R.string.err_msg_mobile), Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(LoginActivity.this,getString(R.string.err_msg_mobile),Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -220,10 +302,11 @@ public class LoginActivity extends BaseActivity {
                 .subscribeWith(new DisposableSingleObserver<UserResponse>() {
                     @Override
                     public void onSuccess(@NonNull UserResponse userResponse) {
-                        if (userResponse.getUser().getMobile() != null) {
+                        if(userResponse.getUser().getMobile() != null) {
                             SharedPreferenceUtils.getInstance(LoginActivity.this).setValue(Constants.TOKEN_ID, user.getToken());
                             afterLoginSuccessfully(userResponse);
-                        } else {
+                        }
+                        else {
                             Toast.makeText((Context) LoginActivity.this,""+userResponse.getMsg().get(0),Toast.LENGTH_LONG).show();
                         }
                     }
@@ -236,8 +319,8 @@ public class LoginActivity extends BaseActivity {
     }
     public String getMyPhoneNumber() {
         try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (checkSelfPermission(Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if(checkSelfPermission(Manifest.permission.READ_SMS) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
                     //    Activity#requestPermissions
                     // here to request the missing permissions, and then overriding
                     //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
@@ -259,18 +342,17 @@ public class LoginActivity extends BaseActivity {
         session.setUser(userResponse.getUser());
         session.setUserOthers(userResponse.getOthers());
         FcmApi.registerFCMToken(userAPIs, session, () -> {
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+            startActivity(new Intent(LoginActivity.this,MainActivity.class));
             finish();
         });
-
     }
     private void loginOrRegisterWithSocialMedia(final String name,final String email,final String mobile) {
 //        llProgress.setVisibility(View.VISIBLE);
         showProgressDialog(getString(R.string.loading),this);
         try {
-            HashMap<String, String> params = new HashMap<>();
-            params.put("email", email);
-            if (!TextUtils.isEmpty(name)) {
+            HashMap<String,String> params = new HashMap<>();
+            params.put("email",email);
+            if(!TextUtils.isEmpty(name)) {
                 List<String> s = Arrays.asList(name.split(" "));
                 params.put("first_name", s.size() > 0 ? s.get(0) : "");
                 params.put("last_name", s.size() > 1 ? s.get(1) : "");
@@ -283,25 +365,28 @@ public class LoginActivity extends BaseActivity {
                         public void onSuccess(@NonNull UserResponse user) {
                             dismissProgressDialog();
                             try {
-                                if (!user.isError()) {
-                                    if (user.getUser() != null) {
-                                        if (Utils.isValidPhone(user.getUser().getMobile())) {
+                                if(!user.isError()) {
+                                    if(user.getUser() != null) {
+                                        if(Utils.isValidPhone(user.getUser().getMobile())) {
                                             SharedPreferenceUtils.getInstance(LoginActivity.this).setValue(Constants.TOKEN_ID, user.getUser().getToken());
                                             afterLoginSuccessfully(user);
-                                        } else {
+                                        }
+                                        else {
                                             showDialogForMobile(user.getUser());
                                         }
                                     }
-                                } else {
+                                }
+                                else {
                                     Toast.makeText((Context) LoginActivity.this,""+user.getMsg().get(0), Toast.LENGTH_LONG).show();
                                 }
-                            } catch (Exception e) {
+                            }
+                            catch(Exception e) {
                                 e.printStackTrace();
                             }
                         }
                         @Override
                         public void onError(@NonNull Throwable e) {
-                            Timber.e("userLogin Error: %s", e.getMessage());
+                            Timber.e("userLogin Error: %s",e.getMessage());
                             dismissProgressDialog();
                         }
                     }));

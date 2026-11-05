@@ -71,7 +71,7 @@ public class BuyersEnquiry extends Fragment {
                     public void onSuccess(@NonNull InterestedBuyersResp interestedBuyersResp) {
                         binding.llProgress.setVisibility(View.GONE);
                         try {
-                            if (!interestedBuyersResp.isError()) {
+                            if(!interestedBuyersResp.isError()) {
                                 mAdapter = new BuyersEnquiryListAdapter(activity, interestedBuyersResp.getData(), interestedBuyersResp.getOthers());
                                 binding.myRecyclerView.setAdapter(mAdapter);
                                 mAdapter.setOnCallClickListener((position, v) -> {

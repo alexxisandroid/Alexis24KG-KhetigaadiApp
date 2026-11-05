@@ -12,9 +12,11 @@ import com.khetigaadi.base.model.City;
 //import com.khetigaadi.base.model.Model;
 //import com.khetigaadi.shop.room.dao.DaoCategory;
 import com.khetigaadi.room.dao.DaoCategory;
+import com.khetigaadi.room.dao.DaoMyTractor;
 import com.khetigaadi.shop.model.Category;
 //import com.khetigaadi.shop.room.dao.DaoCart;
 import com.khetigaadi.room.dao.DaoCart;
+import com.khetigaadi.tractor.sellTractorNewUi.model.MyTractorImages;
 import com.khetigaadi.tractor.util.Model;
 import com.khetigaadi.base.model.State;
 import com.khetigaadi.base.model.Taluka;
@@ -41,7 +43,7 @@ import com.khetigaadi.user.room.dao.DaoState;
 import com.khetigaadi.user.room.dao.DaoTaluka;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-@Database(entities = {Brand.class,Type.class,Model.class,Hp.class,State.class,City.class,Taluka.class,BrandTypeMaster.class,Recent.class,Product.class,OrderProduct.class,Category.class,TractorImages.class,RentImplement.class},version = BuildConfig.APP_DATA_VERSION, exportSchema = false)
+@Database(entities = {Brand.class,Type.class,Model.class,Hp.class,State.class,City.class,Taluka.class,BrandTypeMaster.class,Recent.class,Product.class,OrderProduct.class,Category.class,TractorImages.class,RentImplement.class,MyTractorImages.class},version = BuildConfig.APP_DATA_VERSION, exportSchema = false)
 @TypeConverters(UriConverter.class)
 public abstract class MyDatabase extends RoomDatabase {
     private static volatile MyDatabase INSTANCE;
@@ -73,4 +75,5 @@ public abstract class MyDatabase extends RoomDatabase {
     public abstract DaoCart daoCart();
     public abstract DaoCategory daoCategory();
     public abstract DaoRentTractor daoRentTractor();
+    public abstract DaoMyTractor daoMyTractor();
 }

@@ -1,30 +1,32 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<?xml version="1.0" encoding="utf-8"?> <!--  style="@style/CardViewListItem" -->
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/CardViewListItem"
     android:layout_width="match_parent"
     app:cardUseCompatPadding="true"
     app:cardCornerRadius="@dimen/payu_dimen_12dp"
     android:layout_marginStart="@dimen/payu_dimen_12dp"
     android:layout_marginEnd="@dimen/payu_dimen_12dp"
+    app:strokeColor="@color/brightGray"
+    app:strokeWidth="@dimen/dimen_1dp"
+    android:background="@color/white"
+    android:backgroundTint="@color/white"
     android:layout_height="wrap_content">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/detailsBackground">
+        android:background="@color/white">
         <ImageView
             android:id="@+id/ivNewTractorImage"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dimen_220dp"
             android:minHeight="@dimen/payu_dimen_280dp"
             android:maxHeight="@dimen/payu_dimen_280dp"
-            android:layout_marginBottom="@dimen/dimen_10dp"
+            android:layout_marginBottom="@dimen/dimen_8dp"
             android:layout_gravity="center_vertical"
-            android:background="@color/white"
-
+            android:background="@color/detailsBackground"
             android:contentDescription="@string/app_name"
             android:src="@mipmap/ic_launcher"
             app:layout_constraintBottom_toTopOf="@id/tvNewTractorName"
@@ -40,7 +42,7 @@
             android:gravity="start|center"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="0k" />
+            tools:text="0k"/>
         <TextView
             android:id="@+id/tvSponsor"
             android:layout_width="wrap_content"
@@ -62,23 +64,37 @@
             app:layout_constraintBottom_toBottomOf="@id/ivNewTractorImage"
             app:layout_constraintEnd_toEndOf="parent"
             tools:visibility="visible"/>
+        <!--    style="@style/TractorListItemTitle"    -->
         <TextView
             android:id="@+id/tvNewTractorName"
             style="@style/TractorListItemTitle"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/payu_dimen_22dp"
             android:gravity="center_vertical"
             android:lines="1"
             android:maxLines="1"
-            android:textSize="@dimen/dimen_16sp"
-            android:layout_marginStart="@dimen/dimen_5dp"
+            android:textSize="@dimen/payu_dimen_15sp"
+            android:textStyle="bold"
+            android:textAllCaps="true"
+            android:textColor="@color/black"
+            android:layout_marginStart="@dimen/dimen_2dp"
+            android:layout_marginEnd="@dimen/dimen_4dp"
             app:layout_constraintBottom_toTopOf="@id/flow"
             android:layout_marginTop="@dimen/dimen_20dp"
-            android:fontFamily="@font/poppins_bold"
-            android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/ivFavorites"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="Mahindra 415 DI"/>
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="0.2"
+            android:rating="5.0"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@id/ivNewTractorImage"
+            app:layout_constraintBottom_toTopOf="@id/tvNewTractorName"
+            app:layout_constraintStart_toStartOf="parent"/>
         <ImageView
             android:id="@+id/ivFavorites"
             android:layout_width="wrap_content"
@@ -92,16 +108,17 @@
             android:id="@+id/ivDrive"
             android:layout_width="@dimen/dimen_28dp"
             android:layout_height="@dimen/dimen_28dp"
-            android:layout_marginEnd="@dimen/margin_8dp"
+            android:layout_marginEnd="@dimen/dimen_10dp"
             android:src="@drawable/ic_2wd"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tvNewTractorName" />
+            app:layout_constraintTop_toTopOf="@id/tvNewTractorName"/>
         <androidx.constraintlayout.helper.widget.Flow
             android:id="@+id/flow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/payu_dimen_6dp"
-            android:paddingStart="@dimen/margin_15dp"
+            android:layout_marginBottom="@dimen/dimen_8dp"
+            android:paddingStart="@dimen/payu_dimen_12dp"
+            android:paddingEnd="@dimen/dimen_0dp"
             app:constraint_referenced_ids="tvHP,tvDisplacementCC,tvNoOfCylinder"
             app:flow_maxElementsWrap="3"
             app:flow_wrapMode="none"
@@ -111,10 +128,12 @@
             android:id="@+id/tvHP"
             style="@style/ListFieldWithDrawable"
             android:layout_width="wrap_content"
+            android:fontFamily="@font/manrope_medium"
             android:layout_height="wrap_content"
             android:drawableTint="@color/black"
             android:drawablePadding="@dimen/dimen_1dp"
             android:paddingEnd="@dimen/margin_10dp"
+            android:paddingStart="@dimen/dimen_0dp"
             app:drawableStartCompat="@drawable/ic_hp_24"
             tools:text="80 HP"/>
         <TextView
@@ -122,7 +141,9 @@
             style="@style/ListFieldWithDrawable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/manrope_medium"
             android:paddingEnd="@dimen/margin_10dp"
+            android:paddingStart="@dimen/dimen_0dp"
             app:drawableStartCompat="@drawable/ic_engine_cc_24"
             tools:text="NA CC"
             app:drawableTint="@color/black"/>
@@ -131,7 +152,9 @@
             style="@style/ListFieldWithDrawable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/manrope_medium"
             android:paddingEnd="@dimen/margin_10dp"
+            android:paddingStart="@dimen/dimen_0dp"
             android:drawablePadding="@dimen/dimen_1dp"
             app:drawableStartCompat="@drawable/ic_cylinder_24"
             tools:text="4 Cylinder"
@@ -139,19 +162,19 @@
         <TextView
             android:id="@+id/btnOnRoadPrice"
             android:layout_width="0dp"
-            android:fontFamily="@font/poppins_medium"
+            android:fontFamily="@font/manrope_medium"
             android:layout_height="@dimen/payu_dimen_38dp"
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_marginTop="@dimen/dimen_5dp"
-            android:layout_marginStart="@dimen/dimen_10dp"
+            android:layout_marginStart="@dimen/payu_dimen_12dp"
             android:maxLines="1"
             android:layout_marginEnd="@dimen/dimen_5dp"
             android:textColor="@color/red"
             android:textAlignment="center"
             android:outlineAmbientShadowColor="@color/red"
             android:background="@drawable/btn_rectangle_outline_bg_red"
-            android:layout_marginBottom="@dimen/dimen_10dp"
+            android:layout_marginBottom="@dimen/payu_dimen_14dp"
             android:text="@string/getOnRoadPrice"
             android:textSize="@dimen/dimen_13sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -161,24 +184,24 @@
         <TextView
             android:id="@+id/btnRequestForDemo"
             android:layout_width="0dp"
-            android:fontFamily="@font/poppins_medium"
+            android:fontFamily="@font/manrope_medium"
             android:layout_height="@dimen/payu_dimen_38dp"
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_marginTop="@dimen/dimen_5dp"
             android:layout_marginStart="@dimen/dimen_5dp"
             android:maxLines="1"
-            android:layout_marginEnd="@dimen/margin_10dp"
+            android:layout_marginEnd="@dimen/payu_dimen_12dp"
             android:textColor="@color/red"
             android:textAlignment="center"
             android:outlineAmbientShadowColor="@color/red"
             android:background="@drawable/btn_rectangle_outline_bg_red"
-            android:layout_marginBottom="@dimen/dimen_10dp"
+            android:layout_marginBottom="@dimen/payu_dimen_14dp"
             android:text="@string/request_for_demo"
             android:textSize="@dimen/dimen_13sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@id/btnOnRoadPrice"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
 

@@ -768,6 +768,7 @@
     <string name="no">नाही</string>
     <string name="yes">होय</string>
     <string name="total_amount">एकूण रक्कम</string>
+    <string name="profile_settings">Profile Settings</string>
     <string-array name="gender_val">
         <item>लिंग निवडा</item>
         <item>पुरुष</item>

@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -55,6 +56,7 @@ public class Constants {
 
     public static final long ANIM_VIEWPAGER_DELAY = 6000;
     public static final String NO_OF_LAUNCHED = "noOfLaunched";
+    public static final @NonNull String  PROFILE_UPDATED = "profileUpdated";
 
 
     public static boolean REDIRECT_TO_EDIT_PROFILE_COUNT = false;

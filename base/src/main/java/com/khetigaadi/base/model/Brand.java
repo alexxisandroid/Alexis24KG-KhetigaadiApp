@@ -75,35 +75,22 @@ public class Brand extends BrandParent implements Parcelable {
     public void setImage(String image) {
         this.image = image;
     }
-
     public int getIsHarvesterBrand() {
         return isHarvesterBrand;
     }
-
     public void setIsHarvesterBrand(int isHarvesterBrand) {
         this.isHarvesterBrand = isHarvesterBrand;
     }
-
     public List<Model> getModels() {
         return models;
     }
-
     public void setModels(ArrayList<Model> models) {
         this.models = models;
     }
-
-    @NonNull
-    @Override
-    public String toString() {
-        return name;
-    }
-
-
     @Override
     public int describeContents() {
         return 0;
     }
-
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.id);
@@ -141,6 +128,18 @@ public class Brand extends BrandParent implements Parcelable {
         if (o == null || getClass() != o.getClass()) return false;
         Brand brand = (Brand) o;
         return id == brand.id;
+    }
+    @NonNull
+    @Override
+    public String toString() {
+        return "Brand{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", image='" + image + '\'' +
+                ", isHarvesterBrand=" + isHarvesterBrand +
+                ", models=" + models +
+                ", selected=" + selected +
+                '}';
     }
 }
 

@@ -13,11 +13,11 @@ public class RoundRectCornerImageView extends androidx.appcompat.widget.AppCompa
         init();
     }
     public RoundRectCornerImageView(Context context,AttributeSet attrs) {
-        super(context, attrs);
+        super(context,attrs);
         init();
     }
     public RoundRectCornerImageView(Context context,AttributeSet attrs,int defStyle) {
-        super(context, attrs, defStyle);
+        super(context,attrs,defStyle);
         init();
     }
     private void init() {

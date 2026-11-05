@@ -160,6 +160,7 @@ public class GetImpModelName extends Fragment {
             Map<String, Object> params = new HashMap<>();
             params.put("brand", jsonObjectBrandId);
             params.put("implement_type", jsonObjectImplementType);
+            Log.d("vbcbcbcvbcvb54646===",""+params+"=="+selectedBrandId+"=="+selectedTypeId);
             disposable.add(khetiAPIs.getImpModels(params)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -167,7 +168,7 @@ public class GetImpModelName extends Fragment {
                         @Override
                         public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull ModelResp modelResp) {
                             List<Model> models = modelResp.getData();
-                            if (selectedModelId != null) {
+                            if(selectedModelId != null) {
                                 models = models.stream().filter(c -> c.getId() != selectedModelId).collect(Collectors.toList());
                             }
                             adapter.setData(models);
