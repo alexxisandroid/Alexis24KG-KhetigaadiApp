@@ -159,7 +159,7 @@ android {
         kaptAndroidTest libs.hilt.android.compiler
         androidTestAnnotationProcessor libs.hilt.android.compiler
         coreLibraryDesugaring libs.desugar.jdk.libs
-        implementation libs.MPAndroidChart
+        implementation "com.github.PhilJay:MPAndroidChart:${libs.versions.MPAndroidChart.get()}"
         implementation libs.appcompat
         implementation libs.material
         implementation libs.recyclerView
@@ -249,9 +249,9 @@ android {
          kaptAndroidTest libs.hilt.compiler
          // implementation project(":base")
 }
- configurations.all {
-    exclude group:'com.google.android.gms',module:'play-services-safetynet'
-}
+// configurations.all {
+//    exclude group:'com.google.android.gms',module:'play-services-safetynet'
+//}
  configurations.configureEach {
     exclude group:'com.google.android.gms',module:'play-services-safetynet'
 }

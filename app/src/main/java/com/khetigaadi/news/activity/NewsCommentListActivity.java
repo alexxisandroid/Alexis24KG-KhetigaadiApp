@@ -159,31 +159,31 @@ public class NewsCommentListActivity extends BaseActivity {
         });
         Log.d("cxzxzczcxz==",""+commentListResp);
         mAdapter.setOnLoadMoreListener(() -> {
-            if (commentListResp != null)
-                if ((++page) <= commentListResp.getData().getLastPage())
-                    getComments(newsId,user.getId(), page);
+            if(commentListResp != null)
+                if((++page) <= commentListResp.getData().getLastPage())
+                    getComments(newsId,user.getId(),page);
         });
-        if (user != null && user.getImage() != null)
-            Glide.with(NewsCommentListActivity.this).load(Constants.decodeURL(sessionManager.getUserOthers().getUserPath()+user.getImage()))
-                    .into(binding.inInputComment.civLogUserProfile);
+        if(user != null && user.getImage() != null)
+            Glide.with(NewsCommentListActivity.this).load(Constants.decodeURL(sessionManager.getUserOthers().getUserPath()+user.getImage())).into(binding.inInputComment.civLogUserProfile);
         binding.inInputComment.civLogUserProfile.setOnClickListener(v -> {
             Intent intent = new Intent(NewsCommentListActivity.this,ProfileActivity.class);
             intent.putExtra("userId",user.getId());
             startActivity(intent);
         });
         binding.inInputComment.ivSend.setOnClickListener(v -> {
-            if (replyValidate()) {
-                if (Constants.isConnectionAvailable(NewsCommentListActivity.this)) {
+            if(replyValidate()) {
+                if(Constants.isConnectionAvailable(NewsCommentListActivity.this)) {
                     callAddCommentApi(binding.inInputComment.etComment.getText().toString(),user.getId(),newsId);
-                } else {
+                }
+                else {
                     noInternetConnection(binding.parent);
                 }
             }
         });
     }
     @SuppressLint("LogNotTimber")
-    private void callLikeApi(String id, String userId, int position) {  //+type
-        likeStateChange("comment",position);
+    private void callLikeApi(String id,String userId,int position) {  //+type
+        likeStateChange(position);
        // JSONObject params = new JSONObject();
         Log.d("cxvxcvcxvx==", id+"=="+userId+"==");  //+type
         /*try {
@@ -224,9 +224,9 @@ public class NewsCommentListActivity extends BaseActivity {
         }*/
     }
     @SuppressLint("LogNotTimber")
-    private void likeStateChange(String type, int position) {
-        Log.d("xvcxvzvvxc==", type);
-        mAdapter.getItem(position).setLikes(mAdapter.getItem(position).isLike() ? mAdapter.getItem(position).getLikes() - 1 : mAdapter.getItem(position).getLikes() + 1);
+    private void likeStateChange(int position) {   //  (String type
+        Log.d("xvcxvzvvxc==", "comment");
+        mAdapter.getItem(position).setLikes(mAdapter.getItem(position).isLike()?mAdapter.getItem(position).getLikes() - 1:mAdapter.getItem(position).getLikes()+1);
         mAdapter.getItem(position).setLike(!mAdapter.getItem(position).isLike());
         mAdapter.updateItem(position);
     }

@@ -51,6 +51,7 @@ import java.util.Locale
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 import com.khetigaadi.shop.model.Product
+@Suppress("DEPRECATION")
 @AndroidEntryPoint
 class SearchActivity:BaseActivity() {
     private lateinit var searchUsedTractorAdapter: SearchUsedTractorAdapter

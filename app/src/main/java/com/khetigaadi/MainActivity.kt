@@ -694,7 +694,7 @@ open class MainActivity:BaseActivity() {
             fragmentTransaction.setCustomAnimations(R.anim.enter,R.anim.exit,R.anim.pop_enter,R.anim.pop_exit)
             if(item.itemId === R.id.action_home) {
                 navigateToHomeFragment(fragmentTransaction)
-                val nvv = binding.drawerLayout.findViewById<CoordinatorLayout>(R.id.clll).findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+             //   val nvv = binding.drawerLayout.findViewById<CoordinatorLayout>(R.id.clll).findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 //                val itemO:MenuItem = nvv.menu.findItem(R.id.action_old_tractor)
 //                val itemN: MenuItem = nvv.menu.findItem(R.id.action_new_tractor)
               //  itemO.isChecked = false
@@ -704,7 +704,7 @@ open class MainActivity:BaseActivity() {
                 true
             }
             else if(item.itemId === R.id.action_price) {
-                val nvv = binding.drawerLayout.findViewById<CoordinatorLayout>(R.id.clll).findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+             //   val nvv = binding.drawerLayout.findViewById<CoordinatorLayout>(R.id.clll).findViewById<BottomNavigationView>(R.id.bottomNavigationView)
 //                val itemO:MenuItem = nvv.menu.findItem(R.id.action_old_tractor)
 //                val itemN:MenuItem = nvv.menu.findItem(R.id.action_new_tractor)
 
@@ -774,7 +774,7 @@ open class MainActivity:BaseActivity() {
         //item.setIcon(R.drawable.ic_home_24dp)
      }
     fun reinstBNav() {
-        val nvv = binding.drawerLayout.findViewById<CoordinatorLayout>(R.id.clll).findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+       // val nvv = binding.drawerLayout.findViewById<CoordinatorLayout>(R.id.clll).findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         //  val item:MenuItem = nvv.menu.findItem(R.id.action_home)
         //item.isChecked = true
        // item.setIcon(R.drawable.ic_home_bold_24dp)

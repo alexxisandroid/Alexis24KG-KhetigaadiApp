@@ -1,7 +1,7 @@
 package com.khetigaadi.user.profile;
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
+//import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -487,9 +487,9 @@ public class EditProfileActivity extends BaseActivity {
         user.setEmail(Objects.requireNonNull(binding.inputEmail.getText()).toString());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
             if(!Objects.requireNonNull(binding.etDOB.getText()).isEmpty()) {
-                @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+               // @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
                 String dateInString = binding.etDOB.getText().toString();
-                @SuppressLint("SimpleDateFormat") SimpleDateFormat formatterOut = new SimpleDateFormat("dd-MM-yyyy");
+              //  @SuppressLint("SimpleDateFormat") SimpleDateFormat formatterOut = new SimpleDateFormat("dd-MM-yyyy");
                 try {
                    // Date date = formatter.parse(dateInString);
                   //  System.out.println(date);

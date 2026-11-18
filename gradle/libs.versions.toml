@@ -125,6 +125,7 @@ hiltAndroidTesting = "2.57.2"
 kotlinStdlib = "2.2.20"
 #noinspection GradleDependency
 lifecycleLivedataKtx = "2.9.4"
+#noinspection UnusedVersionCatalogEntry
 mPAndroidChart = "v3.1.0"
 #noinspection NewerVersionAvailable
 okhttp = "5.2.1"
