@@ -1,23 +1,21 @@
 package com.khetigaadi.tractor.compare;
 import android.os.Bundle;
 import android.view.View;
-
-import androidx.activity.EdgeToEdge;
+//import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
-
+//import androidx.core.graphics.Insets;
+//import androidx.core.view.ViewCompat;
+//import androidx.core.view.WindowCompat;
+//import androidx.core.view.WindowInsetsCompat;
 import com.khetigaadi.R;
 import com.khetigaadi.databinding.ActivityCompareTractorBinding;
-
+//import java.util.Objects;
 import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class CompareTractorActivity extends AppCompatActivity {
-    private CompareTractorViewModel viewModel;
+  //  private CompareTractorViewModel viewModel;
     private ActivityCompareTractorBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +38,11 @@ public class CompareTractorActivity extends AppCompatActivity {
     private void initToolbar() {
         setSupportActionBar(binding.toolbar);
         binding.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
+        //noinspection deprecation
         binding.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         binding.toolbar.setTitle(getString(R.string.compareTractor));
         //Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.compareTractor));
 
-        getSupportActionBar().setTitle(getResources().getString(R.string.compareTractor));
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getResources().getString(R.string.compareTractor));
     }
 }

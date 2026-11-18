@@ -7,7 +7,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
+//import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import com.bumptech.glide.Glide;
 import com.google.android.material.snackbar.Snackbar;
@@ -34,6 +34,7 @@ import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
+@SuppressWarnings("deprecation")
 @AndroidEntryPoint
 public class OnRoadPriceActivity extends BaseActivity {
     private Brand selectedBrand;
@@ -42,6 +43,7 @@ public class OnRoadPriceActivity extends BaseActivity {
     @Inject
     KhetiAPIs khetiAPIs;
     CompositeDisposable composite = new CompositeDisposable();
+    @SuppressWarnings("deprecation")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,6 +103,7 @@ public class OnRoadPriceActivity extends BaseActivity {
         }
         return false;
     }
+    @SuppressWarnings("deprecation")
     private void initToolbar() {
         setSupportActionBar(binding.toolbars.toolbar);
         binding.toolbars.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
@@ -126,7 +129,7 @@ public class OnRoadPriceActivity extends BaseActivity {
                     }
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        Toast.makeText(OnRoadPriceActivity.this,""+e.getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(OnRoadPriceActivity.this, e.getMessage(),Toast.LENGTH_SHORT).show();
                         binding.llProgress.setVisibility(View.GONE);
                     }
                 }));

@@ -3,7 +3,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.khetigaadi.base.model.MyResponse;
 import com.khetigaadi.model.Others;
-import com.khetigaadi.tractor.rent.model.RentTractor;
+//import com.khetigaadi.tractor.rent.model.RentTractor;
 import java.util.List;
 public class MyAddedTractorResp extends MyResponse {
     @SerializedName("data")

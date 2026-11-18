@@ -1,6 +1,7 @@
 package com.khetigaadi.ecom.adapter;
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
+//import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +22,7 @@ public class HomeCategoriesAdapter extends BaseRecyclerViewAdapter<Category,Othe
     private final int VIEW_ITEM = 1;
     private final Context context;
     private static final int EMPTY_VIEW = 10;
-    private final int VIEW_PROG = 0;
+    public final int VIEW_PROG = 0;
     private CategoriesAdapter.Listener listener;
     public HomeCategoriesAdapter(Context context,RecyclerView recyclerView) {
         super(context, recyclerView);
@@ -43,6 +44,7 @@ public class HomeCategoriesAdapter extends BaseRecyclerViewAdapter<Category,Othe
         }
         return vh;
     }
+    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
 //    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 //        if(holder instanceof ViewHolder) {
@@ -90,7 +92,7 @@ public class HomeCategoriesAdapter extends BaseRecyclerViewAdapter<Category,Othe
             Category item = items.get(position);
             if(item != null) {
                 String othShopImg = others.getShopCategoryImagePath();
-                if(othShopImg==null || othShopImg.equals(null) || othShopImg.equals("null") || othShopImg.isEmpty() || othShopImg.equals(""))
+                if(othShopImg == null || othShopImg.equals("null") || othShopImg.isEmpty())
                     othShopImg = BuildConfig.BASE_URL+"images/shop-category/";
                 if(item.getName().equals("All") || item.getName().contains("All Category") || item.getName().contains("All \nCategory")) {
                     Glide.with(context)
@@ -107,7 +109,7 @@ public class HomeCategoriesAdapter extends BaseRecyclerViewAdapter<Category,Othe
                             .error(R.mipmap.no_image)
                             .placeholder(R.mipmap.no_image)
                             .into(((ViewHolder) holder).binding.image);
-                Log.d("vxcvvxvxcvcxv====",""+item.getColorCode()+"=="+othShopImg+item.getImage());
+                //  Log.d("vxcvvxvxcvcxv====",""+item.getColorCode()+"=="+othShopImg+item.getImage());
                 //  if(item.getColorCode() != null)
                 // ((ViewHolder) holder).binding.image.setBackgroundColor(Color.parseColor(item.getColorCode()));
 
@@ -128,14 +130,14 @@ public class HomeCategoriesAdapter extends BaseRecyclerViewAdapter<Category,Othe
 
     //    @Override
     public int getItemViewType(int position) {
-        if(items.size() == 0) {
+        if(items.isEmpty()) {
             return EMPTY_VIEW;
         }
         return items.get(position) != null ? VIEW_ITEM : VIEW_PROG;
     }
     @Override
     public int getItemCount() {
-        return items.size() > 0 ? items.size() : 1;
+        return !items.isEmpty() ? items.size() : 1;
     }
     public void setListener(CategoriesAdapter.Listener listener) {
         this.listener = listener;

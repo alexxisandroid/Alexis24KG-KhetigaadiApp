@@ -1,8 +1,8 @@
 package com.khetigaadi.user.profile
-import android.content.ActivityNotFoundException
-import android.content.Intent
-import android.graphics.Paint
-import android.net.Uri
+//import android.content.ActivityNotFoundException
+//import android.content.Intent
+//import android.graphics.Paint
+//import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -14,12 +14,12 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.khetigaadi.R
-import com.khetigaadi.base.WebViewActivity
-import com.khetigaadi.commons.activities.FeedBackActivity
-import com.khetigaadi.databinding.ActivityMainBinding
+//import com.khetigaadi.base.WebViewActivity
+//import com.khetigaadi.commons.activities.FeedBackActivity
+//import com.khetigaadi.databinding.ActivityMainBinding
 import com.khetigaadi.databinding.ActivityProfileOtherBinding
-import com.khetigaadi.isOwner.IsOwnerTractorBrand
-import com.khetigaadi.language.SelectLanguage
+//import com.khetigaadi.isOwner.IsOwnerTractorBrand
+//import com.khetigaadi.language.SelectLanguage
 import com.khetigaadi.user.UserDashboardFragment
 import com.khetigaadi.user.buyserEnquiry.BuyersEnquiry
 import com.khetigaadi.user.myAddedTractor.MyAddedTractorList
@@ -28,6 +28,7 @@ import com.khetigaadi.user.myUsedTractor.MyUploadedUsedTractorList
 import com.khetigaadi.user.myfavorites.MyFavoritesTabs
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Objects
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_EXPLICIT_TYPE_ARGUMENTS_FOR_JAVA")
 @AndroidEntryPoint
 class ProfileOtherActivity:AppCompatActivity() {
     private lateinit var binding:ActivityProfileOtherBinding
@@ -55,7 +56,7 @@ class ProfileOtherActivity:AppCompatActivity() {
             mFragmentManager = supportFragmentManager
             mFragmentTransaction = mFragmentManager.beginTransaction()
             mFragmentTransaction.setCustomAnimations(R.anim.enter,R.anim.exit,R.anim.pop_enter,R.anim.pop_exit)
-            return mFragmentTransaction as FragmentTransaction
+            return mFragmentTransaction
         }
     private fun initToolbar() {
         setSupportActionBar(binding.toolbars.toolbar)
@@ -69,6 +70,7 @@ class ProfileOtherActivity:AppCompatActivity() {
         private const val GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id="
     }
     private fun initUI() {
+        println(GOOGLE_PLAY_URL)
       val typeV = intent.getStringExtra("typeVal")
        if(typeV == "dashboard") {
            supportActionBar?.title = resources.getString(R.string.dashboard)
@@ -109,10 +111,10 @@ class ProfileOtherActivity:AppCompatActivity() {
     fun noInternetConnection() {
       //  noInternetConnection(binding.containerView)
     }
-    private fun hideSoftKeyboardNew1() {
-        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        if (imm.isAcceptingText) imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,0)
-    }
+//    private fun hideSoftKeyboardNew1() {
+//        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+//        if (imm.isAcceptingText) imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,0)
+//    }
     fun hideSoftKeyboard() {
         val view = this.currentFocus
         if(view != null) {

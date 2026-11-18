@@ -1,4 +1,5 @@
 package com.khetigaadi.user.profile;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -90,6 +91,7 @@ public class EditProfileActivity extends BaseActivity {
     private Taluka selectedTaluka;
     private String selectedGender = null;
     private long selectedDOB = 0;
+    @SuppressLint("LogNotTimber")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -122,15 +124,15 @@ public class EditProfileActivity extends BaseActivity {
             datePicker.addOnPositiveButtonClickListener(selection -> {
                 selectedDOB = selection;
                //binding.etDOB.setText(DateUtils.getDate(selection,DateUtils.DateFormat.dd_mm_yyyy));
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy MMM dd HH:mm:ss");
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy MMM dd HH:mm:ss");
                 long dateInString = selection;
-                SimpleDateFormat formatterOut = new SimpleDateFormat("dd-MM-yyyy");
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat formatterOut = new SimpleDateFormat("dd-MM-yyyy");
                 try {
                    // Date date = formatter.parse(dateInString);
                     //System.out.println(date);
                     //System.out.println(formatterOut.format(date));
                     Date date = new Date(dateInString);
-                    assert date != null;
+                    //assert date != null;
                     String dtt = formatterOut.format(date);
                     binding.etDOB.setText(dtt);
                 }
@@ -176,7 +178,7 @@ public class EditProfileActivity extends BaseActivity {
                 if (item != null) {
 
                     binding.tilGender.setErrorEnabled(false);
-                    selectedGender = getGender(genderAdapter.getItem(position).toString());
+                    selectedGender = getGender(Objects.requireNonNull(genderAdapter.getItem(position)).toString());
 
                     // Toast.makeText(EditProfileActivity.this,item.toString()+"=="+selectedGender,Toast.LENGTH_SHORT).show();
 
@@ -271,17 +273,17 @@ public class EditProfileActivity extends BaseActivity {
                 });
         binding.etCrops.setOnClickListener(v -> {
            ///// binding.tilCrops.setErrorEnabled(false);
-            Intent intent = new Intent(EditProfileActivity.this, CropSelectionsActivity.class);
+            Intent intent = new Intent(EditProfileActivity.this,CropSelectionsActivity.class);
             intent.putExtra("crops", selectedCrops);
             cropSectionResultLauncher.launch(intent);
         });
         ActivityResultLauncher<Intent> brandSectionResultLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
+                    if(result.getResultCode() == Activity.RESULT_OK) {
                         Intent data = result.getData();
                         selectedBrand = data != null ? data.getParcelableExtra(BrandSelectionActivity.SELECTED_BRAND) : null;
-                        if (selectedBrand != null) {
+                        if(selectedBrand != null) {
                             binding.etBrand.setText(selectedBrand.getName());
                         }
                     }

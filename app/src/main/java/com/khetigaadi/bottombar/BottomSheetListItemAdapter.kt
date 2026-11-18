@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.khetigaadi.R
+//import com.khetigaadi.R
 import com.khetigaadi.databinding.FragmentBottomMenuListDialogListDialogItemBinding
 import com.khetigaadi.model.NameAndImage
 class BottomSheetListItemAdapter(private val mItemCount:List<NameAndImage>,val contextt:Context,var listener:ClickListener):RecyclerView.Adapter<BottomSheetListItemAdapter.MyViewHolder>() {
@@ -15,7 +15,7 @@ class BottomSheetListItemAdapter(private val mItemCount:List<NameAndImage>,val c
         val item = mItemCount[position]
         holder.binding.tvTitle.text = item.name
         holder.binding.ivImage.setImageResource(item.drawable)
-        println("vcbvbcvbcv===="+item.name)
+        println("vcbvbcvbcv===="+item.name+"=="+contextt)
        // if(item.name.equals("Shop"))
             //holder.binding.text.background.setTint(contextt.getColor(R.color.babyBlueEyes))
         holder.binding.root.setOnClickListener { listener.onItemClick(position,it) }
@@ -23,7 +23,7 @@ class BottomSheetListItemAdapter(private val mItemCount:List<NameAndImage>,val c
     override fun getItemCount():Int {
         return mItemCount.size
     }
-    inner class MyViewHolder(val binding:FragmentBottomMenuListDialogListDialogItemBinding):RecyclerView.ViewHolder(binding.root)
+    class MyViewHolder(val binding:FragmentBottomMenuListDialogListDialogItemBinding):RecyclerView.ViewHolder(binding.root)
     interface ClickListener {
         fun onItemClick(position:Int,view:View)
     }

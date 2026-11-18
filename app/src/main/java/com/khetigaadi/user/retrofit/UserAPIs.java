@@ -1,11 +1,11 @@
 package com.khetigaadi.user.retrofit;
-import androidx.lifecycle.LiveData;
+//import androidx.lifecycle.LiveData;  //
 import com.khetigaadi.base.model.CityResp;
 import com.khetigaadi.base.model.MyResponse;
 import com.khetigaadi.base.model.StateResp;
 import com.khetigaadi.base.model.TalukaResp;
 import com.khetigaadi.base.model.agri.Crops;
-import com.khetigaadi.base.room.repository.utils.ApiResponse;
+//import com.khetigaadi.base.room.repository.utils.ApiResponse;  //
 import com.khetigaadi.user.model.FCMParam;
 import com.khetigaadi.user.model.OtpResp;
 import com.khetigaadi.user.model.UpdateProfileImageResp;
@@ -15,7 +15,7 @@ import java.util.Map;
 //import io.reactivex.Single;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.disposables.Disposable;
+//import io.reactivex.rxjava3.disposables.Disposable;
 import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -56,8 +56,11 @@ public interface UserAPIs {
  //LiveData<ApiResponse<CityResp>> getCities();
  @GET("commonApi/state/city/{id}")
  Single<CityResp> getCitiesByState(@Path("id") int stateId);
+// @POST("mobile/api/v1/user/share")
+// Single<MyResponse> shareUser(@Body Map<String, String> params);
+
  @POST("mobile/api/v1/user/share")
- Single<MyResponse> shareUser(@Body Map<String, String> params);
+ void shareUser(@Body Map<String, String> params);
  @POST("mobile/api/v1/user/follow")
  Single<MyResponse> followUser(@Body Map<String, String> params);
  //followUser

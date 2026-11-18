@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.khetigaadi.base
 import android.app.Activity
 import android.app.Dialog
@@ -34,7 +36,7 @@ abstract class BaseActivity:AppCompatActivity() {
                 noInternetDialog = Dialog(this@BaseActivity,android.R.style.Theme_NoTitleBar_Fullscreen)
                 noInternetDialog!!.setContentView(R.layout.no_internet_dialog)
                 noInternetDialog!!.setCancelable(false)
-                noInternetDialog!!.setOnKeyListener { dialog: DialogInterface?, keyCode: Int, event: KeyEvent? ->
+                noInternetDialog!!.setOnKeyListener { _: DialogInterface?, keyCode: Int, _: KeyEvent? ->
                     if(keyCode == KeyEvent.KEYCODE_BACK) {
                         noInternetDialog!!.dismiss()
                         finishAndRemoveTask()
@@ -84,19 +86,22 @@ abstract class BaseActivity:AppCompatActivity() {
      * Set up the ui so every view and nested view that is not EditText will listen to touch event and dismiss the keyboard if touched.
      * http://stackoverflow.com/questions/4165414/how-to-hide-soft-keyboard-on-android-after-clicking-outside-edittext
      */
-    fun setupTouchUIToDismissKeyboard(view: View) {
-        setupTouchUIToDismissKeyboard(view,
-            { v: View?, event: MotionEvent? ->
-                hideSoftKeyboard(this@BaseActivity)
-                false
-            }, -1
-        )
-    }
-    fun showSoftKeyboard() {
-        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        val v = currentFocus
-        if (v != null) imm.showSoftInput(v,0)
-    }
+
+//    fun setupTouchUIToDismissKeyboard(view: View) {
+//        setupTouchUIToDismissKeyboard(view,
+//            { v: View?, event: MotionEvent? ->
+//                hideSoftKeyboard(this@BaseActivity)
+//                false
+//            }, -1
+//        )
+//    }
+//    fun showSoftKeyboard() {
+//        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+//        val v = currentFocus
+//        if (v != null) imm.showSoftInput(v,0)
+//    }
+
+
     protected fun showProgressDialog(message:String?) {
         try {
             if(progressDialog == null) {
@@ -112,20 +117,22 @@ abstract class BaseActivity:AppCompatActivity() {
             e.printStackTrace()
         }
     }
-    protected fun setProgressDialogDismissOnTouchOutside(cancel:Boolean) {
-        progressDialog!!.setCanceledOnTouchOutside(cancel)
-    }
-    protected fun showOrUpdateProgressDialog(message:String?) {
-        if (progressDialog == null) {
-            progressDialog = ProgressDialog(this)
-        }
-        if (!progressDialog!!.isShowing) {
-            progressDialog = ProgressDialog(this)
-            progressDialog!!.setMessage(message)
-            progressDialog!!.show()
-            //        }
-        } else progressDialog!!.setMessage(message)
-    }
+
+//    protected fun setProgressDialogDismissOnTouchOutside(cancel:Boolean) {
+//        progressDialog!!.setCanceledOnTouchOutside(cancel)
+//    }
+//    protected fun showOrUpdateProgressDialog(message:String?) {
+//        if (progressDialog == null) {
+//            progressDialog = ProgressDialog(this)
+//        }
+//        if (!progressDialog!!.isShowing) {
+//            progressDialog = ProgressDialog(this)
+//            progressDialog!!.setMessage(message)
+//            progressDialog!!.show()
+//            //        }
+//        } else progressDialog!!.setMessage(message)
+//    }
+
     protected fun dismissProgressDialog() {
         // For handling orientation changed.
         try {
@@ -142,25 +149,30 @@ abstract class BaseActivity:AppCompatActivity() {
             window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE)
         }
     }
-    fun refreshActionBarMenu() {
-        invalidateOptionsMenu()
-    }
-    private fun getCityFromGEOCode(latitude:Double,longitude:Double):String? {
-        val geocoder = Geocoder(this,Locale.getDefault())
-        val addresses:List<Address>?
-        try {
-            addresses = geocoder.getFromLocation(latitude,longitude,1)
-            return addresses!![0].subAdminArea
-        }
-        catch(e:Exception) {
-            e.printStackTrace()
-        }
-        return null
-    }
+
+
+//    fun refreshActionBarMenu() {
+//        invalidateOptionsMenu()
+//    }
+//    private fun getCityFromGEOCode(latitude:Double,longitude:Double):String? {
+//        val geocoder = Geocoder(this,Locale.getDefault())
+//        val addresses:List<Address>?
+//        try {
+//            addresses = geocoder.getFromLocation(latitude,longitude,1)
+//            return addresses!![0].subAdminArea
+//        }
+//        catch(e:Exception) {
+//            e.printStackTrace()
+//        }
+//        return null
+//    }
+//
+
     companion object {
         fun setupTouchUIToDismissKeyboard(view:View,onTouchListener:OnTouchListener?,vararg exceptIDs:Int?) {
             var ids:List<Int?> = ArrayList()
-            if(exceptIDs != null) ids = Arrays.asList(*exceptIDs)
+           // if(exceptIDs != null)
+                ids = listOf(*exceptIDs)
             //Set up touch listener for non-text box views to hide keyboard.
             if(view !is EditText) {
                 if(!ids.isEmpty() && ids.contains(view.id)) {
@@ -180,7 +192,8 @@ abstract class BaseActivity:AppCompatActivity() {
          * Hide the Soft Keyboard.
          */
         fun hideSoftKeyboard(activity:Activity) {
-            val inputMethodManager = activity.getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager ?: return
+            val inputMethodManager = activity.getSystemService(INPUT_METHOD_SERVICE) as? InputMethodManager
+                ?: return
             if(activity.currentFocus != null && activity.currentFocus!!.windowToken != null) inputMethodManager.hideSoftInputFromWindow(activity.currentFocus!!.windowToken, 0)
         }
     }

@@ -1,6 +1,8 @@
 package com.khetigaadi.news.activity;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,7 +10,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
+//import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.bumptech.glide.Glide;
@@ -28,9 +30,10 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
+@SuppressWarnings("deprecation")
 @AndroidEntryPoint
 public class NewsCommentListActivity extends BaseActivity {
-    private static final String TAG = "NewsCommentListActivity";
+   // private static final String TAG = "NewsCommentListActivity";
     private CommentListAdapter mAdapter;
     private String newsId;
     private int page = 1;
@@ -47,6 +50,7 @@ public class NewsCommentListActivity extends BaseActivity {
         intent.putExtra("newsId", newsId);
         activity.startActivity(intent);
     }
+    @SuppressLint("LogNotTimber")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,7 +78,9 @@ public class NewsCommentListActivity extends BaseActivity {
             noInternetConnection(binding.parent);
         }
     }
-    private void getComments(String newsId,String userId,int page) {
+    @SuppressLint("LogNotTimber")
+    private void getComments(String newsId, String userId, int page) {
+        Log.d("cxvcxvcxvcxvx===", newsId+"=="+userId+"=="+page);
    /* try {
         if (page == 1) {
             binding.llProgress.llProgress.setVisibility(View.VISIBLE);
@@ -102,9 +108,7 @@ public class NewsCommentListActivity extends BaseActivity {
             binding.llProgress.llProgress.setVisibility(View.GONE);
             binding.rvReply.setVisibility(View.VISIBLE);
         }) {
-            *//**
-         * Passing some request headers
-         *//*
+            *//*
             @Override
             public Map<String, String> getHeaders() {
                 HashMap<String, String> headers = new HashMap<>();
@@ -128,6 +132,7 @@ public class NewsCommentListActivity extends BaseActivity {
         binding.toolbars.toolbar.setTitle(getString(R.string.comments));
         Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.comments));
     }
+    @SuppressLint("LogNotTimber")
     private void initUI() {
         binding.rvReply.setHasFixedSize(true);
         binding.rvReply.setLayoutManager(new LinearLayoutManager(this));
@@ -152,6 +157,7 @@ public class NewsCommentListActivity extends BaseActivity {
                 NewsCommentReplyListActivity.startActivity(NewsCommentListActivity.this,newsId,comment);
             }
         });
+        Log.d("cxzxzczcxz==",""+commentListResp);
         mAdapter.setOnLoadMoreListener(() -> {
             if (commentListResp != null)
                 if ((++page) <= commentListResp.getData().getLastPage())
@@ -175,9 +181,11 @@ public class NewsCommentListActivity extends BaseActivity {
             }
         });
     }
-    private void callLikeApi(String id,String userId,String type,int position) {
+    @SuppressLint("LogNotTimber")
+    private void callLikeApi(String id, String userId, String type, int position) {
         likeStateChange(type,position);
-        JSONObject params = new JSONObject();
+       // JSONObject params = new JSONObject();
+        Log.d("cxvxcvcxvx==", id+"=="+userId+"=="+type);
         /*try {
             params.put("news_comment_id", id);
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConfig.URL_NEW + "news/comments/like", params, response -> {
@@ -197,9 +205,7 @@ public class NewsCommentListActivity extends BaseActivity {
                 Toast.makeText(NewsCommentListActivity.this, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show();
                 likeStateChange(type, position);
             }) {
-                *//**
-         * Passing some request headers
-         *//*
+                *//*
                 @Override
                 public Map<String, String> getHeaders() {
                     HashMap<String, String> headers = new HashMap<>();
@@ -217,15 +223,19 @@ public class NewsCommentListActivity extends BaseActivity {
             e.printStackTrace();
         }*/
     }
-    private void likeStateChange(String type,int position) {
+    @SuppressLint("LogNotTimber")
+    private void likeStateChange(String type, int position) {
+        Log.d("xvcxvzvvxc==", type);
         mAdapter.getItem(position).setLikes(mAdapter.getItem(position).isLike() ? mAdapter.getItem(position).getLikes() - 1 : mAdapter.getItem(position).getLikes() + 1);
         mAdapter.getItem(position).setLike(!mAdapter.getItem(position).isLike());
         mAdapter.updateItem(position);
     }
+    @SuppressLint("LogNotTimber")
     private void callAddCommentApi(String replyText,String userId,String newsId) {
         binding.inInputComment.ivSend.setEnabled(false);
+        Log.d("bcvxbxbxbx===",replyText+"=="+userId+"=="+newsId);
         showProgressDialog(getString(R.string.loading));
-        JSONObject params = new JSONObject();
+        //JSONObject params = new JSONObject();
         /*try {
             // params.put("user_id", userId);
             params.put("news_id", newsId);
@@ -245,9 +255,8 @@ public class NewsCommentListActivity extends BaseActivity {
                 binding.inInputComment.  ivSend.setEnabled(true);
                 Toast.makeText(NewsCommentListActivity.this, getString(R.string.loading), Toast.LENGTH_SHORT).show();
             }) {
-                *//**
-         * Passing some request headers
-         *//*
+               // */
+        /*
                 @Override
                 public Map<String, String> getHeaders() {
                     HashMap<String, String> headers = new HashMap<>();
@@ -266,9 +275,11 @@ public class NewsCommentListActivity extends BaseActivity {
         }*/
     }
     private boolean replyValidate() {
-        if (binding.inInputComment.etComment.getText().length() < 1) {
-            Toast.makeText(this,getString(R.string.please_enter_reply),Toast.LENGTH_SHORT).show();
-            return false;
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            if (binding.inInputComment.etComment.getText().isEmpty()) {
+                Toast.makeText(this,getString(R.string.please_enter_reply),Toast.LENGTH_SHORT).show();
+                return false;
+            }
         }
         return true;
     }

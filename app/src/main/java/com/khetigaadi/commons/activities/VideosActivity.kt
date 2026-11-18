@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.khetigaadi.commons.activities
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -7,7 +9,7 @@ import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.core.view.OnApplyWindowInsetsListener
 import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
+//import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -28,6 +30,8 @@ import io.reactivex.rxjava3.observers.DisposableSingleObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
+import androidx.core.net.toUri
+
 @AndroidEntryPoint
 class VideosActivity:BaseActivity() {
     private var nextPageToken:String = ""
@@ -46,16 +50,17 @@ class VideosActivity:BaseActivity() {
         val view: View = binding.root
         setContentView(view)
         ViewCompat.setOnApplyWindowInsetsListener(
-            binding.getRoot(),
-            OnApplyWindowInsetsListener { v:View?,insets:WindowInsetsCompat? ->
-                val systemBarsInsets = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
-                v!!.setPadding(
-                    systemBarsInsets.left,
-                    systemBarsInsets.top,
-                    systemBarsInsets.right,
-                    systemBarsInsets.bottom)
-                insets
-            })
+            binding.getRoot()
+        ) { v: View?, insets: WindowInsetsCompat? ->
+            val systemBarsInsets = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
+            v!!.setPadding(
+                systemBarsInsets.left,
+                systemBarsInsets.top,
+                systemBarsInsets.right,
+                systemBarsInsets.bottom
+            )
+            insets
+        }
 //        this.enableEdgeToEdge()
         initToolbar()
         binding.myRecyclerView.setHasFixedSize(true)
@@ -87,7 +92,8 @@ class VideosActivity:BaseActivity() {
         }
     }
     private fun callSubscribe() {
-        startActivity(Intent(Intent.ACTION_VIEW,Uri.parse("http://www.youtube.com/channel/" + getString(R.string.youtubeChannelID))))
+        startActivity(Intent(Intent.ACTION_VIEW,
+            ("http://www.youtube.com/channel/" + getString(R.string.youtubeChannelID)).toUri()))
     }
     private fun initToolbar() {
         setSupportActionBar(binding.toolbars.toolbar)
@@ -108,6 +114,7 @@ class VideosActivity:BaseActivity() {
                     if(videoResp?.items?.size?.rem(10) !=0) {
                        // binding.llProgress.visibility = View.GONE
                         //return
+                        println("idsasx")
                     }
                     if(videoResp != null && videoResp.nextPageToken!=null && !videoResp.nextPageToken.equals(null)) {
                         nextPageToken = videoResp.nextPageToken

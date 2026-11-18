@@ -1,11 +1,11 @@
 package com.khetigaadi.tractor.dealer;
-import android.app.Activity;
+//import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
-import android.view.inputmethod.InputMethodManager;
+//import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,13 +14,13 @@ import androidx.activity.EdgeToEdge;
 import androidx.annotation.Nullable;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
+//import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.khetigaadi.R;
 import com.khetigaadi.agri.activity.BrandSelectionActivity;
 import com.khetigaadi.databinding.DealerNameBinding;
-import com.khetigaadi.databinding.DeleteTrFeedbackFormDialogBinding;
+//import com.khetigaadi.databinding.DeleteTrFeedbackFormDialogBinding;
 import com.khetigaadi.implement.newImplement.util.Brand;
 import com.khetigaadi.base.model.MyResponse;
 import com.khetigaadi.commons.activities.BaseActivity;
@@ -39,7 +39,7 @@ import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-import timber.log.Timber;
+//import timber.log.Timber;
 
 @AndroidEntryPoint
 public class DealerShipActivity extends BaseActivity {
@@ -75,6 +75,7 @@ public class DealerShipActivity extends BaseActivity {
         super.onResume();
         hideSoftKeyboard(DealerShipActivity.this);
     }
+    @SuppressWarnings("deprecation")
     private void initUI() {
         binding.etBrand.setOnClickListener(v -> {
             if (binding.spTypeTrOrImp.getSelectedItemPosition() == 0) {
@@ -82,6 +83,7 @@ public class DealerShipActivity extends BaseActivity {
             } else if (binding.spTypeTrOrImp.getSelectedItemPosition() == 1) {
                 Intent intent = new Intent(DealerShipActivity.this, BrandSelectionActivity.class);
                 intent.putExtra(BrandSelectionActivity.BRAND_TYPE, BrandType.NEW_TRACTOR);
+                //noinspection deprecation
                 startActivityForResult(intent, BrandSelectionActivity.BRAND_SELECTION_REQ);
             } else if (binding.spTypeTrOrImp.getSelectedItemPosition() == 2) {
                 Intent intent = new Intent(DealerShipActivity.this, BrandSelectionActivity.class);
@@ -128,6 +130,7 @@ public class DealerShipActivity extends BaseActivity {
                                 Toast.makeText(DealerShipActivity.this, response.getMsg().get(0), Toast.LENGTH_SHORT).show();
                             }
                         } catch (Exception e) {
+                            //noinspection CallToPrintStackTrace
                             e.printStackTrace();
                         }
                     }
@@ -137,6 +140,7 @@ public class DealerShipActivity extends BaseActivity {
                     }
                 }));
     }
+    @SuppressWarnings("deprecation")
     private void initToolbar() {
         setSupportActionBar(binding.toolbars.toolbar);
         binding.toolbars.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
@@ -151,6 +155,7 @@ public class DealerShipActivity extends BaseActivity {
 
 
     }
+    @SuppressWarnings("deprecation")
     @Override
     public void onActivityResult(int requestCode,int resultCode,@Nullable Intent data) {
         super.onActivityResult(requestCode,resultCode,data);
@@ -164,15 +169,17 @@ public class DealerShipActivity extends BaseActivity {
             }
         }
     }
-    private void showDialog(final String name) {
-        final Dialog d = new Dialog(this);
-        d.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        d.setCancelable(false);
-        d.setCanceledOnTouchOutside(false);
-        DealerNameBinding dialogBinding = DealerNameBinding.inflate(getLayoutInflater());
-        d.setContentView(dialogBinding.getRoot());
-        TextView textView = d.findViewById(R.id.tv_dealerName);
-        textView.setText(name);
-        d.show();
-    }
+
+//    private void showDialog(final String name) {
+//        final Dialog d = new Dialog(this);
+//        d.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//        d.setCancelable(false);
+//        d.setCanceledOnTouchOutside(false);
+//        DealerNameBinding dialogBinding = DealerNameBinding.inflate(getLayoutInflater());
+//        d.setContentView(dialogBinding.getRoot());
+//        TextView textView = d.findViewById(R.id.tv_dealerName);
+//        textView.setText(name);
+//        d.show();
+//    }
+
 }

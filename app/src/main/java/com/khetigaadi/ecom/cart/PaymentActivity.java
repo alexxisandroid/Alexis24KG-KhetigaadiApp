@@ -1,4 +1,5 @@
 package com.khetigaadi.ecom.cart;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -7,13 +8,13 @@ import android.view.View;
 import android.webkit.WebView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
+//import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
+//import androidx.core.graphics.Insets;
+//import androidx.core.view.ViewCompat;
+//import androidx.core.view.WindowCompat;
+//import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import com.khetigaadi.AppController;
@@ -38,6 +39,7 @@ import java.util.Objects;
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 import timber.log.Timber;
+@SuppressWarnings("deprecation")
 @AndroidEntryPoint
 public class PaymentActivity extends AppCompatActivity {
     private static final String TAG = "PaymentActivity";
@@ -111,6 +113,7 @@ public class PaymentActivity extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).setTitle(getResources().getString(R.string.payment));
     }
+    @SuppressWarnings("CallToPrintStackTrace")
     private void launchPayUMoneyFlow(String totalBill) {
         PayUPaymentParams.Builder builder = new PayUPaymentParams.Builder();
         double amount = 0;
@@ -150,6 +153,7 @@ public class PaymentActivity extends AppCompatActivity {
                 @Override
                 public void onPaymentSuccess(@NonNull Object response) {
                     binding.btnContinue.setEnabled(true);
+                    //noinspection unchecked
                     HashMap<String, Object> result = (HashMap<String, Object>) response;
                     String payuResponse = (String) result.get(PayUCheckoutProConstants.CP_PAYU_RESPONSE);
                     placeOrder(payuResponse);
@@ -167,6 +171,7 @@ public class PaymentActivity extends AppCompatActivity {
                     Timber.e(errorResponse.getErrorMessage());
                     Toast.makeText(PaymentActivity.this, errorResponse.getErrorMessage(), Toast.LENGTH_SHORT).show();
                 }
+                @SuppressLint("LogNotTimber")
                 @Override
                 public void generateHash(@NonNull HashMap<String,String> valueMap, @NonNull PayUHashGenerationListener hashGenerationListener) {
                     String hashName = valueMap.get(PayUCheckoutProConstants.CP_HASH_NAME);
@@ -176,8 +181,8 @@ public class PaymentActivity extends AppCompatActivity {
                         AppEnvironment appEnvironment = ((AppController) getApplication()).getAppEnvironment();
                         String salt = appEnvironment.salt();
                         if (valueMap.containsKey(PayUCheckoutProConstants.CP_POST_SALT))
-                            salt = salt + "" + (valueMap.get(PayUCheckoutProConstants.CP_POST_SALT));
-                        String hash = null;
+                            salt = salt + (valueMap.get(PayUCheckoutProConstants.CP_POST_SALT));
+                        String hash;
                         //Calculate SHA-512 Hash here
                         hash = calculateHash(hashData + salt);
                         HashMap<String, String> dataMap = new HashMap<>();
@@ -194,6 +199,7 @@ public class PaymentActivity extends AppCompatActivity {
             binding.btnContinue.setEnabled(true);
         }
     }
+    @SuppressWarnings("CallToPrintStackTrace")
     private String calculateHash(String hashString) {
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");

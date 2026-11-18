@@ -241,7 +241,7 @@ android {
 
          implementation libs.play.services.ads
 
-         implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.9.4"
+       //  implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.9.4"
 
          annotationProcessor libs.androidx.room.compiler.v261
          androidTestImplementation libs.hilt.android.testing.v248

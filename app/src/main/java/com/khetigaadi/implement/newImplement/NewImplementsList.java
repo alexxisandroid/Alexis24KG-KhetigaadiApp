@@ -1,7 +1,8 @@
 package com.khetigaadi.implement.newImplement;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+//import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,14 +29,18 @@ import com.khetigaadi.model.LinearLayoutManagerWrapper;
 import com.khetigaadi.tractor.TractorFilterActivity;
 import com.khetigaadi.tractor.newTractor.NewTrGetOnRoadPriceActivity;
 import com.khetigaadi.tractor.newTractor.model.Filter;
+
+import java.util.Objects;
+
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class NewImplementsList extends Fragment {
     private final String TAG = NewImplementsList.class.getSimpleName();
     private NewImplementListAdapter mAdapter;
-    private FragmentManager mFragmentManager;
+   // private FragmentManager mFragmentManager;
     private FragmentActivity activity;
+    @SuppressLint("VisibleForTests")
     @Inject
     Tracker mTracker;
     private int position1 = 0;
@@ -45,7 +50,8 @@ public class NewImplementsList extends Fragment {
             result -> {
                 Intent data = result.getData();
                 if (data != null) {
-                    viewModel.setFilter(result.getData().getExtras().getParcelable("filter"));
+                    //noinspection deprecation
+                    viewModel.setFilter(Objects.requireNonNull(result.getData().getExtras()).getParcelable("filter"));
                     mAdapter.itemRemoveAll();
                     getImpList(1);
                 }
@@ -65,6 +71,7 @@ public class NewImplementsList extends Fragment {
         super.onCreate(savedInstanceState);
         activity = getActivity();
     }
+    @SuppressLint("VisibleForTests")
     @Override
     public void onResume() {
         super.onResume();
@@ -103,20 +110,20 @@ public class NewImplementsList extends Fragment {
         mAdapter.setOnItemClickListener((position, v) -> {
             position1 = position;
             Intent intent = new Intent(activity, NewImpOverviewDetails.class);
-            intent.putExtra("brandId", mAdapter.getItem(position).getBrandId()/*implementListResp.getImplementArrayList().get(position).getBrandId()*/);
-            intent.putExtra("typeId", mAdapter.getItem(position).getImplementTypeId()/*implementListResp.getImplementArrayList().get(position).getImplementTypeId()*/);
-            intent.putExtra("modelId", mAdapter.getItem(position).getImplementModelId()/*implementListResp.getImplementArrayList().get(position).getImplementModelId()*/);
+            intent.putExtra("brandId", Objects.requireNonNull(mAdapter.getItem(position)).getBrandId()/*implementListResp.getImplementArrayList().get(position).getBrandId()*/);
+            intent.putExtra("typeId", Objects.requireNonNull(mAdapter.getItem(position)).getImplementTypeId()/*implementListResp.getImplementArrayList().get(position).getImplementTypeId()*/);
+            intent.putExtra("modelId", Objects.requireNonNull(mAdapter.getItem(position)).getImplementModelId()/*implementListResp.getImplementArrayList().get(position).getImplementModelId()*/);
             intent.putExtra("position", position);
             startActivity(intent);
         });
         mAdapter.setGetPriceClick((position, v) -> {
             String imgVall = "";
-            if(mAdapter.getItem(position).getImplementImage()!=null)
-               imgVall = mAdapter.getItem(position).getImplementImage().getImage();
+            if(Objects.requireNonNull(mAdapter.getItem(position)).getImplementImage()!=null)
+               imgVall = Objects.requireNonNull(mAdapter.getItem(position)).getImplementImage().getImage();
             Intent intent = new Intent(activity,NewTrGetOnRoadPriceActivity.class);
-            intent.putExtra("id",mAdapter.getItem(position).getId());
-            intent.putExtra("name",mAdapter.getItem(position).getImplementName());
-            intent.putExtra("image",mAdapter.getOthers().getImplementImagePath() + imgVall);
+            intent.putExtra("id", Objects.requireNonNull(mAdapter.getItem(position)).getId());
+            intent.putExtra("name", Objects.requireNonNull(mAdapter.getItem(position)).getImplementName());
+            intent.putExtra("image", Objects.requireNonNull(mAdapter.getOthers()).getImplementImagePath() + imgVall);
             intent.putExtra("priceType",PriceType.IMPLEMENT);
             intent.putExtra("toolbarlabel","Get Price");
             startActivity(intent);
@@ -152,6 +159,7 @@ public class NewImplementsList extends Fragment {
            });
        }
        catch(Exception e) {
+           //noinspection CallToPrintStackTrace
            e.printStackTrace();
        }
     }

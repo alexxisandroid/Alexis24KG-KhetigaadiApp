@@ -1,15 +1,16 @@
 package com.khetigaadi.commons.activities;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import androidx.activity.EdgeToEdge;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
+//import androidx.activity.EdgeToEdge;
+//import androidx.core.graphics.Insets;
+//import androidx.core.view.ViewCompat;
+//import androidx.core.view.WindowCompat;
+//import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.bumptech.glide.Glide;
 import com.khetigaadi.R;
@@ -34,9 +35,10 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import timber.log.Timber;
+@SuppressWarnings({"deprecation", "CallToPrintStackTrace"})
 @AndroidEntryPoint
 public class HpSelectionActivity extends BaseActivity {
-    private static final String TAG = "HpSelectionActivity";
+   // private static final String TAG = "HpSelectionActivity";
     public static final String SELECTED_HP = "selectedHp";
     public static final int HP_SELECTION_REQ = 94;
     private HpSelectionAdapter mAdapter;
@@ -65,11 +67,13 @@ public class HpSelectionActivity extends BaseActivity {
         initView();
         getHps();
     }
+    @SuppressWarnings("CallToPrintStackTrace")
+    @SuppressLint("LogNotTimber")
     private void getHps() {
         binding.llProgresss.llProgress.setVisibility(View.VISIBLE);
         try {
             hpRepository.getHPs().observe(HpSelectionActivity.this, listResource -> {
-                Log.d("cbnccncnncjjhkghjg====",""+listResource.isEmpty()+"=="+listResource.size());
+                Log.d("cbnccncnncjjhkghjg====", listResource.isEmpty()+"=="+listResource.size());
                 if (!listResource.isEmpty()) {
                     List<Hp> hps = listResource;
                     try {
@@ -77,21 +81,20 @@ public class HpSelectionActivity extends BaseActivity {
                         binding.edSearch.addTextChangedListener(new TextWatcher() {
 
                             @Override
-                            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                            public void onTextChanged(CharSequence s,int start,int before,int count) {
                                 mAdapter.getFilter().filter(s.toString());
                             }
-
                             @Override
-                            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                            public void beforeTextChanged(CharSequence s,int start,int count,int after) {
 
                             }
-
                             @Override
                             public void afterTextChanged(Editable s) {
                             }
                         });
                         binding.llProgresss.llProgress.setVisibility(View.GONE);
                     } catch (Exception e) {
+                        //noinspection CallToPrintStackTrace
                         e.printStackTrace();
                     }
                 }

@@ -1,4 +1,5 @@
 package com.khetigaadi.agri.activity;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -7,11 +8,11 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import androidx.activity.EdgeToEdge;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
+//import androidx.activity.EdgeToEdge;
+//import androidx.core.graphics.Insets;
+//import androidx.core.view.ViewCompat;
+//import androidx.core.view.WindowCompat;
+//import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import com.bumptech.glide.Glide;
 import com.khetigaadi.R;
@@ -69,7 +70,7 @@ public class BrandSelectionActivity extends BaseActivity {
     @Override
     public void onStart() {
         super.onStart();
-        @BrandType int type = getIntent().getExtras().getInt(BRAND_TYPE, BrandType.OLD_TRACTOR);
+        @BrandType int type = Objects.requireNonNull(getIntent().getExtras()).getInt(BRAND_TYPE, BrandType.OLD_TRACTOR);
         switch (type) {
             case BrandType.NEW_TRACTOR: {
                 brandRepository.getNewTractorBrands().observe(this, this::setDataToAdapter);
@@ -109,27 +110,30 @@ public class BrandSelectionActivity extends BaseActivity {
       //  else
             //Toast.makeText(this,getResources().getString(R.string.please_try_after_some_time),Toast.LENGTH_SHORT).show();
     }
-    private void setDataToAdapter2(List<Brand> listResource) {
-        if(!listResource.isEmpty()) {
-                binding.llProgresss.llProgress.setVisibility(View.GONE);
-               // mAdapter.setData(listResource);
-                binding.edSearch.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void onTextChanged(CharSequence s,int start,int before,int count) {
-                        mAdapter.getFilter().filter(s.toString());
-                    }
-                    @Override
-                    public void beforeTextChanged(CharSequence s,int start,int count,int after) {
 
-                    }
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                    }
-                });
-        }
-      //  else
-           // Toast.makeText(this,getResources().getString(R.string.please_try_after_some_time),Toast.LENGTH_SHORT).show();
-    }
+//    private void setDataToAdapter2(List<Brand> listResource) {
+//        if(!listResource.isEmpty()) {
+//                binding.llProgresss.llProgress.setVisibility(View.GONE);
+//               // mAdapter.setData(listResource);
+//                binding.edSearch.addTextChangedListener(new TextWatcher() {
+//                    @Override
+//                    public void onTextChanged(CharSequence s,int start,int before,int count) {
+//                        mAdapter.getFilter().filter(s.toString());
+//                    }
+//                    @Override
+//                    public void beforeTextChanged(CharSequence s,int start,int count,int after) {
+//
+//                    }
+//                    @Override
+//                    public void afterTextChanged(Editable s) {
+//                    }
+//                });
+//        }
+//      //  else
+//           // Toast.makeText(this,getResources().getString(R.string.please_try_after_some_time),Toast.LENGTH_SHORT).show();
+//    }
+
+    @SuppressWarnings("deprecation")
     private void initToolbar() {
         setSupportActionBar(binding.toolbarI.toolbar);
         binding.toolbarI.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
@@ -142,6 +146,7 @@ public class BrandSelectionActivity extends BaseActivity {
                 .load(R.drawable.loader_white)
                 .into(binding.llProgresss.ivLoader);
     }
+    @SuppressLint("LogNotTimber")
     private void initView() {
         mAdapter = new BrandSelectionAdapter();
         LinearLayoutManager manager = new LinearLayoutManager(BrandSelectionActivity.this);
@@ -166,6 +171,7 @@ public class BrandSelectionActivity extends BaseActivity {
         super.onPause();
         hideSoftKeyboard(BrandSelectionActivity.this);
     }
+    @SuppressWarnings("CallToPrintStackTrace")
     public void getBrands() {
      try {
          int cnfg = brandRepository.getCountt();
@@ -178,16 +184,18 @@ public class BrandSelectionActivity extends BaseActivity {
                  .subscribeOn(Schedulers.io())
                  .observeOn(AndroidSchedulers.mainThread())
                  .subscribeWith(new DisposableSingleObserver<BrandResp>() {
+                     @SuppressWarnings("CallToPrintStackTrace")
+                     @SuppressLint("LogNotTimber")
                      @Override
                      public void onSuccess(@NotNull BrandResp brandResp) {
                          pbar.setVisibility(View.GONE);
                          try {
                              //  binding.tvTips.setText(Html.fromHtml(safetyTipsResp.getData().getContent()));
                              List<com.khetigaadi.implement.newImplement.util.Brand> brands = brandResp.getBrand();
-                             Log.d("dfghdfhdhdghdghd=====", "" + brands.size() + "==");
+                             Log.d("dfghdfhdhdghdghd=====", brands.size() + "==");
                              binding.llProgresss.llProgress.setVisibility(View.GONE);
                              final List<com.khetigaadi.implement.newImplement.util.Brand> filteredBrands = new ArrayList<>();
-                             @BrandType int type = getIntent().getExtras().getInt(BRAND_TYPE, BrandType.OLD_TRACTOR);
+                             @BrandType int type = Objects.requireNonNull(getIntent().getExtras()).getInt(BRAND_TYPE, BrandType.OLD_TRACTOR);
                              switch (type) {
                                  case BrandType.NEW_TRACTOR: {
                                      //  brandRepository.getNewTractorBrands().observe(this, this::setDataToAdapter);
@@ -197,7 +205,7 @@ public class BrandSelectionActivity extends BaseActivity {
                                          if ((brandType == 0 || brandType == 1) && brandStatus == 1) {
                                              brands.get(i).setName(brands.get(i).getName());
                                              filteredBrands.add(brands.get(i));
-                                             Log.d("vcxbvcbcv===", "" + brands.get(i).getName() + "==" + filteredBrands.get(filteredBrands.size() - 1).getName());
+                                             Log.d("vcxbvcbcv===", brands.get(i).getName() + "==" + filteredBrands.get(filteredBrands.size() - 1).getName());
                                          }
                                      }
                                      break;
@@ -205,7 +213,7 @@ public class BrandSelectionActivity extends BaseActivity {
                                  case BrandType.OLD_TRACTOR: {
                                      //  brandRepository.getOldTractorBrands().observe(this, this::setDataToAdapter);
                                      for (int i = 0; i < brands.size(); i++) {
-                                         int brandStatus = brands.get(i).getBrand_status();
+                                         ///int brandStatus = brands.get(i).getBrand_status();
                                          int brandType = brands.get(i).getBrand_type();
                                          if (brandType == 0 || brandType == 1) {
                                              brands.get(i).setName(brands.get(i).getName());
@@ -254,7 +262,7 @@ public class BrandSelectionActivity extends BaseActivity {
                              brandRepository.insertAll(brands);
                          } catch (Exception e) {
                              pbar.setVisibility(View.GONE);
-                             Log.d("xcvcxvcxvxcvx===", "" + e.getLocalizedMessage());
+                             Log.d("xcvcxvcxvxcvx===", Objects.requireNonNull(e.getLocalizedMessage()));
                              e.printStackTrace();
                          }
                      }

@@ -1,10 +1,12 @@
 package com.khetigaadi.util;
 import static com.bumptech.glide.load.resource.bitmap.TransformationUtils.rotateImage;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
+//import android.graphics.Color;
+//noinspection ExifInterface
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Build;
@@ -25,6 +27,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
+
 public class ImageUtils {
     public static File getImageOutputCacheFile(Context context) {
         File mediaStorageDir = new File(context.getCacheDir(), context.getString(R.string.app_name));
@@ -33,7 +37,7 @@ public class ImageUtils {
                 return null;
             }
         }
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         return new File(mediaStorageDir.getPath() + File.separator +
                 "IMG_" + timeStamp + ".jpg");
     }
@@ -54,18 +58,22 @@ public class ImageUtils {
         }
         return null;
     }
-    public static Bitmap convert(String base64Str) throws IllegalArgumentException {
-        byte[] decodedBytes = Base64.decode(
-                base64Str.substring(base64Str.indexOf(",") + 1),
-                Base64.DEFAULT
-        );
-        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
-    }
-    public static String convert(Bitmap bitmap) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 40, outputStream);
-        return "data:image/png;base64," + Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
-    }
+
+//    public static Bitmap convert(String base64Str) throws IllegalArgumentException {
+//        byte[] decodedBytes = Base64.decode(
+//                base64Str.substring(base64Str.indexOf(",") + 1),
+//                Base64.DEFAULT
+//        );
+//        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.length);
+//    }
+
+//    public static String convert(Bitmap bitmap) {
+//        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+//        bitmap.compress(Bitmap.CompressFormat.PNG, 40, outputStream);
+//        return "data:image/png;base64," + Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
+//    }
+
+
 //    public static Bitmap addWaterMark(Context context, Bitmap backgroundBitmap) {
 //        double positionX = 0.4, positionY = 0.8;
 //        boolean landscape = backgroundBitmap.getWidth() > backgroundBitmap.getHeight();
@@ -93,27 +101,29 @@ public class ImageUtils {
      * @param context       The current context
      * @param selectedImage The Image URI
      * @return Bitmap image results
-     * @throws IOException
+     * //@throws IOException
      */
-    public static Bitmap handleSamplingAndRotationBitmap(Context context,Uri selectedImage)
-            throws IOException {
-        int MAX_HEIGHT = 1024;
-        int MAX_WIDTH = 1024;
-        // First decode with inJustDecodeBounds=true to check dimensions
-        final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inJustDecodeBounds = true;
-        InputStream imageStream = context.getContentResolver().openInputStream(selectedImage);
-        BitmapFactory.decodeStream(imageStream, null, options);
-        imageStream.close();
-        // Calculate inSampleSize
-        options.inSampleSize = calculateInSampleSize(options, MAX_WIDTH, MAX_HEIGHT);
-        // Decode bitmap with inSampleSize set
-        options.inJustDecodeBounds = false;
-        imageStream = context.getContentResolver().openInputStream(selectedImage);
-        Bitmap img = BitmapFactory.decodeStream(imageStream, null, options);
-        img = rotateImageIfRequired(context, img, selectedImage);
-        return img;
-    }
+//    public static Bitmap handleSamplingAndRotationBitmap(Context context,Uri selectedImage)
+//            throws IOException {
+//        int MAX_HEIGHT = 1024;
+//        int MAX_WIDTH = 1024;
+//        // First decode with inJustDecodeBounds=true to check dimensions
+//        final BitmapFactory.Options options = new BitmapFactory.Options();
+//        options.inJustDecodeBounds = true;
+//        InputStream imageStream = context.getContentResolver().openInputStream(selectedImage);
+//        BitmapFactory.decodeStream(imageStream, null, options);
+//        imageStream.close();
+//        // Calculate inSampleSize
+//        options.inSampleSize = calculateInSampleSize(options, MAX_WIDTH, MAX_HEIGHT);
+//        // Decode bitmap with inSampleSize set
+//        options.inJustDecodeBounds = false;
+//        imageStream = context.getContentResolver().openInputStream(selectedImage);
+//        Bitmap img = BitmapFactory.decodeStream(imageStream, null, options);
+//        img = rotateImageIfRequired(context, img, selectedImage);
+//        return img;
+//    }
+
+
     /**
      * Calculate an inSampleSize for use in a {@link BitmapFactory.Options} object when decoding
      * bitmaps using the decode* methods from {@link BitmapFactory}. This implementation calculates
@@ -142,7 +152,7 @@ public class ImageUtils {
 
             // Choose the smallest ratio as inSampleSize value, this will guarantee a final image
             // with both dimensions larger than or equal to the requested height and width.
-            inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
+            inSampleSize = Math.min(heightRatio, widthRatio);
 
             // This offers some additional logic in case the image has a strange
             // aspect ratio. For example, a panorama may have a much larger
@@ -173,22 +183,20 @@ public class ImageUtils {
 
         InputStream input = context.getContentResolver().openInputStream(selectedImage);
         ExifInterface ei;
-        if (Build.VERSION.SDK_INT > 23)
+        if (Build.VERSION.SDK_INT > 23) {
+            assert input != null;
             ei = new ExifInterface(input);
+        }
         else
-            ei = new ExifInterface(selectedImage.getPath());
+            ei = new ExifInterface(Objects.requireNonNull(selectedImage.getPath()));
 
         int orientation = ei.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL);
 
-        switch (orientation) {
-            case ExifInterface.ORIENTATION_ROTATE_90:
-                return rotateImage(img, 90);
-            case ExifInterface.ORIENTATION_ROTATE_180:
-                return rotateImage(img, 180);
-            case ExifInterface.ORIENTATION_ROTATE_270:
-                return rotateImage(img, 270);
-            default:
-                return img;
-        }
+        return switch (orientation) {
+            case ExifInterface.ORIENTATION_ROTATE_90 -> rotateImage(img, 90);
+            case ExifInterface.ORIENTATION_ROTATE_180 -> rotateImage(img, 180);
+            case ExifInterface.ORIENTATION_ROTATE_270 -> rotateImage(img, 270);
+            default -> img;
+        };
     }
 }

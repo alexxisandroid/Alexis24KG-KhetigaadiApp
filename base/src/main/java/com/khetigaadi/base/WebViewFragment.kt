@@ -1,7 +1,7 @@
 package com.khetigaadi.base
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
-import android.graphics.drawable.Drawable
+//import android.graphics.drawable.Drawable
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
@@ -16,7 +16,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.bumptech.glide.Glide
-import com.bumptech.glide.request.target.Target
+//import com.bumptech.glide.request.target.Target
 import com.khetigaadi.base.databinding.FragmentWebViewBinding
 class WebViewFragment : Fragment() {
     private var binding: FragmentWebViewBinding? = null
@@ -32,7 +32,7 @@ class WebViewFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater:LayoutInflater,container:ViewGroup?,savedInstanceState:Bundle?):View? {
+    override fun onCreateView(inflater:LayoutInflater,container:ViewGroup?,savedInstanceState:Bundle?): View {
         binding = FragmentWebViewBinding.inflate(inflater,container,false)
         return binding!!.getRoot()
     }
@@ -56,27 +56,29 @@ class WebViewFragment : Fragment() {
             .load(R.drawable.loader_white)
             .into(binding!!.llProgress.findViewById(R.id.ivLoader))
     }
+    @Suppress("DEPRECATED_IDENTITY_EQUALS")
     internal inner class MyBrowser:WebViewClient() {
-        override fun shouldOverrideUrlLoading(view:WebView,url:String):Boolean {
+        @Deprecated("Deprecated in Java")
+        override fun shouldOverrideUrlLoading(view:WebView, url:String):Boolean {
             view.loadUrl(url)
             return true
         }
         override fun onPageStarted(view:WebView,url:String,favicon:Bitmap) {
             super.onPageStarted(view, url, favicon)
-            if(binding?.llProgress!!.getVisibility() === View.GONE) {
+            if(binding?.llProgress!!.visibility === View.GONE) {
                 binding?.llProgress!!.visibility = View.VISIBLE
             }
         }
         override fun onPageFinished(view:WebView,url:String) {
-            if(binding!!.llProgress.getVisibility() === View.VISIBLE) {
+            if(binding!!.llProgress.visibility === View.VISIBLE) {
                 binding!!.llProgress.visibility = View.GONE
             }
         }
         override fun onReceivedError(view:WebView,request:WebResourceRequest,error:WebResourceError) {
             super.onReceivedError(view, request, error)  //error.description.toString()
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            //if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 Toast.makeText(activity,resources.getString(R.string.something_went_wrong),Toast.LENGTH_SHORT).show()
-            }
+            //}
         }
     }
     companion object {

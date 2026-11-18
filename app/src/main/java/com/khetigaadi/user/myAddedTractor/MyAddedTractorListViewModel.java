@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.khetigaadi.base.util.StateMutableLiveData;
 import com.khetigaadi.retrofit.KhetiAPIs;
-import com.khetigaadi.user.myRentTractor.MyRentTractorResp;
+//import com.khetigaadi.user.myRentTractor.MyRentTractorResp;
 
 import javax.inject.Inject;
 
@@ -16,20 +16,20 @@ import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import timber.log.Timber;
 
-import androidx.lifecycle.ViewModel;
+//import androidx.lifecycle.ViewModel;
 
-import com.khetigaadi.base.util.StateMutableLiveData;
-import com.khetigaadi.retrofit.KhetiAPIs;
-
-import javax.inject.Inject;
-
-import dagger.hilt.android.lifecycle.HiltViewModel;
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.annotations.NonNull;
-import io.reactivex.rxjava3.disposables.CompositeDisposable;
-import io.reactivex.rxjava3.observers.DisposableSingleObserver;
-import io.reactivex.rxjava3.schedulers.Schedulers;
-import timber.log.Timber;
+//import com.khetigaadi.base.util.StateMutableLiveData;
+//import com.khetigaadi.retrofit.KhetiAPIs;
+//
+//import javax.inject.Inject;
+//
+//import dagger.hilt.android.lifecycle.HiltViewModel;
+//import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+//import io.reactivex.rxjava3.annotations.NonNull;
+//import io.reactivex.rxjava3.disposables.CompositeDisposable;
+//import io.reactivex.rxjava3.observers.DisposableSingleObserver;
+//import io.reactivex.rxjava3.schedulers.Schedulers;
+//import timber.log.Timber;
 @HiltViewModel
 public class MyAddedTractorListViewModel extends ViewModel {
     private final CompositeDisposable disposable = new CompositeDisposable();

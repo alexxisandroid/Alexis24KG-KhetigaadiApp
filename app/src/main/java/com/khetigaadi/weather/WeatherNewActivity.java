@@ -1,4 +1,5 @@
 package com.khetigaadi.weather;
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -6,7 +7,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
+//import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,6 +36,7 @@ public class WeatherNewActivity extends BaseActivity {
     SessionManager session;
     private WeatherViewModel viewModel;
     private ActivityWeatherNewBinding binding;
+    @SuppressLint("LogNotTimber")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,11 +62,12 @@ public class WeatherNewActivity extends BaseActivity {
         }
         else {
             String city = session.getUserLocation().getName();
-            if (!city.equals("")) {
+            if (!city.isEmpty()) {
                 getWeather(city);
             }
         }
     }
+    @SuppressWarnings("deprecation")
     private void initToolbar() {
         setSupportActionBar(binding.toolbar);
         binding.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
@@ -72,9 +75,9 @@ public class WeatherNewActivity extends BaseActivity {
         if (weather != null) {
             binding.toolbar.setTitle(weather.getLocation().getName());
           //  binding.toolbar.setSubtitle(DateUtils.convertDateToDate(weather.getCurrent().getLastUpdated(),DateUtils.DateFormat.yyyy_MM_dd_HH_mm,DateUtils.DateFormat.dd_MM_yyyy));
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy MMM dd HH:mm");
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy MMM dd HH:mm");
             String dateInString = weather.getCurrent().getLastUpdated();
-            SimpleDateFormat formatterOut = new SimpleDateFormat("dd MMM yyyy");
+            @SuppressLint("SimpleDateFormat") SimpleDateFormat formatterOut = new SimpleDateFormat("dd MMM yyyy");
             try {
                 Date date = formatter.parse(dateInString);
                 System.out.println(date);
@@ -83,11 +86,13 @@ public class WeatherNewActivity extends BaseActivity {
                 binding.toolbar.setSubtitle(formatterOut.format(date));
             }
             catch(ParseException e) {
+                //noinspection CallToPrintStackTrace
                 e.printStackTrace();
             }
         }
         Objects.requireNonNull(getSupportActionBar()).setTitle(R.string.weather);
     }
+    @SuppressLint("NotifyDataSetChanged")
     private void initUI(WeatherResp weather) {
         this.weather = weather;
         initToolbar();
@@ -126,11 +131,13 @@ public class WeatherNewActivity extends BaseActivity {
         binding.tvWind.setText(String.format("Wind\n%skm/h", forecast.getDay().getMaxwindKph()));
         binding.tvHumidity.setText(String.format("Humidity\n%s%%", forecast.getDay().getAvghumidity()));
     }
+    @SuppressWarnings("CallToPrintStackTrace")
+    @SuppressLint("LogNotTimber")
     private void getWeather(String city) {
        try {
            binding.llProgressBar.llProgress.setVisibility(View.VISIBLE);
            viewModel.getWeather(city).observe(this, weatherRespStateData -> {
-               Log.d("bvcxbcvbcvbc===","" + weatherRespStateData.getStatus() + "==" + weatherRespStateData.getData());
+               Log.d("bvcxbcvbcvbc===", weatherRespStateData.getStatus() + "==" + weatherRespStateData.getData());
                switch(weatherRespStateData.getStatus()) {
                    case LOADING:
                        binding.llProgressBar.llProgress.setVisibility(View.VISIBLE);
@@ -140,7 +147,7 @@ public class WeatherNewActivity extends BaseActivity {
                                initUI(weatherRespStateData.getData());
                            }
                            else
-                           binding.llProgressBar.llProgress.setVisibility(View.GONE);
+                             binding.llProgressBar.llProgress.setVisibility(View.GONE);
                        }
                        catch(Exception e) {
                            e.printStackTrace();

@@ -14,4 +14,8 @@ public class AboutResp extends MyResponse {
     public AboutData getData() {
         return data;
     }
+
+    public void setData(AboutData data) {
+        this.data = data;
+    }
 }

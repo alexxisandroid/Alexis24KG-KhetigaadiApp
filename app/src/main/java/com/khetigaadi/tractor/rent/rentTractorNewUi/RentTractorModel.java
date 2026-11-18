@@ -6,13 +6,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
-import androidx.activity.EdgeToEdge;
+//import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
+//import androidx.core.graphics.Insets;
+//import androidx.core.view.ViewCompat;
+//import androidx.core.view.WindowCompat;
+//import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.khetigaadi.MainActivity;
 import com.khetigaadi.R;
@@ -26,18 +26,16 @@ import com.khetigaadi.databinding.RentTractorModelBinding;
 import com.khetigaadi.room.repository.ModelRepository;
 import java.util.List;
 import java.util.Objects;
-
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
-@SuppressWarnings("deprecation")
+@SuppressWarnings({"deprecation", "CallToPrintStackTrace"})
 @AndroidEntryPoint
 public class RentTractorModel extends BaseActivity {
-    private static final String TAG = RentTractorModel.class.getSimpleName();
+ //   private static final String TAG = RentTractorModel.class.getSimpleName();
     @Inject
     ModelRepository modelRepository;
 //    private EditText etSellTractorModel;
     int model_id = 0;
-    private Model selectedModel;
     private Brand brand;
     @Inject
     SharedPreferenceUtils pref;
@@ -104,7 +102,7 @@ public class RentTractorModel extends BaseActivity {
        try {
            if (requestCode == ModelSelectionActivity.MODEL_SELECTION_REQ) {
                if (resultCode == RESULT_OK) {
-                   selectedModel = data.getParcelableExtra(ModelSelectionActivity.SELECTED_MODEL);
+                   Model selectedModel = data.getParcelableExtra(ModelSelectionActivity.SELECTED_MODEL);
                    if (selectedModel != null) {
                        binding.etSellTractorModel.setText(selectedModel.getName());
                        model_id = selectedModel.getId();
@@ -130,11 +128,11 @@ public class RentTractorModel extends BaseActivity {
     private void initList() {
      try {
          modelRepository.getNewTractorModels(brand.getId()).observe(this,listResource -> {
-             if (listResource.size() > 0) {
+             if (!listResource.isEmpty()) {
                  List<Model> brandParents = listResource;
                  try {
                      binding.llModel.removeAllViews();
-                     if (brandParents != null) {
+                   //  if (brandParents != null) {
                          for (int i = 0; i < brandParents.size(); i = i + 2) {
                              LinearLayout linearLayout = new LinearLayout(RentTractorModel.this);
                              linearLayout.setWeightSum(2);
@@ -159,7 +157,7 @@ public class RentTractorModel extends BaseActivity {
                              }
                              binding.llModel.addView(linearLayout);
                          }
-                     }
+                   //  }
                  } catch (Exception e) {
                      e.printStackTrace();
                  }

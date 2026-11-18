@@ -6,7 +6,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
+//import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.khetigaadi.R;
@@ -15,6 +15,7 @@ import com.khetigaadi.databinding.ActivityTractorFilterBinding;
 import java.util.Objects;
 
 import dagger.hilt.android.AndroidEntryPoint;
+@SuppressWarnings("deprecation")
 @AndroidEntryPoint
 public class TractorFilterActivity extends AppCompatActivity {
     private ActivityTractorFilterBinding binding;

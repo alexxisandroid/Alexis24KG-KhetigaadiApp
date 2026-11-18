@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.TextView;
+//import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
@@ -14,7 +14,7 @@ import com.khetigaadi.AppConfig;
 import com.khetigaadi.R;
 import com.khetigaadi.base.util.BaseRecyclerViewAdapter;
 //import com.khetigaadi.base.util.DateUtils;
-import com.khetigaadi.commons.utils.Constants;
+//import com.khetigaadi.commons.utils.Constants;
 import com.khetigaadi.commons.utils.EmptyViewHolder;
 import com.khetigaadi.commons.utils.IntrestedBuyersListner;
 import com.khetigaadi.commons.utils.MyClickListener;
@@ -35,7 +35,6 @@ import java.util.Date;
 import java.util.List;
 public class MyUploadedTractorsListAdapter extends BaseRecyclerViewAdapter<MyUsedTractor,Others> {
     private final int VIEW_ITEM = 1;
-    private final int VIEW_PROG = 0;
     private final Context context;
     private static MyClickListener myClickListener;
     private static MyTrashClickListener myTrashClickListener;
@@ -61,9 +60,10 @@ public class MyUploadedTractorsListAdapter extends BaseRecyclerViewAdapter<MyUse
     }
     @Override
     public int getItemViewType(int position) {
-        if (items.size() == 0) {
+        if (items.isEmpty()) {
             return EMPTY_VIEW;
         }
+        int VIEW_PROG = 0;
         return items.get(position) != null ? VIEW_ITEM : VIEW_PROG;
     }
     @NonNull
@@ -79,6 +79,8 @@ public class MyUploadedTractorsListAdapter extends BaseRecyclerViewAdapter<MyUse
         }
         return vh;
     }
+    @SuppressWarnings("CallToPrintStackTrace")
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder,int position) {
         if (holder instanceof ViewHolder) {
@@ -97,21 +99,21 @@ public class MyUploadedTractorsListAdapter extends BaseRecyclerViewAdapter<MyUse
                 ((ViewHolder) holder).binding.tvCity.setVisibility(View.VISIBLE);
                 ((ViewHolder) holder).binding.tvCity.setText(currentTractor.getUser().getCity().getName());
             }
-            if (currentTractor.getModelYear().equals("") || currentTractor.getModelYear().isEmpty()) {
+            if (currentTractor.getModelYear().isEmpty()) {
                 ((ViewHolder) holder).binding.tvYear.setVisibility(View.GONE);
             }
             else {
                 ((ViewHolder) holder).binding.tvYear.setVisibility(View.VISIBLE);
                 ((ViewHolder) holder).binding.tvYear.setText(currentTractor.getModelYear());
             }
-            if (currentTractor.getHoursDriven().equals("") || currentTractor.getHoursDriven().isEmpty()) {
+            if (currentTractor.getHoursDriven().isEmpty()) {
                 ((ViewHolder) holder).binding.tvDriven.setVisibility(View.GONE);
             }
             else {
                 ((ViewHolder) holder).binding.tvDriven.setVisibility(View.VISIBLE);
                 ((ViewHolder) holder).binding.tvDriven.setText(currentTractor.getHoursDriven());
             }
-            if (currentTractor.getPrice().equals("") || currentTractor.getPrice().isEmpty()) {
+            if (currentTractor.getPrice().isEmpty()) {
                 ((ViewHolder) holder).binding.tvPrice.setVisibility(View.GONE);
             }
             else {
@@ -188,7 +190,7 @@ public class MyUploadedTractorsListAdapter extends BaseRecyclerViewAdapter<MyUse
     }
     @Override
     public int getItemCount() {
-        return items.size() > 0 ? items.size() : 1;
+        return !items.isEmpty() ? items.size() : 1;
     }
     public void setOnChatClickListener(MyTrashClickListener myChatClickListener) {
         this.myChatClickListener = myChatClickListener;

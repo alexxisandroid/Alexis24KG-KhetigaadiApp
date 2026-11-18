@@ -1,4 +1,5 @@
 package com.khetigaadi.commons.activities;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -6,32 +7,33 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
+//import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
+//import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
-import androidx.core.view.WindowInsetsCompat;
+//import androidx.core.graphics.Insets;
+//import androidx.core.view.ViewCompat;
+//import androidx.core.view.WindowCompat;
+//import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
 import com.khetigaadi.R;
 import com.khetigaadi.base.model.Brand;
 import com.khetigaadi.commons.SharedPreferenceUtils;
 import com.khetigaadi.commons.adapter.TypeSelectionAdapter;
-import com.khetigaadi.commons.model.BrandResp;
+//import com.khetigaadi.commons.model.BrandResp;
 import com.khetigaadi.commons.model.TypeResp;
 import com.khetigaadi.commons.utils.Constants;
 import com.khetigaadi.databinding.ActivityTypeSelectionBinding;
-import com.khetigaadi.databinding.BrandRow1Binding;
+//import com.khetigaadi.databinding.BrandRow1Binding;
 import com.khetigaadi.implement.newImplement.util.Type;
 import com.khetigaadi.retrofit.KhetiAPIs;
 import com.khetigaadi.room.repository.TypeRepository;
 
-import java.util.ArrayList;
+//import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -40,6 +42,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import timber.log.Timber;
+@SuppressWarnings({"deprecation", "CallToPrintStackTrace"})
 @AndroidEntryPoint
 public class TypeSelectionActivity extends BaseActivity {
     public static final String SELECTED_TYPE = "selectedType";
@@ -52,6 +55,7 @@ public class TypeSelectionActivity extends BaseActivity {
     private ActivityTypeSelectionBinding binding;
     @Inject
     KhetiAPIs khetiAPIs;
+    @SuppressWarnings("CallToPrintStackTrace")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,7 +71,7 @@ public class TypeSelectionActivity extends BaseActivity {
 //        });
         try {
           ////  EdgeToEdge.enable(this);
-            brand = getIntent().getExtras().getParcelable(SELECTED_BRAND);
+            brand = Objects.requireNonNull(getIntent().getExtras()).getParcelable(SELECTED_BRAND);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -81,7 +85,7 @@ public class TypeSelectionActivity extends BaseActivity {
         binding.llProgresss.llProgress.setVisibility(View.VISIBLE);
         if (brand != null) {
             typeRepository.getTypeByBrandId(brand.getId()).observe(this,types -> {
-                if (types.size()>0 && types != null) {
+                if (!types.isEmpty()) {
                     Timber.e("onChanged: %s",types.toString());
                     setDataToAdapter(types);
                 }
@@ -91,7 +95,7 @@ public class TypeSelectionActivity extends BaseActivity {
         }
         else {
             typeRepository.getTypes().observe(this,listResource -> {
-                if (listResource.size()>0 && listResource != null) {
+                if (!listResource.isEmpty()) {
                     setDataToAdapter(listResource);
                 }
                 else
@@ -120,7 +124,7 @@ public class TypeSelectionActivity extends BaseActivity {
         binding.toolbars.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
         binding.toolbars.toolbar.setNavigationOnClickListener(v -> onBackPressed());
         binding.toolbars.toolbar.setTitle(getString(R.string.type));
-        getSupportActionBar().setTitle(getString(R.string.type));
+        Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.type));
     }
     private void findViewById() {
         Glide.with(TypeSelectionActivity.this).load(R.drawable.loader_white).into(binding.llProgresss.ivLoader);
@@ -154,13 +158,14 @@ public class TypeSelectionActivity extends BaseActivity {
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(new DisposableSingleObserver<>() {
+                        @SuppressLint("LogNotTimber")
                         @Override
                         public void onSuccess(@io.reactivex.rxjava3.annotations.NonNull TypeResp myResponse) {
                             // binding.llProgress.llProgress.setVisibility(GONE);
                             try {
                                 if (!myResponse.isError()) {
                                     String baseUrl = SharedPreferenceUtils.getInstance(TypeSelectionActivity.this).getStringValue(Constants.BRAND_BASE_URL, "");
-                                    Timber.e("onChanged: %s", "" + myResponse);
+                                    Timber.e("onChanged: %s", myResponse+"=="+baseUrl);
                                     try {
                                         Log.d("cvbcvbcvbcfdgd===", "==" + myResponse.isError());
                                         binding.llProgresss.llProgress.setVisibility(View.GONE);
@@ -183,7 +188,7 @@ public class TypeSelectionActivity extends BaseActivity {
                                         });
                                         typeRepository.insertAll(typess);
                                     } catch (Exception e) {
-                                        Log.d("cvbcvbcvbcbvbvcv===", "" + e.getMessage());
+                                        Log.d("cvbcvbcvbcbvbvcv===", Objects.requireNonNull(e.getMessage()));
                                         // e.printStackTrace();
                                     }
                                 } else {
@@ -196,6 +201,7 @@ public class TypeSelectionActivity extends BaseActivity {
                             }
                         }
 
+                        @SuppressLint("ThrowableNotAtBeginning")
                         @Override
                         public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
                             Timber.e("response Error: %s", e);

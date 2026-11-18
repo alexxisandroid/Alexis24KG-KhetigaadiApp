@@ -1,11 +1,12 @@
 package com.khetigaadi.tractor.usedTractor
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.khetigaadi.AppConfig
-import com.khetigaadi.BuildConfig
+/////import com.khetigaadi.BuildConfig
 import com.khetigaadi.R
 //import com.khetigaadi.base.databinding.EmptyViewLayoutBinding
 //import com.khetigaadi.base.databinding.SearchListItemBinding
@@ -13,9 +14,9 @@ import com.khetigaadi.R
 //import com.khetigaadi.shop.model.search.Others;
 //import com.khetigaadi.commons.model.search.Others
 
-import com.khetigaadi.shop.model.search.Others;
+import com.khetigaadi.shop.model.search.Others
 //import com.khetigaadi.commons.model.search.Others
-import com.khetigaadi.commons.utils.EmptyViewHolder
+//import com.khetigaadi.commons.utils.EmptyViewHolder
 import com.khetigaadi.databinding.EmptyViewLayoutBinding
 import com.khetigaadi.databinding.SearchListItemBinding
 //import com.khetigaadi.shop.search.EmptyViewHolder
@@ -37,7 +38,8 @@ class SearchUsedTractorAdapter(val context:Context,private val mDataset:List<Use
             DataObjectHolder(SearchListItemBinding.inflate(LayoutInflater.from(parent.context),parent,false))
         }
     }
-    override fun onBindViewHolder(holder:RecyclerView.ViewHolder,position:Int)
+    @SuppressLint("SetTextI18n")
+    override fun onBindViewHolder(holder:RecyclerView.ViewHolder, position:Int)
     {
         if(holder is DataObjectHolder) {
             val product: UsedTractor = mDataset[position]

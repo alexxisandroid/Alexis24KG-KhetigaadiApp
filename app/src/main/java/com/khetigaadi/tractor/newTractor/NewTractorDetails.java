@@ -1,4 +1,5 @@
 package com.khetigaadi.tractor.newTractor;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -7,7 +8,7 @@ import android.view.View;
 import androidx.activity.EdgeToEdge;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
+//import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -20,10 +21,12 @@ import com.khetigaadi.def.PriceType;
 import com.khetigaadi.tractor.newTractor.model.NewTractor;
 
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import dagger.hilt.android.AndroidEntryPoint;
+@SuppressWarnings("CallToPrintStackTrace")
 @AndroidEntryPoint
 public class NewTractorDetails extends BaseActivity {
     public static final String newTractorId = "tractorId";
@@ -89,7 +92,7 @@ public class NewTractorDetails extends BaseActivity {
                                 Intent i = new Intent(Intent.ACTION_VIEW);
                                 String url = "https://api.whatsapp.com/send?phone="+getString(R.string.whatsAppNo)+"&text="+"Hello KhetiGaadi, "+URLEncoder.encode(getString(R.string.i_was_viewing) + " " + getString(
                                         R.string.btn_new
-                                ) + " \"" + tractor.getName() + "\" ","UTF-8");
+                                ) + " \"" + tractor.getName() + "\" ", StandardCharsets.UTF_8);
                                 // i.setPackage("com.whatsapp");
                                 i.setData(Uri.parse(url));
                                 if(i.resolveActivity(getPackageManager()) != null) {
@@ -128,7 +131,8 @@ public class NewTractorDetails extends BaseActivity {
         {
             try {
                 Uri uri = getIntent().getData();
-                String[] segments = uri.getPath().split("/");
+                assert uri != null;
+                String[] segments = Objects.requireNonNull(uri.getPath()).split("/");
                 viewModel.setTractorId(segments[segments.length - 2]);
             }
             catch(Exception e) {
@@ -136,6 +140,8 @@ public class NewTractorDetails extends BaseActivity {
             }
         }
     }
+    @SuppressWarnings("deprecation")
+    @SuppressLint("GestureBackNavigation")
     @Override
     public void onBackPressed() {
         Intent returnIntent = new Intent();

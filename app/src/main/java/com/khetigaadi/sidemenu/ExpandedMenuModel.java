@@ -4,9 +4,9 @@ public class ExpandedMenuModel {
     String iconName = "";
     int iconImg = -1; // menu icon resource id
     int name;
-    public ExpandedMenuModel() {
-
-    }
+//    public ExpandedMenuModel() {
+//
+//    }
     public ExpandedMenuModel(@DrawerMenu int name,String iconName,int iconImg) {
         this.name = name;
         this.iconName = iconName;
@@ -15,15 +15,15 @@ public class ExpandedMenuModel {
     public String getIconName() {
         return iconName;
     }
-    public void setIconName(String iconName) {
-        this.iconName = iconName;
-    }
+//    public void setIconName(String iconName) {
+//        this.iconName = iconName;
+//    }
     public int getIconImg() {
         return iconImg;
     }
-    public void setIconImg(int iconImg) {
-        this.iconImg = iconImg;
-    }
+//    public void setIconImg(int iconImg) {
+//        this.iconImg = iconImg;
+//    }
     public @DrawerMenu
     int getName() {
         return name;

@@ -1,4 +1,7 @@
+@file:Suppress("DEPRECATION")
+
 package com.khetigaadi.implement.newImplement
+import android.annotation.SuppressLint
 import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.net.Uri
@@ -6,9 +9,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
-import androidx.core.view.OnApplyWindowInsetsListener
 import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
+//import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
@@ -47,6 +49,7 @@ class NewImpOverviewDetails : BaseActivity() {
     private var brandId = 0
     private var typeId = 0
     private var modelId = 0
+    @SuppressLint("VisibleForTests")
     @JvmField
     @Inject
     var mTracker:Tracker? = null
@@ -55,6 +58,7 @@ class NewImpOverviewDetails : BaseActivity() {
     private  var imp: NewImp?=null
     private lateinit var similarListAdapter:ImpsAdapter
     private lateinit var others: Others
+    @Suppress("DEPRECATION")
     override fun onCreate(savedInstanceState:Bundle?) {
         super.onCreate(savedInstanceState)
         binding = NewImplementOverviewDeatailsBinding.inflate(layoutInflater)
@@ -64,17 +68,17 @@ class NewImpOverviewDetails : BaseActivity() {
            //WindowCompat.setDecorFitsSystemWindows(window,false)
            enableEdgeToEdge()
            ViewCompat.setOnApplyWindowInsetsListener(
-               binding.getRoot(),
-               OnApplyWindowInsetsListener { v:View?,insets:WindowInsetsCompat? ->
-                   val systemBarsInsets = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
-                   v!!.setPadding(
-                       systemBarsInsets.left,
-                       systemBarsInsets.top,
-                       systemBarsInsets.right,
-                       systemBarsInsets.bottom
-                   )
-                   insets
-               })
+               binding.getRoot()
+           ) { v: View?, insets: WindowInsetsCompat? ->
+               val systemBarsInsets = insets!!.getInsets(WindowInsetsCompat.Type.systemBars())
+               v!!.setPadding(
+                   systemBarsInsets.left,
+                   systemBarsInsets.top,
+                   systemBarsInsets.right,
+                   systemBarsInsets.bottom
+               )
+               insets
+           }
        }
        catch(e:Exception) {
            e.printStackTrace()
@@ -220,6 +224,7 @@ class NewImpOverviewDetails : BaseActivity() {
             }
         }
     }
+    @SuppressLint("UseKtx", "VisibleForTests")
     private fun mapToUI(data:ImplementDetailsResp?) {
         imp = data!!.data[0]
         others = data.others
@@ -237,7 +242,7 @@ class NewImpOverviewDetails : BaseActivity() {
                     intent.putExtra(Intent.EXTRA_SUBJECT, imp?.implementName)
                     intent.putExtra(Intent.EXTRA_TEXT, resources.getString(R.string.i_was_viewing) + "  \"" + imp?.implementName + "\" " + resources.getString(R.string.implement) + " " + shortLink)
                     startActivity(Intent.createChooser(intent, "Select an action"))
-                } catch (ex: ActivityNotFoundException) {
+                } catch (_: ActivityNotFoundException) {
                     // (handle error)
                 } catch (e: Exception) {
                     e.printStackTrace()

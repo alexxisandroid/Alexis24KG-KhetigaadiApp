@@ -1,8 +1,9 @@
 package com.khetigaadi.tractor.sellTractorNewUi;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
+//import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -36,13 +37,14 @@ import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class SellTractorImages extends BaseFragment {
-    private static final String TAG = SellTractorImages.class.getSimpleName();
+  //  private static final String TAG = SellTractorImages.class.getSimpleName();
     int imageIndex;
     private SellViewModel viewModel;
     @Inject
     KhetiAPIs khetiAPIs;
     private FragmentTractorImagesBinding binding;
     private FragmentActivity activity;
+    @SuppressWarnings("CallToPrintStackTrace")
     ActivityResultLauncher<Intent> galleryActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),result -> {
                 if (result.getResultCode() == Activity.RESULT_OK) {
@@ -50,6 +52,7 @@ public class SellTractorImages extends BaseFragment {
                     if (data != null) {
                         try {
                             Glide.with(activity).asBitmap().load(data.getData()).into(new CustomTarget<Bitmap>() {
+                                @SuppressLint("LogNotTimber")
                                 @Override
                                 public void onResourceReady(@NonNull @NotNull Bitmap resource, @Nullable @org.jetbrains.annotations.Nullable Transition<? super Bitmap> transition) {
                                     //resource = addWaterMark(resource);
@@ -57,7 +60,8 @@ public class SellTractorImages extends BaseFragment {
                                         handleImageResult(ImageUtils.getUriFromBitmap(activity, resource));
                                     }
                                     catch(IOException e) {
-                                        Log.d("dfsdsdsfdsfs===",""+e.getLocalizedMessage());
+                                        Log.d("dfsdsdsfdsfs===", e.getLocalizedMessage());
+                                        //noinspection CallToPrintStackTrace
                                         e.printStackTrace();
                                     }
                                 }
@@ -85,11 +89,12 @@ public class SellTractorImages extends BaseFragment {
         super.onCreate(savedInstanceState);
         activity = getActivity();
     }
+    @SuppressWarnings("CallToPrintStackTrace")
     @Override
     public View onCreateView(@NotNull LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState) {
         binding = FragmentTractorImagesBinding.inflate(inflater,container,false);
         View view = binding.getRoot();
-        viewModel = new ViewModelProvider((SellTractorActivity)activity).get(SellViewModel.class);
+        viewModel = new ViewModelProvider(activity).get(SellViewModel.class);
         binding.ivFirst.setOnClickListener(v -> {
             try {
                 imageIndex = 0;
@@ -227,6 +232,7 @@ public class SellTractorImages extends BaseFragment {
             viewModel.setImage6(uriFromBitmap);
         }
     }
+    @SuppressLint("LogNotTimber")
     @Override
     public void onResume() {
         super.onResume();

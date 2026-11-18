@@ -229,57 +229,60 @@ open class MainActivity:BaseActivity() {
         val navView = binding.drawerLayout.findViewById<NavigationView>(R.id.navView)
 
         //   val navView = binding.drawerLayout.findViewById<NavigationView>(R.id.navView)
-        if(navView != null) {
-            // 1. Sidebar Header View: Add status bar top inset to padding
-            if(navView.headerCount > 0) {
-                val headerView = navView.getHeaderView(0)
-                val initialHeaderState = headerView.getInitialLayoutState()
-                headerView.doOnApplyWindowInsets { view, insets, _ ->
-                    val systemBars = insets.getInsets(
-                        WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
-                    )
-                    view.setPadding(
-                        initialHeaderState.paddingLeft + systemBars.left,
-                        initialHeaderState.paddingTop + systemBars.top,
-                        initialHeaderState.paddingRight,
-                        initialHeaderState.paddingBottom
-                    )
-                }
-            }
+//        if(navView != null) {
+//            // 1. Sidebar Header View: Add status bar top inset to padding
+//            if(navView.headerCount > 0) {
+//                val headerView = navView.getHeaderView(0)
+//                val initialHeaderState = headerView.getInitialLayoutState()
+//                headerView.doOnApplyWindowInsets { view, insets, _ ->
+//                    val systemBars = insets.getInsets(
+//                        WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+//                    )
+//                    view.setPadding(
+//                        initialHeaderState.paddingLeft + systemBars.left,
+//                        initialHeaderState.paddingTop + systemBars.top,
+//                        initialHeaderState.paddingRight,
+//                        initialHeaderState.paddingBottom
+//                    )
+//                }
+//            }
+//
+//            // 2. ExpandableListView (navigationMenu): Push top margin down by status bar inset
+//            // so it starts cleanly BELOW headerView without overlapping/cutting it off
+//            val navigationMenu = navView.findViewById<ExpandableListView>(R.id.navigationMenu)
+//            if(navigationMenu != null) {
+//                val initialMenuState = navigationMenu.getInitialLayoutState()
+//                navigationMenu.doOnApplyWindowInsets { view, insets, _ ->
+//                    val systemBars = insets.getInsets(
+//                        WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+//                    )
+//                    val params = view.layoutParams as? ViewGroup.MarginLayoutParams
+//                    if (params != null) {
+//                        params.topMargin = initialMenuState.marginTop + systemBars.top
+//                        view.layoutParams = params
+//                    }
+//                }
+//            }
+//
+//            // 3. Sidebar Footer View: Push bottom margin up by navigation bar inset
+//            val includeFooter = navView.findViewById<View>(R.id.includeFooter)
+//            if(includeFooter != null) {
+//                val initialFooterState = includeFooter.getInitialLayoutState()
+//                includeFooter.doOnApplyWindowInsets { view, insets, _ ->
+//                    val systemBars = insets.getInsets(
+//                        WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
+//                    )
+//                    val params = view.layoutParams as? ViewGroup.MarginLayoutParams
+//                    if (params != null) {
+//                        params.bottomMargin = initialFooterState.marginBottom + systemBars.bottom
+//                        view.layoutParams = params
+//                    }
+//                }
+//            }
+//        }
+//
 
-            // 2. ExpandableListView (navigationMenu): Push top margin down by status bar inset
-            // so it starts cleanly BELOW headerView without overlapping/cutting it off
-            val navigationMenu = navView.findViewById<ExpandableListView>(R.id.navigationMenu)
-            if(navigationMenu != null) {
-                val initialMenuState = navigationMenu.getInitialLayoutState()
-                navigationMenu.doOnApplyWindowInsets { view, insets, _ ->
-                    val systemBars = insets.getInsets(
-                        WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
-                    )
-                    val params = view.layoutParams as? ViewGroup.MarginLayoutParams
-                    if (params != null) {
-                        params.topMargin = initialMenuState.marginTop + systemBars.top
-                        view.layoutParams = params
-                    }
-                }
-            }
 
-            // 3. Sidebar Footer View: Push bottom margin up by navigation bar inset
-            val includeFooter = navView.findViewById<View>(R.id.includeFooter)
-            if(includeFooter != null) {
-                val initialFooterState = includeFooter.getInitialLayoutState()
-                includeFooter.doOnApplyWindowInsets { view, insets, _ ->
-                    val systemBars = insets.getInsets(
-                        WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.displayCutout()
-                    )
-                    val params = view.layoutParams as? ViewGroup.MarginLayoutParams
-                    if (params != null) {
-                        params.bottomMargin = initialFooterState.marginBottom + systemBars.bottom
-                        view.layoutParams = params
-                    }
-                }
-            }
-        }
 
 //        if (navView != null) {
 //            if (navView.headerCount > 0) {

@@ -1,11 +1,13 @@
 package com.khetigaadi.shop.model;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 import androidx.annotation.NonNull;
 public class DeliveryCharges implements Parcelable {
     protected DeliveryCharges(Parcel in) {
+        Log.d("cxvcxvcxvx==",""+in);
     }
-    public static final Creator<DeliveryCharges> CREATOR = new Creator<DeliveryCharges>() {
+    public static final Creator<DeliveryCharges> CREATOR = new Creator<>() {  // CREATOR = new Creator<DeliveryCharges>() {
         @Override
         public DeliveryCharges createFromParcel(Parcel in) {
             return new DeliveryCharges(in);

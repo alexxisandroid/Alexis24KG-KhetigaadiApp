@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
+//import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +26,7 @@ import com.khetigaadi.ecom.address.AddressViewModel;
 import com.khetigaadi.retrofit.ShopAPIs;
 import com.khetigaadi.room.repository.CartRepository;
 import com.khetigaadi.shop.model.Address;
-import com.khetigaadi.shop.model.CategoryListResp;
+//import com.khetigaadi.shop.model.CategoryListResp;
 import com.khetigaadi.shop.model.DeliveryCharges;
 import com.khetigaadi.shop.model.Order;
 import com.khetigaadi.shop.model.OrderProduct;
@@ -40,6 +40,7 @@ import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import timber.log.Timber;
 
+@SuppressWarnings({"deprecation", "EqualsBetweenInconvertibleTypes"})
 @AndroidEntryPoint
 public class CartListFragment extends Fragment {
     public static final String TAG = "CartListFragment";
@@ -55,6 +56,7 @@ public class CartListFragment extends Fragment {
     private Address address;
     @Inject
     ShopAPIs shopAPIs;
+    @SuppressWarnings("CallToPrintStackTrace")
     ActivityResultLauncher<Intent> addressActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -62,6 +64,7 @@ public class CartListFragment extends Fragment {
                     Intent data = result.getData();
                     if (data != null) {
                         try {
+                            //noinspection deprecation
                             address = data.getParcelableExtra(AddAddressActivity.SELECTED_ADDRESS);
                             updateView(address);
                         } catch (Exception e) {
@@ -88,7 +91,7 @@ public class CartListFragment extends Fragment {
             if(address == null) {
                 Toast.makeText(activity, R.string.please_add_address,Toast.LENGTH_SHORT).show();
             }
-            else if(cartListAdapter.getList().size() == 0)
+            else if(cartListAdapter.getList().isEmpty())
                 Toast.makeText(activity,R.string.please_add_products,Toast.LENGTH_SHORT).show();
             else {
                 Order order = new Order();
@@ -105,6 +108,7 @@ public class CartListFragment extends Fragment {
         getCartItems();
         return view;
     }
+    @SuppressWarnings("CallToPrintStackTrace")
     private void initAddress()
     {
         viewModel.getAddresses(null).observe(getViewLifecycleOwner(),addressListRespStateData -> {
@@ -117,7 +121,7 @@ public class CartListFragment extends Fragment {
                     binding.tvAddressLine1.setVisibility(View.VISIBLE);
                     binding.tvAddressLine2.setVisibility(View.VISIBLE);
                     try {
-                        if(addressListRespStateData.getData() != null && addressListRespStateData.getData().getData().size() > 0) {
+                        if(addressListRespStateData.getData() != null && !addressListRespStateData.getData().getData().isEmpty()) {
                             updateView(addressListRespStateData.getData().getData().get(0));
                         }
                     }
@@ -130,6 +134,7 @@ public class CartListFragment extends Fragment {
             }
         });
     }
+    @SuppressWarnings("CallToPrintStackTrace")
     private void updateView(Address address) {
         try {
             this.address = address;
@@ -153,6 +158,7 @@ public class CartListFragment extends Fragment {
             public void itemUpdate(OrderProduct item,int position) {
                 cartRepository.insertItem(item);
             }
+            @SuppressWarnings("deprecation")
             @Override
             public void onMinusClick(View view,int position) {
                 OrderProduct product = cartListAdapter.getList().get(position);  //.getItem(position);
@@ -217,7 +223,8 @@ public class CartListFragment extends Fragment {
     private void calculatePayable(List<OrderProduct> products) {
         totalAmt = 0;
         for(OrderProduct product:products) {
-            if(product.getProduct()!=null && !product.getProduct().equals(null) && !product.getProduct().equals("null"))
+           // if(product.getProduct()!=null && !product.getProduct().equals(null) && !product.getProduct().equals("null"))
+          if(product.getProduct() != null && !product.getProduct().equals("null"))
                totalAmt += (product.getProduct().getFinalPrice()*product.getQuantity());
         }
         binding.tvSubTotalAmount.setText(String.format("%s %d",getString(R.string.rs),totalAmt));
@@ -231,35 +238,35 @@ public class CartListFragment extends Fragment {
         binding.tvTotalAmount.setText(String.format("%s %d",getString(R.string.rs),totalAmt));
         binding.btnContinue.setClickable(true);
     }
-    @SuppressLint("CheckResult")
-    public void delvCharges()
-    {
-        //noinspection ResultOfMethodCallIgnored
-        shopAPIs.getDeliveryCharges()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribeWith(new DisposableSingleObserver<DeliveryCharges>() {
-                    @SuppressLint("CheckResult")
-                    @Override
-                    public void onSuccess(@NonNull DeliveryCharges productListResp) {
-//                        Log.d("cvxcxxcvxv234===",""+productListResp.isError()+"=="+productListResp.getCategories().size());
-//                        if(productListResp.isError()) {
-//                           // binding.rvProductList.setVisibility(View.GONE);
-//                        }
-//                        else {
-//                          //  binding.rvProductList.setVisibility(View.VISIBLE);
-//                            Log.d("cvxcxxcvxv===",""+productListResp.getCategories().size());
-//                          //  categoryRepository.insertItems(productListResp.getCategories());
-//                          //  binding.rvProductList.setVisibility(View.VISIBLE);
-//                          //  categoriesAdapter.addItems(productListResp.getCategories(),1,sessionManager.getEcomOther());
-//                        }
-                    }
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        Timber.e(e,"onError: ");
-                        // binding.rvProductList.setVisibility(View.GONE);
-                        // gardenTools.postError(e.getMessage());
-                    }
-                });
-    }
+//    @SuppressLint("CheckResult")
+//    public void delvCharges()
+//    {
+//        //noinspection ResultOfMethodCallIgnored
+//        shopAPIs.getDeliveryCharges()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribeWith(new DisposableSingleObserver<DeliveryCharges>() {
+//                    @SuppressLint("CheckResult")
+//                    @Override
+//                    public void onSuccess(@NonNull DeliveryCharges productListResp) {
+////                        Log.d("cvxcxxcvxv234===",""+productListResp.isError()+"=="+productListResp.getCategories().size());
+////                        if(productListResp.isError()) {
+////                           // binding.rvProductList.setVisibility(View.GONE);
+////                        }
+////                        else {
+////                          //  binding.rvProductList.setVisibility(View.VISIBLE);
+////                            Log.d("cvxcxxcvxv===",""+productListResp.getCategories().size());
+////                          //  categoryRepository.insertItems(productListResp.getCategories());
+////                          //  binding.rvProductList.setVisibility(View.VISIBLE);
+////                          //  categoriesAdapter.addItems(productListResp.getCategories(),1,sessionManager.getEcomOther());
+////                        }
+//                    }
+//                    @Override
+//                    public void onError(@NonNull Throwable e) {
+//                        Timber.e(e,"onError: ");
+//                        // binding.rvProductList.setVisibility(View.GONE);
+//                        // gardenTools.postError(e.getMessage());
+//                    }
+//                });
+//    }
 }

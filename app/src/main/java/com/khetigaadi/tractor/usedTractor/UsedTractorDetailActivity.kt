@@ -1,4 +1,7 @@
+@file:Suppress("PROPERTY_HIDES_JAVA_FIELD", "DEPRECATION")
+
 package com.khetigaadi.tractor.usedTractor
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
@@ -9,7 +12,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
-import android.text.Layout
+//import android.text.Layout
 import android.text.Spannable
 import android.text.SpannableString
 import android.text.TextPaint
@@ -21,9 +24,9 @@ import android.util.Base64
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Toast
-import androidx.annotation.RequiresApi
+//import androidx.annotation.RequiresApi
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.text.set
+//import androidx.core.text.set
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
@@ -72,6 +75,7 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class UsedTractorDetailActivity:BaseActivity() {
     private var tractorId:String? = null
+    @SuppressLint("VisibleForTests")
     @JvmField
     @Inject
     var mTracker:Tracker? = null
@@ -89,6 +93,8 @@ class UsedTractorDetailActivity:BaseActivity() {
     private lateinit var usedTractorListAdapter:UsedTractorListAdapter
     var urls: MutableList<String> = ArrayList()
    // @RequiresApi(Build.VERSION_CODES.O)
+    @SuppressLint("UseKtx")
+    @Suppress("DEPRECATION")
     override fun onCreate(savedInstanceState:Bundle?) {
         super.onCreate(savedInstanceState)
        // WindowCompat.setDecorFitsSystemWindows(window,false)
@@ -147,17 +153,17 @@ class UsedTractorDetailActivity:BaseActivity() {
                 println("bvcbcvbcvb1234=====$word=="+session.language)
                if(session.language!=null && session.language.equals("hi")) {
                    val vall = word.substring(word.indexOf("hi"))
-                   println("vcbvbvbcv===="+vall)
+                   println("vcbvbvbcv====$vall")
                    word = vall
                }
                 else {
                    val vall = word.substring(3,word.indexOf("hi")-3)
-                   println("vcbvbvbcv22===="+vall)
+                   println("vcbvbvbcv22====$vall")
                    word = vall
                }
                 val removeEn = word.replace("en:","")
-                var removeHi = removeEn.replace("hi:","\n")
-                var removeHi2 =  removeHi.replace("Disclaimer:","<b>Disclimer</b>")
+                val removeHi = removeEn.replace("hi:","\n")
+                val removeHi2 =  removeHi.replace("Disclaimer:","<b>Disclimer</b>")
                 val wordToSpan:Spannable = SpannableString(removeHi)
                 wordToSpan.setSpan(ForegroundColorSpan(Color.BLACK),0,12,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 
@@ -178,7 +184,8 @@ class UsedTractorDetailActivity:BaseActivity() {
         }
         binding.includeSimilar.tvLabel.text = getText(R.string.similar_old_tractors)
         binding.includeSimilar.tvSeeMore.visibility = View.GONE
-        usedTractorListAdapter = UsedTractorListAdapter(this,session?.user?.id,binding.includeSimilar.rvList,true)
+        usedTractorListAdapter = UsedTractorListAdapter(this,
+            session.user?.id,binding.includeSimilar.rvList,true)
         binding.includeSimilar.rvList.adapter = usedTractorListAdapter
         usedTractorListAdapter.setOnItemClickListener { position:Int,_:View ->
             try {
@@ -256,6 +263,7 @@ class UsedTractorDetailActivity:BaseActivity() {
     private fun getDetails() {
         binding.llProgress.llProgress.visibility = View.VISIBLE
         khetiAPIs.getUsedTractor(tractorId).enqueue(object:Callback<UsedTractorResp> {
+            @SuppressLint("VisibleForTests")
             override fun onResponse(
                 call:Call<UsedTractorResp>,
                 response:Response<UsedTractorResp>) {
@@ -270,7 +278,7 @@ class UsedTractorDetailActivity:BaseActivity() {
                                 binding.toolbars.toolbar.title = String.format("%s %s",tractor?.brand?.name,tractor?.model?.getName())
                                 binding.tvTractorName.text = binding.toolbars.toolbar.title
                                 binding.ivShare.setOnClickListener {
-                                    showProgressDialog(getString(R.string.please_wait));
+                                    showProgressDialog(getString(R.string.please_wait))
                                     try {
                                        // println("vcbvcbcv_bcbc324==="+urls.size+urls[0])
                                         if(urls.isNotEmpty())
@@ -423,6 +431,7 @@ class UsedTractorDetailActivity:BaseActivity() {
             }
         })
     }
+    @SuppressLint("UseKtx")
     private fun share(fileUri:Uri) {
         Firebase.dynamicLinks.shortLinkAsync {
             link = Uri.parse("https://www.khetigaadi.com/oldTractor/$tractorId")
@@ -474,6 +483,8 @@ class UsedTractorDetailActivity:BaseActivity() {
             .load(R.drawable.loader_white)
             .into(binding.llProgress.ivLoader)
     }
+    @Deprecated("This method has been deprecated in favor of using the\n      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.\n      The OnBackPressedDispatcher controls how back button events are dispatched\n      to one or more {@link OnBackPressedCallback} objects.")
+    @SuppressLint("GestureBackNavigation")
     override fun onBackPressed() {
         val returnIntent = Intent()
         if(tractor != null)

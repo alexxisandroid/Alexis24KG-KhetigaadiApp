@@ -1,4 +1,5 @@
 package com.khetigaadi.customeview;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Path;
@@ -23,6 +24,7 @@ public class RoundRectCornerImageView extends androidx.appcompat.widget.AppCompa
     private void init() {
         path = new Path();
     }
+    @SuppressLint("DrawAllocation")
     @Override
     protected void onDraw(Canvas canvas) {
         rect = new RectF(0,0,this.getWidth(),this.getHeight());
