@@ -6,7 +6,6 @@ import android.text.Html;
 //import android.text.Spanned;
 import android.text.Spanned;
 import android.view.View;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -62,7 +61,6 @@ public class SafetyTipsActivity extends AppCompatActivity {
             return Html.fromHtml(html);
         }
     }
-
     private void getTips() {
         binding.llProgresss.llProgress.setVisibility(View.VISIBLE);
         disposable.add(khetiAPIs.getSafetyTips()
