@@ -246,9 +246,9 @@ android {
          kaptAndroidTest libs.hilt.compiler
          // implementation project(":base")
 }
- configurations.all {
-    exclude group:'com.google.android.gms',module:'play-services-safetynet'
-}
+// configurations.all {
+//    exclude group:'com.google.android.gms',module:'play-services-safetynet'
+//}
  configurations.configureEach {
     exclude group:'com.google.android.gms',module:'play-services-safetynet'
 }
