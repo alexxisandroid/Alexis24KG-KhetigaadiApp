@@ -1,3 +1,5 @@
+@file:Suppress("PROPERTY_HIDES_JAVA_FIELD")
+
 package com.khetigaadi.commons.activities
 import android.content.Intent
 import android.graphics.Color
@@ -249,7 +251,7 @@ class SearchActivity:BaseActivity() {
                             searchImplementAdapter.setOnItemClickListener(object:
                                 SearchImplementAdapter.Listener {
                                 override fun onItemClick(implement:NewImp) {
-                                    println("cvbvcbcbcv===$implement");
+                                    println("cvbvcbcbcv===$implement")
                                     val intent = Intent(this@SearchActivity,NewImpOverviewDetails::class.java)
                                     intent.putExtra("brandId",implement.brand?.id)
                                     intent.putExtra("typeId",implement.type?.id)

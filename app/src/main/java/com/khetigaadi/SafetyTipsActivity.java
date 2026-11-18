@@ -1,6 +1,8 @@
 package com.khetigaadi;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.Spannable;
+import android.text.Spanned;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
@@ -58,6 +60,8 @@ public class SafetyTipsActivity extends AppCompatActivity {
                     public void onSuccess(@NotNull SafetyTipsResp safetyTipsResp) {
                         binding.llProgresss.llProgress.setVisibility(View.GONE);
                         try {
+                           // Spanned dfdg;
+                           // dfdg = Html.fromHtml(safetyTipsResp.getData().getContent());
                             binding.tvTips.setText(Html.fromHtml(safetyTipsResp.getData().getContent()));
                         }
                         catch(Exception e) {
