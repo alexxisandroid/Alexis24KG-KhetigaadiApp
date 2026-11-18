@@ -1,8 +1,10 @@
 package com.khetigaadi;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 //import android.text.Spannable;
 //import android.text.Spanned;
+import android.text.Spanned;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
@@ -50,6 +52,16 @@ public class SafetyTipsActivity extends AppCompatActivity {
         Glide.with(SafetyTipsActivity.this).load(R.drawable.loader_white).into(binding.llProgresss.ivLoader);
         getTips();
     }
+    @Deprecated
+    public static Spanned getHtmlText(String html) {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            return Html.fromHtml(html, Html.FROM_HTML_MODE_LEGACY);
+        }
+        else {
+            return Html.fromHtml(html);
+        }
+    }
+
     private void getTips() {
         binding.llProgresss.llProgress.setVisibility(View.VISIBLE);
         disposable.add(khetiAPIs.getSafetyTips()
@@ -62,7 +74,10 @@ public class SafetyTipsActivity extends AppCompatActivity {
                         try {
                            // Spanned dfdg;
                            // dfdg = Html.fromHtml(safetyTipsResp.getData().getContent());
-                            binding.tvTips.setText(Html.fromHtml(safetyTipsResp.getData().getContent()));
+
+                           // binding.tvTips.setText(Html.fromHtml(safetyTipsResp.getData().getContent()));
+
+                            binding.tvTips.setText(getHtmlText(safetyTipsResp.getData().getContent()));
                         }
                         catch(Exception e) {
                             //noinspection CallToPrintStackTrace
