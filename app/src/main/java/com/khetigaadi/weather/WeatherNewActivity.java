@@ -96,8 +96,11 @@ public class WeatherNewActivity extends BaseActivity {
     private void initUI(WeatherResp weather) {
         this.weather = weather;
         initToolbar();
-        List<ForecastDay> myDatas = new ArrayList<>();
-        myDatas.addAll(weather.getForecast().getForecastDay());
+        // myDatas.addAll(weather.getForecast().getForecastDay());
+
+        List<ForecastDay> myDatas = new ArrayList<>(weather.getForecast().getForecastDay());
+
+
         myDatas.get(0).setSelected(true);
         binding.rvDate.setLayoutManager(new LinearLayoutManager(WeatherNewActivity.this, LinearLayoutManager.HORIZONTAL, false));
         mAdapter = new DateAdapter(this, myDatas, binding.rvDate);

@@ -24,13 +24,13 @@ import com.khetigaadi.news.adapter.CommentListAdapter;
 import com.khetigaadi.news.model.Comment;
 import com.khetigaadi.user.SessionManager;
 import com.khetigaadi.user.profile.ProfileActivity;
-import org.json.JSONObject;
+//import org.json.JSONObject;
 
 import java.util.Objects;
 
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
-@SuppressWarnings("deprecation")
+@SuppressWarnings({"deprecation", "unused"})
 @AndroidEntryPoint
 public class NewsCommentListActivity extends BaseActivity {
    // private static final String TAG = "NewsCommentListActivity";
@@ -144,7 +144,7 @@ public class NewsCommentListActivity extends BaseActivity {
             }
             @Override
             public void onLikeClick(Comment post,int adapterPosition,View v) {
-                callLikeApi(post.getCommentId(),user.getId(),"comment",adapterPosition);
+                callLikeApi(post.getCommentId(),user.getId(), adapterPosition);
             }
             @Override
             public void onProfileClik(Comment comment,int adapterPosition,View v) {
@@ -182,10 +182,10 @@ public class NewsCommentListActivity extends BaseActivity {
         });
     }
     @SuppressLint("LogNotTimber")
-    private void callLikeApi(String id, String userId, String type, int position) {
-        likeStateChange(type,position);
+    private void callLikeApi(String id, String userId, int position) {  //+type
+        likeStateChange("comment",position);
        // JSONObject params = new JSONObject();
-        Log.d("cxvxcvcxvx==", id+"=="+userId+"=="+type);
+        Log.d("cxvxcvcxvx==", id+"=="+userId+"==");  //+type
         /*try {
             params.put("news_comment_id", id);
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, AppConfig.URL_NEW + "news/comments/like", params, response -> {

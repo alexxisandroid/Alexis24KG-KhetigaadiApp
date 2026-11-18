@@ -128,27 +128,28 @@ public class RentTractorModel extends BaseActivity {
     private void initList() {
      try {
          modelRepository.getNewTractorModels(brand.getId()).observe(this,listResource -> {
-             if (!listResource.isEmpty()) {
-                 List<Model> brandParents = listResource;
+             List<Model> brandParents;
+             if(!listResource.isEmpty()) {
+                brandParents = listResource;
                  try {
                      binding.llModel.removeAllViews();
                    //  if (brandParents != null) {
-                         for (int i = 0; i < brandParents.size(); i = i + 2) {
+                         for(int i = 0; i < brandParents.size(); i = i + 2) {
                              LinearLayout linearLayout = new LinearLayout(RentTractorModel.this);
                              linearLayout.setWeightSum(2);
                              linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-                             for (int j = 0; j <= 1 && i + j < brandParents.size(); j++) {
-                                 ModelRowBinding rowBinding = ModelRowBinding.inflate(getLayoutInflater(), linearLayout, false);
+                             for(int j = 0; j <= 1 && i + j < brandParents.size(); j++) {
+                                 ModelRowBinding rowBinding = ModelRowBinding.inflate(getLayoutInflater(), linearLayout,false);
                                  final Model model = brandParents.get(i + j);
                                  rowBinding.tvModelName.setText(model.getName());
-                                 if (!pref.getRentModelId().isEmpty()) {
-                                     if (pref.getRentModelId().equalsIgnoreCase(String.valueOf(model.getId()))) {
-                                         rowBinding.ll.setBackground(ContextCompat.getDrawable(this, R.drawable.button_selector_red));
+                                 if(!pref.getRentModelId().isEmpty()) {
+                                     if(pref.getRentModelId().equalsIgnoreCase(String.valueOf(model.getId()))) {
+                                         rowBinding.ll.setBackground(ContextCompat.getDrawable(this,R.drawable.button_selector_red));
                                      }
                                  }
                                  rowBinding.getRoot().setOnClickListener(v -> {
                                      binding.etSellTractorModel.setText(model.getName());
-                                     rowBinding.ll.setBackground(ContextCompat.getDrawable(this, R.drawable.button_selector_red));
+                                     rowBinding.ll.setBackground(ContextCompat.getDrawable(this,R.drawable.button_selector_red));
                                      pref.setRentModelId(String.valueOf(model.getId()));
                                      initList();
                                      searchModelData(model.getId());
@@ -158,7 +159,8 @@ public class RentTractorModel extends BaseActivity {
                              binding.llModel.addView(linearLayout);
                          }
                    //  }
-                 } catch (Exception e) {
+                 }
+                 catch(Exception e) {
                      e.printStackTrace();
                  }
              }
@@ -173,22 +175,22 @@ public class RentTractorModel extends BaseActivity {
        // int modelno = modelId;
         if(modelId != 0) {
             pref.setRentModelId(String.valueOf(modelId));
-            Intent intent = new Intent(this, RentTractorYear.class);
+            Intent intent = new Intent(this,RentTractorYear.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
         }
     }
     private void addSomething() {
       try {
-          if (!pref.getRentModelId().isEmpty()) {
+          if(!pref.getRentModelId().isEmpty()) {
               pref.removeKey("RENTMODELID");
           }
-          if (!pref.getRentBrandId().isEmpty()) {
+          if(!pref.getRentBrandId().isEmpty()) {
               pref.removeKey("RENTBRANDID");
           }
-          Intent intent = new Intent(RentTractorModel.this, MainActivity.class);
+          Intent intent = new Intent(RentTractorModel.this,MainActivity.class);
           intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-          intent.putExtra("Check", "1");
+          intent.putExtra("Check","1");
           startActivity(intent);
           finish();
       }

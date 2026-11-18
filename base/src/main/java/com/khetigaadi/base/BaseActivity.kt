@@ -1,5 +1,4 @@
 @file:Suppress("DEPRECATION")
-
 package com.khetigaadi.base
 import android.app.Activity
 import android.app.Dialog
@@ -7,12 +6,12 @@ import android.app.ProgressDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentFilter
-import android.location.Address
-import android.location.Geocoder
+//import android.location.Address
+//import android.location.Geocoder
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.KeyEvent
-import android.view.MotionEvent
+//import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
 import android.view.ViewGroup
@@ -22,8 +21,8 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.MutableLiveData
 import com.khetigaadi.base.receiver.ConnectionReceiver
-import java.util.Arrays
-import java.util.Locale
+//import java.util.Arrays
+//import java.util.Locale
 abstract class BaseActivity:AppCompatActivity() {
     private var progressDialog:ProgressDialog? = null
     protected var noInternetDialog:Dialog? = null
@@ -170,7 +169,7 @@ abstract class BaseActivity:AppCompatActivity() {
 
     companion object {
         fun setupTouchUIToDismissKeyboard(view:View,onTouchListener:OnTouchListener?,vararg exceptIDs:Int?) {
-            var ids:List<Int?> = ArrayList()
+            @Suppress("VariableInitializerIsRedundant") var ids:List<Int?> = ArrayList()
            // if(exceptIDs != null)
                 ids = listOf(*exceptIDs)
             //Set up touch listener for non-text box views to hide keyboard.

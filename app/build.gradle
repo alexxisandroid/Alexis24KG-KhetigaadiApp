@@ -207,6 +207,7 @@ android {
        // implementation libs.androidwm.light
         implementation libs.android.spinKit
         //Room
+        //noinspection KaptUsageInsteadOfKsp
         kapt libs.androidx.room.compiler
 
         implementation libs.androidx.room.ktx

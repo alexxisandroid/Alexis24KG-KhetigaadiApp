@@ -33,6 +33,8 @@ import com.khetigaadi.util.ImageUtils;
 //import com.watermark.androidwm_light.bean.WatermarkText;
 import org.jetbrains.annotations.NotNull;
 import java.io.IOException;
+import java.util.Objects;
+
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
@@ -60,7 +62,7 @@ public class SellTractorImages extends BaseFragment {
                                         handleImageResult(ImageUtils.getUriFromBitmap(activity, resource));
                                     }
                                     catch(IOException e) {
-                                        Log.d("dfsdsdsfdsfs===", e.getLocalizedMessage());
+                                        Log.d("dfsdsdsfdsfs===", Objects.requireNonNull(e.getLocalizedMessage()));
                                         //noinspection CallToPrintStackTrace
                                         e.printStackTrace();
                                     }

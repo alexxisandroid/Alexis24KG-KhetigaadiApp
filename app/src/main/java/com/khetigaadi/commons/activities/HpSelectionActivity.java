@@ -23,6 +23,7 @@ import com.khetigaadi.room.repository.HpRepository;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -74,8 +75,10 @@ public class HpSelectionActivity extends BaseActivity {
         try {
             hpRepository.getHPs().observe(HpSelectionActivity.this, listResource -> {
                 Log.d("cbnccncnncjjhkghjg====", listResource.isEmpty()+"=="+listResource.size());
+                List<Hp> hps;
                 if (!listResource.isEmpty()) {
-                    List<Hp> hps = listResource;
+                  //  List<Hp>
+                            hps = listResource;
                     try {
                         mAdapter.setData(hps);
                         binding.edSearch.addTextChangedListener(new TextWatcher() {
@@ -93,7 +96,8 @@ public class HpSelectionActivity extends BaseActivity {
                             }
                         });
                         binding.llProgresss.llProgress.setVisibility(View.GONE);
-                    } catch (Exception e) {
+                    }
+                    catch(Exception e) {
                         //noinspection CallToPrintStackTrace
                         e.printStackTrace();
                     }

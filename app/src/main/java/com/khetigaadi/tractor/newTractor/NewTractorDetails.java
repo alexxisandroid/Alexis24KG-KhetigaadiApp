@@ -2,6 +2,7 @@ package com.khetigaadi.tractor.newTractor;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
@@ -90,7 +91,8 @@ public class NewTractorDetails extends BaseActivity {
                         binding.btnWhatsApp.setOnClickListener(v -> {
                             try {
                                 Intent i = new Intent(Intent.ACTION_VIEW);
-                                String url = "https://api.whatsapp.com/send?phone="+getString(R.string.whatsAppNo)+"&text="+"Hello KhetiGaadi, "+URLEncoder.encode(getString(R.string.i_was_viewing) + " " + getString(
+                                String url;
+                                url = "https://api.whatsapp.com/send?phone="+getString(R.string.whatsAppNo)+"&text="+"Hello KhetiGaadi, "+ URLEncoder.encode(getString(R.string.i_was_viewing) + " " + getString(
                                         R.string.btn_new
                                 ) + " \"" + tractor.getName() + "\" ", StandardCharsets.UTF_8);
                                 // i.setPackage("com.whatsapp");

@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
+//import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -27,7 +27,7 @@ import com.khetigaadi.retrofit.ShopAPIs;
 import com.khetigaadi.room.repository.CartRepository;
 import com.khetigaadi.shop.model.Address;
 //import com.khetigaadi.shop.model.CategoryListResp;
-import com.khetigaadi.shop.model.DeliveryCharges;
+//import com.khetigaadi.shop.model.DeliveryCharges;
 import com.khetigaadi.shop.model.Order;
 import com.khetigaadi.shop.model.OrderProduct;
 import com.khetigaadi.user.SessionManager;
@@ -35,10 +35,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.observers.DisposableSingleObserver;
-import io.reactivex.rxjava3.schedulers.Schedulers;
-import timber.log.Timber;
+//import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+//import io.reactivex.rxjava3.observers.DisposableSingleObserver;
+//import io.reactivex.rxjava3.schedulers.Schedulers;
+//import timber.log.Timber;
 
 @SuppressWarnings({"deprecation", "EqualsBetweenInconvertibleTypes"})
 @AndroidEntryPoint
@@ -60,14 +60,15 @@ public class CartListFragment extends Fragment {
     ActivityResultLauncher<Intent> addressActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
             result -> {
-                if (result.getResultCode() == Activity.RESULT_OK) {
+                if(result.getResultCode() == Activity.RESULT_OK) {
                     Intent data = result.getData();
-                    if (data != null) {
+                    if(data != null) {
                         try {
                             //noinspection deprecation
                             address = data.getParcelableExtra(AddAddressActivity.SELECTED_ADDRESS);
                             updateView(address);
-                        } catch (Exception e) {
+                        }
+                        catch(Exception e) {
                             e.printStackTrace();
                             Toast.makeText(activity,getString(R.string.something_went_wrong),Toast.LENGTH_SHORT).show();
                         }

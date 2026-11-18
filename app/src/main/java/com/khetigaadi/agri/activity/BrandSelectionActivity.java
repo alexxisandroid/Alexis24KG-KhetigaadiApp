@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.bumptech.glide.Glide;
 import com.khetigaadi.R;
 import com.khetigaadi.agri.adapter.BrandSelectionAdapter;
-import com.khetigaadi.base.model.Brand;
+//import com.khetigaadi.base.model.Brand;
 import com.khetigaadi.commons.activities.BaseActivity;
 import com.khetigaadi.commons.model.BrandResp;
 import com.khetigaadi.databinding.ActivityBrandSelectionBinding;
@@ -28,7 +28,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;

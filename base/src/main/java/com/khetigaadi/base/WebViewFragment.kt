@@ -2,7 +2,7 @@ package com.khetigaadi.base
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 //import android.graphics.drawable.Drawable
-import android.os.Build
+//import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater

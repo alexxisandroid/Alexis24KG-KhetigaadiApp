@@ -59,7 +59,8 @@ public class SafetyTipsActivity extends AppCompatActivity {
                         binding.llProgresss.llProgress.setVisibility(View.GONE);
                         try {
                             binding.tvTips.setText(Html.fromHtml(safetyTipsResp.getData().getContent()));
-                        } catch (Exception e) {
+                        }
+                        catch(Exception e) {
                             //noinspection CallToPrintStackTrace
                             e.printStackTrace();
                         }

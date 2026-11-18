@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION")
+@file:Suppress("DEPRECATION", "PROPERTY_HIDES_JAVA_FIELD", "DEPRECATED_IDENTITY_EQUALS")
 package com.khetigaadi
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -16,7 +16,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.MenuItem
 import android.view.View
-import android.view.ViewGroup
+//import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ExpandableListView
 import android.widget.ImageView
@@ -37,7 +37,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.Insets
 import androidx.core.view.GravityCompat
 import androidx.core.view.ViewCompat
-import androidx.core.view.WindowCompat
+//import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -62,7 +62,7 @@ import com.google.gson.Gson
 import com.khetigaadi.BottomMenuListDialogFragment.Companion.newInstance
 import com.khetigaadi.base.WebViewActivity
 import com.khetigaadi.base.model.AllBannerResp
-import com.khetigaadi.base.model.MyResponse
+//import com.khetigaadi.base.model.MyResponse
 import com.khetigaadi.commons.SharedPreferenceUtils
 import com.khetigaadi.commons.activities.BaseActivity
 import com.khetigaadi.commons.activities.FeedBackActivity
@@ -134,9 +134,9 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.observers.DisposableSingleObserver
 import io.reactivex.rxjava3.schedulers.Schedulers
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+//import retrofit2.Call
+//import retrofit2.Callback
+//import retrofit2.Response
 import timber.log.Timber
 import java.net.URLEncoder
 import javax.inject.Inject
@@ -226,7 +226,7 @@ open class MainActivity:BaseActivity() {
 //            )
 //        }
 
-        val navView = binding.drawerLayout.findViewById<NavigationView>(R.id.navView)
+       //////// val navView = binding.drawerLayout.findViewById<NavigationView>(R.id.navView)
 
         //   val navView = binding.drawerLayout.findViewById<NavigationView>(R.id.navView)
 //        if(navView != null) {
@@ -599,8 +599,8 @@ open class MainActivity:BaseActivity() {
             .setMessage(getResources().getString(R.string.mandatory_permission_access_required))
             .setNegativeButton(
                 "Don’t Enable")
-            { dialog:DialogInterface,which:Int -> dialog.cancel() }
-            .setPositiveButton("Yes, Enable") { dialog:DialogInterface,which:Int ->
+            { dialog:DialogInterface, _:Int -> dialog.cancel() }
+            .setPositiveButton("Yes, Enable") { dialog:DialogInterface, _:Int ->
                 try {
                     val intent = Intent("android.settings.APP_NOTIFICATION_SETTINGS")
                     intent.putExtra("android.provider.extra.APP_PACKAGE",packageName)
@@ -692,21 +692,21 @@ open class MainActivity:BaseActivity() {
         binding.drawerLayout.findViewById<CoordinatorLayout>(R.id.clll).findViewById<BottomNavigationView>(R.id.bottomNavigationView).setOnNavigationItemSelectedListener { item ->
             val fragmentTransaction = mFragmentManager.beginTransaction()
             fragmentTransaction.setCustomAnimations(R.anim.enter,R.anim.exit,R.anim.pop_enter,R.anim.pop_exit)
-            if(item.getItemId() === R.id.action_home) {
+            if(item.itemId === R.id.action_home) {
                 navigateToHomeFragment(fragmentTransaction)
                 val nvv = binding.drawerLayout.findViewById<CoordinatorLayout>(R.id.clll).findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-                val itemO:MenuItem = nvv.menu.findItem(R.id.action_old_tractor)
-                val itemN: MenuItem = nvv.menu.findItem(R.id.action_new_tractor)
+//                val itemO:MenuItem = nvv.menu.findItem(R.id.action_old_tractor)
+//                val itemN: MenuItem = nvv.menu.findItem(R.id.action_new_tractor)
               //  itemO.isChecked = false
                // itemN.isChecked = false
                // val iteme:MenuItem = nvv.menu.findItem(R.id.action_home)
                // iteme.setIcon(R.drawable.ic_home_24dp)
                 true
             }
-            else if(item.getItemId() === R.id.action_price) {
+            else if(item.itemId === R.id.action_price) {
                 val nvv = binding.drawerLayout.findViewById<CoordinatorLayout>(R.id.clll).findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-                val itemO:MenuItem = nvv.menu.findItem(R.id.action_old_tractor)
-                val itemN:MenuItem = nvv.menu.findItem(R.id.action_new_tractor)
+//                val itemO:MenuItem = nvv.menu.findItem(R.id.action_old_tractor)
+//                val itemN:MenuItem = nvv.menu.findItem(R.id.action_new_tractor)
 
                // itemO.isChecked = false
                // itemN.isChecked = false
@@ -719,11 +719,13 @@ open class MainActivity:BaseActivity() {
                 startActivity(Intent(this,OnRoadPriceActivity::class.java))
                 false
             }
-            else if(item.getItemId() === R.id.action_new_tractor) {
-                val nvv = binding.drawerLayout.findViewById<CoordinatorLayout>(R.id.clll).findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-                val iteme:MenuItem = nvv.menu.findItem(R.id.action_home)
-                val itemO:MenuItem = nvv.menu.findItem(R.id.action_old_tractor)
-                val itemN: MenuItem = nvv.menu.findItem(R.id.action_new_tractor)
+            else if(item.itemId === R.id.action_new_tractor) {
+          //      val nvv = binding.drawerLayout.findViewById<CoordinatorLayout>(R.id.clll).findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+//                val iteme:MenuItem = nvv.menu.findItem(R.id.action_home)
+//                val itemO:MenuItem = nvv.menu.findItem(R.id.action_old_tractor)
+//                val itemN: MenuItem = nvv.menu.findItem(R.id.action_new_tractor)
+
+
                // iteme.setIcon(R.drawable.ic_home_bold_24dp)
                // iteme.isChecked = false
               //  itemO.setIcon(R.drawable.ic_old_tractor_bold_24dp)
@@ -733,11 +735,13 @@ open class MainActivity:BaseActivity() {
                 navigateToNewFragment()
                 true
             }
-            else if(item.getItemId() === R.id.action_old_tractor) {
-                val nvv = binding.drawerLayout.findViewById<CoordinatorLayout>(R.id.clll).findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-                val iteme:MenuItem = nvv.menu.findItem(R.id.action_home)
-                val itemO:MenuItem = nvv.menu.findItem(R.id.action_old_tractor)
-                val itemN: MenuItem = nvv.menu.findItem(R.id.action_new_tractor)
+            else if(item.itemId === R.id.action_old_tractor) {
+//                val nvv = binding.drawerLayout.findViewById<CoordinatorLayout>(R.id.clll).findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+//                val iteme:MenuItem = nvv.menu.findItem(R.id.action_home)
+//                val itemO:MenuItem = nvv.menu.findItem(R.id.action_old_tractor)
+//                val itemN: MenuItem = nvv.menu.findItem(R.id.action_new_tractor)
+//
+
                // iteme.isChecked = false
                // iteme.setIcon(R.drawable.ic_home_bold_24dp)
                // itemO.setIcon(R.drawable.ic_old_tractor_bold_24dp)
@@ -745,11 +749,14 @@ open class MainActivity:BaseActivity() {
                 navigateToOldTractorsFragments()
                 true
             }
-            else if(item.getItemId() === R.id.action_more) {
+            else if(item.itemId === R.id.action_more) {
                 newInstance().show(fragmentTransaction,"BottomSheet")
-                val nvv = binding.drawerLayout.findViewById<CoordinatorLayout>(R.id.clll).findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-                val itemO:MenuItem = nvv.menu.findItem(R.id.action_old_tractor)
-                val itemN: MenuItem = nvv.menu.findItem(R.id.action_new_tractor)
+          //      val nvv = binding.drawerLayout.findViewById<CoordinatorLayout>(R.id.clll).findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+
+//                val itemO:MenuItem = nvv.menu.findItem(R.id.action_old_tractor)
+//                val itemN: MenuItem = nvv.menu.findItem(R.id.action_new_tractor)
+//
+
               //  itemO.isChecked = false
               //  itemN.isChecked = false
                // item.setIcon(R.drawable.ic_home_24dp)
@@ -761,14 +768,14 @@ open class MainActivity:BaseActivity() {
             else false
            // true
         }
-        val nvv = binding.drawerLayout.findViewById<CoordinatorLayout>(R.id.clll).findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        val item:MenuItem = nvv.menu.findItem(R.id.action_home)
+       //// val nvv = binding.drawerLayout.findViewById<CoordinatorLayout>(R.id.clll).findViewById<BottomNavigationView>(R.id.bottomNavigationView)
+       //// val item:MenuItem = nvv.menu.findItem(R.id.action_home)
         //item.isChecked = true
         //item.setIcon(R.drawable.ic_home_24dp)
      }
     fun reinstBNav() {
         val nvv = binding.drawerLayout.findViewById<CoordinatorLayout>(R.id.clll).findViewById<BottomNavigationView>(R.id.bottomNavigationView)
-        val item:MenuItem = nvv.menu.findItem(R.id.action_home)
+        //  val item:MenuItem = nvv.menu.findItem(R.id.action_home)
         //item.isChecked = true
        // item.setIcon(R.drawable.ic_home_bold_24dp)
     }
@@ -784,11 +791,9 @@ open class MainActivity:BaseActivity() {
 
         when (pageNo) {
             1 -> {
-
                 // binding.webView.loadUrl(getArguments().getString(url1));
                 val intent = Intent()
                 intent.setAction(Intent.ACTION_VIEW)
-
                 // intent.user
                 intent.setData(Uri.parse(socialMediaUrl[0]))
                 startActivity(intent)
@@ -796,7 +801,6 @@ open class MainActivity:BaseActivity() {
             2 -> {
                 val intent = Intent()
                 intent.setAction(Intent.ACTION_VIEW)
-
                 // intent.user
                 intent.setData(Uri.parse(socialMediaUrl[1]))
                 startActivity(intent)
@@ -804,7 +808,6 @@ open class MainActivity:BaseActivity() {
             3 -> {
                 val intent = Intent()
                 intent.setAction(Intent.ACTION_VIEW)
-
                 // intent.user
                 intent.setData(Uri.parse(socialMediaUrl[2]))
                 startActivity(intent)
@@ -882,14 +885,14 @@ open class MainActivity:BaseActivity() {
     }
     override fun onActivityResult(requestCode:Int,resultCode:Int,data:Intent?) {
         super.onActivityResult(requestCode,resultCode,data)
-        if (requestCode == 1) {
-            if (resultCode == 2) {
+        if(requestCode == 1) {
+            if(resultCode == 2) {
                 fragmentTransaction
                 mFragmentTransaction.replace(binding.containerView.id,UserDashboardFragment()).addToBackStack(TAG).commit()
             }
         }
-        else if (requestCode == FLEXIBLE_APP_UPDATE_REQ_CODE) {
-            when (resultCode) {
+        else if(requestCode == FLEXIBLE_APP_UPDATE_REQ_CODE) {
+            when(resultCode) {
                 RESULT_CANCELED -> {
                     Timber.e("Update canceled by user! Result Code: %s", resultCode)
                 }
@@ -902,8 +905,8 @@ open class MainActivity:BaseActivity() {
                 }
             }
         }
-        else if (requestCode == IMMEDIATE_APP_UPDATE_REQ_CODE) {
-            when (resultCode) {
+        else if(requestCode == IMMEDIATE_APP_UPDATE_REQ_CODE) {
+            when(resultCode) {
                 RESULT_CANCELED -> {
                     Timber.e("Update canceled by user! Result Code: %s", resultCode)
                 }
@@ -919,77 +922,95 @@ open class MainActivity:BaseActivity() {
     }
     private fun hideSoftKeyboardNew1() {
         val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
-        if (imm.isAcceptingText) imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,0)
+        if(imm.isAcceptingText) imm.toggleSoftInput(InputMethodManager.SHOW_IMPLICIT,0)
     }
-    private fun logoutUser() {
-        session.Logout()
-        startActivity(Intent(this@MainActivity, LoginActivity::class.java))
-        finish()
-    }
-    private fun logOutFCM() {
-        userAPIs.deregisterPushToken().enqueue(object:Callback<MyResponse?> {
-            override fun onResponse(call:Call<MyResponse?>,response:Response<MyResponse?>) {}
-            override fun onFailure(call:Call<MyResponse?>,t:Throwable) {}
-        })
-    }
-    private fun logout() {
-        MaterialAlertDialogBuilder(this)
-            .setTitle(getString(R.string.logout))
-            .setMessage(getString(R.string.are_you_sure_you_want))
-            .setNegativeButton(getString(R.string.no)) { dialog: DialogInterface, which: Int -> dialog.cancel() }
-            .setPositiveButton(getString(R.string.yes)) { dialog: DialogInterface, which: Int ->
-                dialog.dismiss()
-                logOutFCM()
-                logoutUser()
-            }.show()
-    }
+
+//    private fun logoutUser() {
+//        session.Logout()
+//        startActivity(Intent(this@MainActivity,LoginActivity::class.java))
+//        finish()
+//    }
+//    private fun logOutFCM() {
+//        userAPIs.deregisterPushToken().enqueue(object:Callback<MyResponse?> {
+//            override fun onResponse(call:Call<MyResponse?>,response:Response<MyResponse?>) {}
+//            override fun onFailure(call:Call<MyResponse?>,t:Throwable) {}
+//        })
+//    }
+
+//    private fun logout() {
+//        MaterialAlertDialogBuilder(this)
+//            .setTitle(getString(R.string.logout))
+//            .setMessage(getString(R.string.are_you_sure_you_want))
+//            .setNegativeButton(getString(R.string.no)) { dialog: DialogInterface, which: Int -> dialog.cancel() }
+//            .setPositiveButton(getString(R.string.yes)) { dialog: DialogInterface, which: Int ->
+//                dialog.dismiss()
+//                logOutFCM()
+//                logoutUser()
+//            }.show()
+//    }
+
     fun initDrawer() {
         // preparing list data
         prepareAfterLoginMenuData()
-        val expandableListAdapter = ExpandableListAdapter(this,listDataHeader,listDataChild,binding.drawerLayout.findViewById<View>(R.id.navView).findViewById<ExpandableListView>(R.id.navigationMenu))
+        val expandableListAdapter = ExpandableListAdapter(this,listDataHeader,listDataChild,binding.drawerLayout.findViewById<View>(R.id.navView).findViewById(R.id.navigationMenu))
         binding.drawerLayout.findViewById<View>(R.id.navView).findViewById<ExpandableListView>(R.id.navigationMenu).setAdapter(expandableListAdapter)
-        binding.drawerLayout.findViewById<View>(R.id.navView).findViewById<ExpandableListView>(R.id.navigationMenu).setOnChildClickListener(ExpandableListView.OnChildClickListener { parent:ExpandableListView?,v:View?,groupPosition:Int,childPosition:Int,id:Long ->
+        binding.drawerLayout.findViewById<View>(R.id.navView).findViewById<ExpandableListView>(R.id.navigationMenu).setOnChildClickListener { _: ExpandableListView?, _: View?, groupPosition: Int, childPosition: Int, _: Long ->
             val fragmentTransaction = mFragmentManager.beginTransaction()
-            fragmentTransaction.setCustomAnimations(R.anim.enter,R.anim.exit,R.anim.pop_enter,R.anim.pop_exit)
+            fragmentTransaction.setCustomAnimations(
+                R.anim.enter,
+                R.anim.exit,
+                R.anim.pop_enter,
+                R.anim.pop_exit)
             binding.drawerLayout.closeDrawers()
             val fm = supportFragmentManager
             val count = fm.backStackEntryCount
             for(i in 0 until count) {
+                println(i)
                 fm.popBackStackImmediate()
             }
             if(DrawerMenu.MY_FAVORITES == listDataHeader[groupPosition].name) {
-                when(listDataChild!![listDataHeader[groupPosition]]!![childPosition].name) {
+                when (listDataChild!![listDataHeader[groupPosition]]!![childPosition].name) {
                     DrawerSubMenu.DASHBOARD -> {
-                        fragmentTransaction.replace(binding.containerView.id,UserDashboardFragment()).addToBackStack(TAG).commit()
+                        fragmentTransaction.replace(
+                            binding.containerView.id,
+                            UserDashboardFragment()
+                        ).addToBackStack(TAG).commit()
                     }
+
                     DrawerSubMenu.PROFILE -> {
 //                      fragmentTransaction.replace(frameLayout.getId(), new Profile()).addToBackStack(TAG).commit();
-                        val intent = Intent(this@MainActivity,ProfileActivity::class.java)
-                        intent.putExtra("userId",user.id)
+                        val intent = Intent(this@MainActivity, ProfileActivity::class.java)
+                        intent.putExtra("userId", user.id)
                         startActivity(intent)
                     }
+
                     DrawerSubMenu.MY_OLD_TRACTORS -> {
                         //fragmentTransaction.replace(frameLayout.getId(), new MyUploadedUsedTractorList()).addToBackStack(TAG).commit();
                         val fragment = MyUploadedUsedTractorList()
                         val bundle = Bundle()
                         bundle.putString("filter", "all")
                         fragment.arguments = bundle
-                        fragmentTransaction.replace(R.id.containerView,fragment).addToBackStack(TAG).commit()
+                        fragmentTransaction.replace(R.id.containerView, fragment)
+                            .addToBackStack(TAG).commit()
                     }
+
                     DrawerSubMenu.MY_RENT_TRACTORS -> {
                         fragmentTransaction.replace(
                             binding.containerView.id,
                             MyUploadedRentTractorList()
                         ).addToBackStack(TAG).commit()
                     }
+
                     DrawerSubMenu.BUY_ENQUIRY -> {
                         fragmentTransaction.replace(binding.containerView.id, BuyersEnquiry())
                             .addToBackStack(TAG).commit()
                     }
+
                     DrawerSubMenu.MY_FAVORITES_SUB -> {
                         fragmentTransaction.replace(binding.containerView.id, MyFavoritesTabs())
                             .addToBackStack(TAG).commit()
                     }
+
                     DrawerSubMenu.ADD_OWNER_TRACTOR -> {
 
                         //  fragmentTransaction.replace(frameLayout.getId(), new MyFavoritesTabs()).addToBackStack(TAG).commit();
@@ -999,12 +1020,13 @@ open class MainActivity:BaseActivity() {
                     }
                 }
             }
-            else if(DrawerMenu.ABOUT_KHETIGAADI == listDataHeader[groupPosition].name) {
-                when(listDataChild!![listDataHeader[groupPosition]]!![childPosition].name) {
+            else if (DrawerMenu.ABOUT_KHETIGAADI == listDataHeader[groupPosition].name) {
+                when (listDataChild!![listDataHeader[groupPosition]]!![childPosition].name) {
                     DrawerSubMenu.ABOUT_US -> {
                         fragmentTransaction.replace(binding.containerView.id, AboutUs())
                             .addToBackStack(TAG).commit()
                     }
+
                     DrawerSubMenu.TERMS_AND_CONDITIONS -> {
                         val intent = Intent(this, WebViewActivity::class.java)
                         intent.putExtra(WebViewActivity.TITLE, "Terms and Conditions")
@@ -1014,6 +1036,7 @@ open class MainActivity:BaseActivity() {
                         )
                         startActivity(intent)
                     }
+
                     DrawerSubMenu.PRIVACY_POLICY -> {
                         val intent = Intent(this, WebViewActivity::class.java)
                         intent.putExtra(WebViewActivity.TITLE, "PRIVACY POLICY")
@@ -1025,10 +1048,11 @@ open class MainActivity:BaseActivity() {
                     }
                 }
             }
-            binding.drawerLayout.findViewById<View>(R.id.navView).findViewById<ExpandableListView>(R.id.navigationMenu).collapseGroup(groupPosition)
+            binding.drawerLayout.findViewById<View>(R.id.navView)
+                .findViewById<ExpandableListView>(R.id.navigationMenu).collapseGroup(groupPosition)
             false
-        })
-        binding.drawerLayout.findViewById<View>(R.id.navView).findViewById<ExpandableListView>(R.id.navigationMenu).setOnGroupClickListener { parent, v, groupPosition, id ->
+        }
+        binding.drawerLayout.findViewById<View>(R.id.navView).findViewById<ExpandableListView>(R.id.navigationMenu).setOnGroupClickListener { _, _, groupPosition, _ ->
             val fragmentTransaction = mFragmentManager.beginTransaction()
             fragmentTransaction.setCustomAnimations(
                 R.anim.enter,
@@ -1154,7 +1178,7 @@ open class MainActivity:BaseActivity() {
             }
             false
         }
-        binding.drawerLayout.findViewById<View>(R.id.navView).findViewById<ExpandableListView>(R.id.navigationMenu).setIndicatorBounds(GetDipsFromPixel(205f),GetDipsFromPixel(0f))
+        binding.drawerLayout.findViewById<View>(R.id.navView).findViewById<ExpandableListView>(R.id.navigationMenu).setIndicatorBounds(getDipsFromPixel(205f),getDipsFromPixel(0f))
         //        Here width means device width.
         // Code here will be triggered once the drawer closes as we don't want anything to happen so we leave this blank
         // Code here will be triggered once the drawer open as we don't want anything to happen so we leave this blank
@@ -1170,7 +1194,7 @@ open class MainActivity:BaseActivity() {
         //Setting the actionbarToggle to drawer layout
         binding.drawerLayout.addDrawerListener(actionBarDrawerToggle)
         //calling sync state is necessary or else your hamburger icon wont show up
-        actionBarDrawerToggle.isDrawerIndicatorEnabled = true;
+        actionBarDrawerToggle.isDrawerIndicatorEnabled = true
         actionBarDrawerToggle.syncState()
     }
     fun navigateToShop() {
@@ -1195,6 +1219,7 @@ open class MainActivity:BaseActivity() {
         try {
             val count = fm.backStackEntryCount
             for(i in 0 until count) {
+                println(i)
                 fm.popBackStackImmediate()
             }
         }
@@ -1202,7 +1227,7 @@ open class MainActivity:BaseActivity() {
             e.printStackTrace()
         }
     }
-    private fun GetDipsFromPixel(pixels:Float):Int {
+    private fun getDipsFromPixel(pixels:Float):Int {
         // Get the screen's density scale
         val scale = resources.displayMetrics.density
         // Convert the dps to pixels, based on density scale
@@ -1544,7 +1569,7 @@ open class MainActivity:BaseActivity() {
             mFragmentManager = supportFragmentManager
             mFragmentTransaction = mFragmentManager.beginTransaction()
             mFragmentTransaction.setCustomAnimations(R.anim.enter,R.anim.exit,R.anim.pop_enter,R.anim.pop_exit)
-            return mFragmentTransaction as FragmentTransaction
+            return mFragmentTransaction
         }
     fun navigateToSellTractor() {
         val intent = Intent(this@MainActivity,SellTractorActivity::class.java)
@@ -1580,18 +1605,17 @@ open class MainActivity:BaseActivity() {
              .subscribeWith(object : DisposableSingleObserver<BrandResp>() {
                  override fun onSuccess(myResponse: BrandResp) {
                      try {
-                         val vcxbcx = myResponse.brand.size;
-                         println("vcbcvbcvbcvb==$vcxbcx");
-                         if (cnfg > 0)
+                         val vcxbcx = myResponse.brand.size
+                         println("vcbcvbcvbcvb==$vcxbcx")
+                         if(cnfg > 0)
                              brandRepository!!.deleteAll()
                          brandRepository!!.insertAll(myResponse.brand)
-                         val lpath: String = myResponse.others
-                             .brandLogoPath // "https://khetigaadi.com/images/brandlogos/";
+                         val lpath: String = myResponse.others.brandLogoPath // "https://khetigaadi.com/images/brandlogos/";
 
-                         val sharedPreferenceUtils =
-                             SharedPreferenceUtils.getInstance(this@MainActivity)
-                         sharedPreferenceUtils.setValue(Constants.BRAND_BASE_URL, lpath)
-                     } catch (e: Exception) {
+                         val sharedPreferenceUtils = SharedPreferenceUtils.getInstance(this@MainActivity)
+                         sharedPreferenceUtils.setValue(Constants.BRAND_BASE_URL,lpath)
+                     }
+                     catch(e:Exception) {
                          e.printStackTrace()
                      }
                  }
@@ -1636,7 +1660,7 @@ open class MainActivity:BaseActivity() {
         }
     }
 
-    data class InitialPadding(val left: Int, val top: Int, val right: Int, val bottom: Int)
+//    data class InitialPadding(val left: Int, val top: Int, val right: Int, val bottom: Int)
 
 //    fun View.doOnApplyWindowInsets(f: (view: View, insets: WindowInsetsCompat, initial: InitialPadding) -> Unit) {
 //        val initialPadding = InitialPadding(paddingLeft, paddingTop, paddingRight, paddingBottom)
@@ -1657,43 +1681,44 @@ open class MainActivity:BaseActivity() {
 //        }
 //    }
 
-    data class InitialLayoutState(
-        val paddingLeft: Int,
-        val paddingTop: Int,
-        val paddingRight: Int,
-        val paddingBottom: Int,
-        val marginTop: Int,
-        val marginBottom: Int
-    )
+//    data class InitialLayoutState(
+//        val paddingLeft: Int,
+//        val paddingTop: Int,
+//        val paddingRight: Int,
+//        val paddingBottom: Int,
+//        val marginTop: Int,
+//        val marginBottom: Int
+//    )
 
-    fun View.getInitialLayoutState(): InitialLayoutState {
-        val marginParams = layoutParams as? ViewGroup.MarginLayoutParams
-        return InitialLayoutState(
-            paddingLeft = paddingLeft,
-            paddingTop = paddingTop,
-            paddingRight = paddingRight,
-            paddingBottom = paddingBottom,
-            marginTop = marginParams?.topMargin ?: 0,
-            marginBottom = marginParams?.bottomMargin ?: 0
-        )
-    }
+//    fun View.getInitialLayoutState():InitialLayoutState {
+//        val marginParams = layoutParams as? ViewGroup.MarginLayoutParams
+//        return InitialLayoutState(
+//            paddingLeft = paddingLeft,
+//            paddingTop = paddingTop,
+//            paddingRight = paddingRight,
+//            paddingBottom = paddingBottom,
+//            marginTop = marginParams?.topMargin ?: 0,
+//            marginBottom = marginParams?.bottomMargin ?: 0
+//        )
+//    }
 
-    fun View.doOnApplyWindowInsets(f: (view: View, insets: WindowInsetsCompat, initial: InitialLayoutState) -> Unit) {
-        val initialState = getInitialLayoutState()
-        ViewCompat.setOnApplyWindowInsetsListener(this) { v, insets ->
-            f(v, insets, initialState)
-            insets
-        }
-        if (isAttachedToWindow) {
-            requestApplyInsets()
-        } else {
-            addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
-                override fun onViewAttachedToWindow(v: View) {
-                    v.removeOnAttachStateChangeListener(this)
-                    v.requestApplyInsets()
-                }
-                override fun onViewDetachedFromWindow(v: View) {}
-            })
-        }
-    }
+//    fun View.doOnApplyWindowInsets(f: (view:View,insets:WindowInsetsCompat,initial:InitialLayoutState) -> Unit) {
+//        val initialState = getInitialLayoutState()
+//        ViewCompat.setOnApplyWindowInsetsListener(this) { v,insets ->
+//            f(v,insets,initialState)
+//            insets
+//        }
+//        if (isAttachedToWindow) {
+//            requestApplyInsets()
+//        } else {
+//            addOnAttachStateChangeListener(object : View.OnAttachStateChangeListener {
+//                override fun onViewAttachedToWindow(v: View) {
+//                    v.removeOnAttachStateChangeListener(this)
+//                    v.requestApplyInsets()
+//                }
+//                override fun onViewDetachedFromWindow(v: View) {}
+//            })
+//        }
+//    }
+
 }

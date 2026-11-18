@@ -1,13 +1,13 @@
 package com.khetigaadi.tractor.dealer;
 //import android.app.Activity;
-import android.app.Dialog;
+//import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
+//import android.view.Window;
 //import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
+//import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -19,7 +19,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.khetigaadi.R;
 import com.khetigaadi.agri.activity.BrandSelectionActivity;
-import com.khetigaadi.databinding.DealerNameBinding;
+//import com.khetigaadi.databinding.DealerNameBinding;
 //import com.khetigaadi.databinding.DeleteTrFeedbackFormDialogBinding;
 import com.khetigaadi.implement.newImplement.util.Brand;
 import com.khetigaadi.base.model.MyResponse;
@@ -149,7 +149,7 @@ public class DealerShipActivity extends BaseActivity {
         Objects.requireNonNull(getSupportActionBar()).setTitle(getString(R.string.dealership));
     }
     private void findViewById() {
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(this,R.array.brand_type,R.layout.spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.brand_type,R.layout.spinner_item);
         adapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
         binding.spTypeTrOrImp.setAdapter(adapter);
 

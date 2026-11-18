@@ -1,5 +1,4 @@
 @file:Suppress("PROPERTY_HIDES_JAVA_FIELD", "DEPRECATION")
-
 package com.khetigaadi.tractor.usedTractor
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -163,7 +162,7 @@ class UsedTractorDetailActivity:BaseActivity() {
                }
                 val removeEn = word.replace("en:","")
                 val removeHi = removeEn.replace("hi:","\n")
-                val removeHi2 =  removeHi.replace("Disclaimer:","<b>Disclimer</b>")
+              //  val removeHi2 =  removeHi.replace("Disclaimer:","<b>Disclimer</b>")
                 val wordToSpan:Spannable = SpannableString(removeHi)
                 wordToSpan.setSpan(ForegroundColorSpan(Color.BLACK),0,12,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
 

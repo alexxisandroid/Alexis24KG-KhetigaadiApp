@@ -1,8 +1,8 @@
 package com.khetigaadi.sidemenu;
 import com.khetigaadi.def.DrawerMenu;
 public class ExpandedMenuModel {
-    String iconName = "";
-    int iconImg = -1; // menu icon resource id
+    String iconName;  // ""
+    int iconImg; // =-1 menu icon resource id
     int name;
 //    public ExpandedMenuModel() {
 //

@@ -2,7 +2,7 @@ package com.khetigaadi.ecom.adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 //import android.graphics.Color;
-import android.util.Log;
+//import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -97,7 +97,7 @@ public class HomeCategoriesAdapter extends BaseRecyclerViewAdapter<Category,Othe
                 if(item.getName().equals("All") || item.getName().contains("All Category") || item.getName().contains("All \nCategory")) {
                     Glide.with(context)
                             // .load(others != null && others.getShopCategoryImagePath() != null && item.getImage() != null ? others.getShopCategoryImagePath() + item.getImage() : "")
-                            .load(context.getResources().getDrawable(R.drawable.lady_bug1))
+                            .load(context.getResources().getDrawable(R.drawable.lady_bug1,null))
                             .error(R.mipmap.no_image)
                             .placeholder(R.mipmap.no_image)
                             .into(((ViewHolder)holder).binding.image);

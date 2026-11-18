@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -14,13 +15,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
+import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
+//import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 import com.bumptech.glide.Glide;
@@ -59,11 +61,12 @@ import java.util.List;
 import java.util.Objects;
 import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
+@SuppressWarnings({"deprecation", "CallToPrintStackTrace"})
 @AndroidEntryPoint
 public class EditProfileActivity extends BaseActivity {
     private static final String TAG = "EditProfileActivity";
     public static final String IS_COMPULSORY = "isCompulsory";
-    //Here i am changed Crop to crops
+    //Here I am changed Crop to crops
     private ArrayList<Crop> selectedCrops;
     private Brand selectedBrand;
     private UserType selectedUserType;
@@ -91,23 +94,25 @@ public class EditProfileActivity extends BaseActivity {
     private Taluka selectedTaluka;
     private String selectedGender = null;
     private long selectedDOB = 0;
+    @SuppressWarnings("unchecked")
     @SuppressLint("LogNotTimber")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
        // WindowCompat.setDecorFitsSystemWindows(getWindow(),false);
+        EdgeToEdge.enable(this);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         binding = ActivityEditProfileBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
-//        ViewCompat.setOnApplyWindowInsetsListener(view, (v,insets) -> {
-//            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-//            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
-//            return insets;
-//        });
+        ViewCompat.setOnApplyWindowInsetsListener(view,(v,insets) -> {
+            Insets systemBarsInsets = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBarsInsets.left,systemBarsInsets.top,systemBarsInsets.right,systemBarsInsets.bottom);
+            return insets;
+        });
         setContentView(view);
        // EdgeToEdge.enable(this);
         viewModel = new ViewModelProvider(this).get(EditProfileViewModel.class);
-        if (getIntent().getExtras() != null)
+        if(getIntent().getExtras() != null)
             isCompulsory = getIntent().getExtras().getBoolean(IS_COMPULSORY);
         user = session.getUser();
         binding.etDOB.setOnClickListener(view12 -> {
@@ -124,11 +129,11 @@ public class EditProfileActivity extends BaseActivity {
             datePicker.addOnPositiveButtonClickListener(selection -> {
                 selectedDOB = selection;
                //binding.etDOB.setText(DateUtils.getDate(selection,DateUtils.DateFormat.dd_mm_yyyy));
-                @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy MMM dd HH:mm:ss");
+               // @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy MMM dd HH:mm:ss");
                 long dateInString = selection;
                 @SuppressLint("SimpleDateFormat") SimpleDateFormat formatterOut = new SimpleDateFormat("dd-MM-yyyy");
                 try {
-                   // Date date = formatter.parse(dateInString);
+                    // Date date = formatter.parse(dateInString);
                     //System.out.println(date);
                     //System.out.println(formatterOut.format(date));
                     Date date = new Date(dateInString);
@@ -137,6 +142,7 @@ public class EditProfileActivity extends BaseActivity {
                     binding.etDOB.setText(dtt);
                 }
                 catch(Exception e) {
+                    //noinspection CallToPrintStackTrace
                     e.printStackTrace();
                 }
 //               @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy MMM dd HH:mm:ss Z");
@@ -154,14 +160,14 @@ public class EditProfileActivity extends BaseActivity {
 //                    e.printStackTrace();
 //                }
             });
-            datePicker.show(getSupportFragmentManager(), TAG);
+            datePicker.show(getSupportFragmentManager(),TAG);
         });
         List<String> genders = new ArrayList<>();
         genders.add("Select Gender");
         genders.add("Male");
         genders.add("Female");
         genders.add("Other");
-        ArrayAdapter genderAdapter = new ArrayAdapter(EditProfileActivity.this,android.R.layout.simple_dropdown_item_1line,android.R.id.text1,genders);
+        @SuppressWarnings("rawtypes") ArrayAdapter genderAdapter = new ArrayAdapter(EditProfileActivity.this,android.R.layout.simple_dropdown_item_1line,android.R.id.text1,genders);
         binding.actGender.setAdapter(genderAdapter);
 //        binding.actGender.setOnItemClickListener((parent,view1,position,id) -> {
 //        binding.tilGender.setErrorEnabled(false);
@@ -175,21 +181,16 @@ public class EditProfileActivity extends BaseActivity {
             @Override
             public void onItemSelected(AdapterView<?> adapterView,View view,int position,long id) {
                 Object item = adapterView.getItemAtPosition(position);
-                if (item != null) {
-
+                if(item != null) {
                     binding.tilGender.setErrorEnabled(false);
                     selectedGender = getGender(Objects.requireNonNull(genderAdapter.getItem(position)).toString());
-
                     // Toast.makeText(EditProfileActivity.this,item.toString()+"=="+selectedGender,Toast.LENGTH_SHORT).show();
-
                 }
                // Toast.makeText(EditProfileActivity.this, "Selected",Toast.LENGTH_SHORT).show();
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
                 // TODO Auto-generated method stub
-
             }
         });
 
@@ -211,9 +212,9 @@ public class EditProfileActivity extends BaseActivity {
         binding.cardView.setBackgroundColor(Color.WHITE);
     }
     private String getGender(String gender) {
-        if (gender.equalsIgnoreCase("male"))
+        if(gender.equalsIgnoreCase("male"))
             return "m";
-        else if (gender.equalsIgnoreCase("female"))
+        else if(gender.equalsIgnoreCase("female"))
             return "f";
         else
             return "o";
@@ -225,6 +226,7 @@ public class EditProfileActivity extends BaseActivity {
             }
         });
     }
+    @SuppressLint("LogNotTimber")
     private void initUI() {
         if (isCompulsory)
             hideShowFields();
@@ -379,6 +381,7 @@ public class EditProfileActivity extends BaseActivity {
         binding.tvSmartPhone.setVisibility(View.GONE);
         binding.rgMobile.setVisibility(View.GONE);
     }
+    @SuppressLint("LogNotTimber")
     private void initViewWithUserData() {
         viewModel.getUser().observe(this,user1 -> {
             if(user1 != null) {
@@ -392,12 +395,12 @@ public class EditProfileActivity extends BaseActivity {
                 binding.etLastName.setText(user1.getLname());
 
                 if(user.getUserDetail().getDob() != null && !user.getUserDetail().getDob().isEmpty()) {
-                    selectedDOB = 00000L; // DateUtils.getTimestamp(user.getUserDetail().getDob(),DateUtils.DateFormat.yyyy_MM_dd);
+                    selectedDOB = 0L; // DateUtils.getTimestamp(user.getUserDetail().getDob(),DateUtils.DateFormat.yyyy_MM_dd);
                     //binding.etDOB.setText(DateUtils.convertDateToDate(user.getUserDetail().getDob(),DateUtils.DateFormat.yyyy_MM_dd,DateUtils.DateFormat.dd_mm_yyyy));
-                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy MMM dd HH:mm:ss");
+                   // @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy MMM dd HH:mm:ss");
                     String dateInString = user.getUserDetail().getDob();
-                    Log.d("vbbcbcbc87===",""+dateInString);
-                    SimpleDateFormat formatterOut = new SimpleDateFormat("dd-MM-yyyy");
+                    Log.d("vbbcbcbc87===", dateInString);
+                   // @SuppressLint("SimpleDateFormat") SimpleDateFormat formatterOut = new SimpleDateFormat("dd-MM-yyyy");
                     try {
 //                        Date date = formatter.parse(dateInString);
 //                        System.out.println(date);
@@ -409,13 +412,13 @@ public class EditProfileActivity extends BaseActivity {
                     }
                     catch(Exception e)
                     {
-                        Log.d("cvbcbcvbcv===",""+e.getLocalizedMessage());
+                        Log.d("cvbcbcvbcv===", Objects.requireNonNull(e.getLocalizedMessage()));
                         e.printStackTrace();
                     }
                 }
                 if(user.getUserDetail().getGender() != null && !user.getUserDetail().getGender().isEmpty()) {
                     selectedGender = user.getUserDetail().getGender();
-                    Log.d("fgdsgdsgfgfg===",""+selectedGender);
+                    Log.d("fgdsgdsgfgfg===", selectedGender);
                     if(user.getUserDetail().getGender().equalsIgnoreCase("m")) {
                       //  binding.actGender.setText(binding.actGender.getAdapter().getItem(0).toString(),false);
                         binding.actGender.setSelection(1);
@@ -473,45 +476,49 @@ public class EditProfileActivity extends BaseActivity {
                 }
                 binding.inputMobile.setText(user1.getMobile());
                 binding.inputEmail.setText(user1.getEmail());
-                Log.d("xcvvxvcxvcxvx1234====",""+selectedTaluka+"=="+user1+"=="+user);
+                Log.d("xcvvxvcxvcxvx1234====", selectedTaluka+"=="+user1+"=="+user);
             }
         });
     }
+    @SuppressLint("LogNotTimber")
     private void callUpdateProfile() {
-        user.setFname(binding.etFname.getText().toString());
-        user.setLname(binding.etLastName.getText().toString());
-        user.setEmail(binding.inputEmail.getText().toString());
-        if(binding.etDOB!=null && binding.etDOB.getText().length()>0) {
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-            String dateInString = binding.etDOB.getText().toString();
-            SimpleDateFormat formatterOut = new SimpleDateFormat("dd-MM-yyyy");
-            try {
-               // Date date = formatter.parse(dateInString);
-              //  System.out.println(date);
-                //System.out.println(formatterOut.format(date));
-              //  assert date != null;
-              //  String dtt = formatterOut.format(date);
-                // binding.tvRegisteredOn.setText(String.format("%s %s", getString(R.string.registered_on),dtt));
-                user.getUserDetail().setDob(dateInString);
-                Log.d("vbbcbcbc4==",""+user.getUserDetail().getDob()+"=="+dateInString);
-            } catch (Exception e) {
-                Log.d("cvbcbcvbcvb===", "" + e.getLocalizedMessage());
-                e.printStackTrace();
+        user.setFname(Objects.requireNonNull(binding.etFname.getText()).toString());
+        user.setLname(Objects.requireNonNull(binding.etLastName.getText()).toString());
+        user.setEmail(Objects.requireNonNull(binding.inputEmail.getText()).toString());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            if(!Objects.requireNonNull(binding.etDOB.getText()).isEmpty()) {
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                String dateInString = binding.etDOB.getText().toString();
+                @SuppressLint("SimpleDateFormat") SimpleDateFormat formatterOut = new SimpleDateFormat("dd-MM-yyyy");
+                try {
+                   // Date date = formatter.parse(dateInString);
+                  //  System.out.println(date);
+                    //System.out.println(formatterOut.format(date));
+                  //  assert date != null;
+                  //  String dtt = formatterOut.format(date);
+                    // binding.tvRegisteredOn.setText(String.format("%s %s", getString(R.string.registered_on),dtt));
+                    user.getUserDetail().setDob(dateInString);
+                    Log.d("vbbcbcbc4==",user.getUserDetail().getDob()+"=="+dateInString);
+                }
+                catch(Exception e) {
+                    Log.d("cvbcbcvbcvb===",Objects.requireNonNull(e.getLocalizedMessage()));
+                    e.printStackTrace();
+                }
             }
         }
 
-       // user.getUserDetail().setDob(DateUtils.getDate(selectedDOB,DateUtils.DateFormat.yyyy_MM_dd));
+        // user.getUserDetail().setDob(DateUtils.getDate(selectedDOB,DateUtils.DateFormat.yyyy_MM_dd));
         user.getUserDetail().setGender(selectedGender);
         if (!isCompulsory) {
             if (selectedUserType != null)
                 user.getUserDetail().setType(selectedUserType);
-            if (!binding.etBiography.getText().toString().isEmpty()) {
+            if (!Objects.requireNonNull(binding.etBiography.getText()).toString().isEmpty()) {
                 user.getUserDetail().setBiography(binding.etBiography.getText().toString());
             }
-            if (!binding.etAwards.getText().toString().isEmpty()) {
+            if (!Objects.requireNonNull(binding.etAwards.getText()).toString().isEmpty()) {
                 user.getUserDetail().setAwards(binding.etAwards.getText().toString());
             }
-            if (!binding.etLand.getText().toString().isEmpty()) {
+            if (!Objects.requireNonNull(binding.etLand.getText()).toString().isEmpty()) {
                 user.getUserDetail().setLand(binding.etLand.getText().toString());
             }
             if (selectedCrops != null)
@@ -533,7 +540,7 @@ public class EditProfileActivity extends BaseActivity {
         user.setCity(selectedCity);
         user.setTaluka(selectedTaluka);
 
-        Log.d("vbbcbcbc==",""+user.getUserDetail().getDob()+"=="+selectedTaluka);
+        Log.d("vbbcbcbc==",user.getUserDetail().getDob()+"=="+selectedTaluka);
 
         viewModel.updateUser(user).observe(this,userUpdate -> {
             Log.d("vbbcbcbc465746==",""+userUpdate.getStatus());
@@ -542,14 +549,15 @@ public class EditProfileActivity extends BaseActivity {
                     showProgressDialog(getString(R.string.loading),EditProfileActivity.this);
                     break;
                 case SUCCESS:
-                    if (isProfileImageChange) {
+                    if(isProfileImageChange) {
                         uploadProfileImage();
-                    } else {
+                    }
+                    else {
                         dismissProgressDialog();
-                        if (userUpdate.getData() != null) {
-                            Toast.makeText((Context)EditProfileActivity.this,""+userUpdate.getData().getMsg().get(0),Toast.LENGTH_LONG).show();
+                        if(userUpdate.getData() != null) {
+                            Toast.makeText(EditProfileActivity.this,userUpdate.getData().getMsg().get(0),Toast.LENGTH_LONG).show();
                         }
-                        if (isCompulsory) {
+                        if(isCompulsory) {
                             startActivity(new Intent(EditProfileActivity.this,MainActivity.class));
                         }
                         finish();
@@ -573,11 +581,11 @@ public class EditProfileActivity extends BaseActivity {
             binding.tilDOB.setError(getString(R.string.please_select_date_of_birth));
         } else if(selectedGender == null ) {
             binding.tilGender.setError(getString(R.string.please_select_gender));
-        } else if(selectedState == null || selectedState.getName().equals("")) {
+        } else if(selectedState == null || selectedState.getName().isEmpty()) {
             Toast.makeText(this, getString(R.string.please_select_state), Toast.LENGTH_SHORT).show();
-        } else if(selectedCity == null || selectedCity.getName().equals("")) {
+        } else if(selectedCity == null || selectedCity.getName().isEmpty()) {
             Toast.makeText(this, getString(R.string.please_select_city),Toast.LENGTH_SHORT).show();
-        } else if(selectedTaluka == null || TextUtils.isEmpty(selectedTaluka.getName()) || binding.etTaluka.getText().toString().isEmpty()) {
+        } else if(selectedTaluka == null || TextUtils.isEmpty(selectedTaluka.getName()) || Objects.requireNonNull(binding.etTaluka.getText()).toString().isEmpty()) {
             Toast.makeText(this,getString(R.string.please_select_taluka),Toast.LENGTH_SHORT).show();
         } else if(!binding.cbTerms.isChecked()) {
             Toast.makeText(this,getString(R.string.please_check_agree_button),Toast.LENGTH_SHORT).show();
@@ -589,28 +597,29 @@ public class EditProfileActivity extends BaseActivity {
         }
         return false;
     }
-    private boolean validate2() {
-        if (!validateFName()) {
-            Toast.makeText(this,getString(R.string.invalidName),Toast.LENGTH_SHORT).show();
-            binding.tilFirstName.setError(getString(R.string.invalidName));
-        } else if (!validateLName()) {
-            binding.tilLastName.setError(getString(R.string.invalidName));
-        }
-        else if (selectedState == null || selectedState.getName().equals("")) {
-            Toast.makeText(this,getString(R.string.please_select_state),Toast.LENGTH_SHORT).show();
-        } else if (selectedCity == null || selectedCity.getName().equals("")) {
-            Toast.makeText(this,getString(R.string.please_select_city),Toast.LENGTH_SHORT).show();
-        } else if (!binding.cbTerms.isChecked()) {
-            Toast.makeText(this,getString(R.string.please_check_agree_button),Toast.LENGTH_SHORT).show();
-        } else {
-            binding.tilFirstName.setErrorEnabled(false);
-            //binding.tilFirstName.setErrorEnabled(false);
-            return true;
-        }
-        return false;
-    }
-    private boolean validateFName() {
-        String name = binding.etFname.getText().toString().trim();
+//    private boolean validate2() {
+//        if (!validateFName()) {
+//            Toast.makeText(this,getString(R.string.invalidName),Toast.LENGTH_SHORT).show();
+//            binding.tilFirstName.setError(getString(R.string.invalidName));
+//        } else if (!validateLName()) {
+//            binding.tilLastName.setError(getString(R.string.invalidName));
+//        }
+//        else if (selectedState == null || selectedState.getName().isEmpty()) {
+//            Toast.makeText(this,getString(R.string.please_select_state),Toast.LENGTH_SHORT).show();
+//        } else if (selectedCity == null || selectedCity.getName().isEmpty()) {
+//            Toast.makeText(this,getString(R.string.please_select_city),Toast.LENGTH_SHORT).show();
+//        } else if (!binding.cbTerms.isChecked()) {
+//            Toast.makeText(this,getString(R.string.please_check_agree_button),Toast.LENGTH_SHORT).show();
+//        } else {
+//            binding.tilFirstName.setErrorEnabled(false);
+//            //binding.tilFirstName.setErrorEnabled(false);
+//            return true;
+//        }
+//        return false;
+//    }
+
+    public boolean validateFName() {
+        String name = Objects.requireNonNull(binding.etFname.getText()).toString().trim();
         if (name.isEmpty()) {
             binding.tilFirstName.setError(getString(R.string.err_msg_f_name));
             requestFocus(binding.etFname);
@@ -620,8 +629,9 @@ public class EditProfileActivity extends BaseActivity {
         }
         return true;
     }
+
     private boolean validateLName() {
-        String name = binding.etLastName.getText().toString().trim();
+        String name = Objects.requireNonNull(binding.etLastName.getText()).toString().trim();
         if(name.isEmpty()) {
             binding.tilLastName.setError(getString(R.string.err_msg_f_name));
             requestFocus(binding.etLastName);
@@ -632,6 +642,7 @@ public class EditProfileActivity extends BaseActivity {
         }
         return true;
     }
+
     private void initToolbar() {
         // setSupportActionBar(binding.toolbar);
        // binding.toolbar.setNavigationIcon(R.drawable.abc_ic_ab_back_material);
@@ -700,30 +711,31 @@ public class EditProfileActivity extends BaseActivity {
        }
     }
     /** @noinspection deprecation  */
+    @SuppressLint("GestureBackNavigation")
     @Override
     public void onBackPressed() {
         //Here Pranav change the code !isCompalsory to isCompalsory
         super.onBackPressed();
-        if (!isCompulsory) {
+        if(!isCompulsory) {
             finish();
-        } else {
+        }
+        else {
             showMsg();
         }
     }
     private void showMsg() {
         try {
-            if (!doubleBackToExitPressedOnce) {
+            if(!doubleBackToExitPressedOnce) {
                 this.doubleBackToExitPressedOnce = true;
                 new MaterialAlertDialogBuilder(this)
                         .setTitle(getResources().getString(R.string.really_exit))
                         .setMessage(getString(R.string.are_you_sure_you_want_to_exit))
                         .setNegativeButton(getString(R.string.no), (dialog, which) -> dialog.cancel())
-                        .setPositiveButton(getString(R.string.yes), (dialog, which) -> {
-                            finish();
-                        }).show();
-                new Handler(Looper.getMainLooper()).postDelayed(() -> doubleBackToExitPressedOnce = false, 2000);
+                        .setPositiveButton(getString(R.string.yes), (dialog, which) -> finish()).show();
+                new Handler(Looper.getMainLooper()).postDelayed(() -> doubleBackToExitPressedOnce = false,2000);
             }
-        } catch (Exception e) {
+        }
+        catch(Exception e) {
             e.printStackTrace();
         }
     }
