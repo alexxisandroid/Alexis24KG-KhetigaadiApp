@@ -27,6 +27,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.observers.DisposableSingleObserver;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import timber.log.Timber;
+@SuppressWarnings("DeprecatedIsStillUsed")
 @AndroidEntryPoint
 public class SafetyTipsActivity extends AppCompatActivity {
     private ActivitySafetyTipsBinding binding;
